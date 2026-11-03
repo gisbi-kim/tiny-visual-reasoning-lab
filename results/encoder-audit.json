@@ -1,0 +1,20 @@
+{
+  "gold_changes_do_not_change_tokens": true,
+  "gold_changes_do_not_change_pixels": true,
+  "blank_image_changes_pixel_tensor": true,
+  "instruction_changes_input_tokens": true,
+  "sequence_length": 406,
+  "media_shapes": {
+    "pixel_values": [
+      384,
+      1536
+    ],
+    "image_grid_thw": [
+      1,
+      3
+    ]
+  },
+  "instruction": "From tractor, move one tile to the left, then find mammal in the row you reach. A move outside the grid means NONE.",
+  "decoded_prompt": "<|im_start|>system\nRead the complete state and schema. Decide every field jointly. Each answer must be exactly one of that field's allowed options.<|im_end|>\n<|im_start|>user\nSTATE:\n<|vision_start|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|image_pad|><|vision_end|>\nFrom tractor, move one tile to the left, then find mammal in the row you reach. A move outside the grid means NONE.\n\nSCHEMA FIELDS:\n\nFIELD 1\nID: select\nTYPE: choice\nINSTRUCTION: Follow the user instruction using the six photographs arranged in a 2-row, 3-column grid. Each photograph is represented by its main object. Adjacent means immediately next to a tile, without wrapping. Choose a tile, or NONE if no tile qualifies.\nALLOWED OPTIONS:\nOPTION 1: {\"description\":\"Choose the top left photograph.\",\"option_id\":\"A\"}\nOPTION 2: {\"description\":\"Choose the top middle photograph.\",\"option_id\":\"B\"}\nOPTION 3: {\"description\":\"Choose the top right photograph.\",\"option_id\":\"C\"}\nOPTION 4: {\"description\":\"Choose the bottom left photograph.\",\"option_id\":\"D\"}\nOPTION 5: {\"description\":\"Choose the bottom middle photograph.\",\"option_id\":\"E\"}\nOPTION 6: {\"description\":\"Choose the bottom right photograph.\",\"option_id\":\"F\"}\nOPTION 7: {\"description\":\"No photograph satisfies the instruction.\",\"option_id\":\"NONE\"}\nEND FIELD\n\n<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nJOINT SCHEMA DECISIONS:",
+  "note": "Actual Clef encoder and saved processor probe; arbitrary gold/slot metadata are ignored, image pixels and raw user text are retained."
+}

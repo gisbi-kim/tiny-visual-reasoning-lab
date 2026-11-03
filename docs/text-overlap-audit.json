@@ -1,0 +1,10 @@
+{
+  "note": "Identical text is allowed for photograph-only generalization; held-out forms should not reproduce exact training strings.",
+  "train_unique": 29350,
+  "exact_text_overlap_with_train": {
+    "test_combined": 0,
+    "test_composition": 0,
+    "test_id": 154,
+    "test_language": 0
+  }
+}

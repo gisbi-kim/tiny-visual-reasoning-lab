@@ -1,0 +1,9 @@
+.venv/
+data/
+runs/
+weights/
+dist/
+__pycache__/
+*.log
+unsloth_compiled_cache/
+.cache/

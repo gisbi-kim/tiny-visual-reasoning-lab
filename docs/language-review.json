@@ -1,0 +1,7 @@
+{
+  "correction": "Korean copula 이야/야 distinguished from subject particle 이/가 before final test evaluation",
+  "changed_rows": {
+    "test_language": 23
+  },
+  "train_validation_calibration_changed": false
+}

@@ -1,0 +1,5 @@
+-r requirements.txt
+unsloth==2026.10.10
+unsloth_zoo==2026.10.10
+pandas==2.3.3
+pytest==9.2.0

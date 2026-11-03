@@ -1,0 +1,8 @@
+{
+  "scope": "16-example overfit smoke test, not final held-out accuracy",
+  "native_accuracy": 1.0,
+  "portable_accuracy": 1.0,
+  "top1_agreement": 1.0,
+  "max_absolute_probability_difference": 1.5735626220703125e-05,
+  "fixed_issue": "Legacy decoder selected argmax over four instead of seven options; all seven choices now covered by regression tests."
+}

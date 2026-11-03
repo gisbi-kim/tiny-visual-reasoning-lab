@@ -1,0 +1,14 @@
+{
+  "review": "Five fixed training-source crops per initial class visually inspected before main training; no final-test model predictions used. Initial ball classes also excluded because most annotated objects fail the prespecified minimum-size rule.",
+  "excluded_classes": {
+    "albatross": "fine-grained bird distinction at 64px",
+    "bee": "many selected train crops have difficult subject visibility",
+    "potpie": "close-up crust images obscure category",
+    "gondola": "close-up boat parts and another boat class make identification difficult",
+    "frying_pan": "cooked food often dominates the annotated utensil crop",
+    "wok": "overlaps visually with frying pan at this resolution",
+    "wooden_spoon": "food/partial-handle crops often obscure the spoon",
+    "plate": "food frequently dominates the crop and distracts from the labeled plate"
+  },
+  "final_class_count": 40
+}

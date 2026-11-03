@@ -1,0 +1,612 @@
+{
+  "objects": {
+    "dog": {
+      "wnid": "n02099601",
+      "ko": [
+        "개",
+        "골든리트리버"
+      ],
+      "en": [
+        "dog",
+        "golden retriever"
+      ],
+      "groups": [
+        "animal",
+        "mammal"
+      ]
+    },
+    "cat": {
+      "wnid": "n02124075",
+      "ko": [
+        "고양이",
+        "이집트고양이"
+      ],
+      "en": [
+        "cat",
+        "Egyptian cat"
+      ],
+      "groups": [
+        "animal",
+        "mammal"
+      ]
+    },
+    "lion": {
+      "wnid": "n02129165",
+      "ko": [
+        "사자"
+      ],
+      "en": [
+        "lion"
+      ],
+      "groups": [
+        "animal",
+        "mammal"
+      ]
+    },
+    "bear": {
+      "wnid": "n02132136",
+      "ko": [
+        "곰",
+        "불곰"
+      ],
+      "en": [
+        "bear",
+        "brown bear"
+      ],
+      "groups": [
+        "animal",
+        "mammal"
+      ]
+    },
+    "elephant": {
+      "wnid": "n02504458",
+      "ko": [
+        "코끼리",
+        "아프리카코끼리"
+      ],
+      "en": [
+        "elephant",
+        "African elephant"
+      ],
+      "groups": [
+        "animal",
+        "mammal"
+      ]
+    },
+    "koala": {
+      "wnid": "n01882714",
+      "ko": [
+        "코알라"
+      ],
+      "en": [
+        "koala"
+      ],
+      "groups": [
+        "animal",
+        "mammal"
+      ]
+    },
+    "camel": {
+      "wnid": "n02437312",
+      "ko": [
+        "낙타"
+      ],
+      "en": [
+        "camel"
+      ],
+      "groups": [
+        "animal",
+        "mammal"
+      ]
+    },
+    "pig": {
+      "wnid": "n02395406",
+      "ko": [
+        "돼지"
+      ],
+      "en": [
+        "pig"
+      ],
+      "groups": [
+        "animal",
+        "mammal"
+      ]
+    },
+    "guinea_pig": {
+      "wnid": "n02364673",
+      "ko": [
+        "기니피그"
+      ],
+      "en": [
+        "guinea pig"
+      ],
+      "groups": [
+        "animal",
+        "mammal"
+      ]
+    },
+    "penguin": {
+      "wnid": "n02056570",
+      "ko": [
+        "펭귄"
+      ],
+      "en": [
+        "penguin"
+      ],
+      "groups": [
+        "animal",
+        "bird"
+      ]
+    },
+    "goose": {
+      "wnid": "n01855672",
+      "ko": [
+        "거위"
+      ],
+      "en": [
+        "goose"
+      ],
+      "groups": [
+        "animal",
+        "bird"
+      ]
+    },
+    "goldfish": {
+      "wnid": "n01443537",
+      "ko": [
+        "금붕어"
+      ],
+      "en": [
+        "goldfish"
+      ],
+      "groups": [
+        "animal",
+        "fish"
+      ]
+    },
+    "ladybug": {
+      "wnid": "n02165456",
+      "ko": [
+        "무당벌레"
+      ],
+      "en": [
+        "ladybug",
+        "ladybird"
+      ],
+      "groups": [
+        "animal",
+        "insect"
+      ]
+    },
+    "butterfly": {
+      "wnid": "n02279972",
+      "ko": [
+        "나비"
+      ],
+      "en": [
+        "butterfly",
+        "monarch butterfly"
+      ],
+      "groups": [
+        "animal",
+        "insect"
+      ]
+    },
+    "dragonfly": {
+      "wnid": "n02268443",
+      "ko": [
+        "잠자리"
+      ],
+      "en": [
+        "dragonfly"
+      ],
+      "groups": [
+        "animal",
+        "insect"
+      ]
+    },
+    "frog": {
+      "wnid": "n01641577",
+      "ko": [
+        "개구리",
+        "황소개구리"
+      ],
+      "en": [
+        "frog",
+        "bullfrog"
+      ],
+      "groups": [
+        "animal"
+      ]
+    },
+    "banana": {
+      "wnid": "n07753592",
+      "ko": [
+        "바나나"
+      ],
+      "en": [
+        "banana"
+      ],
+      "groups": [
+        "fruit",
+        "food"
+      ]
+    },
+    "lemon": {
+      "wnid": "n07749582",
+      "ko": [
+        "레몬"
+      ],
+      "en": [
+        "lemon"
+      ],
+      "groups": [
+        "fruit",
+        "food"
+      ]
+    },
+    "orange": {
+      "wnid": "n07747607",
+      "ko": [
+        "오렌지"
+      ],
+      "en": [
+        "orange"
+      ],
+      "groups": [
+        "fruit",
+        "food"
+      ]
+    },
+    "pomegranate": {
+      "wnid": "n07768694",
+      "ko": [
+        "석류"
+      ],
+      "en": [
+        "pomegranate"
+      ],
+      "groups": [
+        "fruit",
+        "food"
+      ]
+    },
+    "pepper": {
+      "wnid": "n07720875",
+      "ko": [
+        "피망"
+      ],
+      "en": [
+        "bell pepper"
+      ],
+      "groups": [
+        "food"
+      ]
+    },
+    "cauliflower": {
+      "wnid": "n07715103",
+      "ko": [
+        "콜리플라워"
+      ],
+      "en": [
+        "cauliflower"
+      ],
+      "groups": [
+        "food"
+      ]
+    },
+    "pizza": {
+      "wnid": "n07873807",
+      "ko": [
+        "피자"
+      ],
+      "en": [
+        "pizza"
+      ],
+      "groups": [
+        "food"
+      ]
+    },
+    "ice_cream": {
+      "wnid": "n07614500",
+      "ko": [
+        "아이스크림"
+      ],
+      "en": [
+        "ice cream"
+      ],
+      "groups": [
+        "food"
+      ]
+    },
+    "pretzel": {
+      "wnid": "n07695742",
+      "ko": [
+        "프레첼"
+      ],
+      "en": [
+        "pretzel"
+      ],
+      "groups": [
+        "food"
+      ]
+    },
+    "bus": {
+      "wnid": "n04146614",
+      "ko": [
+        "버스",
+        "스쿨버스"
+      ],
+      "en": [
+        "bus",
+        "school bus"
+      ],
+      "groups": [
+        "vehicle"
+      ]
+    },
+    "train": {
+      "wnid": "n02917067",
+      "ko": [
+        "기차",
+        "고속열차"
+      ],
+      "en": [
+        "train",
+        "bullet train"
+      ],
+      "groups": [
+        "vehicle"
+      ]
+    },
+    "tractor": {
+      "wnid": "n04465501",
+      "ko": [
+        "트랙터"
+      ],
+      "en": [
+        "tractor"
+      ],
+      "groups": [
+        "vehicle"
+      ]
+    },
+    "car": {
+      "wnid": "n04285008",
+      "ko": [
+        "자동차",
+        "스포츠카"
+      ],
+      "en": [
+        "car",
+        "sports car"
+      ],
+      "groups": [
+        "vehicle"
+      ]
+    },
+    "lifeboat": {
+      "wnid": "n03662601",
+      "ko": [
+        "구명보트"
+      ],
+      "en": [
+        "lifeboat"
+      ],
+      "groups": [
+        "vehicle",
+        "boat"
+      ]
+    },
+    "backpack": {
+      "wnid": "n02769748",
+      "ko": [
+        "배낭",
+        "백팩"
+      ],
+      "en": [
+        "backpack",
+        "rucksack"
+      ],
+      "groups": []
+    },
+    "umbrella": {
+      "wnid": "n04507155",
+      "ko": [
+        "우산"
+      ],
+      "en": [
+        "umbrella"
+      ],
+      "groups": []
+    },
+    "keyboard": {
+      "wnid": "n03085013",
+      "ko": [
+        "키보드",
+        "컴퓨터 자판"
+      ],
+      "en": [
+        "keyboard",
+        "computer keyboard"
+      ],
+      "groups": [
+        "electronic"
+      ]
+    },
+    "remote": {
+      "wnid": "n04074963",
+      "ko": [
+        "리모컨"
+      ],
+      "en": [
+        "remote control"
+      ],
+      "groups": [
+        "electronic"
+      ]
+    },
+    "refrigerator": {
+      "wnid": "n04070727",
+      "ko": [
+        "냉장고"
+      ],
+      "en": [
+        "refrigerator",
+        "fridge"
+      ],
+      "groups": [
+        "electronic"
+      ]
+    },
+    "teapot": {
+      "wnid": "n04398044",
+      "ko": [
+        "찻주전자",
+        "티포트"
+      ],
+      "en": [
+        "teapot"
+      ],
+      "groups": [
+        "kitchenware"
+      ]
+    },
+    "sunglasses": {
+      "wnid": "n04356056",
+      "ko": [
+        "선글라스"
+      ],
+      "en": [
+        "sunglasses"
+      ],
+      "groups": []
+    },
+    "abacus": {
+      "wnid": "n02666196",
+      "ko": [
+        "주판"
+      ],
+      "en": [
+        "abacus"
+      ],
+      "groups": []
+    },
+    "hourglass": {
+      "wnid": "n03544143",
+      "ko": [
+        "모래시계"
+      ],
+      "en": [
+        "hourglass"
+      ],
+      "groups": []
+    },
+    "teddy": {
+      "wnid": "n04399382",
+      "ko": [
+        "곰 인형"
+      ],
+      "en": [
+        "teddy bear"
+      ],
+      "groups": []
+    }
+  },
+  "groups": {
+    "animal": {
+      "ko": [
+        "동물"
+      ],
+      "en": [
+        "animal"
+      ]
+    },
+    "mammal": {
+      "ko": [
+        "포유류"
+      ],
+      "en": [
+        "mammal"
+      ]
+    },
+    "bird": {
+      "ko": [
+        "새",
+        "조류"
+      ],
+      "en": [
+        "bird"
+      ]
+    },
+    "fish": {
+      "ko": [
+        "물고기",
+        "어류"
+      ],
+      "en": [
+        "fish"
+      ]
+    },
+    "insect": {
+      "ko": [
+        "곤충"
+      ],
+      "en": [
+        "insect"
+      ]
+    },
+    "fruit": {
+      "ko": [
+        "과일"
+      ],
+      "en": [
+        "fruit"
+      ]
+    },
+    "food": {
+      "ko": [
+        "먹거리",
+        "음식"
+      ],
+      "en": [
+        "food"
+      ]
+    },
+    "vehicle": {
+      "ko": [
+        "탈것",
+        "교통수단"
+      ],
+      "en": [
+        "vehicle"
+      ]
+    },
+    "boat": {
+      "ko": [
+        "배",
+        "수상 운송수단"
+      ],
+      "en": [
+        "boat",
+        "watercraft"
+      ]
+    },
+    "electronic": {
+      "ko": [
+        "전기나 전자로 작동하는 기기"
+      ],
+      "en": [
+        "electrical or electronic device"
+      ]
+    },
+    "kitchenware": {
+      "ko": [
+        "주방용품"
+      ],
+      "en": [
+        "kitchenware item"
+      ]
+    }
+  }
+}

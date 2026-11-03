@@ -23,6 +23,8 @@ Tiny ImageNet 사진 여섯 장과 한국어·영어 지시를 읽고 **A–F �
 
 Python 3.11 또는 3.12와 Git이 필요합니다. 첫 실행은 기본 모델 약 **9.34 GB**, 별도 학습 가중치, 원본 Tiny ImageNet 약 **248 MB**를 다운로드합니다. 이후에는 로컬 캐시를 재사용합니다. GPU 메모리와 다운로드 파일 크기는 서로 다릅니다.
 
+공개 v1을 새로 내려받아 빈 모델 캐시에서 실행하는 경로를 검증했습니다. 다운로드·준비·첫 예제 실행은 이 장비에서 약 5분 54초였으며, 설치된 Python 패키지는 재사용했습니다. [실제 설치·HTTP 검사 기록](docs/INSTALL_CHECK.md).
+
 ```bash
 git clone https://github.com/gisbi-kim/tiny-visual-reasoning-lab.git
 cd tiny-visual-reasoning-lab

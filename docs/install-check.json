@@ -1,0 +1,34 @@
+{
+  "ended_at": "2026-11-03T08:52:05.1388688Z",
+  "started_at": "2026-11-03T08:46:11.1884075Z",
+  "elapsed_seconds": 353.9505149,
+  "environment": "Existing installed Python environment; new public clone, dataset, trained weights, and isolated base-model cache.",
+  "hf_implicit_token_disabled": true,
+  "repository": "https://github.com/gisbi-kim/tiny-visual-reasoning-lab",
+  "cloned_commit": "4e7ebb3b87968040bf9cb7960109199eed0dbe0c",
+  "trained_release_sha256": "03f9514689bc32ab8329a4bda2f4767b5543e08da6121ed0d3efe47899942c81",
+  "downloaded_base_files": {
+    "config.json": {
+      "bytes": 3161,
+      "sha256": "ddc63e1c717afa86c865bb5e01313d89d72bb53b97ad4a8a03ba8510c0621670"
+    },
+    "model.safetensors-00001-of-00002.safetensors": {
+      "bytes": 5329398688,
+      "sha256": "26a93f066e1916adb13453dae5a0c707c0fbc71299ed98779571a907b8e74c61"
+    },
+    "model.safetensors-00002-of-00002.safetensors": {
+      "bytes": 3990429408,
+      "sha256": "cb544bd9bfae93dc59b0f22b292f5933573854a7f9b97835c67060d7d910e188"
+    },
+    "model.safetensors.index.json": {
+      "bytes": 76196,
+      "sha256": "cf3f798ee02ba45f9622aa8892a47369ab667d0afbf154ee7c2212de42e6302d"
+    }
+  },
+  "base_files_bytes": 9319907453,
+  "freeform_cases": 14,
+  "freeform_accuracy": 0.8571428571428571,
+  "prediction_agreement_with_pre_release": 1.0,
+  "fresh_dependency_install": false,
+  "note": "Public clone; anonymous release download and HF implicit token disabled; separate empty HF cache; official dataset redownloaded. Existing installed Python packages were reused. Physical Mac MPS not tested."
+}

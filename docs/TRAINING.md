@@ -66,6 +66,7 @@
 
 - [학습 설정](training-config.json), [학습 시간·메모리](training-metrics.json), [검증 추이](validation-history.json), [데이터·코드 hash](provenance.json).
 - [데이터 구성과 한계](DATA_CARD.md), [실제 encoder 입력 검사](../results/encoder-audit.json).
+- [공개 v1 다운로드·설치·HTTP 검사](INSTALL_CHECK.md). 새 clone과 빈 모델 캐시를 사용했으며, Python 패키지 환경은 재사용했습니다.
 - [저장 후 GPU 재로딩 시험](reload-smoke.json), [CPU 재로딩 시험](cpu-reload-smoke.json). 16개 overfit 시험의 100%는 배포 경로 확인용이며 일반화 성능이 아닙니다.
 - Mac MPS는 이 장비에서 검증하지 못했습니다. CPU/MPS는 float32 기본 모델을 사용하므로 16 GB Mac에서의 실행을 보장하지 않습니다.
 

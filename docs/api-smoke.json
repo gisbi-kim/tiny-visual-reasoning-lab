@@ -1,0 +1,165 @@
+{
+  "scope": "Actual local HTTP app on released weights; seven prewritten queries on the illustrative board, not an independent benchmark.",
+  "health": {
+    "ready": true,
+    "device": "cuda",
+    "model": "Qwen3.5-4B + LoRA + Clef"
+  },
+  "queries": 7,
+  "accuracy": 0.8571428571428571,
+  "original_mnist_app_http_status": 200,
+  "empty_instruction_status": 400,
+  "random_scene_changes_image": true,
+  "inline_javascript_syntax": "node --check passed",
+  "physical_browser_layout_review": false,
+  "image_sha256": "388f0107c45423009f9e66e28761e3940bb0d770ea0be87d3ae70add81926d99",
+  "rows": [
+    {
+      "instruction": "개 사진을 골라줘.",
+      "gold": "A",
+      "prediction": {
+        "action": "A",
+        "probabilities": {
+          "A": 0.9835160374641418,
+          "B": 0.0007018405594862998,
+          "C": 0.0007018967880867422,
+          "D": 0.0005961547140032053,
+          "E": 0.0005462698172777891,
+          "F": 0.0005461984546855092,
+          "NONE": 0.013391618616878986
+        },
+        "latency_ms": 939.0418000984937,
+        "device": "cuda",
+        "dtype": "torch.bfloat16",
+        "quantized_base": true,
+        "cpu_fallback_enabled": false
+      }
+    },
+    {
+      "instruction": "바나나 사진을 골라줘.",
+      "gold": "B",
+      "prediction": {
+        "action": "B",
+        "probabilities": {
+          "A": 0.0004828826349694282,
+          "B": 0.9915921688079834,
+          "C": 0.0004680306010413915,
+          "D": 0.0003900154260918498,
+          "E": 0.00041179617983289063,
+          "F": 0.0003910383384209126,
+          "NONE": 0.006264177616685629
+        },
+        "latency_ms": 162.48230007477105,
+        "device": "cuda",
+        "dtype": "torch.bfloat16",
+        "quantized_base": true,
+        "cpu_fallback_enabled": false
+      }
+    },
+    {
+      "instruction": "배낭 사진을 골라줘.",
+      "gold": "F",
+      "prediction": {
+        "action": "F",
+        "probabilities": {
+          "A": 0.0003470958909019828,
+          "B": 0.0003642028896138072,
+          "C": 0.0003691150341182947,
+          "D": 0.0004622654232662171,
+          "E": 0.0004479400522541255,
+          "F": 0.9924237728118896,
+          "NONE": 0.005585728213191032
+        },
+        "latency_ms": 166.15960001945496,
+        "device": "cuda",
+        "dtype": "torch.bfloat16",
+        "quantized_base": true,
+        "cpu_fallback_enabled": false
+      }
+    },
+    {
+      "instruction": "고양이에서 왼쪽으로 한 칸, 그다음 아래로 한 칸 이동한 사진을 골라줘.",
+      "gold": "E",
+      "prediction": {
+        "action": "E",
+        "probabilities": {
+          "A": 0.00024799074162729084,
+          "B": 0.0002611955860629678,
+          "C": 0.00024807805311866105,
+          "D": 0.00041522711399011314,
+          "E": 0.9957244396209717,
+          "F": 0.0002938560792244971,
+          "NONE": 0.0028092260472476482
+        },
+        "latency_ms": 160.5112999677658,
+        "device": "cuda",
+        "dtype": "torch.bfloat16",
+        "quantized_base": true,
+        "cpu_fallback_enabled": false
+      }
+    },
+    {
+      "instruction": "고양이의 바로 오른쪽 사진을 골라줘.",
+      "gold": "NONE",
+      "prediction": {
+        "action": "NONE",
+        "probabilities": {
+          "A": 0.0014706793008372188,
+          "B": 0.0026267871726304293,
+          "C": 0.0020254391711205244,
+          "D": 0.0012558373855426908,
+          "E": 0.0013014239957556129,
+          "F": 0.0014274949207901955,
+          "NONE": 0.9898923635482788
+        },
+        "latency_ms": 165.51319998688996,
+        "device": "cuda",
+        "dtype": "torch.bfloat16",
+        "quantized_base": true,
+        "cpu_fallback_enabled": false
+      }
+    },
+    {
+      "instruction": "동물 사진이 3장 이상이면 바나나를, 아니면 배낭을 골라줘.",
+      "gold": "B",
+      "prediction": {
+        "action": "F",
+        "probabilities": {
+          "A": 0.004268839955329895,
+          "B": 0.12468094378709793,
+          "C": 0.004465294070541859,
+          "D": 0.0032895226031541824,
+          "E": 0.003077806206420064,
+          "F": 0.8204192519187927,
+          "NONE": 0.03979825600981712
+        },
+        "latency_ms": 169.32870005257428,
+        "device": "cuda",
+        "dtype": "torch.bfloat16",
+        "quantized_base": true,
+        "cpu_fallback_enabled": false
+      }
+    },
+    {
+      "instruction": "구명보트와 같은 줄에 있는 동물 사진을 골라줘.",
+      "gold": "E",
+      "prediction": {
+        "action": "E",
+        "probabilities": {
+          "A": 0.00026658776914700866,
+          "B": 0.00023270324163604528,
+          "C": 0.00036203311174176633,
+          "D": 0.00025622243992984295,
+          "E": 0.9941377639770508,
+          "F": 0.0002462316770106554,
+          "NONE": 0.004498600494116545
+        },
+        "latency_ms": 164.83179992064834,
+        "device": "cuda",
+        "dtype": "torch.bfloat16",
+        "quantized_base": true,
+        "cpu_fallback_enabled": false
+      }
+    }
+  ]
+}

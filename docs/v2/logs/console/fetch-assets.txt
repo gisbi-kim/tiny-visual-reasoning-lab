@@ -1,0 +1,20 @@
+DOWNLOADING https://cs231n.stanford.edu/tiny-imagenet-200.zip
+DATASET_READY {'url': 'https://cs231n.stanford.edu/tiny-imagenet-200.zip', 'bytes': 248100043, 'sha256': '6198c8ae015e2b3e007c7841da39ec069199b9aa3bfa943a462022fe5e43c821'}
+MODEL_DOWNLOAD Qwen/Qwen3.5-4B 851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a
+
+Fetching 14 files:   0%|          | 0/14 [00:00<?, ?it/s]Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+<USER_HOME>\mnist-visual-decision-lab\.venv\Lib\site-packages\huggingface_hub\file_download.py:149: UserWarning: `huggingface_hub` cache-system uses symlinks by default to efficiently store duplicated files but your machine does not support them in <USER_HOME>\.cache\huggingface\hub\models--Qwen--Qwen3.5-4B. Caching files will still work but in a degraded version that might require more space on your disk. This warning can be disabled by setting the `HF_HUB_DISABLE_SYMLINKS_WARNING` environment variable. For more details, see https://huggingface.co/docs/huggingface_hub/how-to-cache#limitations.
+To support symlinks on Windows, you either need to activate Developer Mode or to run Python as an administrator. In order to activate developer mode, see this article: https://docs.microsoft.com/en-us/windows/apps/get-started/enable-your-device-for-development
+  warnings.warn(message)
+
+Fetching 14 files:   7%|7         | 1/14 [00:00<00:03,  3.92it/s]<USER_HOME>\mnist-visual-decision-lab\.venv\Lib\site-packages\huggingface_hub\file_download.py:149: UserWarning: `huggingface_hub` cache-system uses symlinks by default to efficiently store duplicated files but your machine does not support them in <USER_HOME>\.cache\huggingface\hub. Caching files will still work but in a degraded version that might require more space on your disk. This warning can be disabled by setting the `HF_HUB_DISABLE_SYMLINKS_WARNING` environment variable. For more details, see https://huggingface.co/docs/huggingface_hub/how-to-cache#limitations.
+To support symlinks on Windows, you either need to activate Developer Mode or to run Python as an administrator. In order to activate developer mode, see this article: https://docs.microsoft.com/en-us/windows/apps/get-started/enable-your-device-for-development
+  warnings.warn(message)
+
+Fetching 14 files:  43%|####2     | 6/14 [00:00<00:00, 13.46it/s]
+Fetching 14 files:  71%|#######1  | 10/14 [00:00<00:00, 11.30it/s]
+Fetching 14 files:  86%|########5 | 12/14 [00:03<00:00,  2.22it/s]
+Fetching 14 files:  93%|#########2| 13/14 [03:48<00:35, 35.96s/it]
+Fetching 14 files: 100%|##########| 14/14 [05:23<00:00, 46.84s/it]
+Fetching 14 files: 100%|##########| 14/14 [05:23<00:00, 23.11s/it]
+ASSETS_READY 9342907469

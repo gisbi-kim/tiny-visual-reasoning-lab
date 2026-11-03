@@ -1,0 +1,13 @@
+# v2: train every supported instruction type
+
+The objective of v2 is practical instruction following within the supported task domain. All **12 program families × 2 languages × 6 authored forms = 144 forms** are present in training. The wording and composition families withheld in v1 are now trained too. The v1 generalization experiment and its results remain available unchanged.
+
+The 37,632 training rows use 4,825 photo boards, 12,830 original photographs and 36,328 distinct instruction strings. Each family/language/action quota is balanced; conditional families also balance true/false branches. There are 3,726 different-answer contrast pairs when each language is counted separately. Both numeric and written numeral expressions are used, such as `3장 / 세 장` and `3 / three`. Korean directional wording also varies (`왼쪽 / 좌측`, `아래쪽 / 아래`). Surface variations are deterministic, are generated without knowing the answer, and share the seed within a contrast pair.
+
+**Photo separation remains strict.** v2 uses the existing disjoint original-photo pools for training, validation, calibration and test. No v1 test photograph is added to training. Every answer and generated sentence is recomputed and checked. Every split is checked for coverage of all 144 forms. A fixed 336-row validation selection set spans every family, language, action and form. The calibration set has 1,008 rows, and the primary test has 2,016 rows.
+
+The primary v2 test measures **trained instruction types on held-out photographs**, including all supported wordings and compositions. It is not a test of unseen wording or unseen task types. Its photo pool was used for v1 testing; model development has been informed by those earlier results. The new boards are generated with separate fixed seeds, and v1/v2 are compared on exactly the same v2 test rows. Old v1 scores and new v2 scores are not interchangeable.
+
+Templates and photo samples were authored/reviewed by the coding agent, not independently annotated by humans. The finite vocabulary/templates, Tiny ImageNet image quality, near-duplicate uncertainty and possible base-model pretraining exposure remain limitations. There is no claim that every possible natural-language request is covered.
+
+The dataset audit and per-family/form counts are in [v2-data-summary.json](v2-data-summary.json). `prepare_v2.py` reproduces the new dataset without overwriting v1. `train.py --init-checkpoint runs/main/best` continues the original trained LoRA/head; it does not initialize a new random head or a second adapter. A four-step mechanics test confirmed updates to all 496 LoRA tensors before the main v2 run.

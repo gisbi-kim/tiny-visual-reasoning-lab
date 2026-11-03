@@ -1,0 +1,5245 @@
+{
+  "step": 2000,
+  "checkpoint": "C:\\Users\\gsk620\\tiny-visual-reasoning-lab\\runs\\v2\\interim\\step-2000\\weights",
+  "selected_validation_accuracy": 0.9642857142857143,
+  "scope": "Interim spot check only, not the full 1,120-row suites. Fixed seeded family/language-stratified subset; no test-driven weight selection or tuning. V1 predictions use saved portable CUDA, interim V2 uses portable CPU float32. Final comparison uses full identical suites and CUDA for both models.",
+  "per_suite": 56,
+  "device": "cpu",
+  "threads": 4,
+  "created_at": "2026-11-03T12:22:43.382480+00:00",
+  "suites": {
+    "test_language": {
+      "count": 56,
+      "v1_subset_accuracy": 0.7678571428571429,
+      "v2_subset_accuracy": 0.9821428571428571,
+      "delta_percentage_points": 21.42857142857142,
+      "rows": [
+        {
+          "scene_id": "test_language-00056",
+          "source_ids": [
+            "val/images/val_6328.JPEG",
+            "val/images/val_959.JPEG",
+            "val/images/val_8239.JPEG",
+            "val/images/val_9317.JPEG",
+            "val/images/val_3986.JPEG",
+            "val/images/val_2862.JPEG"
+          ],
+          "instruction": "Follow this request: The default choice is fridge; switch to pizza only when at least 1 tiles show electrical or electronic device.",
+          "gold": "F",
+          "v1_prediction": "F",
+          "prediction": {
+            "action": "F",
+            "probabilities": {
+              "A": 6.240943548618816e-07,
+              "B": 5.046498472438543e-07,
+              "C": 1.049951242748648e-05,
+              "D": 8.133319170156028e-06,
+              "E": 5.508094091055682e-06,
+              "F": 0.9998818635940552,
+              "NONE": 9.291071182815358e-05
+            },
+            "latency_ms": 12718.56869990006,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_language-00057",
+          "source_ids": [
+            "val/images/val_51.JPEG",
+            "val/images/val_527.JPEG",
+            "val/images/val_187.JPEG",
+            "val/images/val_886.JPEG",
+            "val/images/val_542.JPEG",
+            "val/images/val_825.JPEG"
+          ],
+          "instruction": "Follow this request: The default answer is penguin. Change it to elephant only if the fish count exceeds the watercraft count. Choose NONE if no tile qualifies.",
+          "gold": "C",
+          "v1_prediction": "C",
+          "prediction": {
+            "action": "C",
+            "probabilities": {
+              "A": 6.918907456565648e-05,
+              "B": 0.0005688427481800318,
+              "C": 0.9897655248641968,
+              "D": 9.170797966362443e-06,
+              "E": 0.0007452863501384854,
+              "F": 5.8817722674575634e-06,
+              "NONE": 0.008835924789309502
+            },
+            "latency_ms": 13231.900700135157,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_language-00069",
+          "source_ids": [
+            "val/images/val_6144.JPEG",
+            "val/images/val_8803.JPEG",
+            "val/images/val_2305.JPEG",
+            "val/images/val_4274.JPEG",
+            "val/images/val_283.JPEG",
+            "val/images/val_1579.JPEG"
+          ],
+          "instruction": "다음 조건에 맞춰 사진을 골라 줘. 주방용품 사진 수가 동물 사진 수 이상이면 모래시계 사진을 골라. 그렇지 않을 때는 선글라스 사진이야. 칸을 벗어나는 이동은 NONE으로 답해.",
+          "gold": "D",
+          "v1_prediction": "E",
+          "prediction": {
+            "action": "D",
+            "probabilities": {
+              "A": 5.821177182951942e-06,
+              "B": 2.92062213702593e-06,
+              "C": 4.701355464931112e-06,
+              "D": 0.9916403293609619,
+              "E": 0.007507455535233021,
+              "F": 3.45898479281459e-05,
+              "NONE": 0.0008040497777983546
+            },
+            "latency_ms": 13626.3612001203,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_language-00073",
+          "source_ids": [
+            "val/images/val_5721.JPEG",
+            "val/images/val_4657.JPEG",
+            "val/images/val_8432.JPEG",
+            "val/images/val_3950.JPEG",
+            "val/images/val_2686.JPEG",
+            "val/images/val_88.JPEG"
+          ],
+          "instruction": "이 사진판을 보고 답해 줘. 동물 사진이 1장 미만인 경우에는 냉장고 사진으로 답해. 나머지 경우에는 모래시계 사진으로 답해. 해당하는 사진이 없으면 NONE이야.",
+          "gold": "D",
+          "v1_prediction": "D",
+          "prediction": {
+            "action": "D",
+            "probabilities": {
+              "A": 0.00013454604777507484,
+              "B": 0.005945305805653334,
+              "C": 1.7282454791711643e-05,
+              "D": 0.9914751052856445,
+              "E": 1.5339073797804303e-05,
+              "F": 3.0670467822346836e-05,
+              "NONE": 0.0023818195331841707
+            },
+            "latency_ms": 13766.87110005878,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_language-00074",
+          "source_ids": [
+            "val/images/val_8348.JPEG",
+            "val/images/val_6777.JPEG",
+            "val/images/val_1680.JPEG",
+            "val/images/val_6344.JPEG",
+            "val/images/val_7784.JPEG",
+            "val/images/val_7792.JPEG"
+          ],
+          "instruction": "Please help me select one tile. The selected picture must show mammal and share a row with ice cream.",
+          "gold": "D",
+          "v1_prediction": "D",
+          "prediction": {
+            "action": "D",
+            "probabilities": {
+              "A": 1.6005932366169873e-06,
+              "B": 1.265432274522027e-06,
+              "C": 2.1071327864774503e-06,
+              "D": 0.9985118508338928,
+              "E": 2.897321564887534e-06,
+              "F": 1.5904328392934985e-05,
+              "NONE": 0.0014643295435234904
+            },
+            "latency_ms": 12954.653300112113,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_language-00042",
+          "source_ids": [
+            "val/images/val_6480.JPEG",
+            "val/images/val_9598.JPEG",
+            "val/images/val_9467.JPEG",
+            "val/images/val_4566.JPEG",
+            "val/images/val_409.JPEG",
+            "val/images/val_4790.JPEG"
+          ],
+          "instruction": "Follow this request: Which tile should I click to select the goldfish picture? Choose NONE if no tile qualifies.",
+          "gold": "C",
+          "v1_prediction": "C",
+          "prediction": {
+            "action": "C",
+            "probabilities": {
+              "A": 6.477769716184412e-07,
+              "B": 5.0058451961376704e-06,
+              "C": 0.9997943043708801,
+              "D": 4.827413704333594e-07,
+              "E": 1.3009032500121975e-06,
+              "F": 4.0532097045797855e-05,
+              "NONE": 0.00015778337547089905
+            },
+            "latency_ms": 12852.870000060648,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_language-00005",
+          "source_ids": [
+            "val/images/val_6667.JPEG",
+            "val/images/val_1486.JPEG",
+            "val/images/val_6878.JPEG",
+            "val/images/val_1502.JPEG",
+            "val/images/val_7727.JPEG",
+            "val/images/val_937.JPEG"
+          ],
+          "instruction": "Look at this photo board. Starting at elephant, follow these one-tile directions: up, to the left. Give the final tile. A move outside the grid means NONE.",
+          "gold": "NONE",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "NONE",
+            "probabilities": {
+              "A": 0.000247169635258615,
+              "B": 8.28871998237446e-05,
+              "C": 1.0362901775806677e-05,
+              "D": 1.8887920305132866e-05,
+              "E": 1.8274320609634742e-05,
+              "F": 6.2766721384832636e-06,
+              "NONE": 0.9996161460876465
+            },
+            "latency_ms": 13436.587599804625,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_language-00101",
+          "source_ids": [
+            "val/images/val_8237.JPEG",
+            "val/images/val_7130.JPEG",
+            "val/images/val_6756.JPEG",
+            "val/images/val_7269.JPEG",
+            "val/images/val_9035.JPEG",
+            "val/images/val_2449.JPEG"
+          ],
+          "instruction": "부탁 하나 할게. 첫 이동은 왼쪽 한 칸, 두 번째는 아래쪽 한 칸이야. 낙타에서 출발했을 때 도착하는 사진을 찾아. 해당하는 사진이 없으면 NONE이야.",
+          "gold": "D",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "D",
+            "probabilities": {
+              "A": 2.6846375931199873e-06,
+              "B": 1.3812307315674843e-06,
+              "C": 1.2024431725876639e-06,
+              "D": 0.9993688464164734,
+              "E": 2.0251232854207046e-05,
+              "F": 3.4183603929704987e-06,
+              "NONE": 0.0006022747256793082
+            },
+            "latency_ms": 13269.18110018596,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_language-00015",
+          "source_ids": [
+            "val/images/val_3543.JPEG",
+            "val/images/val_6537.JPEG",
+            "val/images/val_8406.JPEG",
+            "val/images/val_9544.JPEG",
+            "val/images/val_203.JPEG",
+            "val/images/val_7852.JPEG"
+          ],
+          "instruction": "부탁 하나 할게. 검색할 가로줄은 아이스크림 사진의 바로 오른쪽 칸이 있는 줄이야. 그 줄에서 주방용품 사진으로 답해.",
+          "gold": "NONE",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "NONE",
+            "probabilities": {
+              "A": 6.699733785353601e-05,
+              "B": 0.000269403331913054,
+              "C": 0.004769936203956604,
+              "D": 0.00011543349683051929,
+              "E": 0.001664630719460547,
+              "F": 0.00022322566655930132,
+              "NONE": 0.9928903579711914
+            },
+            "latency_ms": 12920.32829998061,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_language-00127",
+          "source_ids": [
+            "val/images/val_4013.JPEG",
+            "val/images/val_7279.JPEG",
+            "val/images/val_2997.JPEG",
+            "val/images/val_511.JPEG",
+            "val/images/val_181.JPEG",
+            "val/images/val_1298.JPEG"
+          ],
+          "instruction": "이 사진판을 보고 답해 줘. 목적지는 모래시계에서 왼쪽 한 칸이야. 목적지가 포유류 사진일 때만 답하고, 아니면 NONE이야.",
+          "gold": "A",
+          "v1_prediction": "A",
+          "prediction": {
+            "action": "A",
+            "probabilities": {
+              "A": 0.9995699524879456,
+              "B": 2.279739419464022e-06,
+              "C": 2.522209797461983e-06,
+              "D": 0.0001197216406580992,
+              "E": 6.874497921671718e-05,
+              "F": 7.852449925849214e-07,
+              "NONE": 0.000235880259424448
+            },
+            "latency_ms": 13053.445799974725,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_language-00097",
+          "source_ids": [
+            "val/images/val_2449.JPEG",
+            "val/images/val_9095.JPEG",
+            "val/images/val_8815.JPEG",
+            "val/images/val_6887.JPEG",
+            "val/images/val_6071.JPEG",
+            "val/images/val_5367.JPEG"
+          ],
+          "instruction": "Look at this photo board. Imagine keeping only the row of car, then deleting the vehicle photos. Choose the photo left over.",
+          "gold": "B",
+          "v1_prediction": "B",
+          "prediction": {
+            "action": "B",
+            "probabilities": {
+              "A": 4.889841875410639e-06,
+              "B": 0.9997816681861877,
+              "C": 6.182775109664362e-07,
+              "D": 6.044751444278518e-06,
+              "E": 4.391315542306984e-07,
+              "F": 1.4410033145395573e-05,
+              "NONE": 0.00019193415937479585
+            },
+            "latency_ms": 12664.023699937388,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_language-00134",
+          "source_ids": [
+            "val/images/val_3732.JPEG",
+            "val/images/val_1083.JPEG",
+            "val/images/val_6856.JPEG",
+            "val/images/val_2926.JPEG",
+            "val/images/val_9551.JPEG",
+            "val/images/val_804.JPEG"
+          ],
+          "instruction": "Look at this photo board. Find a mammal picture whose immediate upper neighbor shows hourglass. A move outside the grid means NONE.",
+          "gold": "F",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "F",
+            "probabilities": {
+              "A": 7.315065317925473e-07,
+              "B": 2.0700426830444485e-06,
+              "C": 2.0590837266354356e-06,
+              "D": 7.223657121357974e-06,
+              "E": 4.505441665969556e-06,
+              "F": 0.995205819606781,
+              "NONE": 0.004777602851390839
+            },
+            "latency_ms": 13004.263299982995,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_language-00122",
+          "source_ids": [
+            "val/images/val_8154.JPEG",
+            "val/images/val_5019.JPEG",
+            "val/images/val_9281.JPEG",
+            "val/images/val_1168.JPEG",
+            "val/images/val_3388.JPEG",
+            "val/images/val_5821.JPEG"
+          ],
+          "instruction": "Please help me select one tile. Restrict your search to the column containing refrigerator; where is the mammal picture? Choose NONE if no tile qualifies.",
+          "gold": "B",
+          "v1_prediction": "B",
+          "prediction": {
+            "action": "B",
+            "probabilities": {
+              "A": 2.6352413442509715e-06,
+              "B": 0.9996681213378906,
+              "C": 8.46376769914059e-06,
+              "D": 7.897634532127995e-06,
+              "E": 3.101844185948721e-06,
+              "F": 1.7779069821699522e-05,
+              "NONE": 0.00029205650207586586
+            },
+            "latency_ms": 13273.821200011298,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_language-00126",
+          "source_ids": [
+            "val/images/val_9863.JPEG",
+            "val/images/val_1630.JPEG",
+            "val/images/val_3931.JPEG",
+            "val/images/val_9624.JPEG",
+            "val/images/val_3065.JPEG",
+            "val/images/val_8381.JPEG"
+          ],
+          "instruction": "이 사진판을 보고 답해 줘. 고를 사진은 전기나 전자로 작동하는 기기 사진이면서 키보드 사진과 열이 같아야 해.",
+          "gold": "B",
+          "v1_prediction": "B",
+          "prediction": {
+            "action": "B",
+            "probabilities": {
+              "A": 4.727329360321164e-05,
+              "B": 0.9945201277732849,
+              "C": 2.3421156583935954e-05,
+              "D": 0.0015594788128510118,
+              "E": 0.00039828632725402713,
+              "F": 3.363492214703001e-05,
+              "NONE": 0.0034176751505583525
+            },
+            "latency_ms": 13374.283499782905,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_language-00116",
+          "source_ids": [
+            "val/images/val_4823.JPEG",
+            "val/images/val_6597.JPEG",
+            "val/images/val_7534.JPEG",
+            "val/images/val_2146.JPEG",
+            "val/images/val_1547.JPEG",
+            "val/images/val_6463.JPEG"
+          ],
+          "instruction": "다음 조건에 맞춰 사진을 골라 줘. 가로줄을 불곰 사진이 있는 쪽으로 한정하면, 포유류 사진의 위치는? 해당하는 사진이 없으면 NONE이야.",
+          "gold": "D",
+          "v1_prediction": "D",
+          "prediction": {
+            "action": "D",
+            "probabilities": {
+              "A": 3.793547148234211e-05,
+              "B": 8.783562748249096e-07,
+              "C": 1.256688847206533e-05,
+              "D": 0.9995458722114563,
+              "E": 1.6358292214135872e-06,
+              "F": 1.8567441202321788e-06,
+              "NONE": 0.00039922716678120196
+            },
+            "latency_ms": 13639.733399963006,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_language-00017",
+          "source_ids": [
+            "val/images/val_9156.JPEG",
+            "val/images/val_3215.JPEG",
+            "val/images/val_8106.JPEG",
+            "val/images/val_5070.JPEG",
+            "val/images/val_2849.JPEG",
+            "val/images/val_5154.JPEG"
+          ],
+          "instruction": "다음 조건에 맞춰 사진을 골라 줘. 출발점을 선글라스 사진으로 잡아. 왼쪽으로 딱 한 칸 간 곳이 목적지야. 해당하는 사진이 없으면 NONE이야.",
+          "gold": "NONE",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "NONE",
+            "probabilities": {
+              "A": 0.00583761977031827,
+              "B": 0.003638056106865406,
+              "C": 0.0001727351627778262,
+              "D": 0.0075164795853197575,
+              "E": 0.005270099267363548,
+              "F": 0.0002086432941723615,
+              "NONE": 0.9773564338684082
+            },
+            "latency_ms": 13489.09950000234,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_language-00074",
+          "source_ids": [
+            "val/images/val_8348.JPEG",
+            "val/images/val_6777.JPEG",
+            "val/images/val_1680.JPEG",
+            "val/images/val_6344.JPEG",
+            "val/images/val_7784.JPEG",
+            "val/images/val_7792.JPEG"
+          ],
+          "instruction": "Follow this request: Start at penguin. Your destination is exactly one tile up. Select it. A move outside the grid means NONE.",
+          "gold": "C",
+          "v1_prediction": "C",
+          "prediction": {
+            "action": "C",
+            "probabilities": {
+              "A": 1.7730192212184193e-06,
+              "B": 8.850127414916642e-06,
+              "C": 0.9998071789741516,
+              "D": 4.4982778035773663e-07,
+              "E": 5.241635108177434e-07,
+              "F": 5.385782628763991e-07,
+              "NONE": 0.0001806797954486683
+            },
+            "latency_ms": 13091.699599986896,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_language-00139",
+          "source_ids": [
+            "val/images/val_2961.JPEG",
+            "val/images/val_2496.JPEG",
+            "val/images/val_6292.JPEG",
+            "val/images/val_7950.JPEG",
+            "val/images/val_3411.JPEG",
+            "val/images/val_899.JPEG"
+          ],
+          "instruction": "부탁 하나 할게. 고양이 사진이 있는 행만 남기고 그중 동물 사진도 지운다고 생각해 봐. 남는 사진을 골라.",
+          "gold": "B",
+          "v1_prediction": "B",
+          "prediction": {
+            "action": "B",
+            "probabilities": {
+              "A": 1.1911286037502578e-06,
+              "B": 0.9996895790100098,
+              "C": 8.99279143595777e-07,
+              "D": 1.591765249031596e-05,
+              "E": 6.194403567860718e-07,
+              "F": 4.136078496230766e-05,
+              "NONE": 0.00025040487525984645
+            },
+            "latency_ms": 13248.662800062448,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_language-00080",
+          "source_ids": [
+            "val/images/val_6854.JPEG",
+            "val/images/val_4490.JPEG",
+            "val/images/val_3297.JPEG",
+            "val/images/val_4131.JPEG",
+            "val/images/val_48.JPEG",
+            "val/images/val_4511.JPEG"
+          ],
+          "instruction": "선택할 대상은 찻주전자야. 해당 사진의 위치로 답해. 칸을 벗어나는 이동은 NONE으로 답해.",
+          "gold": "C",
+          "v1_prediction": "C",
+          "prediction": {
+            "action": "C",
+            "probabilities": {
+              "A": 4.211611212667776e-06,
+              "B": 1.3658125226356788e-06,
+              "C": 0.9998705387115479,
+              "D": 4.297186819712806e-07,
+              "E": 4.753586608785554e-07,
+              "F": 7.389539291580149e-07,
+              "NONE": 0.00012218920164741576
+            },
+            "latency_ms": 13286.238300148398,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_language-00123",
+          "source_ids": [
+            "val/images/val_7400.JPEG",
+            "val/images/val_3439.JPEG",
+            "val/images/val_1518.JPEG",
+            "val/images/val_1700.JPEG",
+            "val/images/val_4553.JPEG",
+            "val/images/val_9478.JPEG"
+          ],
+          "instruction": "Follow this request: Select animal, searching only within the row reached by one step down from fridge. A move outside the grid means NONE.",
+          "gold": "F",
+          "v1_prediction": "F",
+          "prediction": {
+            "action": "F",
+            "probabilities": {
+              "A": 2.615379571579979e-06,
+              "B": 4.808435392078536e-07,
+              "C": 2.4671494429640006e-06,
+              "D": 5.488060196512379e-05,
+              "E": 2.9102052394591738e-06,
+              "F": 0.9995459914207458,
+              "NONE": 0.00039061432471498847
+            },
+            "latency_ms": 13401.452100137249,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_language-00052",
+          "source_ids": [
+            "val/images/val_2442.JPEG",
+            "val/images/val_542.JPEG",
+            "val/images/val_2630.JPEG",
+            "val/images/val_4770.JPEG",
+            "val/images/val_166.JPEG",
+            "val/images/val_9888.JPEG"
+          ],
+          "instruction": "Please help me select one tile. When fewer than 1 pictures show vehicle, answer with school bus. Otherwise answer with teapot.",
+          "gold": "A",
+          "v1_prediction": "A",
+          "prediction": {
+            "action": "A",
+            "probabilities": {
+              "A": 0.9981017708778381,
+              "B": 3.0482399324682774e-06,
+              "C": 4.340350642451085e-06,
+              "D": 0.0013898992910981178,
+              "E": 3.2608759283903055e-06,
+              "F": 4.523579264059663e-06,
+              "NONE": 0.0004933369345963001
+            },
+            "latency_ms": 13182.775900000706,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_language-00037",
+          "source_ids": [
+            "val/images/val_1288.JPEG",
+            "val/images/val_1979.JPEG",
+            "val/images/val_88.JPEG",
+            "val/images/val_7978.JPEG",
+            "val/images/val_4053.JPEG",
+            "val/images/val_9215.JPEG"
+          ],
+          "instruction": "Please help me select one tile. If the number of food pictures is at least the number of fruit pictures, choose guinea pig. In the remaining case, choose keyboard. Choose NONE if no tile qualifies.",
+          "gold": "A",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "A",
+            "probabilities": {
+              "A": 0.9970083832740784,
+              "B": 1.221769161929842e-05,
+              "C": 8.325054295710288e-06,
+              "D": 0.00099162885453552,
+              "E": 4.083067688043229e-05,
+              "F": 4.4136427277408075e-06,
+              "NONE": 0.0019342454615980387
+            },
+            "latency_ms": 13643.005900084972,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_language-00047",
+          "source_ids": [
+            "val/images/val_783.JPEG",
+            "val/images/val_6319.JPEG",
+            "val/images/val_8434.JPEG",
+            "val/images/val_4553.JPEG",
+            "val/images/val_3865.JPEG",
+            "val/images/val_5367.JPEG"
+          ],
+          "instruction": "기본 답은 티포트 사진이야. 조류 사진 수가 전기나 전자로 작동하는 기기 사진 수를 넘는 경우에만 콜리플라워 사진으로 바꿔. 해당하는 사진이 없으면 NONE이야.",
+          "gold": "F",
+          "v1_prediction": "F",
+          "prediction": {
+            "action": "F",
+            "probabilities": {
+              "A": 5.689565114153083e-06,
+              "B": 0.00042696838499978185,
+              "C": 4.628555689123459e-05,
+              "D": 3.860270680888789e-06,
+              "E": 4.919362618238665e-05,
+              "F": 0.9990314245223999,
+              "NONE": 0.0004365774802863598
+            },
+            "latency_ms": 13549.270800082013,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_language-00105",
+          "source_ids": [
+            "val/images/val_456.JPEG",
+            "val/images/val_8.JPEG",
+            "val/images/val_8413.JPEG",
+            "val/images/val_2387.JPEG",
+            "val/images/val_9429.JPEG",
+            "val/images/val_6136.JPEG"
+          ],
+          "instruction": "부탁 하나 할게. 기본 선택은 주판 사진이지만, 곤충 사진이 적어도 1장이면 나비 사진으로 바꿔.",
+          "gold": "E",
+          "v1_prediction": "E",
+          "prediction": {
+            "action": "E",
+            "probabilities": {
+              "A": 3.615219975472428e-05,
+              "B": 2.7408188998379046e-06,
+              "C": 2.9662062388524646e-06,
+              "D": 0.0021416631061583757,
+              "E": 0.9949079155921936,
+              "F": 0.0014489676104858518,
+              "NONE": 0.0014595878310501575
+            },
+            "latency_ms": 13381.890299962834,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_language-00115",
+          "source_ids": [
+            "val/images/val_6328.JPEG",
+            "val/images/val_2094.JPEG",
+            "val/images/val_5213.JPEG",
+            "val/images/val_3342.JPEG",
+            "val/images/val_6129.JPEG",
+            "val/images/val_5351.JPEG"
+          ],
+          "instruction": "Look at this photo board. Restrict your search to the row containing teddy bear; where is the animal picture? Choose NONE if no tile qualifies.",
+          "gold": "E",
+          "v1_prediction": "E",
+          "prediction": {
+            "action": "E",
+            "probabilities": {
+              "A": 1.9949707166233566e-06,
+              "B": 2.3975751446414506e-06,
+              "C": 3.6034246022609295e-06,
+              "D": 1.3928270163887646e-06,
+              "E": 0.9996535778045654,
+              "F": 9.816936881179572e-07,
+              "NONE": 0.00033604883356019855
+            },
+            "latency_ms": 13206.141600152478,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_language-00061",
+          "source_ids": [
+            "val/images/val_6432.JPEG",
+            "val/images/val_6479.JPEG",
+            "val/images/val_7822.JPEG",
+            "val/images/val_51.JPEG",
+            "val/images/val_1241.JPEG",
+            "val/images/val_5974.JPEG"
+          ],
+          "instruction": "Look at this photo board. The requested subject is goose; give its tile.",
+          "gold": "NONE",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "NONE",
+            "probabilities": {
+              "A": 0.001882870215922594,
+              "B": 0.047860827296972275,
+              "C": 0.010846186429262161,
+              "D": 0.00012891653750557452,
+              "E": 0.00014961540000513196,
+              "F": 0.006782652344554663,
+              "NONE": 0.932348906993866
+            },
+            "latency_ms": 12766.211899928749,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_language-00051",
+          "source_ids": [
+            "val/images/val_358.JPEG",
+            "val/images/val_8346.JPEG",
+            "val/images/val_4084.JPEG",
+            "val/images/val_4843.JPEG",
+            "val/images/val_6826.JPEG",
+            "val/images/val_7784.JPEG"
+          ],
+          "instruction": "Follow this request: The first move is one tile up; the second is one tile to the left. What photo do you reach from lion? Choose NONE if no tile qualifies.",
+          "gold": "A",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "A",
+            "probabilities": {
+              "A": 0.9980707764625549,
+              "B": 9.531452087685466e-05,
+              "C": 1.022328342514811e-05,
+              "D": 6.950377610337455e-06,
+              "E": 1.392602553096367e-05,
+              "F": 4.096954398846719e-06,
+              "NONE": 0.001798858866095543
+            },
+            "latency_ms": 13386.64839998819,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_language-00019",
+          "source_ids": [
+            "val/images/val_5847.JPEG",
+            "val/images/val_2644.JPEG",
+            "val/images/val_5694.JPEG",
+            "val/images/val_5707.JPEG",
+            "val/images/val_3588.JPEG",
+            "val/images/val_7632.JPEG"
+          ],
+          "instruction": "부탁 하나 할게. 첫 이동은 아래쪽 한 칸, 두 번째는 왼쪽 한 칸이야. 개에서 출발했을 때 도착하는 사진을 찾아. 해당하는 사진이 없으면 NONE이야.",
+          "gold": "E",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "E",
+            "probabilities": {
+              "A": 1.605078637112456e-06,
+              "B": 1.9367705590411788e-06,
+              "C": 1.5139239621930756e-06,
+              "D": 0.00022734864614903927,
+              "E": 0.9986684322357178,
+              "F": 5.668150606652489e-06,
+              "NONE": 0.0010934538440778852
+            },
+            "latency_ms": 13608.734800014645,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_language-00107",
+          "source_ids": [
+            "val/images/val_4604.JPEG",
+            "val/images/val_8642.JPEG",
+            "val/images/val_9523.JPEG",
+            "val/images/val_7132.JPEG",
+            "val/images/val_7170.JPEG",
+            "val/images/val_333.JPEG"
+          ],
+          "instruction": "다음 조건에 맞춰 사진을 골라 줘. 교통수단 사진을 고르되, 코알라에서 위쪽 한 칸 이동해서 도착한 행 안에서 찾아야 해.",
+          "gold": "A",
+          "v1_prediction": "A",
+          "prediction": {
+            "action": "A",
+            "probabilities": {
+              "A": 0.9874297976493835,
+              "B": 0.004655131138861179,
+              "C": 1.833640089898836e-05,
+              "D": 9.004897947306745e-06,
+              "E": 0.0007991094025783241,
+              "F": 2.150963518943172e-05,
+              "NONE": 0.007066984660923481
+            },
+            "latency_ms": 13573.514699935913,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_language-00001",
+          "source_ids": [
+            "val/images/val_4727.JPEG",
+            "val/images/val_6699.JPEG",
+            "val/images/val_9580.JPEG",
+            "val/images/val_2094.JPEG",
+            "val/images/val_2741.JPEG",
+            "val/images/val_1006.JPEG"
+          ],
+          "instruction": "어류 사진을 찾되, 그 사진의 바로 왼쪽에 선글라스 사진이 있어야 해. 해당하는 사진이 없으면 NONE이야.",
+          "gold": "NONE",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "NONE",
+            "probabilities": {
+              "A": 0.00040412344969809055,
+              "B": 0.0002499340916983783,
+              "C": 0.0005835702759213746,
+              "D": 8.499962859787047e-05,
+              "E": 7.867765089031309e-05,
+              "F": 7.183453271863982e-05,
+              "NONE": 0.9985268115997314
+            },
+            "latency_ms": 13225.484800059348,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_language-00130",
+          "source_ids": [
+            "val/images/val_3261.JPEG",
+            "val/images/val_3771.JPEG",
+            "val/images/val_8397.JPEG",
+            "val/images/val_6077.JPEG",
+            "val/images/val_8899.JPEG",
+            "val/images/val_2050.JPEG"
+          ],
+          "instruction": "Only search the horizontal row containing school bus. Pictures of animal are forbidden; give the remaining tile.",
+          "gold": "B",
+          "v1_prediction": "B",
+          "prediction": {
+            "action": "B",
+            "probabilities": {
+              "A": 0.00015064790204633027,
+              "B": 0.9996439218521118,
+              "C": 8.93837864168745e-07,
+              "D": 3.825450221484061e-06,
+              "E": 1.9357100882189116e-06,
+              "F": 7.74958039073681e-07,
+              "NONE": 0.00019789719954133034
+            },
+            "latency_ms": 13209.133199881762,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_language-00001",
+          "source_ids": [
+            "val/images/val_4727.JPEG",
+            "val/images/val_6699.JPEG",
+            "val/images/val_9580.JPEG",
+            "val/images/val_2094.JPEG",
+            "val/images/val_2741.JPEG",
+            "val/images/val_1006.JPEG"
+          ],
+          "instruction": "Please help me select one tile. Find a food picture whose immediate right neighbor shows monarch butterfly.",
+          "gold": "NONE",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "NONE",
+            "probabilities": {
+              "A": 0.0016975050093606114,
+              "B": 7.046726386761293e-05,
+              "C": 0.00031932545243762434,
+              "D": 0.002041175263002515,
+              "E": 0.000581068976316601,
+              "F": 0.0001599290408194065,
+              "NONE": 0.9951305389404297
+            },
+            "latency_ms": 13930.736199952662,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_language-00103",
+          "source_ids": [
+            "val/images/val_6777.JPEG",
+            "val/images/val_7700.JPEG",
+            "val/images/val_2713.JPEG",
+            "val/images/val_665.JPEG",
+            "val/images/val_9496.JPEG",
+            "val/images/val_2753.JPEG"
+          ],
+          "instruction": "Please help me select one tile. The selected picture must show vehicle and share a column with school bus. A move outside the grid means NONE.",
+          "gold": "A",
+          "v1_prediction": "A",
+          "prediction": {
+            "action": "A",
+            "probabilities": {
+              "A": 0.999806821346283,
+              "B": 1.652034711696615e-06,
+              "C": 6.574486519639322e-07,
+              "D": 3.969867975683883e-06,
+              "E": 4.773339128405496e-07,
+              "F": 6.618390671064844e-07,
+              "NONE": 0.00018566782819107175
+            },
+            "latency_ms": 14395.864699967206,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_language-00096",
+          "source_ids": [
+            "val/images/val_1233.JPEG",
+            "val/images/val_2790.JPEG",
+            "val/images/val_8065.JPEG",
+            "val/images/val_7852.JPEG",
+            "val/images/val_3360.JPEG",
+            "val/images/val_7625.JPEG"
+          ],
+          "instruction": "세로줄을 선글라스 사진이 있는 쪽으로 한정하면, 동물 사진의 위치는? 칸을 벗어나는 이동은 NONE으로 답해.",
+          "gold": "C",
+          "v1_prediction": "C",
+          "prediction": {
+            "action": "C",
+            "probabilities": {
+              "A": 4.900529802398523e-06,
+              "B": 3.706232746480964e-06,
+              "C": 0.9996228218078613,
+              "D": 7.050412477838108e-06,
+              "E": 1.299380642194592e-06,
+              "F": 1.0629664757288992e-05,
+              "NONE": 0.0003495725686661899
+            },
+            "latency_ms": 14214.995099930093,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_language-00014",
+          "source_ids": [
+            "val/images/val_6751.JPEG",
+            "val/images/val_7978.JPEG",
+            "val/images/val_1434.JPEG",
+            "val/images/val_2407.JPEG",
+            "val/images/val_4646.JPEG",
+            "val/images/val_826.JPEG"
+          ],
+          "instruction": "부탁 하나 할게. 가로줄을 리모컨 사진이 있는 쪽으로 한정하면, 먹거리 사진의 위치는? 해당하는 사진이 없으면 NONE이야.",
+          "gold": "C",
+          "v1_prediction": "C",
+          "prediction": {
+            "action": "C",
+            "probabilities": {
+              "A": 6.654775575043459e-07,
+              "B": 4.5787855924572796e-06,
+              "C": 0.9998037219047546,
+              "D": 2.167670118069509e-06,
+              "E": 8.382776286453009e-07,
+              "F": 4.872883437201381e-06,
+              "NONE": 0.00018320864182896912
+            },
+            "latency_ms": 14217.228600056842,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_language-00055",
+          "source_ids": [
+            "val/images/val_7453.JPEG",
+            "val/images/val_8446.JPEG",
+            "val/images/val_5980.JPEG",
+            "val/images/val_4001.JPEG",
+            "val/images/val_1027.JPEG",
+            "val/images/val_2752.JPEG"
+          ],
+          "instruction": "출발점을 프레첼 사진으로 잡아. 왼쪽으로 딱 한 칸 간 곳이 목적지야. 해당하는 사진이 없으면 NONE이야.",
+          "gold": "B",
+          "v1_prediction": "B",
+          "prediction": {
+            "action": "B",
+            "probabilities": {
+              "A": 3.120377414234099e-06,
+              "B": 0.9997848868370056,
+              "C": 8.451031021650124e-07,
+              "D": 2.111898766088416e-06,
+              "E": 2.1281490262481384e-05,
+              "F": 6.187307235450135e-07,
+              "NONE": 0.0001871060230769217
+            },
+            "latency_ms": 14463.58110010624,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_language-00029",
+          "source_ids": [
+            "val/images/val_6077.JPEG",
+            "val/images/val_6202.JPEG",
+            "val/images/val_6167.JPEG",
+            "val/images/val_1128.JPEG",
+            "val/images/val_2753.JPEG",
+            "val/images/val_2458.JPEG"
+          ],
+          "instruction": "Please help me select one tile. Find the photo whose immediate upper neighbor shows tractor.",
+          "gold": "D",
+          "v1_prediction": "A",
+          "prediction": {
+            "action": "D",
+            "probabilities": {
+              "A": 6.336887850011408e-07,
+              "B": 5.683540962309053e-07,
+              "C": 4.5500470946535643e-07,
+              "D": 0.9994828701019287,
+              "E": 4.39000541518908e-06,
+              "F": 1.9802350834652316e-06,
+              "NONE": 0.0005089684273116291
+            },
+            "latency_ms": 13849.41940009594,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_language-00131",
+          "source_ids": [
+            "val/images/val_2797.JPEG",
+            "val/images/val_6941.JPEG",
+            "val/images/val_3057.JPEG",
+            "val/images/val_9195.JPEG",
+            "val/images/val_5.JPEG",
+            "val/images/val_7857.JPEG"
+          ],
+          "instruction": "다음 조건에 맞춰 사진을 골라 줘. 선택 범위는 트랙터 사진의 가로줄이야. 그 안에서 음식 사진은 선택하면 안 돼. 남은 칸으로 답해. 칸을 벗어나는 이동은 NONE으로 답해.",
+          "gold": "A",
+          "v1_prediction": "A",
+          "prediction": {
+            "action": "A",
+            "probabilities": {
+              "A": 0.999471127986908,
+              "B": 0.0002164177712984383,
+              "C": 9.935522484738613e-07,
+              "D": 1.5337611785071203e-06,
+              "E": 1.1809913758042967e-06,
+              "F": 1.7475740605732426e-06,
+              "NONE": 0.0003070339735131711
+            },
+            "latency_ms": 14728.602400049567,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_language-00006",
+          "source_ids": [
+            "val/images/val_1274.JPEG",
+            "val/images/val_6077.JPEG",
+            "val/images/val_8787.JPEG",
+            "val/images/val_6295.JPEG",
+            "val/images/val_5166.JPEG",
+            "val/images/val_4889.JPEG"
+          ],
+          "instruction": "다음 조건에 맞춰 사진을 골라 줘. 선택할 대상은 피망이야. 해당 사진의 위치로 답해. 칸을 벗어나는 이동은 NONE으로 답해.",
+          "gold": "NONE",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "NONE",
+            "probabilities": {
+              "A": 7.544158870587125e-05,
+              "B": 8.159553544828668e-05,
+              "C": 0.00011372029985068366,
+              "D": 0.0001378644083160907,
+              "E": 0.005493630189448595,
+              "F": 0.015408588573336601,
+              "NONE": 0.9786891341209412
+            },
+            "latency_ms": 14635.095200035721,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_language-00086",
+          "source_ids": [
+            "val/images/val_9273.JPEG",
+            "val/images/val_3450.JPEG",
+            "val/images/val_3644.JPEG",
+            "val/images/val_771.JPEG",
+            "val/images/val_7411.JPEG",
+            "val/images/val_3263.JPEG"
+          ],
+          "instruction": "Please help me select one tile. Select food, searching only within the row reached by one step up from pomegranate. Choose NONE if no tile qualifies.",
+          "gold": "C",
+          "v1_prediction": "C",
+          "prediction": {
+            "action": "C",
+            "probabilities": {
+              "A": 1.71059127751505e-06,
+              "B": 1.54769122673315e-06,
+              "C": 0.999721348285675,
+              "D": 7.162983024500136e-07,
+              "E": 1.090723458219145e-06,
+              "F": 4.887749014415022e-07,
+              "NONE": 0.0002731091226451099
+            },
+            "latency_ms": 14482.865799916908,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_language-00019",
+          "source_ids": [
+            "val/images/val_5847.JPEG",
+            "val/images/val_2644.JPEG",
+            "val/images/val_5694.JPEG",
+            "val/images/val_5707.JPEG",
+            "val/images/val_3588.JPEG",
+            "val/images/val_7632.JPEG"
+          ],
+          "instruction": "Follow this request: The default choice is pomegranate; switch to golden retriever only when at least 1 tiles show vehicle. A move outside the grid means NONE.",
+          "gold": "C",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "C",
+            "probabilities": {
+              "A": 0.0011604236206039786,
+              "B": 6.702847713313531e-06,
+              "C": 0.9978508949279785,
+              "D": 6.733337613695767e-06,
+              "E": 2.857400659195264e-06,
+              "F": 3.7581930882879533e-06,
+              "NONE": 0.0009684963733889163
+            },
+            "latency_ms": 14477.983199991286,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_language-00047",
+          "source_ids": [
+            "val/images/val_783.JPEG",
+            "val/images/val_6319.JPEG",
+            "val/images/val_8434.JPEG",
+            "val/images/val_4553.JPEG",
+            "val/images/val_3865.JPEG",
+            "val/images/val_5367.JPEG"
+          ],
+          "instruction": "The default answer is teapot. Change it to cauliflower only if the electrical or electronic device count exceeds the bird count. Choose NONE if no tile qualifies.",
+          "gold": "B",
+          "v1_prediction": "F",
+          "prediction": {
+            "action": "B",
+            "probabilities": {
+              "A": 4.1652765503386036e-05,
+              "B": 0.996229350566864,
+              "C": 4.615186480805278e-05,
+              "D": 2.617415248096222e-06,
+              "E": 4.3149398152309e-06,
+              "F": 0.0005219190497882664,
+              "NONE": 0.003153922501951456
+            },
+            "latency_ms": 14516.30700007081,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_language-00059",
+          "source_ids": [
+            "val/images/val_1787.JPEG",
+            "val/images/val_7866.JPEG",
+            "val/images/val_160.JPEG",
+            "val/images/val_6048.JPEG",
+            "val/images/val_9147.JPEG",
+            "val/images/val_3231.JPEG"
+          ],
+          "instruction": "이 사진판을 보고 답해 줘. 전기나 전자로 작동하는 기기 사진 수가 동물 사진 수 이상이면 선글라스 사진을 골라. 그렇지 않을 때는 곰 인형 사진이야. 칸을 벗어나는 이동은 NONE으로 답해.",
+          "gold": "E",
+          "v1_prediction": "E",
+          "prediction": {
+            "action": "F",
+            "probabilities": {
+              "A": 2.046186818915885e-05,
+              "B": 4.301323133404367e-05,
+              "C": 0.0008724707877263427,
+              "D": 5.87998547416646e-05,
+              "E": 0.046548210084438324,
+              "F": 0.9467845559120178,
+              "NONE": 0.005672459490597248
+            },
+            "latency_ms": 15156.690099975094,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_language-00064",
+          "source_ids": [
+            "val/images/val_2202.JPEG",
+            "val/images/val_48.JPEG",
+            "val/images/val_9506.JPEG",
+            "val/images/val_4002.JPEG",
+            "val/images/val_4452.JPEG",
+            "val/images/val_8.JPEG"
+          ],
+          "instruction": "부탁 하나 할게. 교통수단 사진이 3장 미만인 경우에는 프레첼 사진으로 답해. 나머지 경우에는 코끼리 사진으로 답해. 해당하는 사진이 없으면 NONE이야.",
+          "gold": "NONE",
+          "v1_prediction": "B",
+          "prediction": {
+            "action": "NONE",
+            "probabilities": {
+              "A": 0.004313986282795668,
+              "B": 0.004785181488841772,
+              "C": 0.00010842929623322561,
+              "D": 0.0002804425894282758,
+              "E": 0.00025194318732246757,
+              "F": 6.645010580541566e-05,
+              "NONE": 0.9901935458183289
+            },
+            "latency_ms": 14316.82680011727,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_language-00108",
+          "source_ids": [
+            "val/images/val_6866.JPEG",
+            "val/images/val_6947.JPEG",
+            "val/images/val_8457.JPEG",
+            "val/images/val_5755.JPEG",
+            "val/images/val_4026.JPEG",
+            "val/images/val_6697.JPEG"
+          ],
+          "instruction": "Restrict your search to the row containing camel; where is the kitchenware item picture? A move outside the grid means NONE.",
+          "gold": "F",
+          "v1_prediction": "F",
+          "prediction": {
+            "action": "F",
+            "probabilities": {
+              "A": 3.072651963975659e-07,
+              "B": 3.0203736400835623e-07,
+              "C": 4.454365125639015e-07,
+              "D": 4.795280688085768e-07,
+              "E": 5.822955699841259e-07,
+              "F": 0.9998791217803955,
+              "NONE": 0.00011874989286297932
+            },
+            "latency_ms": 14346.6724997852,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_language-00039",
+          "source_ids": [
+            "val/images/val_2454.JPEG",
+            "val/images/val_11.JPEG",
+            "val/images/val_8905.JPEG",
+            "val/images/val_283.JPEG",
+            "val/images/val_855.JPEG",
+            "val/images/val_7408.JPEG"
+          ],
+          "instruction": "Please help me select one tile. Which tile should I click to select the banana picture? A move outside the grid means NONE.",
+          "gold": "B",
+          "v1_prediction": "B",
+          "prediction": {
+            "action": "B",
+            "probabilities": {
+              "A": 9.483970643486828e-06,
+              "B": 0.999813973903656,
+              "C": 7.569536819573841e-07,
+              "D": 5.331907573236094e-07,
+              "E": 5.91288085161068e-07,
+              "F": 5.036929451307515e-07,
+              "NONE": 0.00017429397848900408
+            },
+            "latency_ms": 13825.932499952614,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_language-00048",
+          "source_ids": [
+            "val/images/val_6976.JPEG",
+            "val/images/val_1668.JPEG",
+            "val/images/val_473.JPEG",
+            "val/images/val_8372.JPEG",
+            "val/images/val_7340.JPEG",
+            "val/images/val_2508.JPEG"
+          ],
+          "instruction": "Follow this request: The first move is one tile to the left; the second is one tile up. What photo do you reach from backpack? A move outside the grid means NONE.",
+          "gold": "A",
+          "v1_prediction": "A",
+          "prediction": {
+            "action": "A",
+            "probabilities": {
+              "A": 0.9995342493057251,
+              "B": 4.144202648603823e-06,
+              "C": 1.56093665282242e-06,
+              "D": 8.976160756901663e-07,
+              "E": 8.280447900688159e-07,
+              "F": 6.559488383572898e-07,
+              "NONE": 0.00045753869926556945
+            },
+            "latency_ms": 13060.896100010723,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_language-00005",
+          "source_ids": [
+            "val/images/val_6667.JPEG",
+            "val/images/val_1486.JPEG",
+            "val/images/val_6878.JPEG",
+            "val/images/val_1502.JPEG",
+            "val/images/val_7727.JPEG",
+            "val/images/val_937.JPEG"
+          ],
+          "instruction": "이 사진판을 보고 답해 줘. 첫 이동은 왼쪽 한 칸, 두 번째는 아래쪽 한 칸이야. 석류에서 출발했을 때 도착하는 사진을 찾아.",
+          "gold": "E",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "E",
+            "probabilities": {
+              "A": 1.1305477300993516e-06,
+              "B": 2.3022123514238046e-06,
+              "C": 9.834601542024757e-07,
+              "D": 2.066028355329763e-05,
+              "E": 0.9990504384040833,
+              "F": 3.039668172277743e-06,
+              "NONE": 0.0009212855366058648
+            },
+            "latency_ms": 12604.665599996224,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_language-00088",
+          "source_ids": [
+            "val/images/val_9840.JPEG",
+            "val/images/val_6479.JPEG",
+            "val/images/val_410.JPEG",
+            "val/images/val_8072.JPEG",
+            "val/images/val_1884.JPEG",
+            "val/images/val_1883.JPEG"
+          ],
+          "instruction": "부탁 하나 할게. 음식 사진을 고르되, 개구리에서 왼쪽 한 칸 이동해서 도착한 행 안에서 찾아야 해.",
+          "gold": "A",
+          "v1_prediction": "A",
+          "prediction": {
+            "action": "A",
+            "probabilities": {
+              "A": 0.9993712306022644,
+              "B": 6.796247816964751e-06,
+              "C": 1.3897418966735131e-06,
+              "D": 2.5301806090283208e-06,
+              "E": 0.00011020048259524629,
+              "F": 9.986370059777983e-06,
+              "NONE": 0.0004978938959538937
+            },
+            "latency_ms": 12745.554599910975,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_language-00122",
+          "source_ids": [
+            "val/images/val_8154.JPEG",
+            "val/images/val_5019.JPEG",
+            "val/images/val_9281.JPEG",
+            "val/images/val_1168.JPEG",
+            "val/images/val_3388.JPEG",
+            "val/images/val_5821.JPEG"
+          ],
+          "instruction": "이 사진판을 보고 답해 줘. 동물 사진을 찾되, 그 사진의 바로 아래쪽에 돼지 사진이 있어야 해. 칸을 벗어나는 이동은 NONE으로 답해.",
+          "gold": "A",
+          "v1_prediction": "D",
+          "prediction": {
+            "action": "A",
+            "probabilities": {
+              "A": 0.9985302686691284,
+              "B": 3.501325045363046e-05,
+              "C": 0.00017456476052757353,
+              "D": 6.305459919531131e-06,
+              "E": 2.224969648523256e-06,
+              "F": 5.8996658481191844e-05,
+              "NONE": 0.0011924565769731998
+            },
+            "latency_ms": 13010.930699994788,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_language-00138",
+          "source_ids": [
+            "val/images/val_4117.JPEG",
+            "val/images/val_1085.JPEG",
+            "val/images/val_2344.JPEG",
+            "val/images/val_7392.JPEG",
+            "val/images/val_9479.JPEG",
+            "val/images/val_8904.JPEG"
+          ],
+          "instruction": "Look at this photo board. Only search the horizontal row containing bell pepper. Pictures of animal are forbidden; give the remaining tile.",
+          "gold": "E",
+          "v1_prediction": "E",
+          "prediction": {
+            "action": "E",
+            "probabilities": {
+              "A": 1.6911146758502582e-06,
+              "B": 3.802960009124945e-07,
+              "C": 1.1950316547881812e-05,
+              "D": 1.4718688134962576e-06,
+              "E": 0.9998095631599426,
+              "F": 5.761359602729499e-07,
+              "NONE": 0.00017438399663660675
+            },
+            "latency_ms": 14287.9703999497,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_language-00122",
+          "source_ids": [
+            "val/images/val_8154.JPEG",
+            "val/images/val_5019.JPEG",
+            "val/images/val_9281.JPEG",
+            "val/images/val_1168.JPEG",
+            "val/images/val_3388.JPEG",
+            "val/images/val_5821.JPEG"
+          ],
+          "instruction": "Please help me select one tile. Your destination is one tile down from Egyptian cat. Answer with that tile if it shows animal, otherwise NONE. Choose NONE if no tile qualifies.",
+          "gold": "D",
+          "v1_prediction": "D",
+          "prediction": {
+            "action": "D",
+            "probabilities": {
+              "A": 1.0983638958350639e-06,
+              "B": 1.185647647616861e-06,
+              "C": 1.9266371964477003e-06,
+              "D": 0.9995693564414978,
+              "E": 1.392049739479262e-06,
+              "F": 5.620984666165896e-05,
+              "NONE": 0.0003688095312099904
+            },
+            "latency_ms": 14302.65250010416,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_language-00096",
+          "source_ids": [
+            "val/images/val_1233.JPEG",
+            "val/images/val_2790.JPEG",
+            "val/images/val_8065.JPEG",
+            "val/images/val_7852.JPEG",
+            "val/images/val_3360.JPEG",
+            "val/images/val_7625.JPEG"
+          ],
+          "instruction": "Restrict your search to the column containing sunglasses; where is the animal picture? A move outside the grid means NONE.",
+          "gold": "C",
+          "v1_prediction": "C",
+          "prediction": {
+            "action": "C",
+            "probabilities": {
+              "A": 2.838520686054835e-06,
+              "B": 2.2270201043284032e-06,
+              "C": 0.9995068311691284,
+              "D": 3.814426918324898e-06,
+              "E": 7.680948215238459e-07,
+              "F": 4.743673798657255e-06,
+              "NONE": 0.00047877413453534245
+            },
+            "latency_ms": 13097.022900125012,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_language-00111",
+          "source_ids": [
+            "val/images/val_5067.JPEG",
+            "val/images/val_1501.JPEG",
+            "val/images/val_320.JPEG",
+            "val/images/val_2713.JPEG",
+            "val/images/val_5413.JPEG",
+            "val/images/val_261.JPEG"
+          ],
+          "instruction": "고를 사진은 전기나 전자로 작동하는 기기 사진이면서 리모컨 사진과 열이 같아야 해. 칸을 벗어나는 이동은 NONE으로 답해.",
+          "gold": "B",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "B",
+            "probabilities": {
+              "A": 1.8004475350608118e-05,
+              "B": 0.9986593723297119,
+              "C": 6.3192128436639905e-06,
+              "D": 3.2605917112960014e-06,
+              "E": 1.0782989193103276e-05,
+              "F": 3.982499038102105e-06,
+              "NONE": 0.0012983474880456924
+            },
+            "latency_ms": 13341.614000033587,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_language-00085",
+          "source_ids": [
+            "val/images/val_1194.JPEG",
+            "val/images/val_5719.JPEG",
+            "val/images/val_2467.JPEG",
+            "val/images/val_6818.JPEG",
+            "val/images/val_490.JPEG",
+            "val/images/val_9215.JPEG"
+          ],
+          "instruction": "고를 사진은 먹거리 사진이면서 모래시계 사진과 행이 같아야 해.",
+          "gold": "B",
+          "v1_prediction": "B",
+          "prediction": {
+            "action": "B",
+            "probabilities": {
+              "A": 1.4489631894321064e-06,
+              "B": 0.9994439482688904,
+              "C": 1.2306106782489223e-06,
+              "D": 9.846509101407719e-07,
+              "E": 5.091490947961574e-06,
+              "F": 5.512927145900903e-06,
+              "NONE": 0.0005418654764071107
+            },
+            "latency_ms": 12983.647300163284,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_language-00050",
+          "source_ids": [
+            "val/images/val_3226.JPEG",
+            "val/images/val_5834.JPEG",
+            "val/images/val_5760.JPEG",
+            "val/images/val_4288.JPEG",
+            "val/images/val_8700.JPEG",
+            "val/images/val_6187.JPEG"
+          ],
+          "instruction": "다음 조건에 맞춰 사진을 골라 줘. 출발점을 리모컨 사진으로 잡아. 오른쪽으로 딱 한 칸 간 곳이 목적지야. 칸을 벗어나는 이동은 NONE으로 답해.",
+          "gold": "C",
+          "v1_prediction": "C",
+          "prediction": {
+            "action": "C",
+            "probabilities": {
+              "A": 1.014967438095482e-06,
+              "B": 8.079483450273983e-06,
+              "C": 0.9997705817222595,
+              "D": 9.743807822815143e-07,
+              "E": 8.720265213923994e-06,
+              "F": 2.345024040550925e-05,
+              "NONE": 0.00018725059635471553
+            },
+            "latency_ms": 13541.010900167748,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        }
+      ]
+    },
+    "test_composition": {
+      "count": 56,
+      "v1_subset_accuracy": 0.6964285714285714,
+      "v2_subset_accuracy": 0.9821428571428571,
+      "delta_percentage_points": 28.57142857142857,
+      "rows": [
+        {
+          "scene_id": "test_composition-00101",
+          "source_ids": [
+            "val/images/val_5998.JPEG",
+            "val/images/val_2165.JPEG",
+            "val/images/val_3963.JPEG",
+            "val/images/val_4801.JPEG",
+            "val/images/val_9784.JPEG",
+            "val/images/val_526.JPEG"
+          ],
+          "instruction": "Use the immediate left neighbor of goose as a reference; select the animal photo in its column.",
+          "gold": "E",
+          "v1_prediction": "E",
+          "prediction": {
+            "action": "E",
+            "probabilities": {
+              "A": 3.101757465628907e-05,
+              "B": 6.430561825254699e-06,
+              "C": 3.5307477901369566e-06,
+              "D": 3.265331906732172e-05,
+              "E": 0.9995385408401489,
+              "F": 8.717488526599482e-07,
+              "NONE": 0.0003870283253490925
+            },
+            "latency_ms": 12722.408599918708,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_composition-00084",
+          "source_ids": [
+            "val/images/val_1725.JPEG",
+            "val/images/val_5459.JPEG",
+            "val/images/val_2119.JPEG",
+            "val/images/val_6295.JPEG",
+            "val/images/val_18.JPEG",
+            "val/images/val_8264.JPEG"
+          ],
+          "instruction": "Please help me select one tile. First locate vehicle in the row of cauliflower. Choose the tile immediately to the left of that photo.",
+          "gold": "D",
+          "v1_prediction": "E",
+          "prediction": {
+            "action": "D",
+            "probabilities": {
+              "A": 1.0326051551601267e-06,
+              "B": 1.721370495033625e-06,
+              "C": 5.557729991778615e-07,
+              "D": 0.9995619654655457,
+              "E": 0.00024044649035204202,
+              "F": 8.801883382147935e-07,
+              "NONE": 0.00019344313477631658
+            },
+            "latency_ms": 13075.10649994947,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_composition-00016",
+          "source_ids": [
+            "val/images/val_6932.JPEG",
+            "val/images/val_1233.JPEG",
+            "val/images/val_9100.JPEG",
+            "val/images/val_5403.JPEG",
+            "val/images/val_1067.JPEG",
+            "val/images/val_6430.JPEG"
+          ],
+          "instruction": "낙타 사진의 바로 오른쪽 칸과 같은 열에 있는 과일 사진을 골라.",
+          "gold": "NONE",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "NONE",
+            "probabilities": {
+              "A": 1.5460966096725315e-05,
+              "B": 8.406022061535623e-06,
+              "C": 2.6909096050076187e-05,
+              "D": 1.0765070328488946e-05,
+              "E": 9.3572583864443e-05,
+              "F": 0.00225632986985147,
+              "NONE": 0.9975885152816772
+            },
+            "latency_ms": 13028.911100002006,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_composition-00066",
+          "source_ids": [
+            "val/images/val_5710.JPEG",
+            "val/images/val_1083.JPEG",
+            "val/images/val_3489.JPEG",
+            "val/images/val_5865.JPEG",
+            "val/images/val_7411.JPEG",
+            "val/images/val_333.JPEG"
+          ],
+          "instruction": "부탁 하나 할게. 먼저 트랙터의 행에 있는 포유류 사진을 찾아. 그 칸의 오른쪽 이웃을 골라줘.",
+          "gold": "C",
+          "v1_prediction": "B",
+          "prediction": {
+            "action": "C",
+            "probabilities": {
+              "A": 1.6708113435015548e-06,
+              "B": 1.5017511032056063e-05,
+              "C": 0.9998007416725159,
+              "D": 8.106761129056395e-07,
+              "E": 1.4358290172822308e-05,
+              "F": 1.6623202100163326e-05,
+              "NONE": 0.0001509191788500175
+            },
+            "latency_ms": 13413.40780002065,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_composition-00133",
+          "source_ids": [
+            "val/images/val_4385.JPEG",
+            "val/images/val_8434.JPEG",
+            "val/images/val_8870.JPEG",
+            "val/images/val_8090.JPEG",
+            "val/images/val_2344.JPEG",
+            "val/images/val_4626.JPEG"
+          ],
+          "instruction": "Look at this photo board. Use the immediate left neighbor of camel as a reference; select the fruit photo in its column. A move outside the grid means NONE.",
+          "gold": "D",
+          "v1_prediction": "D",
+          "prediction": {
+            "action": "D",
+            "probabilities": {
+              "A": 7.325379556277767e-06,
+              "B": 6.680908199996338e-07,
+              "C": 6.137684067653026e-07,
+              "D": 0.9991132616996765,
+              "E": 8.717473974684253e-06,
+              "F": 1.1308883358651656e-06,
+              "NONE": 0.0008683422347530723
+            },
+            "latency_ms": 13525.544699979946,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_composition-00052",
+          "source_ids": [
+            "val/images/val_738.JPEG",
+            "val/images/val_4711.JPEG",
+            "val/images/val_4131.JPEG",
+            "val/images/val_4562.JPEG",
+            "val/images/val_9187.JPEG",
+            "val/images/val_332.JPEG"
+          ],
+          "instruction": "Look at this photo board. Which photo is one tile below the electrical or electronic device picture sharing a row with remote control? Choose NONE if no tile qualifies.",
+          "gold": "F",
+          "v1_prediction": "F",
+          "prediction": {
+            "action": "F",
+            "probabilities": {
+              "A": 6.956249762879452e-07,
+              "B": 8.26128655262437e-07,
+              "C": 1.3151960729373968e-06,
+              "D": 1.3954994756204542e-05,
+              "E": 4.592130062519573e-05,
+              "F": 0.9990774393081665,
+              "NONE": 0.0008598071290180087
+            },
+            "latency_ms": 13518.103000009432,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_composition-00044",
+          "source_ids": [
+            "val/images/val_7978.JPEG",
+            "val/images/val_9130.JPEG",
+            "val/images/val_2180.JPEG",
+            "val/images/val_7020.JPEG",
+            "val/images/val_3415.JPEG",
+            "val/images/val_2071.JPEG"
+          ],
+          "instruction": "이 사진판을 보고 답해 줘. 금붕어에서 오른쪽으로 한 칸 간 다음, 도착한 열에서 과일 사진을 찾아. 칸을 벗어나는 이동은 NONE으로 답해.",
+          "gold": "F",
+          "v1_prediction": "F",
+          "prediction": {
+            "action": "F",
+            "probabilities": {
+              "A": 5.251471861811297e-07,
+              "B": 4.547961225398467e-07,
+              "C": 2.0116649466217496e-06,
+              "D": 2.6193731628154637e-06,
+              "E": 2.5530978746246547e-05,
+              "F": 0.9996498823165894,
+              "NONE": 0.0003189855779055506
+            },
+            "latency_ms": 13842.934099957347,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_composition-00041",
+          "source_ids": [
+            "val/images/val_2601.JPEG",
+            "val/images/val_1310.JPEG",
+            "val/images/val_2733.JPEG",
+            "val/images/val_6479.JPEG",
+            "val/images/val_9035.JPEG",
+            "val/images/val_8049.JPEG"
+          ],
+          "instruction": "다음 조건에 맞춰 사진을 골라 줘. 아이스크림 사진과 같은 행의 먹거리 사진을 찾고, 그 사진에서 위쪽으로 한 칸 이동한 사진을 골라. 해당하는 사진이 없으면 NONE이야.",
+          "gold": "B",
+          "v1_prediction": "B",
+          "prediction": {
+            "action": "B",
+            "probabilities": {
+              "A": 0.0012139943428337574,
+              "B": 0.9981299042701721,
+              "C": 0.0002159069263143465,
+              "D": 3.9213127820403315e-06,
+              "E": 5.268275799608091e-06,
+              "F": 2.1503585685422877e-06,
+              "NONE": 0.00042886490700766444
+            },
+            "latency_ms": 13859.468899900094,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_composition-00104",
+          "source_ids": [
+            "val/images/val_9598.JPEG",
+            "val/images/val_7886.JPEG",
+            "val/images/val_4585.JPEG",
+            "val/images/val_1849.JPEG",
+            "val/images/val_1933.JPEG",
+            "val/images/val_8390.JPEG"
+          ],
+          "instruction": "First find penguin, then step one tile to the left. Which vehicle photo shares that column? Choose NONE if no tile qualifies.",
+          "gold": "D",
+          "v1_prediction": "D",
+          "prediction": {
+            "action": "D",
+            "probabilities": {
+              "A": 0.00030050461646169424,
+              "B": 4.7270259528886527e-07,
+              "C": 5.058606689090084e-07,
+              "D": 0.9993830919265747,
+              "E": 9.347211289423285e-07,
+              "F": 6.866038120278972e-07,
+              "NONE": 0.00031366993789561093
+            },
+            "latency_ms": 13344.766800059006,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_composition-00004",
+          "source_ids": [
+            "val/images/val_5211.JPEG",
+            "val/images/val_9059.JPEG",
+            "val/images/val_7625.JPEG",
+            "val/images/val_7177.JPEG",
+            "val/images/val_7276.JPEG",
+            "val/images/val_3978.JPEG"
+          ],
+          "instruction": "Please help me select one tile. Which photo is one tile to the left of the fruit picture sharing a row with bullet train? Choose NONE if no tile qualifies.",
+          "gold": "NONE",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "NONE",
+            "probabilities": {
+              "A": 1.8249620552523993e-05,
+              "B": 2.2371508748619817e-05,
+              "C": 1.010225332720438e-05,
+              "D": 0.0004874352889601141,
+              "E": 0.0006672541494481266,
+              "F": 7.435857696691528e-05,
+              "NONE": 0.9987202882766724
+            },
+            "latency_ms": 13444.496500073,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_composition-00040",
+          "source_ids": [
+            "val/images/val_4421.JPEG",
+            "val/images/val_5004.JPEG",
+            "val/images/val_4905.JPEG",
+            "val/images/val_6953.JPEG",
+            "val/images/val_516.JPEG",
+            "val/images/val_9503.JPEG"
+          ],
+          "instruction": "부탁 하나 할게. 먼저 낙타를 찾고 왼쪽 한 칸 이동해. 그 칸과 열이 같은 포유류 사진은 어디야? 해당하는 사진이 없으면 NONE이야.",
+          "gold": "D",
+          "v1_prediction": "D",
+          "prediction": {
+            "action": "D",
+            "probabilities": {
+              "A": 0.0010568283032625914,
+              "B": 0.0152127705514431,
+              "C": 0.0036763630341738462,
+              "D": 0.9706390500068665,
+              "E": 0.002120852004736662,
+              "F": 0.0019837466534227133,
+              "NONE": 0.005310459993779659
+            },
+            "latency_ms": 13492.950400104746,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_composition-00068",
+          "source_ids": [
+            "val/images/val_4561.JPEG",
+            "val/images/val_596.JPEG",
+            "val/images/val_6578.JPEG",
+            "val/images/val_2417.JPEG",
+            "val/images/val_5615.JPEG",
+            "val/images/val_5642.JPEG"
+          ],
+          "instruction": "부탁 하나 할게. 주판과 같은 행의 포유류 사진에서 아래쪽 한 칸 떨어진 사진은 어디야?",
+          "gold": "F",
+          "v1_prediction": "F",
+          "prediction": {
+            "action": "F",
+            "probabilities": {
+              "A": 6.709760782541707e-07,
+              "B": 4.5569515805254923e-07,
+              "C": 7.176150234045053e-07,
+              "D": 7.475153324776329e-06,
+              "E": 1.301028169109486e-05,
+              "F": 0.9996401071548462,
+              "NONE": 0.0003375918895471841
+            },
+            "latency_ms": 12905.858899932355,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_composition-00106",
+          "source_ids": [
+            "val/images/val_4729.JPEG",
+            "val/images/val_8641.JPEG",
+            "val/images/val_9493.JPEG",
+            "val/images/val_4682.JPEG",
+            "val/images/val_9581.JPEG",
+            "val/images/val_278.JPEG"
+          ],
+          "instruction": "Look at this photo board. Choose the electrical or electronic device photo in the same column as the tile immediately to the left of umbrella. A move outside the grid means NONE.",
+          "gold": "D",
+          "v1_prediction": "D",
+          "prediction": {
+            "action": "D",
+            "probabilities": {
+              "A": 0.00022993667516857386,
+              "B": 0.00012825688463635743,
+              "C": 4.872294812230393e-05,
+              "D": 0.9678273797035217,
+              "E": 0.0008386265835724771,
+              "F": 0.00015220702334772795,
+              "NONE": 0.030774815008044243
+            },
+            "latency_ms": 13262.742400169373,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_composition-00045",
+          "source_ids": [
+            "val/images/val_5638.JPEG",
+            "val/images/val_5155.JPEG",
+            "val/images/val_1164.JPEG",
+            "val/images/val_7610.JPEG",
+            "val/images/val_8908.JPEG",
+            "val/images/val_4664.JPEG"
+          ],
+          "instruction": "Look at this photo board. Find the food photo in the same row as remote control, then choose the photo one tile below it. A move outside the grid means NONE.",
+          "gold": "F",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "F",
+            "probabilities": {
+              "A": 5.660046440425504e-07,
+              "B": 3.8281797287709196e-07,
+              "C": 9.825809001995367e-07,
+              "D": 1.223662547999993e-05,
+              "E": 9.910191693052184e-06,
+              "F": 0.9996558427810669,
+              "NONE": 0.0003200686478521675
+            },
+            "latency_ms": 13514.261900214478,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_composition-00116",
+          "source_ids": [
+            "val/images/val_6941.JPEG",
+            "val/images/val_7020.JPEG",
+            "val/images/val_1624.JPEG",
+            "val/images/val_1680.JPEG",
+            "val/images/val_5307.JPEG",
+            "val/images/val_1904.JPEG"
+          ],
+          "instruction": "아이스크림 사진의 바로 오른쪽 칸과 같은 열에 있는 과일 사진을 골라. 해당하는 사진이 없으면 NONE이야.",
+          "gold": "B",
+          "v1_prediction": "B",
+          "prediction": {
+            "action": "B",
+            "probabilities": {
+              "A": 0.00014756430755369365,
+              "B": 0.998521625995636,
+              "C": 1.2713507203443442e-05,
+              "D": 3.800555759880808e-06,
+              "E": 6.5661456574162e-06,
+              "F": 1.1381021067791153e-05,
+              "NONE": 0.0012963017215952277
+            },
+            "latency_ms": 13177.33129998669,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_composition-00082",
+          "source_ids": [
+            "val/images/val_6479.JPEG",
+            "val/images/val_4791.JPEG",
+            "val/images/val_5860.JPEG",
+            "val/images/val_9174.JPEG",
+            "val/images/val_9581.JPEG",
+            "val/images/val_358.JPEG"
+          ],
+          "instruction": "이 사진판을 보고 답해 줘. 먼저 고속열차의 행에 있는 곤충 사진을 찾아. 그 칸의 오른쪽 이웃을 골라줘. 해당하는 사진이 없으면 NONE이야.",
+          "gold": "B",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "B",
+            "probabilities": {
+              "A": 2.539874230933492e-06,
+              "B": 0.999671220779419,
+              "C": 2.5571049263817258e-05,
+              "D": 7.188065751506656e-07,
+              "E": 2.7588878310780274e-06,
+              "F": 2.1141208890185226e-06,
+              "NONE": 0.00029510047170333564
+            },
+            "latency_ms": 13422.970399959013,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_composition-00044",
+          "source_ids": [
+            "val/images/val_7978.JPEG",
+            "val/images/val_9130.JPEG",
+            "val/images/val_2180.JPEG",
+            "val/images/val_7020.JPEG",
+            "val/images/val_3415.JPEG",
+            "val/images/val_2071.JPEG"
+          ],
+          "instruction": "Look at this photo board. From goldfish, move one tile to the right, then find fruit in the column you reach. A move outside the grid means NONE.",
+          "gold": "F",
+          "v1_prediction": "F",
+          "prediction": {
+            "action": "F",
+            "probabilities": {
+              "A": 3.504835319745325e-07,
+              "B": 3.323137605093507e-07,
+              "C": 9.234645403921604e-07,
+              "D": 1.3985063560539857e-06,
+              "E": 1.7709362509776838e-05,
+              "F": 0.9996458292007446,
+              "NONE": 0.0003333906934130937
+            },
+            "latency_ms": 13247.729799943045,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_composition-00055",
+          "source_ids": [
+            "val/images/val_6368.JPEG",
+            "val/images/val_7408.JPEG",
+            "val/images/val_6145.JPEG",
+            "val/images/val_7732.JPEG",
+            "val/images/val_8390.JPEG",
+            "val/images/val_7012.JPEG"
+          ],
+          "instruction": "First locate food in the row of remote control. Choose the tile immediately above that photo.",
+          "gold": "B",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "B",
+            "probabilities": {
+              "A": 2.187834252254106e-05,
+              "B": 0.9997439980506897,
+              "C": 2.286349808855448e-05,
+              "D": 5.086847068014322e-07,
+              "E": 7.324145485654299e-07,
+              "F": 5.724709239984804e-07,
+              "NONE": 0.00020942414994351566
+            },
+            "latency_ms": 12996.600999962538,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_composition-00058",
+          "source_ids": [
+            "val/images/val_9666.JPEG",
+            "val/images/val_8844.JPEG",
+            "val/images/val_6658.JPEG",
+            "val/images/val_5053.JPEG",
+            "val/images/val_4288.JPEG",
+            "val/images/val_4791.JPEG"
+          ],
+          "instruction": "이 사진판을 보고 답해 줘. 골든리트리버 사진의 바로 위쪽 칸과 같은 열에 있는 포유류 사진을 골라. 칸을 벗어나는 이동은 NONE으로 답해.",
+          "gold": "D",
+          "v1_prediction": "E",
+          "prediction": {
+            "action": "E",
+            "probabilities": {
+              "A": 0.0003394578234292567,
+              "B": 0.0012769727036356926,
+              "C": 9.490229422226548e-05,
+              "D": 0.018409857526421547,
+              "E": 0.973126232624054,
+              "F": 0.0010506345424801111,
+              "NONE": 0.005701947025954723
+            },
+            "latency_ms": 13669.113399926573,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_composition-00008",
+          "source_ids": [
+            "val/images/val_9441.JPEG",
+            "val/images/val_4054.JPEG",
+            "val/images/val_1884.JPEG",
+            "val/images/val_2092.JPEG",
+            "val/images/val_9405.JPEG",
+            "val/images/val_8183.JPEG"
+          ],
+          "instruction": "부탁 하나 할게. 먼저 트랙터의 행에 있는 동물 사진을 찾아. 그 칸의 아래쪽 이웃을 골라줘. 해당하는 사진이 없으면 NONE이야.",
+          "gold": "NONE",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "NONE",
+            "probabilities": {
+              "A": 1.4590727914765012e-05,
+              "B": 7.309330158022931e-06,
+              "C": 8.751177119847853e-06,
+              "D": 0.0003714778576977551,
+              "E": 4.610928226611577e-05,
+              "F": 3.430340802879073e-05,
+              "NONE": 0.9995174407958984
+            },
+            "latency_ms": 13548.54439990595,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_composition-00085",
+          "source_ids": [
+            "val/images/val_3083.JPEG",
+            "val/images/val_7756.JPEG",
+            "val/images/val_358.JPEG",
+            "val/images/val_5760.JPEG",
+            "val/images/val_8835.JPEG",
+            "val/images/val_370.JPEG"
+          ],
+          "instruction": "Follow this request: Use the immediate right neighbor of rucksack as a reference; select the mammal photo in its column.",
+          "gold": "C",
+          "v1_prediction": "C",
+          "prediction": {
+            "action": "C",
+            "probabilities": {
+              "A": 6.435447721742094e-05,
+              "B": 0.0003274332848377526,
+              "C": 0.9987285733222961,
+              "D": 2.7769349344453076e-06,
+              "E": 3.04265740851406e-05,
+              "F": 1.0430129805172328e-05,
+              "NONE": 0.0008359301136806607
+            },
+            "latency_ms": 12918.135199928656,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_composition-00005",
+          "source_ids": [
+            "val/images/val_2439.JPEG",
+            "val/images/val_9320.JPEG",
+            "val/images/val_7540.JPEG",
+            "val/images/val_1543.JPEG",
+            "val/images/val_1250.JPEG",
+            "val/images/val_2138.JPEG"
+          ],
+          "instruction": "Please help me select one tile. Find electrical or electronic device in the horizontal row containing sunglasses; select its immediate left neighbor.",
+          "gold": "NONE",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "NONE",
+            "probabilities": {
+              "A": 0.0021228790283203125,
+              "B": 0.006279166787862778,
+              "C": 0.00012906541815027595,
+              "D": 0.0076856850646436214,
+              "E": 0.012925160117447376,
+              "F": 0.0004154885245952755,
+              "NONE": 0.970442533493042
+            },
+            "latency_ms": 13079.849599860609,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_composition-00054",
+          "source_ids": [
+            "val/images/val_3964.JPEG",
+            "val/images/val_7854.JPEG",
+            "val/images/val_7711.JPEG",
+            "val/images/val_9529.JPEG",
+            "val/images/val_8264.JPEG",
+            "val/images/val_1164.JPEG"
+          ],
+          "instruction": "다음 조건에 맞춰 사진을 골라 줘. 콜리플라워에서 오른쪽으로 한 칸 간 다음, 도착한 열에서 전기나 전자로 작동하는 기기 사진을 찾아. 칸을 벗어나는 이동은 NONE으로 답해.",
+          "gold": "C",
+          "v1_prediction": "C",
+          "prediction": {
+            "action": "C",
+            "probabilities": {
+              "A": 1.8060491129290313e-05,
+              "B": 2.4935319743235596e-05,
+              "C": 0.9952958226203918,
+              "D": 3.0987064292276045e-06,
+              "E": 3.4566228350740857e-06,
+              "F": 9.719615627545863e-05,
+              "NONE": 0.004557487089186907
+            },
+            "latency_ms": 13681.090999860317,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_composition-00049",
+          "source_ids": [
+            "val/images/val_7949.JPEG",
+            "val/images/val_8294.JPEG",
+            "val/images/val_7392.JPEG",
+            "val/images/val_6479.JPEG",
+            "val/images/val_5134.JPEG",
+            "val/images/val_9059.JPEG"
+          ],
+          "instruction": "부탁 하나 할게. 트랙터 사진과 같은 행의 곤충 사진을 찾고, 그 사진에서 위쪽으로 한 칸 이동한 사진을 골라.",
+          "gold": "A",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "A",
+            "probabilities": {
+              "A": 0.9996684789657593,
+              "B": 2.6981279006577097e-05,
+              "C": 2.21578393393429e-05,
+              "D": 9.775192211236572e-07,
+              "E": 2.174872406612849e-06,
+              "F": 6.333013402581855e-07,
+              "NONE": 0.0002787028206512332
+            },
+            "latency_ms": 13121.692900080234,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_composition-00007",
+          "source_ids": [
+            "val/images/val_9913.JPEG",
+            "val/images/val_8978.JPEG",
+            "val/images/val_7899.JPEG",
+            "val/images/val_3950.JPEG",
+            "val/images/val_6458.JPEG",
+            "val/images/val_8914.JPEG"
+          ],
+          "instruction": "Use the immediate upper neighbor of lemon as a reference; select the electrical or electronic device photo in its column. Choose NONE if no tile qualifies.",
+          "gold": "NONE",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "NONE",
+            "probabilities": {
+              "A": 1.9999835785711184e-05,
+              "B": 1.982259527721908e-05,
+              "C": 1.755616904119961e-05,
+              "D": 0.0001824177015805617,
+              "E": 0.0006518701557070017,
+              "F": 1.1461032954684924e-05,
+              "NONE": 0.9990968704223633
+            },
+            "latency_ms": 13053.19940019399,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_composition-00023",
+          "source_ids": [
+            "val/images/val_1942.JPEG",
+            "val/images/val_1177.JPEG",
+            "val/images/val_3215.JPEG",
+            "val/images/val_873.JPEG",
+            "val/images/val_1240.JPEG",
+            "val/images/val_8577.JPEG"
+          ],
+          "instruction": "Find the food photo in the same row as bus, then choose the photo one tile below it.",
+          "gold": "E",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "E",
+            "probabilities": {
+              "A": 3.133240227271017e-07,
+              "B": 5.698552740796003e-07,
+              "C": 3.1278244705390534e-07,
+              "D": 1.8582273696665652e-05,
+              "E": 0.9997583031654358,
+              "F": 9.151597623713315e-06,
+              "NONE": 0.0002127423940692097
+            },
+            "latency_ms": 12751.114000100642,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_composition-00091",
+          "source_ids": [
+            "val/images/val_9056.JPEG",
+            "val/images/val_6893.JPEG",
+            "val/images/val_4409.JPEG",
+            "val/images/val_1312.JPEG",
+            "val/images/val_2590.JPEG",
+            "val/images/val_8276.JPEG"
+          ],
+          "instruction": "이 사진판을 보고 답해 줘. 트랙터에서 오른쪽으로 한 칸 간 다음, 도착한 열에서 전기나 전자로 작동하는 기기 사진을 찾아. 칸을 벗어나는 이동은 NONE으로 답해.",
+          "gold": "E",
+          "v1_prediction": "E",
+          "prediction": {
+            "action": "E",
+            "probabilities": {
+              "A": 5.220897492108634e-07,
+              "B": 0.00022883481869939715,
+              "C": 8.571907414989255e-07,
+              "D": 2.316221298315213e-06,
+              "E": 0.9993336796760559,
+              "F": 1.534632815491932e-06,
+              "NONE": 0.0004322091117501259
+            },
+            "latency_ms": 13116.338999941945,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_composition-00000",
+          "source_ids": [
+            "val/images/val_9867.JPEG",
+            "val/images/val_1442.JPEG",
+            "val/images/val_4831.JPEG",
+            "val/images/val_5173.JPEG",
+            "val/images/val_3644.JPEG",
+            "val/images/val_8390.JPEG"
+          ],
+          "instruction": "다음 조건에 맞춰 사진을 골라 줘. 먼저 바나나의 행에 있는 과일 사진을 찾아. 그 칸의 아래쪽 이웃을 골라줘.",
+          "gold": "NONE",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "NONE",
+            "probabilities": {
+              "A": 4.607417395163793e-06,
+              "B": 6.203701559570618e-06,
+              "C": 2.7672173018800095e-05,
+              "D": 8.46741022542119e-05,
+              "E": 0.00011548220209078863,
+              "F": 0.0006300777313299477,
+              "NONE": 0.9991312623023987
+            },
+            "latency_ms": 12982.261500088498,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_composition-00049",
+          "source_ids": [
+            "val/images/val_7949.JPEG",
+            "val/images/val_8294.JPEG",
+            "val/images/val_7392.JPEG",
+            "val/images/val_6479.JPEG",
+            "val/images/val_5134.JPEG",
+            "val/images/val_9059.JPEG"
+          ],
+          "instruction": "Look at this photo board. Choose the food photo in the same column as the tile immediately to the right of ladybird. Choose NONE if no tile qualifies.",
+          "gold": "E",
+          "v1_prediction": "E",
+          "prediction": {
+            "action": "E",
+            "probabilities": {
+              "A": 3.0073654215811985e-06,
+              "B": 9.41845246416051e-06,
+              "C": 5.111134669277817e-05,
+              "D": 4.477292350202333e-06,
+              "E": 0.9983343482017517,
+              "F": 4.095551503269235e-06,
+              "NONE": 0.0015936533454805613
+            },
+            "latency_ms": 13045.710799982771,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_composition-00058",
+          "source_ids": [
+            "val/images/val_9666.JPEG",
+            "val/images/val_8844.JPEG",
+            "val/images/val_6658.JPEG",
+            "val/images/val_5053.JPEG",
+            "val/images/val_4288.JPEG",
+            "val/images/val_4791.JPEG"
+          ],
+          "instruction": "Look at this photo board. Find animal in the horizontal row containing pizza; select its immediate upper neighbor. Choose NONE if no tile qualifies.",
+          "gold": "A",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "A",
+            "probabilities": {
+              "A": 0.9989110231399536,
+              "B": 0.00027561988099478185,
+              "C": 5.0467126129660755e-05,
+              "D": 8.200217052944936e-06,
+              "E": 3.044136246899143e-05,
+              "F": 1.4478439425147371e-06,
+              "NONE": 0.000722731405403465
+            },
+            "latency_ms": 13556.71100015752,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_composition-00130",
+          "source_ids": [
+            "val/images/val_8239.JPEG",
+            "val/images/val_6489.JPEG",
+            "val/images/val_187.JPEG",
+            "val/images/val_7269.JPEG",
+            "val/images/val_4061.JPEG",
+            "val/images/val_2480.JPEG"
+          ],
+          "instruction": "우산의 위쪽 이웃 칸을 기준으로 같은 세로줄의 동물 사진을 선택해. 칸을 벗어나는 이동은 NONE으로 답해.",
+          "gold": "C",
+          "v1_prediction": "C",
+          "prediction": {
+            "action": "C",
+            "probabilities": {
+              "A": 2.773243068077136e-05,
+              "B": 1.796643300622236e-05,
+              "C": 0.9948638081550598,
+              "D": 0.0014856124762445688,
+              "E": 0.0010593405459076166,
+              "F": 0.00036454913788475096,
+              "NONE": 0.0021810426842421293
+            },
+            "latency_ms": 14149.229400092736,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_composition-00077",
+          "source_ids": [
+            "val/images/val_8307.JPEG",
+            "val/images/val_6077.JPEG",
+            "val/images/val_9035.JPEG",
+            "val/images/val_9088.JPEG",
+            "val/images/val_791.JPEG",
+            "val/images/val_8489.JPEG"
+          ],
+          "instruction": "이 사진판을 보고 답해 줘. 아이스크림이 있는 가로줄에서 교통수단 사진을 찾은 뒤 그 바로 아래쪽 사진을 선택해. 칸을 벗어나는 이동은 NONE으로 답해.",
+          "gold": "E",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "E",
+            "probabilities": {
+              "A": 6.258200642150769e-07,
+              "B": 1.2456748663680628e-06,
+              "C": 7.193616511358414e-07,
+              "D": 1.940185575222131e-05,
+              "E": 0.9994733929634094,
+              "F": 2.791108090605121e-05,
+              "NONE": 0.0004767597420141101
+            },
+            "latency_ms": 14683.029599953443,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_composition-00068",
+          "source_ids": [
+            "val/images/val_4561.JPEG",
+            "val/images/val_596.JPEG",
+            "val/images/val_6578.JPEG",
+            "val/images/val_2417.JPEG",
+            "val/images/val_5615.JPEG",
+            "val/images/val_5642.JPEG"
+          ],
+          "instruction": "Look at this photo board. Use the immediate lower neighbor of abacus as a reference; select the electrical or electronic device photo in its column. A move outside the grid means NONE.",
+          "gold": "E",
+          "v1_prediction": "E",
+          "prediction": {
+            "action": "E",
+            "probabilities": {
+              "A": 7.5000566539529245e-06,
+              "B": 0.00011442924733273685,
+              "C": 1.1526085472723935e-06,
+              "D": 1.410755157849053e-05,
+              "E": 0.9994489550590515,
+              "F": 1.3457874956657179e-05,
+              "NONE": 0.00040049388189800084
+            },
+            "latency_ms": 14441.174100153148,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_composition-00025",
+          "source_ids": [
+            "val/images/val_8682.JPEG",
+            "val/images/val_5039.JPEG",
+            "val/images/val_9002.JPEG",
+            "val/images/val_1415.JPEG",
+            "val/images/val_7435.JPEG",
+            "val/images/val_8700.JPEG"
+          ],
+          "instruction": "Please help me select one tile. Which photo is one tile to the right of the mammal picture sharing a row with cat?",
+          "gold": "B",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "B",
+            "probabilities": {
+              "A": 0.0001246327010449022,
+              "B": 0.9741458892822266,
+              "C": 0.010084702633321285,
+              "D": 0.0002272382116643712,
+              "E": 0.004830951802432537,
+              "F": 0.003180577652528882,
+              "NONE": 0.00740585895255208
+            },
+            "latency_ms": 14121.81010004133,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_composition-00126",
+          "source_ids": [
+            "val/images/val_2073.JPEG",
+            "val/images/val_8499.JPEG",
+            "val/images/val_6098.JPEG",
+            "val/images/val_5454.JPEG",
+            "val/images/val_2948.JPEG",
+            "val/images/val_7411.JPEG"
+          ],
+          "instruction": "바나나에서 위쪽으로 한 칸 간 다음, 도착한 열에서 음식 사진을 찾아. 해당하는 사진이 없으면 NONE이야.",
+          "gold": "F",
+          "v1_prediction": "F",
+          "prediction": {
+            "action": "F",
+            "probabilities": {
+              "A": 8.189809932446224e-07,
+              "B": 5.828518396810978e-07,
+              "C": 3.064204429392703e-05,
+              "D": 4.9248385039390996e-05,
+              "E": 1.8991255274158902e-05,
+              "F": 0.9996095299720764,
+              "NONE": 0.0002901491825468838
+            },
+            "latency_ms": 14267.178199952468,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_composition-00131",
+          "source_ids": [
+            "val/images/val_5438.JPEG",
+            "val/images/val_5707.JPEG",
+            "val/images/val_9913.JPEG",
+            "val/images/val_7672.JPEG",
+            "val/images/val_4291.JPEG",
+            "val/images/val_78.JPEG"
+          ],
+          "instruction": "다음 조건에 맞춰 사진을 골라 줘. 레몬과 같은 행의 포유류 사진에서 왼쪽 한 칸 떨어진 사진은 어디야?",
+          "gold": "D",
+          "v1_prediction": "E",
+          "prediction": {
+            "action": "D",
+            "probabilities": {
+              "A": 5.052495453128358e-06,
+              "B": 4.743149474961683e-06,
+              "C": 1.7992837229030556e-06,
+              "D": 0.999485969543457,
+              "E": 0.00015697973140049726,
+              "F": 2.4272906102851266e-06,
+              "NONE": 0.0003430263604968786
+            },
+            "latency_ms": 14228.658499894664,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_composition-00008",
+          "source_ids": [
+            "val/images/val_9441.JPEG",
+            "val/images/val_4054.JPEG",
+            "val/images/val_1884.JPEG",
+            "val/images/val_2092.JPEG",
+            "val/images/val_9405.JPEG",
+            "val/images/val_8183.JPEG"
+          ],
+          "instruction": "Use the immediate left neighbor of elephant as a reference; select the mammal photo in its column. A move outside the grid means NONE.",
+          "gold": "NONE",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "NONE",
+            "probabilities": {
+              "A": 0.00021866513998247683,
+              "B": 0.00035250888322480023,
+              "C": 0.0008074728539213538,
+              "D": 0.018710410222411156,
+              "E": 0.0009047635830938816,
+              "F": 0.0006683177780359983,
+              "NONE": 0.978337824344635
+            },
+            "latency_ms": 14133.417600067332,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_composition-00078",
+          "source_ids": [
+            "val/images/val_4918.JPEG",
+            "val/images/val_3231.JPEG",
+            "val/images/val_9553.JPEG",
+            "val/images/val_3053.JPEG",
+            "val/images/val_6644.JPEG",
+            "val/images/val_9028.JPEG"
+          ],
+          "instruction": "Please help me select one tile. Which photo is one tile to the right of the mammal picture sharing a row with umbrella? A move outside the grid means NONE.",
+          "gold": "F",
+          "v1_prediction": "F",
+          "prediction": {
+            "action": "F",
+            "probabilities": {
+              "A": 1.7008221675496316e-06,
+              "B": 5.8948853620677255e-06,
+              "C": 1.3825298992742319e-05,
+              "D": 4.533966784947552e-05,
+              "E": 0.0003574747242964804,
+              "F": 0.9989822506904602,
+              "NONE": 0.0005935810622759163
+            },
+            "latency_ms": 13346.602200064808,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_composition-00127",
+          "source_ids": [
+            "val/images/val_6573.JPEG",
+            "val/images/val_1239.JPEG",
+            "val/images/val_283.JPEG",
+            "val/images/val_5901.JPEG",
+            "val/images/val_7181.JPEG",
+            "val/images/val_2311.JPEG"
+          ],
+          "instruction": "부탁 하나 할게. 황소개구리의 위쪽 이웃 칸을 기준으로 같은 세로줄의 동물 사진을 선택해. 칸을 벗어나는 이동은 NONE으로 답해.",
+          "gold": "F",
+          "v1_prediction": "F",
+          "prediction": {
+            "action": "F",
+            "probabilities": {
+              "A": 1.205802050208149e-06,
+              "B": 8.206528718801565e-07,
+              "C": 4.854842700297013e-06,
+              "D": 5.063324351795018e-06,
+              "E": 4.4067051021556836e-06,
+              "F": 0.999569833278656,
+              "NONE": 0.0004138599324505776
+            },
+            "latency_ms": 13408.012399915606,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_composition-00062",
+          "source_ids": [
+            "val/images/val_8223.JPEG",
+            "val/images/val_9705.JPEG",
+            "val/images/val_4714.JPEG",
+            "val/images/val_4646.JPEG",
+            "val/images/val_7009.JPEG",
+            "val/images/val_5197.JPEG"
+          ],
+          "instruction": "이 사진판을 보고 답해 줘. 오렌지 사진과 같은 행의 과일 사진을 찾고, 그 사진에서 오른쪽으로 한 칸 이동한 사진을 골라. 칸을 벗어나는 이동은 NONE으로 답해.",
+          "gold": "B",
+          "v1_prediction": "B",
+          "prediction": {
+            "action": "B",
+            "probabilities": {
+              "A": 2.8251108687982196e-06,
+              "B": 0.9997075200080872,
+              "C": 5.8483950851950794e-05,
+              "D": 1.2346539506324916e-06,
+              "E": 1.9037037418456748e-05,
+              "F": 7.347485279751709e-06,
+              "NONE": 0.00020343816140666604
+            },
+            "latency_ms": 13441.612700000405,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_composition-00139",
+          "source_ids": [
+            "val/images/val_3946.JPEG",
+            "val/images/val_1267.JPEG",
+            "val/images/val_6775.JPEG",
+            "val/images/val_2939.JPEG",
+            "val/images/val_6156.JPEG",
+            "val/images/val_2209.JPEG"
+          ],
+          "instruction": "Follow this request: Use the immediate left neighbor of goose as a reference; select the kitchenware item photo in its column. Choose NONE if no tile qualifies.",
+          "gold": "A",
+          "v1_prediction": "A",
+          "prediction": {
+            "action": "A",
+            "probabilities": {
+              "A": 0.9846107363700867,
+              "B": 8.258057277998887e-06,
+              "C": 9.343364581582136e-06,
+              "D": 0.0020650087390094995,
+              "E": 8.848794095683843e-06,
+              "F": 7.923124030639883e-06,
+              "NONE": 0.013289880007505417
+            },
+            "latency_ms": 12987.626800080761,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_composition-00077",
+          "source_ids": [
+            "val/images/val_8307.JPEG",
+            "val/images/val_6077.JPEG",
+            "val/images/val_9035.JPEG",
+            "val/images/val_9088.JPEG",
+            "val/images/val_791.JPEG",
+            "val/images/val_8489.JPEG"
+          ],
+          "instruction": "Please help me select one tile. Find the food photo in the same row as orange, then choose the photo one tile to the right of it. Choose NONE if no tile qualifies.",
+          "gold": "E",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "E",
+            "probabilities": {
+              "A": 1.370586801385798e-06,
+              "B": 7.537752935604658e-06,
+              "C": 1.0775504961202387e-05,
+              "D": 3.189415565429954e-06,
+              "E": 0.999640703201294,
+              "F": 5.177428829483688e-05,
+              "NONE": 0.0002847377036232501
+            },
+            "latency_ms": 13598.364799981937,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_composition-00072",
+          "source_ids": [
+            "val/images/val_2805.JPEG",
+            "val/images/val_9988.JPEG",
+            "val/images/val_92.JPEG",
+            "val/images/val_9287.JPEG",
+            "val/images/val_7132.JPEG",
+            "val/images/val_8899.JPEG"
+          ],
+          "instruction": "이 사진판을 보고 답해 줘. 골든리트리버 사진의 바로 오른쪽 칸과 같은 열에 있는 포유류 사진을 골라. 해당하는 사진이 없으면 NONE이야.",
+          "gold": "E",
+          "v1_prediction": "E",
+          "prediction": {
+            "action": "E",
+            "probabilities": {
+              "A": 4.970847840013448e-07,
+              "B": 4.801702743861824e-06,
+              "C": 6.365273179653741e-07,
+              "D": 5.681243692379212e-06,
+              "E": 0.9997560381889343,
+              "F": 8.040331158554181e-05,
+              "NONE": 0.00015189891564659774
+            },
+            "latency_ms": 13427.5291999802,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_composition-00001",
+          "source_ids": [
+            "val/images/val_7289.JPEG",
+            "val/images/val_6414.JPEG",
+            "val/images/val_3123.JPEG",
+            "val/images/val_4775.JPEG",
+            "val/images/val_298.JPEG",
+            "val/images/val_8565.JPEG"
+          ],
+          "instruction": "다음 조건에 맞춰 사진을 골라 줘. 금붕어가 있는 가로줄에서 곤충 사진을 찾은 뒤 그 바로 위쪽 사진을 선택해. 해당하는 사진이 없으면 NONE이야.",
+          "gold": "NONE",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "NONE",
+            "probabilities": {
+              "A": 0.007361470256000757,
+              "B": 0.013587807305157185,
+              "C": 0.01026831939816475,
+              "D": 0.00023842840164434165,
+              "E": 0.00030895855161361396,
+              "F": 0.00021776730136480182,
+              "NONE": 0.9680172204971313
+            },
+            "latency_ms": 13415.635299868882,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_composition-00117",
+          "source_ids": [
+            "val/images/val_7668.JPEG",
+            "val/images/val_6947.JPEG",
+            "val/images/val_7949.JPEG",
+            "val/images/val_7775.JPEG",
+            "val/images/val_4274.JPEG",
+            "val/images/val_5755.JPEG"
+          ],
+          "instruction": "First find hourglass, then step one tile up. Which animal photo shares that column?",
+          "gold": "B",
+          "v1_prediction": "B",
+          "prediction": {
+            "action": "B",
+            "probabilities": {
+              "A": 1.5319382100642542e-06,
+              "B": 0.9996340274810791,
+              "C": 1.4151940376905259e-05,
+              "D": 2.125599849023274e-06,
+              "E": 1.0704860869736876e-05,
+              "F": 4.832830745726824e-05,
+              "NONE": 0.0002889261522796005
+            },
+            "latency_ms": 13192.158400081098,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_composition-00095",
+          "source_ids": [
+            "val/images/val_4379.JPEG",
+            "val/images/val_8183.JPEG",
+            "val/images/val_1410.JPEG",
+            "val/images/val_7969.JPEG",
+            "val/images/val_8431.JPEG",
+            "val/images/val_9460.JPEG"
+          ],
+          "instruction": "Follow this request: Which photo is one tile to the right of the vehicle picture sharing a row with car? Choose NONE if no tile qualifies.",
+          "gold": "E",
+          "v1_prediction": "E",
+          "prediction": {
+            "action": "E",
+            "probabilities": {
+              "A": 9.445598152524326e-07,
+              "B": 4.856488885707222e-06,
+              "C": 4.276009349268861e-06,
+              "D": 4.160223397775553e-06,
+              "E": 0.9995865225791931,
+              "F": 6.870679499115795e-05,
+              "NONE": 0.00033057385007850826
+            },
+            "latency_ms": 13319.638499990106,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_composition-00082",
+          "source_ids": [
+            "val/images/val_6479.JPEG",
+            "val/images/val_4791.JPEG",
+            "val/images/val_5860.JPEG",
+            "val/images/val_9174.JPEG",
+            "val/images/val_9581.JPEG",
+            "val/images/val_358.JPEG"
+          ],
+          "instruction": "부탁 하나 할게. 피자 사진의 바로 왼쪽 칸과 같은 열에 있는 포유류 사진을 골라. 해당하는 사진이 없으면 NONE이야.",
+          "gold": "D",
+          "v1_prediction": "D",
+          "prediction": {
+            "action": "D",
+            "probabilities": {
+              "A": 1.389936005580239e-05,
+              "B": 4.171369027972105e-07,
+              "C": 3.8339277352861245e-07,
+              "D": 0.9997352957725525,
+              "E": 1.8722076902122353e-06,
+              "F": 1.910084392875433e-06,
+              "NONE": 0.0002461921249050647
+            },
+            "latency_ms": 13542.079499922693,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_composition-00042",
+          "source_ids": [
+            "val/images/val_6137.JPEG",
+            "val/images/val_6648.JPEG",
+            "val/images/val_2605.JPEG",
+            "val/images/val_7724.JPEG",
+            "val/images/val_8751.JPEG",
+            "val/images/val_5011.JPEG"
+          ],
+          "instruction": "스포츠카 사진과 같은 행의 교통수단 사진을 찾고, 그 사진에서 오른쪽으로 한 칸 이동한 사진을 골라. 해당하는 사진이 없으면 NONE이야.",
+          "gold": "B",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "B",
+            "probabilities": {
+              "A": 5.756378868682077e-06,
+              "B": 0.9993877410888672,
+              "C": 0.00014755377196706831,
+              "D": 2.018352461163886e-06,
+              "E": 3.234785981476307e-05,
+              "F": 1.0506159924261738e-05,
+              "NONE": 0.00041405297815799713
+            },
+            "latency_ms": 12075.502099934965,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_composition-00070",
+          "source_ids": [
+            "val/images/val_7949.JPEG",
+            "val/images/val_5454.JPEG",
+            "val/images/val_8659.JPEG",
+            "val/images/val_3064.JPEG",
+            "val/images/val_576.JPEG",
+            "val/images/val_3850.JPEG"
+          ],
+          "instruction": "Please help me select one tile. From bell pepper, move one tile to the right, then find animal in the column you reach. A move outside the grid means NONE.",
+          "gold": "F",
+          "v1_prediction": "F",
+          "prediction": {
+            "action": "F",
+            "probabilities": {
+              "A": 9.155088491752394e-07,
+              "B": 4.4362911921780324e-07,
+              "C": 8.544744196115062e-05,
+              "D": 1.5037206821943983e-06,
+              "E": 4.921978870697785e-06,
+              "F": 0.9997195601463318,
+              "NONE": 0.0001872506836662069
+            },
+            "latency_ms": 12150.487100007012,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_composition-00107",
+          "source_ids": [
+            "val/images/val_3648.JPEG",
+            "val/images/val_8674.JPEG",
+            "val/images/val_7968.JPEG",
+            "val/images/val_9299.JPEG",
+            "val/images/val_466.JPEG",
+            "val/images/val_477.JPEG"
+          ],
+          "instruction": "Look at this photo board. Find food in the horizontal row containing bullet train; select its immediate right neighbor. Choose NONE if no tile qualifies.",
+          "gold": "F",
+          "v1_prediction": "E",
+          "prediction": {
+            "action": "F",
+            "probabilities": {
+              "A": 5.390832029661397e-07,
+              "B": 9.238459597327164e-07,
+              "C": 2.6183236059296178e-06,
+              "D": 1.1674798088279204e-06,
+              "E": 3.892198947141878e-05,
+              "F": 0.9997201561927795,
+              "NONE": 0.00023560902627650648
+            },
+            "latency_ms": 11722.929400159046,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_composition-00003",
+          "source_ids": [
+            "val/images/val_4297.JPEG",
+            "val/images/val_8327.JPEG",
+            "val/images/val_4561.JPEG",
+            "val/images/val_596.JPEG",
+            "val/images/val_9460.JPEG",
+            "val/images/val_7145.JPEG"
+          ],
+          "instruction": "부탁 하나 할게. 기니피그 사진의 바로 위쪽 칸과 같은 열에 있는 곤충 사진을 골라. 칸을 벗어나는 이동은 NONE으로 답해.",
+          "gold": "NONE",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "NONE",
+            "probabilities": {
+              "A": 4.597466249833815e-05,
+              "B": 4.752244058181532e-05,
+              "C": 0.0004158821830060333,
+              "D": 0.0001053072337526828,
+              "E": 0.005309113301336765,
+              "F": 3.4116306778742e-05,
+              "NONE": 0.9940420985221863
+            },
+            "latency_ms": 11902.626200113446,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_composition-00122",
+          "source_ids": [
+            "val/images/val_6949.JPEG",
+            "val/images/val_2415.JPEG",
+            "val/images/val_5978.JPEG",
+            "val/images/val_802.JPEG",
+            "val/images/val_8239.JPEG",
+            "val/images/val_6826.JPEG"
+          ],
+          "instruction": "다음 조건에 맞춰 사진을 골라 줘. 기차가 있는 가로줄에서 교통수단 사진을 찾은 뒤 그 바로 아래쪽 사진을 선택해. 해당하는 사진이 없으면 NONE이야.",
+          "gold": "D",
+          "v1_prediction": "D",
+          "prediction": {
+            "action": "D",
+            "probabilities": {
+              "A": 6.477951046690578e-07,
+              "B": 5.297173402141198e-07,
+              "C": 5.980153900964069e-07,
+              "D": 0.9998375177383423,
+              "E": 6.725082130287774e-06,
+              "F": 6.794978617108427e-06,
+              "NONE": 0.00014717008161824197
+            },
+            "latency_ms": 13383.757600095123,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_composition-00039",
+          "source_ids": [
+            "val/images/val_2488.JPEG",
+            "val/images/val_5374.JPEG",
+            "val/images/val_5197.JPEG",
+            "val/images/val_2569.JPEG",
+            "val/images/val_9262.JPEG",
+            "val/images/val_5331.JPEG"
+          ],
+          "instruction": "Use the immediate left neighbor of lifeboat as a reference; select the kitchenware item photo in its column. A move outside the grid means NONE.",
+          "gold": "D",
+          "v1_prediction": "D",
+          "prediction": {
+            "action": "D",
+            "probabilities": {
+              "A": 5.196071469981689e-06,
+              "B": 4.224604026603629e-07,
+              "C": 3.919480207059678e-07,
+              "D": 0.9990311861038208,
+              "E": 1.1250492661929457e-06,
+              "F": 7.386688025690091e-07,
+              "NONE": 0.0009610690176486969
+            },
+            "latency_ms": 13165.895600104704,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_composition-00050",
+          "source_ids": [
+            "val/images/val_5236.JPEG",
+            "val/images/val_1236.JPEG",
+            "val/images/val_4811.JPEG",
+            "val/images/val_9234.JPEG",
+            "val/images/val_2006.JPEG",
+            "val/images/val_6065.JPEG"
+          ],
+          "instruction": "Please help me select one tile. Find vehicle in the horizontal row containing goldfish; select its immediate upper neighbor. Choose NONE if no tile qualifies.",
+          "gold": "B",
+          "v1_prediction": "C",
+          "prediction": {
+            "action": "B",
+            "probabilities": {
+              "A": 0.00016950146527960896,
+              "B": 0.9992741942405701,
+              "C": 0.00012868529302068055,
+              "D": 1.6322278497682419e-06,
+              "E": 5.421651621873025e-06,
+              "F": 1.4106516346146236e-06,
+              "NONE": 0.00041904192767105997
+            },
+            "latency_ms": 13004.25049988553,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_composition-00119",
+          "source_ids": [
+            "val/images/val_3356.JPEG",
+            "val/images/val_6981.JPEG",
+            "val/images/val_3053.JPEG",
+            "val/images/val_2376.JPEG",
+            "val/images/val_6431.JPEG",
+            "val/images/val_8925.JPEG"
+          ],
+          "instruction": "다음 조건에 맞춰 사진을 골라 줘. 펭귄 사진의 바로 왼쪽 칸과 같은 열에 있는 동물 사진을 골라. 해당하는 사진이 없으면 NONE이야.",
+          "gold": "D",
+          "v1_prediction": "D",
+          "prediction": {
+            "action": "D",
+            "probabilities": {
+              "A": 8.342269211425446e-06,
+              "B": 1.067140055965865e-05,
+              "C": 9.332613444712479e-06,
+              "D": 0.9996334314346313,
+              "E": 1.3319364597919048e-06,
+              "F": 1.4482459391729208e-06,
+              "NONE": 0.0003354933578521013
+            },
+            "latency_ms": 13359.753799857572,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_composition-00078",
+          "source_ids": [
+            "val/images/val_4918.JPEG",
+            "val/images/val_3231.JPEG",
+            "val/images/val_9553.JPEG",
+            "val/images/val_3053.JPEG",
+            "val/images/val_6644.JPEG",
+            "val/images/val_9028.JPEG"
+          ],
+          "instruction": "부탁 하나 할게. 우산과 같은 행의 포유류 사진에서 오른쪽 한 칸 떨어진 사진은 어디야? 칸을 벗어나는 이동은 NONE으로 답해.",
+          "gold": "F",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "F",
+            "probabilities": {
+              "A": 8.419588084507268e-07,
+              "B": 5.2156433412164915e-06,
+              "C": 1.448578495910624e-05,
+              "D": 3.2159748570848024e-06,
+              "E": 2.4903427402023226e-05,
+              "F": 0.9998043179512024,
+              "NONE": 0.00014702464977744967
+            },
+            "latency_ms": 13430.481400107965,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        }
+      ]
+    },
+    "test_combined": {
+      "count": 56,
+      "v1_subset_accuracy": 0.5892857142857143,
+      "v2_subset_accuracy": 0.9464285714285714,
+      "delta_percentage_points": 35.71428571428571,
+      "rows": [
+        {
+          "scene_id": "test_combined-00007",
+          "source_ids": [
+            "val/images/val_6077.JPEG",
+            "val/images/val_4868.JPEG",
+            "val/images/val_8454.JPEG",
+            "val/images/val_777.JPEG",
+            "val/images/val_5088.JPEG",
+            "val/images/val_9204.JPEG"
+          ],
+          "instruction": "Follow this request: The search column contains the immediate lower neighbor of dragonfly. Answer with the boat picture in that column.",
+          "gold": "NONE",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "NONE",
+            "probabilities": {
+              "A": 4.9243797548115253e-05,
+              "B": 2.8553635274874978e-05,
+              "C": 0.00010350790398661047,
+              "D": 9.53316775849089e-05,
+              "E": 0.0001275397662539035,
+              "F": 0.0019185093697160482,
+              "NONE": 0.9976773858070374
+            },
+            "latency_ms": 13045.301999896765,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_combined-00109",
+          "source_ids": [
+            "val/images/val_1085.JPEG",
+            "val/images/val_1624.JPEG",
+            "val/images/val_5236.JPEG",
+            "val/images/val_4604.JPEG",
+            "val/images/val_9024.JPEG",
+            "val/images/val_2927.JPEG"
+          ],
+          "instruction": "Please help me select one tile. The final photo is the immediate lower neighbor of a mammal photo. Find that mammal photo in the row of pig.",
+          "gold": "D",
+          "v1_prediction": "E",
+          "prediction": {
+            "action": "D",
+            "probabilities": {
+              "A": 4.920172432321124e-05,
+              "B": 9.471714292885736e-05,
+              "C": 5.7626144553069025e-05,
+              "D": 0.9922118186950684,
+              "E": 0.0016187019646167755,
+              "F": 0.0016815623966977,
+              "NONE": 0.004286395385861397
+            },
+            "latency_ms": 13176.307300105691,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_combined-00008",
+          "source_ids": [
+            "val/images/val_8599.JPEG",
+            "val/images/val_8872.JPEG",
+            "val/images/val_4151.JPEG",
+            "val/images/val_4690.JPEG",
+            "val/images/val_9024.JPEG",
+            "val/images/val_3732.JPEG"
+          ],
+          "instruction": "다음 조건에 맞춰 사진을 골라 줘. 과일 사진을 고르되, 석류에서 아래쪽 한 칸 이동해서 도착한 열 안에서 찾아야 해. 해당하는 사진이 없으면 NONE이야.",
+          "gold": "B",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "B",
+            "probabilities": {
+              "A": 4.2259375732101034e-06,
+              "B": 0.9984201192855835,
+              "C": 3.1729991860629525e-06,
+              "D": 5.218712249188684e-05,
+              "E": 0.0003923736803699285,
+              "F": 2.577702161943307e-06,
+              "NONE": 0.0011252124095335603
+            },
+            "latency_ms": 13597.499999916181,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_combined-00114",
+          "source_ids": [
+            "val/images/val_7801.JPEG",
+            "val/images/val_3560.JPEG",
+            "val/images/val_2686.JPEG",
+            "val/images/val_1436.JPEG",
+            "val/images/val_8863.JPEG",
+            "val/images/val_105.JPEG"
+          ],
+          "instruction": "부탁 하나 할게. 마지막에 고를 사진은 동물 사진의 바로 위쪽 칸이야. 그 동물 사진은 모래시계와 같은 행에서 찾아.",
+          "gold": "C",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "C",
+            "probabilities": {
+              "A": 0.0010703863808885217,
+              "B": 0.00045628673979081213,
+              "C": 0.9954820871353149,
+              "D": 4.0678689401829615e-05,
+              "E": 3.9854970964370295e-05,
+              "F": 5.26738258486148e-05,
+              "NONE": 0.0028579074423760176
+            },
+            "latency_ms": 13483.508199919015,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_combined-00126",
+          "source_ids": [
+            "val/images/val_6605.JPEG",
+            "val/images/val_5254.JPEG",
+            "val/images/val_9059.JPEG",
+            "val/images/val_4002.JPEG",
+            "val/images/val_7460.JPEG",
+            "val/images/val_1255.JPEG"
+          ],
+          "instruction": "Look at this photo board. The search column contains the immediate left neighbor of remote control. Answer with the animal picture in that column.",
+          "gold": "A",
+          "v1_prediction": "A",
+          "prediction": {
+            "action": "A",
+            "probabilities": {
+              "A": 0.99950110912323,
+              "B": 1.424245283487835e-06,
+              "C": 8.486481419822667e-07,
+              "D": 6.419940746127395e-06,
+              "E": 5.833068144056597e-07,
+              "F": 6.157112011351273e-07,
+              "NONE": 0.0004890330019406974
+            },
+            "latency_ms": 12927.690600045025,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_combined-00105",
+          "source_ids": [
+            "val/images/val_4392.JPEG",
+            "val/images/val_6147.JPEG",
+            "val/images/val_3998.JPEG",
+            "val/images/val_8494.JPEG",
+            "val/images/val_2480.JPEG",
+            "val/images/val_2253.JPEG"
+          ],
+          "instruction": "Please help me select one tile. Your starting tile shows fruit and shares a row with ice cream. Move one tile to the left from that starting tile.",
+          "gold": "B",
+          "v1_prediction": "A",
+          "prediction": {
+            "action": "B",
+            "probabilities": {
+              "A": 1.6026438970584422e-05,
+              "B": 0.9998192191123962,
+              "C": 1.420257035533723e-06,
+              "D": 7.458115760528017e-07,
+              "E": 1.8323960375710158e-06,
+              "F": 6.210487413227384e-07,
+              "NONE": 0.0001602718111826107
+            },
+            "latency_ms": 13061.498999828473,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_combined-00001",
+          "source_ids": [
+            "val/images/val_8634.JPEG",
+            "val/images/val_5236.JPEG",
+            "val/images/val_8789.JPEG",
+            "val/images/val_5986.JPEG",
+            "val/images/val_83.JPEG",
+            "val/images/val_8489.JPEG"
+          ],
+          "instruction": "조류 사진을 고르되, 모래시계에서 위쪽 한 칸 이동해서 도착한 열 안에서 찾아야 해.",
+          "gold": "NONE",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "NONE",
+            "probabilities": {
+              "A": 0.01846001297235489,
+              "B": 0.006846992298960686,
+              "C": 0.000665542553178966,
+              "D": 0.004065762273967266,
+              "E": 0.0003885499609168619,
+              "F": 0.0001382345799356699,
+              "NONE": 0.9694348573684692
+            },
+            "latency_ms": 13112.260699970648,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_combined-00107",
+          "source_ids": [
+            "val/images/val_3986.JPEG",
+            "val/images/val_563.JPEG",
+            "val/images/val_3828.JPEG",
+            "val/images/val_3046.JPEG",
+            "val/images/val_832.JPEG",
+            "val/images/val_1240.JPEG"
+          ],
+          "instruction": "다음 조건에 맞춰 사진을 골라 줘. 마지막에 고를 사진은 동물 사진의 바로 위쪽 칸이야. 그 동물 사진은 코알라와 같은 행에서 찾아. 칸을 벗어나는 이동은 NONE으로 답해.",
+          "gold": "C",
+          "v1_prediction": "C",
+          "prediction": {
+            "action": "C",
+            "probabilities": {
+              "A": 2.209911690442823e-05,
+              "B": 0.00015524424088653177,
+              "C": 0.9990493655204773,
+              "D": 9.052552627508703e-07,
+              "E": 6.691387625323841e-06,
+              "F": 5.144751867192099e-06,
+              "NONE": 0.0007605444989167154
+            },
+            "latency_ms": 13761.636600131169,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_combined-00076",
+          "source_ids": [
+            "val/images/val_2600.JPEG",
+            "val/images/val_9544.JPEG",
+            "val/images/val_381.JPEG",
+            "val/images/val_5582.JPEG",
+            "val/images/val_5911.JPEG",
+            "val/images/val_4121.JPEG"
+          ],
+          "instruction": "The search column contains the immediate right neighbor of golden retriever. Answer with the electrical or electronic device picture in that column.",
+          "gold": "F",
+          "v1_prediction": "F",
+          "prediction": {
+            "action": "F",
+            "probabilities": {
+              "A": 1.0389270528321504e-06,
+              "B": 1.1768792091970681e-06,
+              "C": 1.677542968536727e-05,
+              "D": 2.237208036603988e-06,
+              "E": 4.4047469600627664e-06,
+              "F": 0.9992018342018127,
+              "NONE": 0.0007725294562987983
+            },
+            "latency_ms": 13394.01870011352,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_combined-00046",
+          "source_ids": [
+            "val/images/val_2137.JPEG",
+            "val/images/val_7978.JPEG",
+            "val/images/val_1009.JPEG",
+            "val/images/val_7974.JPEG",
+            "val/images/val_3040.JPEG",
+            "val/images/val_4561.JPEG"
+          ],
+          "instruction": "Your starting tile shows boat and shares a row with lifeboat. Move one tile to the right from that starting tile. Choose NONE if no tile qualifies.",
+          "gold": "E",
+          "v1_prediction": "E",
+          "prediction": {
+            "action": "E",
+            "probabilities": {
+              "A": 4.2176887404821173e-07,
+              "B": 1.0717538998505916e-06,
+              "C": 9.43342286063853e-07,
+              "D": 1.2131505400247988e-06,
+              "E": 0.9998396635055542,
+              "F": 4.407245069160126e-05,
+              "NONE": 0.00011249885574216023
+            },
+            "latency_ms": 14173.411200055853,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_combined-00021",
+          "source_ids": [
+            "val/images/val_1808.JPEG",
+            "val/images/val_4432.JPEG",
+            "val/images/val_7659.JPEG",
+            "val/images/val_2986.JPEG",
+            "val/images/val_8264.JPEG",
+            "val/images/val_4490.JPEG"
+          ],
+          "instruction": "다음 조건에 맞춰 사진을 골라 줘. 과일 사진을 고르되, 바나나에서 위쪽 한 칸 이동해서 도착한 열 안에서 찾아야 해.",
+          "gold": "D",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "D",
+            "probabilities": {
+              "A": 8.673941920278594e-06,
+              "B": 6.369731977429183e-07,
+              "C": 8.40521636291669e-07,
+              "D": 0.9995236396789551,
+              "E": 1.0314362043573055e-05,
+              "F": 1.9447950307949213e-06,
+              "NONE": 0.0004539819492492825
+            },
+            "latency_ms": 14056.346899829805,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_combined-00111",
+          "source_ids": [
+            "val/images/val_1006.JPEG",
+            "val/images/val_7435.JPEG",
+            "val/images/val_8815.JPEG",
+            "val/images/val_5978.JPEG",
+            "val/images/val_6463.JPEG",
+            "val/images/val_3408.JPEG"
+          ],
+          "instruction": "다음 조건에 맞춰 사진을 골라 줘. 이동을 시작할 칸은 황소개구리 사진과 같은 행에 있는 먹거리 사진이야. 거기서 위쪽으로 한 칸 이동해. 해당하는 사진이 없으면 NONE이야.",
+          "gold": "C",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "C",
+            "probabilities": {
+              "A": 1.6797215494079865e-06,
+              "B": 1.1888908375112806e-05,
+              "C": 0.9998379945755005,
+              "D": 3.668826309422002e-07,
+              "E": 5.715989459531556e-07,
+              "F": 8.005387144294218e-07,
+              "NONE": 0.00014662547619082034
+            },
+            "latency_ms": 14677.351200021803,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_combined-00060",
+          "source_ids": [
+            "val/images/val_4794.JPEG",
+            "val/images/val_2407.JPEG",
+            "val/images/val_4815.JPEG",
+            "val/images/val_6564.JPEG",
+            "val/images/val_5099.JPEG",
+            "val/images/val_1096.JPEG"
+          ],
+          "instruction": "Please help me select one tile. The search column contains the immediate upper neighbor of penguin. Answer with the mammal picture in that column. Choose NONE if no tile qualifies.",
+          "gold": "A",
+          "v1_prediction": "A",
+          "prediction": {
+            "action": "A",
+            "probabilities": {
+              "A": 0.9995922446250916,
+              "B": 3.451621296335361e-06,
+              "C": 1.4425512517846073e-06,
+              "D": 2.14618148675072e-06,
+              "E": 5.297725238051498e-06,
+              "F": 1.1946335689572152e-06,
+              "NONE": 0.0003942522162105888
+            },
+            "latency_ms": 14220.210799947381,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_combined-00040",
+          "source_ids": [
+            "val/images/val_7678.JPEG",
+            "val/images/val_3771.JPEG",
+            "val/images/val_9523.JPEG",
+            "val/images/val_7088.JPEG",
+            "val/images/val_1972.JPEG",
+            "val/images/val_6667.JPEG"
+          ],
+          "instruction": "Please help me select one tile. The final photo is the immediate right neighbor of a vehicle photo. Find that vehicle photo in the row of orange.",
+          "gold": "C",
+          "v1_prediction": "B",
+          "prediction": {
+            "action": "C",
+            "probabilities": {
+              "A": 1.364335730613675e-06,
+              "B": 3.3417031772842165e-06,
+              "C": 0.9998472929000854,
+              "D": 4.654046392715827e-07,
+              "E": 2.8778451905964175e-06,
+              "F": 4.680586243921425e-06,
+              "NONE": 0.0001400364562869072
+            },
+            "latency_ms": 13845.58350010775,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_combined-00114",
+          "source_ids": [
+            "val/images/val_7801.JPEG",
+            "val/images/val_3560.JPEG",
+            "val/images/val_2686.JPEG",
+            "val/images/val_1436.JPEG",
+            "val/images/val_8863.JPEG",
+            "val/images/val_105.JPEG"
+          ],
+          "instruction": "다음 조건에 맞춰 사진을 골라 줘. 검색할 세로줄은 백팩 사진의 바로 왼쪽 칸이 있는 줄이야. 그 줄에서 동물 사진으로 답해.",
+          "gold": "A",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "A",
+            "probabilities": {
+              "A": 0.9988227486610413,
+              "B": 1.0728962251960183e-06,
+              "C": 1.043682004819857e-06,
+              "D": 0.0008182615856640041,
+              "E": 1.7418910829292145e-06,
+              "F": 3.151006467305706e-06,
+              "NONE": 0.00035200276761315763
+            },
+            "latency_ms": 14095.210700063035,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_combined-00015",
+          "source_ids": [
+            "val/images/val_1230.JPEG",
+            "val/images/val_1884.JPEG",
+            "val/images/val_5806.JPEG",
+            "val/images/val_7048.JPEG",
+            "val/images/val_9858.JPEG",
+            "val/images/val_7666.JPEG"
+          ],
+          "instruction": "다음 조건에 맞춰 사진을 골라 줘. 이동을 시작할 칸은 오렌지 사진과 같은 행에 있는 조류 사진이야. 거기서 왼쪽으로 한 칸 이동해.",
+          "gold": "NONE",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "NONE",
+            "probabilities": {
+              "A": 0.0018603082280606031,
+              "B": 0.002261374145746231,
+              "C": 0.00013522489462047815,
+              "D": 0.0011401361552998424,
+              "E": 0.0020514936186373234,
+              "F": 0.00010271633072989061,
+              "NONE": 0.9924488067626953
+            },
+            "latency_ms": 14257.066100137308,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_combined-00054",
+          "source_ids": [
+            "val/images/val_5721.JPEG",
+            "val/images/val_4549.JPEG",
+            "val/images/val_5842.JPEG",
+            "val/images/val_407.JPEG",
+            "val/images/val_88.JPEG",
+            "val/images/val_9706.JPEG"
+          ],
+          "instruction": "Follow this request: Select animal, searching only within the column reached by one step down from orange. Choose NONE if no tile qualifies.",
+          "gold": "F",
+          "v1_prediction": "F",
+          "prediction": {
+            "action": "F",
+            "probabilities": {
+              "A": 3.8239468835854495e-07,
+              "B": 3.8748495967411145e-07,
+              "C": 1.7821009805629728e-06,
+              "D": 3.2851455671334406e-06,
+              "E": 7.158508196880575e-06,
+              "F": 0.9994651675224304,
+              "NONE": 0.0005218627629801631
+            },
+            "latency_ms": 13796.306400094181,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_combined-00076",
+          "source_ids": [
+            "val/images/val_2600.JPEG",
+            "val/images/val_9544.JPEG",
+            "val/images/val_381.JPEG",
+            "val/images/val_5582.JPEG",
+            "val/images/val_5911.JPEG",
+            "val/images/val_4121.JPEG"
+          ],
+          "instruction": "Your starting tile shows insect and shares a row with dragonfly. Move one tile to the right from that starting tile. Choose NONE if no tile qualifies.",
+          "gold": "B",
+          "v1_prediction": "B",
+          "prediction": {
+            "action": "B",
+            "probabilities": {
+              "A": 2.2483463908429258e-06,
+              "B": 0.9996559619903564,
+              "C": 8.231559331761673e-05,
+              "D": 9.863053946901346e-07,
+              "E": 4.451419954420999e-06,
+              "F": 1.9619701561168768e-06,
+              "NONE": 0.0002521354181226343
+            },
+            "latency_ms": 14010.499800089747,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_combined-00002",
+          "source_ids": [
+            "val/images/val_3808.JPEG",
+            "val/images/val_1958.JPEG",
+            "val/images/val_5268.JPEG",
+            "val/images/val_1159.JPEG",
+            "val/images/val_2389.JPEG",
+            "val/images/val_9113.JPEG"
+          ],
+          "instruction": "다음 조건에 맞춰 사진을 골라 줘. 검색할 세로줄은 고양이 사진의 바로 아래쪽 칸이 있는 줄이야. 그 줄에서 포유류 사진으로 답해. 칸을 벗어나는 이동은 NONE으로 답해.",
+          "gold": "NONE",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "NONE",
+            "probabilities": {
+              "A": 0.0011093771317973733,
+              "B": 0.0414230078458786,
+              "C": 0.000773104839026928,
+              "D": 0.004106412176042795,
+              "E": 0.03593168780207634,
+              "F": 0.031567446887493134,
+              "NONE": 0.8850889801979065
+            },
+            "latency_ms": 14053.589700022712,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_combined-00045",
+          "source_ids": [
+            "val/images/val_6202.JPEG",
+            "val/images/val_9965.JPEG",
+            "val/images/val_4823.JPEG",
+            "val/images/val_8381.JPEG",
+            "val/images/val_4061.JPEG",
+            "val/images/val_3110.JPEG"
+          ],
+          "instruction": "부탁 하나 할게. 마지막에 고를 사진은 곤충 사진의 바로 아래쪽 칸이야. 그 곤충 사진은 펭귄과 같은 행에서 찾아.",
+          "gold": "E",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "E",
+            "probabilities": {
+              "A": 1.4454727761403774e-06,
+              "B": 3.081267550442135e-06,
+              "C": 2.5630672553234035e-06,
+              "D": 0.0002829998848028481,
+              "E": 0.9983199238777161,
+              "F": 6.882867455715314e-05,
+              "NONE": 0.0013211111072450876
+            },
+            "latency_ms": 13781.425700057298,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_combined-00126",
+          "source_ids": [
+            "val/images/val_6605.JPEG",
+            "val/images/val_5254.JPEG",
+            "val/images/val_9059.JPEG",
+            "val/images/val_4002.JPEG",
+            "val/images/val_7460.JPEG",
+            "val/images/val_1255.JPEG"
+          ],
+          "instruction": "The search column contains the immediate upper neighbor of umbrella. Answer with the animal picture in that column.",
+          "gold": "A",
+          "v1_prediction": "A",
+          "prediction": {
+            "action": "A",
+            "probabilities": {
+              "A": 0.9995841383934021,
+              "B": 1.2271231071281363e-06,
+              "C": 1.6391401231885538e-06,
+              "D": 1.7530317109049065e-06,
+              "E": 8.856625299813459e-07,
+              "F": 9.969554639610578e-07,
+              "NONE": 0.00040944814099930227
+            },
+            "latency_ms": 13070.640600053594,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_combined-00036",
+          "source_ids": [
+            "val/images/val_257.JPEG",
+            "val/images/val_3790.JPEG",
+            "val/images/val_8370.JPEG",
+            "val/images/val_8328.JPEG",
+            "val/images/val_5865.JPEG",
+            "val/images/val_941.JPEG"
+          ],
+          "instruction": "Your starting tile shows vehicle and shares a row with lion. Move one tile to the right from that starting tile. A move outside the grid means NONE.",
+          "gold": "C",
+          "v1_prediction": "B",
+          "prediction": {
+            "action": "C",
+            "probabilities": {
+              "A": 1.2548089216579683e-06,
+              "B": 2.141360937457648e-06,
+              "C": 0.9999356269836426,
+              "D": 3.319108827781747e-07,
+              "E": 9.929954103427008e-07,
+              "F": 1.0397673122497508e-06,
+              "NONE": 5.861791942152195e-05
+            },
+            "latency_ms": 13143.56580004096,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_combined-00039",
+          "source_ids": [
+            "val/images/val_3194.JPEG",
+            "val/images/val_3083.JPEG",
+            "val/images/val_6710.JPEG",
+            "val/images/val_3850.JPEG",
+            "val/images/val_6167.JPEG",
+            "val/images/val_7647.JPEG"
+          ],
+          "instruction": "검색할 세로줄은 아이스크림 사진의 바로 오른쪽 칸이 있는 줄이야. 그 줄에서 음식 사진으로 답해. 칸을 벗어나는 이동은 NONE으로 답해.",
+          "gold": "E",
+          "v1_prediction": "E",
+          "prediction": {
+            "action": "E",
+            "probabilities": {
+              "A": 1.7200038200826384e-05,
+              "B": 0.019851746037602425,
+              "C": 3.822731741820462e-06,
+              "D": 4.6389552153414115e-05,
+              "E": 0.9796349406242371,
+              "F": 4.349323717178777e-06,
+              "NONE": 0.0004415246658027172
+            },
+            "latency_ms": 13387.025299947709,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_combined-00082",
+          "source_ids": [
+            "val/images/val_7281.JPEG",
+            "val/images/val_231.JPEG",
+            "val/images/val_6227.JPEG",
+            "val/images/val_3487.JPEG",
+            "val/images/val_4805.JPEG",
+            "val/images/val_4118.JPEG"
+          ],
+          "instruction": "이동을 시작할 칸은 거위 사진과 같은 행에 있는 과일 사진이야. 거기서 위쪽으로 한 칸 이동해.",
+          "gold": "C",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "C",
+            "probabilities": {
+              "A": 2.3541115297120996e-06,
+              "B": 1.2214421076350845e-05,
+              "C": 0.9998317956924438,
+              "D": 4.24821422484456e-07,
+              "E": 5.118141643833951e-07,
+              "F": 6.163444936646556e-07,
+              "NONE": 0.0001520605874247849
+            },
+            "latency_ms": 13315.914900042117,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_combined-00095",
+          "source_ids": [
+            "val/images/val_3557.JPEG",
+            "val/images/val_3819.JPEG",
+            "val/images/val_6949.JPEG",
+            "val/images/val_5205.JPEG",
+            "val/images/val_8925.JPEG",
+            "val/images/val_8381.JPEG"
+          ],
+          "instruction": "Follow this request: The search column contains the immediate right neighbor of teddy bear. Answer with the vehicle picture in that column. A move outside the grid means NONE.",
+          "gold": "C",
+          "v1_prediction": "C",
+          "prediction": {
+            "action": "C",
+            "probabilities": {
+              "A": 9.254765132027387e-07,
+              "B": 1.3478888831741642e-06,
+              "C": 0.9995505213737488,
+              "D": 5.816635848532314e-07,
+              "E": 9.648887271396234e-07,
+              "F": 2.3226391476782737e-06,
+              "NONE": 0.0004433545400388539
+            },
+            "latency_ms": 13234.284500125796,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_combined-00106",
+          "source_ids": [
+            "val/images/val_685.JPEG",
+            "val/images/val_8359.JPEG",
+            "val/images/val_7852.JPEG",
+            "val/images/val_283.JPEG",
+            "val/images/val_8958.JPEG",
+            "val/images/val_7254.JPEG"
+          ],
+          "instruction": "The final photo is the immediate lower neighbor of a vehicle photo. Find that vehicle photo in the row of tractor.",
+          "gold": "D",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "D",
+            "probabilities": {
+              "A": 1.0380869071013876e-06,
+              "B": 2.6141292437387165e-06,
+              "C": 1.232685804097855e-06,
+              "D": 0.9992606043815613,
+              "E": 4.571580939227715e-05,
+              "F": 3.538389137247577e-05,
+              "NONE": 0.0006534046260640025
+            },
+            "latency_ms": 12915.250199846923,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_combined-00083",
+          "source_ids": [
+            "val/images/val_1698.JPEG",
+            "val/images/val_9291.JPEG",
+            "val/images/val_4582.JPEG",
+            "val/images/val_9056.JPEG",
+            "val/images/val_3098.JPEG",
+            "val/images/val_8264.JPEG"
+          ],
+          "instruction": "다음 조건에 맞춰 사진을 골라 줘. 음식 사진을 고르되, 자동차에서 오른쪽 한 칸 이동해서 도착한 열 안에서 찾아야 해.",
+          "gold": "F",
+          "v1_prediction": "F",
+          "prediction": {
+            "action": "F",
+            "probabilities": {
+              "A": 1.905782937683398e-06,
+              "B": 5.581009077104682e-07,
+              "C": 3.634024096754729e-06,
+              "D": 1.1811290505647776e-06,
+              "E": 2.5328468836960383e-05,
+              "F": 0.9994731545448303,
+              "NONE": 0.0004942711093463004
+            },
+            "latency_ms": 13227.984800003469,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_combined-00031",
+          "source_ids": [
+            "val/images/val_4664.JPEG",
+            "val/images/val_5039.JPEG",
+            "val/images/val_3384.JPEG",
+            "val/images/val_242.JPEG",
+            "val/images/val_9797.JPEG",
+            "val/images/val_7066.JPEG"
+          ],
+          "instruction": "부탁 하나 할게. 이동을 시작할 칸은 나비 사진과 같은 행에 있는 곤충 사진이야. 거기서 왼쪽으로 한 칸 이동해.",
+          "gold": "D",
+          "v1_prediction": "E",
+          "prediction": {
+            "action": "D",
+            "probabilities": {
+              "A": 1.4903572491675732e-06,
+              "B": 1.7515288845970645e-06,
+              "C": 4.861524871557776e-07,
+              "D": 0.9999099969863892,
+              "E": 1.4584769814973697e-05,
+              "F": 1.300298208661843e-06,
+              "NONE": 7.041265780571848e-05
+            },
+            "latency_ms": 13083.317699842155,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_combined-00032",
+          "source_ids": [
+            "val/images/val_7132.JPEG",
+            "val/images/val_3231.JPEG",
+            "val/images/val_1488.JPEG",
+            "val/images/val_9222.JPEG",
+            "val/images/val_3730.JPEG",
+            "val/images/val_8328.JPEG"
+          ],
+          "instruction": "Look at this photo board. The search column contains the immediate right neighbor of sunglasses. Answer with the animal picture in that column.",
+          "gold": "F",
+          "v1_prediction": "F",
+          "prediction": {
+            "action": "F",
+            "probabilities": {
+              "A": 3.0097435228526592e-06,
+              "B": 4.0482532313035335e-06,
+              "C": 1.8092696336680092e-05,
+              "D": 1.6430026335001457e-06,
+              "E": 4.258743956597755e-06,
+              "F": 0.9993991851806641,
+              "NONE": 0.0005696672014892101
+            },
+            "latency_ms": 13093.779999995604,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_combined-00003",
+          "source_ids": [
+            "val/images/val_6885.JPEG",
+            "val/images/val_1643.JPEG",
+            "val/images/val_4013.JPEG",
+            "val/images/val_9965.JPEG",
+            "val/images/val_4038.JPEG",
+            "val/images/val_8406.JPEG"
+          ],
+          "instruction": "Look at this photo board. The final photo is the immediate lower neighbor of a fruit photo. Find that fruit photo in the row of dragonfly.",
+          "gold": "NONE",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "NONE",
+            "probabilities": {
+              "A": 5.651852006849367e-06,
+              "B": 1.5902065570116974e-05,
+              "C": 2.0618364942492917e-05,
+              "D": 8.8352186139673e-05,
+              "E": 0.0002964044106192887,
+              "F": 0.00013431560364551842,
+              "NONE": 0.9994387030601501
+            },
+            "latency_ms": 13343.454800080508,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_combined-00089",
+          "source_ids": [
+            "val/images/val_2800.JPEG",
+            "val/images/val_4326.JPEG",
+            "val/images/val_9937.JPEG",
+            "val/images/val_1750.JPEG",
+            "val/images/val_452.JPEG",
+            "val/images/val_4775.JPEG"
+          ],
+          "instruction": "다음 조건에 맞춰 사진을 골라 줘. 검색할 세로줄은 선글라스 사진의 바로 오른쪽 칸이 있는 줄이야. 그 줄에서 먹거리 사진으로 답해.",
+          "gold": "C",
+          "v1_prediction": "C",
+          "prediction": {
+            "action": "C",
+            "probabilities": {
+              "A": 7.90070498624118e-06,
+              "B": 0.00013405866047833115,
+              "C": 0.9718604683876038,
+              "D": 4.660540525946999e-06,
+              "E": 5.572704594669631e-06,
+              "F": 1.911606887006201e-05,
+              "NONE": 0.027968280017375946
+            },
+            "latency_ms": 13622.2433000803,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_combined-00022",
+          "source_ids": [
+            "val/images/val_4001.JPEG",
+            "val/images/val_9337.JPEG",
+            "val/images/val_2590.JPEG",
+            "val/images/val_1434.JPEG",
+            "val/images/val_2733.JPEG",
+            "val/images/val_4240.JPEG"
+          ],
+          "instruction": "마지막에 고를 사진은 배 사진의 바로 위쪽 칸이야. 그 배 사진은 리모컨과 같은 행에서 찾아.",
+          "gold": "NONE",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "NONE",
+            "probabilities": {
+              "A": 0.004069169517606497,
+              "B": 0.002472473308444023,
+              "C": 0.0011544676963239908,
+              "D": 0.0026615518145263195,
+              "E": 0.0035325970966368914,
+              "F": 0.0017799540655687451,
+              "NONE": 0.9843297600746155
+            },
+            "latency_ms": 13473.92849996686,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_combined-00021",
+          "source_ids": [
+            "val/images/val_1808.JPEG",
+            "val/images/val_4432.JPEG",
+            "val/images/val_7659.JPEG",
+            "val/images/val_2986.JPEG",
+            "val/images/val_8264.JPEG",
+            "val/images/val_4490.JPEG"
+          ],
+          "instruction": "Follow this request: The search column contains the immediate upper neighbor of teddy bear. Answer with the watercraft picture in that column.",
+          "gold": "NONE",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "NONE",
+            "probabilities": {
+              "A": 3.7048048397991806e-05,
+              "B": 8.372643787879497e-05,
+              "C": 0.002266990253701806,
+              "D": 0.00023386099201161414,
+              "E": 4.9025162297766656e-05,
+              "F": 4.281518704374321e-05,
+              "NONE": 0.9972865581512451
+            },
+            "latency_ms": 13564.73150011152,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_combined-00119",
+          "source_ids": [
+            "val/images/val_7071.JPEG",
+            "val/images/val_1889.JPEG",
+            "val/images/val_333.JPEG",
+            "val/images/val_2417.JPEG",
+            "val/images/val_3355.JPEG",
+            "val/images/val_8788.JPEG"
+          ],
+          "instruction": "Please help me select one tile. Your starting tile shows animal and shares a row with butterfly. Move one tile up from that starting tile. Choose NONE if no tile qualifies.",
+          "gold": "C",
+          "v1_prediction": "B",
+          "prediction": {
+            "action": "C",
+            "probabilities": {
+              "A": 7.185011054389179e-05,
+              "B": 0.0007688653422519565,
+              "C": 0.9984481334686279,
+              "D": 1.3429462342173792e-06,
+              "E": 1.818445889512077e-05,
+              "F": 0.0002223600895376876,
+              "NONE": 0.0004693061928264797
+            },
+            "latency_ms": 13521.459099836648,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_combined-00030",
+          "source_ids": [
+            "val/images/val_2108.JPEG",
+            "val/images/val_7283.JPEG",
+            "val/images/val_7717.JPEG",
+            "val/images/val_7582.JPEG",
+            "val/images/val_1527.JPEG",
+            "val/images/val_3665.JPEG"
+          ],
+          "instruction": "이 사진판을 보고 답해 줘. 검색할 세로줄은 사자 사진의 바로 왼쪽 칸이 있는 줄이야. 그 줄에서 동물 사진으로 답해. 해당하는 사진이 없으면 NONE이야.",
+          "gold": "A",
+          "v1_prediction": "A",
+          "prediction": {
+            "action": "A",
+            "probabilities": {
+              "A": 0.9997082352638245,
+              "B": 1.3352730547921965e-06,
+              "C": 1.143115468948963e-06,
+              "D": 1.99615242308937e-05,
+              "E": 3.303485573269427e-05,
+              "F": 2.256484003737569e-05,
+              "NONE": 0.00021383131388574839
+            },
+            "latency_ms": 13945.13770006597,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_combined-00120",
+          "source_ids": [
+            "val/images/val_3946.JPEG",
+            "val/images/val_9691.JPEG",
+            "val/images/val_1021.JPEG",
+            "val/images/val_4585.JPEG",
+            "val/images/val_8371.JPEG",
+            "val/images/val_2109.JPEG"
+          ],
+          "instruction": "이 사진판을 보고 답해 줘. 마지막에 고를 사진은 먹거리 사진의 바로 왼쪽 칸이야. 그 먹거리 사진은 찻주전자와 같은 행에서 찾아. 칸을 벗어나는 이동은 NONE으로 답해.",
+          "gold": "A",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "NONE",
+            "probabilities": {
+              "A": 0.09592460095882416,
+              "B": 0.046982262283563614,
+              "C": 0.0006124428473412991,
+              "D": 0.015516838058829308,
+              "E": 0.019861752167344093,
+              "F": 0.0006296170176938176,
+              "NONE": 0.8204725384712219
+            },
+            "latency_ms": 13902.066299924627,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_combined-00114",
+          "source_ids": [
+            "val/images/val_7801.JPEG",
+            "val/images/val_3560.JPEG",
+            "val/images/val_2686.JPEG",
+            "val/images/val_1436.JPEG",
+            "val/images/val_8863.JPEG",
+            "val/images/val_105.JPEG"
+          ],
+          "instruction": "Follow this request: The search column contains the immediate left neighbor of rucksack. Answer with the animal picture in that column.",
+          "gold": "A",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "A",
+            "probabilities": {
+              "A": 0.9987173080444336,
+              "B": 7.941271178424358e-07,
+              "C": 7.552852707704005e-07,
+              "D": 0.0008592685335315764,
+              "E": 1.296755954172113e-06,
+              "F": 1.777591137397394e-06,
+              "NONE": 0.0004188331658951938
+            },
+            "latency_ms": 13316.721099894494,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_combined-00055",
+          "source_ids": [
+            "val/images/val_2713.JPEG",
+            "val/images/val_5656.JPEG",
+            "val/images/val_6732.JPEG",
+            "val/images/val_7540.JPEG",
+            "val/images/val_6973.JPEG",
+            "val/images/val_4818.JPEG"
+          ],
+          "instruction": "Look at this photo board. Your starting tile shows watercraft and shares a row with rucksack. Move one tile down from that starting tile. A move outside the grid means NONE.",
+          "gold": "E",
+          "v1_prediction": "E",
+          "prediction": {
+            "action": "E",
+            "probabilities": {
+              "A": 3.160618575748231e-07,
+              "B": 4.4662880327450694e-07,
+              "C": 3.679990925320453e-07,
+              "D": 7.17494685886777e-06,
+              "E": 0.9996340274810791,
+              "F": 7.687089237151667e-06,
+              "NONE": 0.0003498684673104435
+            },
+            "latency_ms": 14103.905400028452,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_combined-00052",
+          "source_ids": [
+            "val/images/val_1933.JPEG",
+            "val/images/val_5068.JPEG",
+            "val/images/val_2373.JPEG",
+            "val/images/val_4131.JPEG",
+            "val/images/val_7678.JPEG",
+            "val/images/val_576.JPEG"
+          ],
+          "instruction": "이 사진판을 보고 답해 줘. 탈것 사진을 고르되, 나비에서 위쪽 한 칸 이동해서 도착한 열 안에서 찾아야 해. 칸을 벗어나는 이동은 NONE으로 답해.",
+          "gold": "C",
+          "v1_prediction": "C",
+          "prediction": {
+            "action": "C",
+            "probabilities": {
+              "A": 1.5242259223668952e-06,
+              "B": 1.5103579471542616e-06,
+              "C": 0.9994984865188599,
+              "D": 6.51095945158886e-07,
+              "E": 1.59795399667928e-06,
+              "F": 3.0902583603165112e-06,
+              "NONE": 0.0004932326264679432
+            },
+            "latency_ms": 14761.403700103983,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_combined-00027",
+          "source_ids": [
+            "val/images/val_526.JPEG",
+            "val/images/val_5760.JPEG",
+            "val/images/val_6679.JPEG",
+            "val/images/val_7668.JPEG",
+            "val/images/val_2467.JPEG",
+            "val/images/val_7246.JPEG"
+          ],
+          "instruction": "마지막에 고를 사진은 주방용품 사진의 바로 아래쪽 칸이야. 그 주방용품 사진은 피망과 같은 행에서 찾아. 해당하는 사진이 없으면 NONE이야.",
+          "gold": "F",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "F",
+            "probabilities": {
+              "A": 3.0283006253739586e-06,
+              "B": 3.262721975261229e-06,
+              "C": 5.043263172410661e-06,
+              "D": 0.00014546375314239413,
+              "E": 0.00039256905438378453,
+              "F": 0.9981487989425659,
+              "NONE": 0.0013019101461395621
+            },
+            "latency_ms": 14103.640999877825,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_combined-00039",
+          "source_ids": [
+            "val/images/val_3194.JPEG",
+            "val/images/val_3083.JPEG",
+            "val/images/val_6710.JPEG",
+            "val/images/val_3850.JPEG",
+            "val/images/val_6167.JPEG",
+            "val/images/val_7647.JPEG"
+          ],
+          "instruction": "The search column contains the immediate upper neighbor of golden retriever. Answer with the mammal picture in that column. A move outside the grid means NONE.",
+          "gold": "F",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "F",
+            "probabilities": {
+              "A": 3.0387300284928642e-06,
+              "B": 1.7940461702892208e-06,
+              "C": 1.13345686258981e-05,
+              "D": 1.280849664908601e-05,
+              "E": 1.693462536422885e-06,
+              "F": 0.9995824694633484,
+              "NONE": 0.00038688440690748394
+            },
+            "latency_ms": 14229.081899859011,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_combined-00121",
+          "source_ids": [
+            "val/images/val_2247.JPEG",
+            "val/images/val_6430.JPEG",
+            "val/images/val_2845.JPEG",
+            "val/images/val_5842.JPEG",
+            "val/images/val_4511.JPEG",
+            "val/images/val_2605.JPEG"
+          ],
+          "instruction": "Look at this photo board. Your starting tile shows animal and shares a row with koala. Move one tile to the left from that starting tile. Choose NONE if no tile qualifies.",
+          "gold": "A",
+          "v1_prediction": "A",
+          "prediction": {
+            "action": "A",
+            "probabilities": {
+              "A": 0.9995181560516357,
+              "B": 3.5395172744756564e-05,
+              "C": 2.5583021852071397e-06,
+              "D": 2.172762606278411e-06,
+              "E": 3.3295350476691965e-06,
+              "F": 1.12615828129492e-06,
+              "NONE": 0.0004373814444988966
+            },
+            "latency_ms": 14149.067499907687,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_combined-00107",
+          "source_ids": [
+            "val/images/val_3986.JPEG",
+            "val/images/val_563.JPEG",
+            "val/images/val_3828.JPEG",
+            "val/images/val_3046.JPEG",
+            "val/images/val_832.JPEG",
+            "val/images/val_1240.JPEG"
+          ],
+          "instruction": "검색할 세로줄은 찻주전자 사진의 바로 위쪽 칸이 있는 줄이야. 그 줄에서 먹거리 사진으로 답해. 해당하는 사진이 없으면 NONE이야.",
+          "gold": "B",
+          "v1_prediction": "B",
+          "prediction": {
+            "action": "B",
+            "probabilities": {
+              "A": 2.6493971745367162e-05,
+              "B": 0.9996767044067383,
+              "C": 1.1436792419772246e-06,
+              "D": 5.325337042449974e-07,
+              "E": 2.473373797329259e-06,
+              "F": 2.33621358347591e-06,
+              "NONE": 0.00029028241988271475
+            },
+            "latency_ms": 14229.114100104198,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_combined-00033",
+          "source_ids": [
+            "val/images/val_4368.JPEG",
+            "val/images/val_783.JPEG",
+            "val/images/val_7822.JPEG",
+            "val/images/val_5846.JPEG",
+            "val/images/val_2293.JPEG",
+            "val/images/val_5004.JPEG"
+          ],
+          "instruction": "다음 조건에 맞춰 사진을 골라 줘. 이동을 시작할 칸은 우산 사진과 같은 행에 있는 배 사진이야. 거기서 왼쪽으로 한 칸 이동해.",
+          "gold": "B",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "B",
+            "probabilities": {
+              "A": 1.6033842257456854e-05,
+              "B": 0.9998424053192139,
+              "C": 8.937902862271585e-07,
+              "D": 9.396349014423322e-07,
+              "E": 1.9185008568456396e-06,
+              "F": 5.881273636987316e-07,
+              "NONE": 0.00013718429545406252
+            },
+            "latency_ms": 14406.244999961928,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_combined-00088",
+          "source_ids": [
+            "val/images/val_8904.JPEG",
+            "val/images/val_4404.JPEG",
+            "val/images/val_8138.JPEG",
+            "val/images/val_1251.JPEG",
+            "val/images/val_521.JPEG",
+            "val/images/val_9863.JPEG"
+          ],
+          "instruction": "Please help me select one tile. The search column contains the immediate upper neighbor of hourglass. Answer with the mammal picture in that column. A move outside the grid means NONE.",
+          "gold": "C",
+          "v1_prediction": "C",
+          "prediction": {
+            "action": "C",
+            "probabilities": {
+              "A": 7.16314048077038e-07,
+              "B": 3.7800034533574944e-06,
+              "C": 0.9996098875999451,
+              "D": 1.8454093151376583e-06,
+              "E": 1.126009738072753e-05,
+              "F": 4.851759968005354e-06,
+              "NONE": 0.00036770274164155126
+            },
+            "latency_ms": 14713.072800077498,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_combined-00036",
+          "source_ids": [
+            "val/images/val_257.JPEG",
+            "val/images/val_3790.JPEG",
+            "val/images/val_8370.JPEG",
+            "val/images/val_8328.JPEG",
+            "val/images/val_5865.JPEG",
+            "val/images/val_941.JPEG"
+          ],
+          "instruction": "Follow this request: The final photo is the immediate left neighbor of a mammal photo. Find that mammal photo in the row of dragonfly. A move outside the grid means NONE.",
+          "gold": "D",
+          "v1_prediction": "E",
+          "prediction": {
+            "action": "D",
+            "probabilities": {
+              "A": 5.7381457736482844e-05,
+              "B": 5.564832827076316e-05,
+              "C": 2.5711067337397253e-06,
+              "D": 0.9983426332473755,
+              "E": 0.0004001864290330559,
+              "F": 6.1466839724744204e-06,
+              "NONE": 0.0011353427544236183
+            },
+            "latency_ms": 14191.89459993504,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_combined-00071",
+          "source_ids": [
+            "val/images/val_9222.JPEG",
+            "val/images/val_3075.JPEG",
+            "val/images/val_5740.JPEG",
+            "val/images/val_3231.JPEG",
+            "val/images/val_2686.JPEG",
+            "val/images/val_31.JPEG"
+          ],
+          "instruction": "이 사진판을 보고 답해 줘. 주방용품 사진을 고르되, 펭귄에서 오른쪽 한 칸 이동해서 도착한 열 안에서 찾아야 해.",
+          "gold": "C",
+          "v1_prediction": "C",
+          "prediction": {
+            "action": "C",
+            "probabilities": {
+              "A": 6.569110269083467e-07,
+              "B": 1.3162870118321734e-06,
+              "C": 0.9997764229774475,
+              "D": 5.326868972588272e-07,
+              "E": 6.503912004518497e-07,
+              "F": 2.2091978735261364e-06,
+              "NONE": 0.00021819531684741378
+            },
+            "latency_ms": 14318.863999797031,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_combined-00135",
+          "source_ids": [
+            "val/images/val_3903.JPEG",
+            "val/images/val_8129.JPEG",
+            "val/images/val_527.JPEG",
+            "val/images/val_5166.JPEG",
+            "val/images/val_2805.JPEG",
+            "val/images/val_305.JPEG"
+          ],
+          "instruction": "이동을 시작할 칸은 콜리플라워 사진과 같은 행에 있는 동물 사진이야. 거기서 아래쪽으로 한 칸 이동해.",
+          "gold": "D",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "D",
+            "probabilities": {
+              "A": 8.272691616184602e-07,
+              "B": 4.923285246150044e-07,
+              "C": 5.69229769098456e-07,
+              "D": 0.9995755553245544,
+              "E": 7.440631634381134e-06,
+              "F": 2.9332051781238988e-05,
+              "NONE": 0.00038587761810049415
+            },
+            "latency_ms": 13165.254599880427,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_combined-00086",
+          "source_ids": [
+            "val/images/val_4626.JPEG",
+            "val/images/val_7165.JPEG",
+            "val/images/val_7978.JPEG",
+            "val/images/val_8815.JPEG",
+            "val/images/val_6419.JPEG",
+            "val/images/val_5974.JPEG"
+          ],
+          "instruction": "The search column contains the immediate left neighbor of umbrella. Answer with the animal picture in that column. A move outside the grid means NONE.",
+          "gold": "A",
+          "v1_prediction": "A",
+          "prediction": {
+            "action": "E",
+            "probabilities": {
+              "A": 0.055436886847019196,
+              "B": 0.002053602132946253,
+              "C": 0.0008610494551248848,
+              "D": 0.009826903231441975,
+              "E": 0.8886817097663879,
+              "F": 0.017625533044338226,
+              "NONE": 0.025514332577586174
+            },
+            "latency_ms": 11752.106899861246,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_combined-00100",
+          "source_ids": [
+            "val/images/val_1993.JPEG",
+            "val/images/val_7886.JPEG",
+            "val/images/val_5155.JPEG",
+            "val/images/val_7858.JPEG",
+            "val/images/val_3333.JPEG",
+            "val/images/val_5154.JPEG"
+          ],
+          "instruction": "Please help me select one tile. Your starting tile shows animal and shares a row with lemon. Move one tile to the left from that starting tile. A move outside the grid means NONE.",
+          "gold": "E",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "NONE",
+            "probabilities": {
+              "A": 0.00028377093258313835,
+              "B": 0.00014934124192222953,
+              "C": 3.2055690098786727e-05,
+              "D": 0.006574308965355158,
+              "E": 0.0997963473200798,
+              "F": 0.00029293293482623994,
+              "NONE": 0.8928713202476501
+            },
+            "latency_ms": 12866.548700025305,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_combined-00099",
+          "source_ids": [
+            "val/images/val_653.JPEG",
+            "val/images/val_1110.JPEG",
+            "val/images/val_8123.JPEG",
+            "val/images/val_9566.JPEG",
+            "val/images/val_9147.JPEG",
+            "val/images/val_4711.JPEG"
+          ],
+          "instruction": "부탁 하나 할게. 과일 사진을 고르되, 거위에서 왼쪽 한 칸 이동해서 도착한 열 안에서 찾아야 해.",
+          "gold": "B",
+          "v1_prediction": "B",
+          "prediction": {
+            "action": "B",
+            "probabilities": {
+              "A": 2.174521114284289e-06,
+              "B": 0.9986009001731873,
+              "C": 1.4556974292645464e-06,
+              "D": 1.5285461358871544e-06,
+              "E": 4.789833383256337e-06,
+              "F": 9.434466505808814e-07,
+              "NONE": 0.0013882232597097754
+            },
+            "latency_ms": 11791.963499970734,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_combined-00075",
+          "source_ids": [
+            "val/images/val_2904.JPEG",
+            "val/images/val_7353.JPEG",
+            "val/images/val_2842.JPEG",
+            "val/images/val_2694.JPEG",
+            "val/images/val_8846.JPEG",
+            "val/images/val_4763.JPEG"
+          ],
+          "instruction": "이 사진판을 보고 답해 줘. 이동을 시작할 칸은 오렌지 사진과 같은 행에 있는 과일 사진이야. 거기서 아래쪽으로 한 칸 이동해.",
+          "gold": "D",
+          "v1_prediction": "D",
+          "prediction": {
+            "action": "D",
+            "probabilities": {
+              "A": 8.190924631890084e-07,
+              "B": 8.056241540543851e-07,
+              "C": 1.3641721352541936e-06,
+              "D": 0.9997884631156921,
+              "E": 1.290568252443336e-05,
+              "F": 1.995697857637424e-05,
+              "NONE": 0.00017576810205355287
+            },
+            "latency_ms": 13755.47629990615,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_combined-00141",
+          "source_ids": [
+            "val/images/val_7437.JPEG",
+            "val/images/val_1049.JPEG",
+            "val/images/val_1168.JPEG",
+            "val/images/val_9281.JPEG",
+            "val/images/val_6800.JPEG",
+            "val/images/val_8177.JPEG"
+          ],
+          "instruction": "Please help me select one tile. Select animal, searching only within the column reached by one step to the left from bear. Choose NONE if no tile qualifies.",
+          "gold": "D",
+          "v1_prediction": "D",
+          "prediction": {
+            "action": "D",
+            "probabilities": {
+              "A": 0.0014588034246116877,
+              "B": 0.06652402877807617,
+              "C": 0.00822423119097948,
+              "D": 0.894041895866394,
+              "E": 0.001000354066491127,
+              "F": 0.00302517949603498,
+              "NONE": 0.02572546899318695
+            },
+            "latency_ms": 14021.05370000936,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_combined-00077",
+          "source_ids": [
+            "val/images/val_5383.JPEG",
+            "val/images/val_3411.JPEG",
+            "val/images/val_5760.JPEG",
+            "val/images/val_6699.JPEG",
+            "val/images/val_1236.JPEG",
+            "val/images/val_8370.JPEG"
+          ],
+          "instruction": "Your starting tile shows food and shares a row with goose. Move one tile down from that starting tile. A move outside the grid means NONE.",
+          "gold": "F",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "F",
+            "probabilities": {
+              "A": 7.579769771837164e-06,
+              "B": 1.1987584684902686e-06,
+              "C": 1.4471080248767976e-05,
+              "D": 0.0037882751785218716,
+              "E": 0.0003489687805995345,
+              "F": 0.9953567385673523,
+              "NONE": 0.0004826498043257743
+            },
+            "latency_ms": 14250.471099978313,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_combined-00008",
+          "source_ids": [
+            "val/images/val_8599.JPEG",
+            "val/images/val_8872.JPEG",
+            "val/images/val_4151.JPEG",
+            "val/images/val_4690.JPEG",
+            "val/images/val_9024.JPEG",
+            "val/images/val_3732.JPEG"
+          ],
+          "instruction": "다음 조건에 맞춰 사진을 골라 줘. 과일 사진을 고르되, 석류에서 위쪽 한 칸 이동해서 도착한 열 안에서 찾아야 해. 해당하는 사진이 없으면 NONE이야.",
+          "gold": "NONE",
+          "v1_prediction": "NONE",
+          "prediction": {
+            "action": "NONE",
+            "probabilities": {
+              "A": 2.2003336198395118e-05,
+              "B": 0.0011764891678467393,
+              "C": 2.9928560252301395e-05,
+              "D": 0.0004055913886986673,
+              "E": 0.00122662796638906,
+              "F": 2.7554815460462123e-05,
+              "NONE": 0.9971117973327637
+            },
+            "latency_ms": 14201.99799980037,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        },
+        {
+          "scene_id": "test_combined-00129",
+          "source_ids": [
+            "val/images/val_7296.JPEG",
+            "val/images/val_8381.JPEG",
+            "val/images/val_5397.JPEG",
+            "val/images/val_8223.JPEG",
+            "val/images/val_322.JPEG",
+            "val/images/val_777.JPEG"
+          ],
+          "instruction": "다음 조건에 맞춰 사진을 골라 줘. 마지막에 고를 사진은 먹거리 사진의 바로 위쪽 칸이야. 그 먹거리 사진은 오렌지와 같은 행에서 찾아. 칸을 벗어나는 이동은 NONE으로 답해.",
+          "gold": "A",
+          "v1_prediction": "A",
+          "prediction": {
+            "action": "A",
+            "probabilities": {
+              "A": 0.9965587258338928,
+              "B": 4.008067480754107e-05,
+              "C": 9.346110164187849e-05,
+              "D": 5.588990461546928e-06,
+              "E": 1.1330195775371976e-05,
+              "F": 4.75802971777739e-06,
+              "NONE": 0.003286082064732909
+            },
+            "latency_ms": 14362.411400070414,
+            "device": "cpu",
+            "dtype": "torch.float32",
+            "quantized_base": false,
+            "cpu_fallback_enabled": false
+          }
+        }
+      ]
+    }
+  },
+  "elapsed_seconds": 2293.826320399996
+}

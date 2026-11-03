@@ -1,0 +1,74 @@
+🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.
+W1103 19:48:57.998000 75700 Lib\site-packages\torch\utils\_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W1103 19:48:58.034000 75700 Lib\site-packages\torch\utils\_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+Unsloth: xformers is installed but cannot load with torch 2.14.1+cu130 (it was built for 2.10.0+cu128), so PyTorch attention is used instead.
+To install a matching xformers, run `unsloth install-kernels xformers`, or `pip uninstall xformers` to hide this. UNSLOTH_ENABLE_LOGGING=1 shows the full error.
+🦥 Unsloth Zoo will now patch everything to make training faster!
+==((====))==  Unsloth 2026.10.10: Fast Qwen3_5 patching. Transformers: 5.17.0.
+   \\   /|    NVIDIA GeForce RTX 4070 Ti SUPER. Num GPUs = 1. Max memory: 15.992 GB. Platform: Windows.
+O^O/ \_/ \    Torch: 2.14.1+cu130. CUDA: 8.9. CUDA Toolkit: 13.0. Triton: 3.9.0
+\        /    Bfloat16 = TRUE. FA [Xformers = None. FA2 = False]
+ "-____-"     Free license: http://github.com/unslothai/unsloth
+Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
+
+Loading weights:   0%|          | 0/723 [00:00<?, ?it/s]
+Loading weights:   0%|          | 1/723 [00:00<06:09,  1.96it/s]
+Loading weights:   2%|▏         | 13/723 [00:00<00:25, 27.51it/s]
+Loading weights:   4%|▍         | 28/723 [00:00<00:12, 55.16it/s]
+Loading weights:   6%|▌         | 45/723 [00:00<00:08, 81.49it/s]
+Loading weights:   9%|▉         | 64/723 [00:00<00:06, 109.06it/s]
+Loading weights:  11%|█         | 79/723 [00:01<00:05, 117.02it/s]
+Loading weights:  13%|█▎        | 94/723 [00:01<00:05, 122.33it/s]
+Loading weights:  15%|█▌        | 109/723 [00:01<00:04, 127.80it/s]
+Loading weights:  18%|█▊        | 128/723 [00:01<00:04, 139.60it/s]
+Loading weights:  20%|█▉        | 143/723 [00:01<00:04, 142.08it/s]
+Loading weights:  22%|██▏       | 158/723 [00:01<00:04, 129.99it/s]
+Loading weights:  24%|██▍       | 173/723 [00:01<00:04, 131.13it/s]
+Loading weights:  27%|██▋       | 195/723 [00:01<00:03, 149.44it/s]
+Loading weights:  29%|██▉       | 211/723 [00:02<00:04, 124.77it/s]
+Loading weights:  31%|███       | 225/723 [00:02<00:04, 121.70it/s]
+Loading weights:  33%|███▎      | 239/723 [00:02<00:03, 121.48it/s]
+Loading weights:  35%|███▍      | 253/723 [00:02<00:03, 120.96it/s]
+Loading weights:  37%|███▋      | 266/723 [00:02<00:04, 110.46it/s]
+Loading weights:  39%|███▊      | 279/723 [00:02<00:04, 109.29it/s]
+Loading weights:  40%|████      | 292/723 [00:02<00:03, 113.92it/s]
+Loading weights:  42%|████▏     | 306/723 [00:02<00:03, 114.46it/s]
+Loading weights:  44%|████▍     | 318/723 [00:03<00:03, 104.15it/s]
+Loading weights:  46%|████▌     | 332/723 [00:03<00:03, 106.73it/s]
+Loading weights:  48%|████▊     | 346/723 [00:03<00:03, 108.82it/s]
+Loading weights:  50%|████▉     | 359/723 [00:03<00:03, 112.57it/s]
+Loading weights:  51%|█████▏    | 371/723 [00:03<00:03, 102.61it/s]
+Loading weights:  53%|█████▎    | 384/723 [00:03<00:03, 108.82it/s]
+Loading weights:  55%|█████▍    | 397/723 [00:03<00:02, 112.62it/s]
+Loading weights:  57%|█████▋    | 411/723 [00:03<00:02, 113.87it/s]
+Loading weights:  59%|█████▊    | 423/723 [00:03<00:02, 102.33it/s]
+Loading weights:  66%|██████▋   | 480/723 [00:04<00:01, 219.79it/s]
+Loading weights:  76%|███████▌  | 551/723 [00:04<00:00, 349.65it/s]
+Loading weights:  85%|████████▍ | 614/723 [00:04<00:00, 426.62it/s]
+Loading weights:  94%|█████████▍| 682/723 [00:04<00:00, 495.21it/s]
+Loading weights: 100%|██████████| 723/723 [00:04<00:00, 161.55it/s]
+
+Fetching 10 files:   0%|          | 0/10 [00:00<?, ?it/s]
+Fetching 10 files: 100%|██████████| 10/10 [00:00<00:00, 2500.48it/s]
+DATASET {'total': 32, 'skipped': 0, 'reason': None, 'truncated': 0}
+DATASET {'total': 8, 'skipped': 0, 'reason': None, 'truncated': 0}
+==((====))==  Unsloth - 2x faster free finetuning | Num GPUs used = 1
+   \\   /|    Num examples = 32 | Num Epochs = 1 | Total steps = 4
+O^O/ \_/ \    Batch size per device = 8 | Gradient accumulation steps = 1
+\        /    Data Parallel GPUs = 1 | Total batch size (8 x 1 x 1) = 8
+ "-____-"     Trainable parameters = 64,511,492 of 3,072,856,068 (2.10% trained)
+Unsloth: Will smartly offload gradients to save VRAM!
+`causal_conv1d_fn` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.
+{'loss': '0.7872', 'grad_norm': '3.905', 'learning_rate': '0', 'epoch': '0.25'}
+Unsloth: Double buffering enabled (parallel H2D + compute) for backward pass.
+{'loss': '0.0006782', 'grad_norm': '0.02394', 'learning_rate': '0.0001', 'epoch': '0.5'}
+{'loss': '0.0002035', 'grad_norm': '0.009719', 'learning_rate': '7.5e-05', 'epoch': '0.75'}
+{'loss': '1.908', 'grad_norm': '10.67', 'learning_rate': '2.5e-05', 'epoch': '1'}
+Unsloth: Restored added_tokens_decoder metadata in <USER_HOME>\tiny-visual-reasoning-lab\runs\v2-smoke\checkpoints\checkpoint-4\.unsloth-save-jynm67ge\tokenizer_config.json.
+{'train_runtime': '9.848', 'train_samples_per_second': '3.249', 'train_steps_per_second': '0.406', 'train_loss': '0.674', 'epoch': '1'}
+VALIDATION 4 1.0
+Unsloth: Restored added_tokens_decoder metadata in <USER_HOME>\tiny-visual-reasoning-lab\runs\v2-smoke\best\.unsloth-save-4d5ypst7\tokenizer_config.json.
+Unsloth: Restored added_tokens_decoder metadata in <USER_HOME>\tiny-visual-reasoning-lab\runs\v2-smoke\best\tokenizer_config.json.
+Unsloth: Restored added_tokens_decoder metadata in <USER_HOME>\tiny-visual-reasoning-lab\runs\v2-smoke\adapter\.unsloth-save-itsgtocp\tokenizer_config.json.
+Unsloth: Restored added_tokens_decoder metadata in <USER_HOME>\tiny-visual-reasoning-lab\runs\v2-smoke\adapter\tokenizer_config.json.
+TRAINED <USER_HOME>\tiny-visual-reasoning-lab\runs\v2-smoke

@@ -1,0 +1,17 @@
+START baseline
+DONE baseline
+START evaluation
+DONE evaluation
+START freeform
+DONE freeform
+START native_reload
+DONE native_reload
+START cuda_reload
+DONE cuda_reload
+START cpu_reload
+DONE cpu_reload
+START export
+DONE export
+START report
+DONE report
+V2_READY_FOR_REVIEW

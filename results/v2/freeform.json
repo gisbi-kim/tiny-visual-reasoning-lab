@@ -1,0 +1,317 @@
+{
+  "scope": "Small prewritten free-form demonstration on one fixed board; not an independent benchmark or representative accuracy estimate.",
+  "device": "cuda",
+  "object_keys": [
+    "dog",
+    "banana",
+    "cat",
+    "lifeboat",
+    "goldfish",
+    "backpack"
+  ],
+  "source_ids": [
+    "val/images/val_242.JPEG",
+    "val/images/val_1312.JPEG",
+    "val/images/val_108.JPEG",
+    "val/images/val_1245.JPEG",
+    "val/images/val_653.JPEG",
+    "val/images/val_165.JPEG"
+  ],
+  "accuracy": 0.7857142857142857,
+  "rows": [
+    {
+      "instruction": "고양이 있는 칸에서 좌측으로 갔다가 밑으로 내려가면 어디야?",
+      "gold": "E",
+      "prediction": {
+        "action": "E",
+        "probabilities": {
+          "A": 0.00018400153203401715,
+          "B": 0.00019306123431306332,
+          "C": 0.00018891695071943104,
+          "D": 0.0003701789246406406,
+          "E": 0.9952377080917358,
+          "F": 0.0002850474847946316,
+          "NONE": 0.003541090525686741
+        },
+        "latency_ms": 543.9075001049787,
+        "device": "cuda",
+        "dtype": "torch.bfloat16",
+        "quantized_base": true,
+        "cpu_fallback_enabled": false
+      }
+    },
+    {
+      "instruction": "개 사진 아래 칸으로 내려간 다음 오른쪽 옆 칸을 찍어줘.",
+      "gold": "E",
+      "prediction": {
+        "action": "E",
+        "probabilities": {
+          "A": 0.00032644785824231803,
+          "B": 0.00038042321102693677,
+          "C": 0.00036938488483428955,
+          "D": 0.0005653015105053782,
+          "E": 0.9838773608207703,
+          "F": 0.0014050995232537389,
+          "NONE": 0.013076077215373516
+        },
+        "latency_ms": 163.01080002449453,
+        "device": "cuda",
+        "dtype": "torch.bfloat16",
+        "quantized_base": true,
+        "cpu_fallback_enabled": false
+      }
+    },
+    {
+      "instruction": "배가 있는 줄에서 동물 사진 하나만 찾아줄래?",
+      "gold": "E",
+      "prediction": {
+        "action": "E",
+        "probabilities": {
+          "A": 0.00040272733895108104,
+          "B": 0.00024140620371326804,
+          "C": 0.00032302580075338483,
+          "D": 0.00032864167587831616,
+          "E": 0.9931926131248474,
+          "F": 0.0002836885687429458,
+          "NONE": 0.005227906163781881
+        },
+        "latency_ms": 160.81329993903637,
+        "device": "cuda",
+        "dtype": "torch.bfloat16",
+        "quantized_base": true,
+        "cpu_fallback_enabled": false
+      }
+    },
+    {
+      "instruction": "사진 여섯 장 중 동물이 나온 게 세 장 이상이면 바나나, 그보다 적으면 배낭으로 해줘.",
+      "gold": "B",
+      "prediction": {
+        "action": "F",
+        "probabilities": {
+          "A": 0.004485601093620062,
+          "B": 0.14764344692230225,
+          "C": 0.009223059751093388,
+          "D": 0.02200174145400524,
+          "E": 0.003911685198545456,
+          "F": 0.7610196471214294,
+          "NONE": 0.05171482637524605
+        },
+        "latency_ms": 160.991600016132,
+        "device": "cuda",
+        "dtype": "torch.bfloat16",
+        "quantized_base": true,
+        "cpu_fallback_enabled": false
+      }
+    },
+    {
+      "instruction": "과일보다 탈것 사진이 더 많을 때만 고양이를 선택하고, 동점이거나 적으면 가방을 골라.",
+      "gold": "F",
+      "prediction": {
+        "action": "C",
+        "probabilities": {
+          "A": 0.0032996947411447763,
+          "B": 0.002988821594044566,
+          "C": 0.8008431792259216,
+          "D": 0.002179102273657918,
+          "E": 0.0020836691837757826,
+          "F": 0.16581286489963531,
+          "NONE": 0.022792721167206764
+        },
+        "latency_ms": 160.5926000047475,
+        "device": "cuda",
+        "dtype": "torch.bfloat16",
+        "quantized_base": true,
+        "cpu_fallback_enabled": false
+      }
+    },
+    {
+      "instruction": "바나나랑 같은 가로줄인데 동물은 아닌 사진이 뭐지?",
+      "gold": "B",
+      "prediction": {
+        "action": "B",
+        "probabilities": {
+          "A": 0.00030276746838353574,
+          "B": 0.9941020607948303,
+          "C": 0.0002840517845470458,
+          "D": 0.000249695178354159,
+          "E": 0.00021975208073854446,
+          "F": 0.0002902105334214866,
+          "NONE": 0.004551426041871309
+        },
+        "latency_ms": 160.77499999664724,
+        "device": "cuda",
+        "dtype": "torch.bfloat16",
+        "quantized_base": true,
+        "cpu_fallback_enabled": false
+      }
+    },
+    {
+      "instruction": "고양이 오른편 바로 옆 사진을 선택해 줘.",
+      "gold": "NONE",
+      "prediction": {
+        "action": "NONE",
+        "probabilities": {
+          "A": 0.001035685883834958,
+          "B": 0.002709511201828718,
+          "C": 0.0015246045077219605,
+          "D": 0.0009618673357181251,
+          "E": 0.001278015086427331,
+          "F": 0.0017929563764482737,
+          "NONE": 0.9906973838806152
+        },
+        "latency_ms": 157.67740015871823,
+        "device": "cuda",
+        "dtype": "torch.bfloat16",
+        "quantized_base": true,
+        "cpu_fallback_enabled": false
+      }
+    },
+    {
+      "instruction": "개와 같은 세로줄에 있는 과일 사진을 골라봐.",
+      "gold": "NONE",
+      "prediction": {
+        "action": "NONE",
+        "probabilities": {
+          "A": 0.025673164054751396,
+          "B": 0.01861768402159214,
+          "C": 0.010929220356047153,
+          "D": 0.011744299903512001,
+          "E": 0.008704743348062038,
+          "F": 0.00841597095131874,
+          "NONE": 0.9159148931503296
+        },
+        "latency_ms": 159.64460000395775,
+        "device": "cuda",
+        "dtype": "torch.bfloat16",
+        "quantized_base": true,
+        "cpu_fallback_enabled": false
+      }
+    },
+    {
+      "instruction": "Start on the cat. Take a step left, then a step down. Which tile do you land on?",
+      "gold": "E",
+      "prediction": {
+        "action": "E",
+        "probabilities": {
+          "A": 0.00017136211681645364,
+          "B": 0.00017930855392478406,
+          "C": 0.00017494952771812677,
+          "D": 0.0003446493356022984,
+          "E": 0.9953041076660156,
+          "F": 0.00022958379122428596,
+          "NONE": 0.0035961337853223085
+        },
+        "latency_ms": 158.32970011979342,
+        "device": "cuda",
+        "dtype": "torch.bfloat16",
+        "quantized_base": true,
+        "cpu_fallback_enabled": false
+      }
+    },
+    {
+      "instruction": "I want the animal picture on the same horizontal line as the boat.",
+      "gold": "E",
+      "prediction": {
+        "action": "E",
+        "probabilities": {
+          "A": 0.00022550311405211687,
+          "B": 0.0001751294475980103,
+          "C": 0.00023460802913177758,
+          "D": 0.00022063296637497842,
+          "E": 0.9953304529190063,
+          "F": 0.00020764533837791532,
+          "NONE": 0.0036060186102986336
+        },
+        "latency_ms": 157.13810012675822,
+        "device": "cuda",
+        "dtype": "torch.bfloat16",
+        "quantized_base": true,
+        "cpu_fallback_enabled": false
+      }
+    },
+    {
+      "instruction": "Pick the banana if three or more of these pictures show animals. Otherwise, pick the backpack.",
+      "gold": "B",
+      "prediction": {
+        "action": "B",
+        "probabilities": {
+          "A": 0.0027070711366832256,
+          "B": 0.8701004385948181,
+          "C": 0.0029374894220381975,
+          "D": 0.0021015864331275225,
+          "E": 0.002222317736595869,
+          "F": 0.10185354202985764,
+          "NONE": 0.018077580258250237
+        },
+        "latency_ms": 159.9467999767512,
+        "device": "cuda",
+        "dtype": "torch.bfloat16",
+        "quantized_base": true,
+        "cpu_fallback_enabled": false
+      }
+    },
+    {
+      "instruction": "Only pick the cat if vehicle pictures outnumber fruit pictures. In a tie, or if there are fewer vehicles, pick the bag.",
+      "gold": "F",
+      "prediction": {
+        "action": "C",
+        "probabilities": {
+          "A": 0.0035199502017349005,
+          "B": 0.002714097499847412,
+          "C": 0.59901362657547,
+          "D": 0.002556857420131564,
+          "E": 0.002160843927413225,
+          "F": 0.3679795563220978,
+          "NONE": 0.022055096924304962
+        },
+        "latency_ms": 159.26819993183017,
+        "device": "cuda",
+        "dtype": "torch.bfloat16",
+        "quantized_base": true,
+        "cpu_fallback_enabled": false
+      }
+    },
+    {
+      "instruction": "On the row with the banana, which picture is left after removing all the animals?",
+      "gold": "B",
+      "prediction": {
+        "action": "B",
+        "probabilities": {
+          "A": 0.0002930090995505452,
+          "B": 0.993486225605011,
+          "C": 0.0002661806938704103,
+          "D": 0.000233844606555067,
+          "E": 0.00021250289864838123,
+          "F": 0.00025194656336680055,
+          "NONE": 0.005256383214145899
+        },
+        "latency_ms": 156.7585999146104,
+        "device": "cuda",
+        "dtype": "torch.bfloat16",
+        "quantized_base": true,
+        "cpu_fallback_enabled": false
+      }
+    },
+    {
+      "instruction": "What is directly to the right of the cat? Select that tile.",
+      "gold": "NONE",
+      "prediction": {
+        "action": "NONE",
+        "probabilities": {
+          "A": 0.0007600554963573813,
+          "B": 0.001770259696058929,
+          "C": 0.001162873231805861,
+          "D": 0.0007328895153477788,
+          "E": 0.0008786600665189326,
+          "F": 0.0010006650118157268,
+          "NONE": 0.9936944842338562
+        },
+        "latency_ms": 162.68970002420247,
+        "device": "cuda",
+        "dtype": "torch.bfloat16",
+        "quantized_base": true,
+        "cpu_fallback_enabled": false
+      }
+    }
+  ]
+}

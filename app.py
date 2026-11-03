@@ -18,9 +18,9 @@ def create_app(engine):
     by_key={}
     for item in examples:by_key.setdefault(item['key'],[]).append(item)
     @app.get('/')
-    def index():return render_template('index.html',device=str(engine.device))
+    def index():return render_template('index.html',device=str(engine.device),version=getattr(engine,'config',{}).get('lab_version','v1'))
     @app.get('/health')
-    def health():return jsonify(ready=True,device=str(engine.device),model='Qwen3.5-4B + LoRA + Clef')
+    def health():return jsonify(ready=True,device=str(engine.device),model='Qwen3.5-4B + LoRA + Clef',version=getattr(engine,'config',{}).get('lab_version','v1'))
     @app.post('/scene')
     def scene():
         canonical=(request.get_json(silent=True) or {}).get('canonical',False)

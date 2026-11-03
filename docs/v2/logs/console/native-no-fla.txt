@@ -1,0 +1,59 @@
+🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.
+W1103 15:03:11.883000 29792 Lib\site-packages\torch\utils\_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W1103 15:03:11.913000 29792 Lib\site-packages\torch\utils\_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+Unsloth: xformers is installed but cannot load with torch 2.14.1+cu130 (it was built for 2.10.0+cu128), so PyTorch attention is used instead.
+To install a matching xformers, run `unsloth install-kernels xformers`, or `pip uninstall xformers` to hide this. UNSLOTH_ENABLE_LOGGING=1 shows the full error.
+🦥 Unsloth Zoo will now patch everything to make training faster!
+Unsloth: This model uses gated-deltanet linear attention layers. Unsloth
+bundles the flash-linear-attention kernels, but they could not be enabled
+on this setup (they need CUDA with torch >= 2.7 and triton >= 3.3), so
+transformers will use a slower pure PyTorch path.
+==((====))==  Unsloth 2026.10.10: Fast Qwen3_5 patching. Transformers: 5.17.0.
+   \\   /|    NVIDIA GeForce RTX 4070 Ti SUPER. Num GPUs = 1. Max memory: 15.992 GB. Platform: Windows.
+O^O/ \_/ \    Torch: 2.14.1+cu130. CUDA: 8.9. CUDA Toolkit: 13.0. Triton: 3.9.0
+\        /    Bfloat16 = TRUE. FA [Xformers = None. FA2 = False]
+ "-____-"     Free license: http://github.com/unslothai/unsloth
+Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
+
+Loading weights:   0%|          | 0/723 [00:00<?, ?it/s]
+Loading weights:   0%|          | 1/723 [00:00<07:25,  1.62it/s]
+Loading weights:   2%|▏         | 13/723 [00:00<00:29, 23.79it/s]
+Loading weights:   4%|▎         | 27/723 [00:00<00:14, 47.13it/s]
+Loading weights:   6%|▌         | 41/723 [00:00<00:10, 67.31it/s]
+Loading weights:   7%|▋         | 53/723 [00:01<00:08, 78.76it/s]
+Loading weights:  10%|█         | 75/723 [00:01<00:05, 111.39it/s]
+Loading weights:  13%|█▎        | 92/723 [00:01<00:05, 124.09it/s]
+Loading weights:  15%|█▍        | 107/723 [00:01<00:05, 116.40it/s]
+Loading weights:  18%|█▊        | 128/723 [00:01<00:04, 135.71it/s]
+Loading weights:  20%|█▉        | 143/723 [00:01<00:04, 137.28it/s]
+Loading weights:  22%|██▏       | 158/723 [00:01<00:04, 128.32it/s]
+Loading weights:  24%|██▍       | 172/723 [00:01<00:04, 117.66it/s]
+Loading weights:  26%|██▌       | 186/723 [00:02<00:04, 122.91it/s]
+Loading weights:  28%|██▊       | 201/723 [00:02<00:04, 124.15it/s]
+Loading weights:  30%|███       | 220/723 [00:02<00:03, 137.49it/s]
+Loading weights:  33%|███▎      | 235/723 [00:02<00:03, 136.10it/s]
+Loading weights:  35%|███▍      | 251/723 [00:02<00:03, 140.08it/s]
+Loading weights:  37%|███▋      | 266/723 [00:02<00:03, 122.31it/s]
+Loading weights:  40%|███▉      | 287/723 [00:02<00:03, 138.78it/s]
+Loading weights:  42%|████▏     | 302/723 [00:02<00:03, 123.86it/s]
+Loading weights:  44%|████▎     | 315/723 [00:03<00:03, 107.36it/s]
+Loading weights:  46%|████▌     | 330/723 [00:03<00:03, 114.76it/s]
+Loading weights:  48%|████▊     | 344/723 [00:03<00:03, 114.50it/s]
+Loading weights:  50%|████▉     | 358/723 [00:03<00:03, 113.77it/s]
+Loading weights:  51%|█████     | 370/723 [00:03<00:03, 102.25it/s]
+Loading weights:  53%|█████▎    | 383/723 [00:03<00:03, 107.83it/s]
+Loading weights:  55%|█████▍    | 396/723 [00:03<00:02, 113.16it/s]
+Loading weights:  56%|█████▋    | 408/723 [00:03<00:03, 101.98it/s]
+Loading weights:  58%|█████▊    | 419/723 [00:04<00:03, 88.05it/s] 
+Loading weights:  63%|██████▎   | 458/723 [00:04<00:01, 157.77it/s]
+Loading weights:  73%|███████▎  | 529/723 [00:04<00:00, 295.36it/s]
+Loading weights:  83%|████████▎ | 598/723 [00:04<00:00, 394.81it/s]
+Loading weights:  91%|█████████ | 659/723 [00:04<00:00, 453.05it/s]
+Loading weights:  99%|█████████▉| 716/723 [00:04<00:00, 471.21it/s]
+Loading weights: 100%|██████████| 723/723 [00:04<00:00, 156.18it/s]
+
+Fetching 10 files:   0%|          | 0/10 [00:00<?, ?it/s]
+Fetching 10 files: 100%|██████████| 10/10 [00:00<00:00, 2500.18it/s]
+`causal_conv1d_fn` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.
+`chunk_gated_delta_rule` is falling back to its reference PyTorch implementation because `flash-linear-attention` is not installed. This is correct but much slower; install `flash-linear-attention` for the optimized kernel.
+BACKEND_RESULT unsloth 1.0 352

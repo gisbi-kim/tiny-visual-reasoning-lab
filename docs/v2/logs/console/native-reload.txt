@@ -1,0 +1,58 @@
+🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.
+W1103 14:58:38.087000 21068 Lib\site-packages\torch\utils\_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W1103 14:58:38.131000 21068 Lib\site-packages\torch\utils\_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+Unsloth: xformers is installed but cannot load with torch 2.14.1+cu130 (it was built for 2.10.0+cu128), so PyTorch attention is used instead.
+To install a matching xformers, run `unsloth install-kernels xformers`, or `pip uninstall xformers` to hide this. UNSLOTH_ENABLE_LOGGING=1 shows the full error.
+🦥 Unsloth Zoo will now patch everything to make training faster!
+==((====))==  Unsloth 2026.10.10: Fast Qwen3_5 patching. Transformers: 5.17.0.
+   \\   /|    NVIDIA GeForce RTX 4070 Ti SUPER. Num GPUs = 1. Max memory: 15.992 GB. Platform: Windows.
+O^O/ \_/ \    Torch: 2.14.1+cu130. CUDA: 8.9. CUDA Toolkit: 13.0. Triton: 3.9.0
+\        /    Bfloat16 = TRUE. FA [Xformers = None. FA2 = False]
+ "-____-"     Free license: http://github.com/unslothai/unsloth
+Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
+
+Loading weights:   0%|          | 0/723 [00:00<?, ?it/s]
+Loading weights:   0%|          | 1/723 [00:00<07:59,  1.51it/s]
+Loading weights:   2%|▏         | 13/723 [00:00<00:32, 21.75it/s]
+Loading weights:   4%|▎         | 27/723 [00:00<00:15, 44.56it/s]
+Loading weights:   6%|▌         | 41/723 [00:00<00:10, 64.64it/s]
+Loading weights:   7%|▋         | 53/723 [00:01<00:08, 74.53it/s]
+Loading weights:   9%|▉         | 66/723 [00:01<00:08, 82.05it/s]
+Loading weights:  11%|█         | 80/723 [00:01<00:06, 95.55it/s]
+Loading weights:  13%|█▎        | 94/723 [00:01<00:05, 106.46it/s]
+Loading weights:  15%|█▍        | 107/723 [00:01<00:05, 106.49it/s]
+Loading weights:  17%|█▋        | 120/723 [00:01<00:05, 110.68it/s]
+Loading weights:  19%|█▊        | 134/723 [00:01<00:05, 116.12it/s]
+Loading weights:  20%|██        | 148/723 [00:01<00:04, 120.05it/s]
+Loading weights:  23%|██▎       | 166/723 [00:01<00:04, 136.32it/s]
+Loading weights:  25%|██▌       | 181/723 [00:02<00:04, 128.87it/s]
+Loading weights:  27%|██▋       | 195/723 [00:02<00:04, 115.31it/s]
+Loading weights:  29%|██▉       | 208/723 [00:02<00:04, 103.79it/s]
+Loading weights:  31%|███       | 224/723 [00:02<00:04, 110.64it/s]
+Loading weights:  33%|███▎      | 237/723 [00:02<00:04, 113.70it/s]
+Loading weights:  34%|███▍      | 249/723 [00:02<00:04, 109.17it/s]
+Loading weights:  36%|███▌      | 261/723 [00:02<00:05, 92.27it/s] 
+Loading weights:  38%|███▊      | 277/723 [00:03<00:04, 102.30it/s]
+Loading weights:  40%|███▉      | 288/723 [00:03<00:04, 98.62it/s] 
+Loading weights:  42%|████▏     | 301/723 [00:03<00:04, 100.96it/s]
+Loading weights:  43%|████▎     | 312/723 [00:03<00:04, 83.13it/s] 
+Loading weights:  46%|████▌     | 329/723 [00:03<00:03, 102.25it/s]
+Loading weights:  47%|████▋     | 341/723 [00:03<00:03, 100.93it/s]
+Loading weights:  49%|████▊     | 352/723 [00:03<00:03, 102.66it/s]
+Loading weights:  50%|█████     | 363/723 [00:04<00:04, 88.90it/s] 
+Loading weights:  52%|█████▏    | 373/723 [00:04<00:03, 90.69it/s]
+Loading weights:  53%|█████▎    | 383/723 [00:04<00:03, 90.75it/s]
+Loading weights:  55%|█████▍    | 396/723 [00:04<00:03, 98.66it/s]
+Loading weights:  56%|█████▋    | 407/723 [00:04<00:03, 99.05it/s]
+Loading weights:  58%|█████▊    | 418/723 [00:04<00:03, 79.77it/s]
+Loading weights:  63%|██████▎   | 456/723 [00:04<00:01, 149.13it/s]
+Loading weights:  72%|███████▏  | 517/723 [00:04<00:00, 263.07it/s]
+Loading weights:  80%|███████▉  | 577/723 [00:04<00:00, 350.30it/s]
+Loading weights:  88%|████████▊ | 637/723 [00:05<00:00, 418.11it/s]
+Loading weights:  96%|█████████▌| 694/723 [00:05<00:00, 456.73it/s]
+Loading weights: 100%|██████████| 723/723 [00:05<00:00, 137.69it/s]
+
+Fetching 10 files:   0%|          | 0/10 [00:00<?, ?it/s]
+Fetching 10 files: 100%|██████████| 10/10 [00:00<00:00, 2000.53it/s]
+`causal_conv1d_fn` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.
+BACKEND_RESULT unsloth 1.0 352

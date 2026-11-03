@@ -1,0 +1,583 @@
+🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.
+W1103 19:50:16.320000 69108 Lib\site-packages\torch\utils\_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W1103 19:50:16.347000 69108 Lib\site-packages\torch\utils\_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+Unsloth: xformers is installed but cannot load with torch 2.14.1+cu130 (it was built for 2.10.0+cu128), so PyTorch attention is used instead.
+To install a matching xformers, run `unsloth install-kernels xformers`, or `pip uninstall xformers` to hide this. UNSLOTH_ENABLE_LOGGING=1 shows the full error.
+🦥 Unsloth Zoo will now patch everything to make training faster!
+==((====))==  Unsloth 2026.10.10: Fast Qwen3_5 patching. Transformers: 5.17.0.
+   \\   /|    NVIDIA GeForce RTX 4070 Ti SUPER. Num GPUs = 1. Max memory: 15.992 GB. Platform: Windows.
+O^O/ \_/ \    Torch: 2.14.1+cu130. CUDA: 8.9. CUDA Toolkit: 13.0. Triton: 3.9.0
+\        /    Bfloat16 = TRUE. FA [Xformers = None. FA2 = False]
+ "-____-"     Free license: http://github.com/unslothai/unsloth
+Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
+
+Loading weights:   0%|          | 0/723 [00:00<?, ?it/s]
+Loading weights:   0%|          | 1/723 [00:00<06:45,  1.78it/s]
+Loading weights:   2%|▏         | 12/723 [00:00<00:30, 22.99it/s]
+Loading weights:   3%|▎         | 25/723 [00:00<00:15, 45.95it/s]
+Loading weights:   5%|▍         | 36/723 [00:00<00:11, 60.10it/s]
+Loading weights:   6%|▋         | 46/723 [00:01<00:10, 63.07it/s]
+Loading weights:   9%|▉         | 64/723 [00:01<00:07, 90.81it/s]
+Loading weights:  11%|█         | 76/723 [00:01<00:06, 97.79it/s]
+Loading weights:  12%|█▏        | 89/723 [00:01<00:06, 104.16it/s]
+Loading weights:  14%|█▍        | 101/723 [00:01<00:06, 90.07it/s]
+Loading weights:  16%|█▋        | 118/723 [00:01<00:05, 105.70it/s]
+Loading weights:  18%|█▊        | 132/723 [00:01<00:05, 108.58it/s]
+Loading weights:  20%|██        | 146/723 [00:01<00:05, 110.93it/s]
+Loading weights:  22%|██▏       | 158/723 [00:02<00:05, 99.99it/s] 
+Loading weights:  24%|██▍       | 172/723 [00:02<00:05, 103.89it/s]
+Loading weights:  26%|██▌       | 186/723 [00:02<00:05, 106.51it/s]
+Loading weights:  28%|██▊       | 200/723 [00:02<00:04, 108.87it/s]
+Loading weights:  29%|██▉       | 212/723 [00:02<00:05, 101.18it/s]
+Loading weights:  31%|███       | 225/723 [00:02<00:04, 108.03it/s]
+Loading weights:  33%|███▎      | 239/723 [00:02<00:04, 110.32it/s]
+Loading weights:  35%|███▍      | 252/723 [00:02<00:04, 114.82it/s]
+Loading weights:  37%|███▋      | 264/723 [00:03<00:04, 103.86it/s]
+Loading weights:  38%|███▊      | 278/723 [00:03<00:04, 106.31it/s]
+Loading weights:  40%|████      | 291/723 [00:03<00:03, 112.37it/s]
+Loading weights:  42%|████▏     | 305/723 [00:03<00:03, 113.68it/s]
+Loading weights:  44%|████▍     | 317/723 [00:03<00:03, 103.14it/s]
+Loading weights:  46%|████▌     | 331/723 [00:03<00:03, 106.04it/s]
+Loading weights:  48%|████▊     | 345/723 [00:03<00:03, 108.61it/s]
+Loading weights:  50%|████▉     | 358/723 [00:03<00:03, 112.36it/s]
+Loading weights:  51%|█████     | 370/723 [00:03<00:03, 102.20it/s]
+Loading weights:  53%|█████▎    | 383/723 [00:04<00:03, 108.95it/s]
+Loading weights:  55%|█████▍    | 396/723 [00:04<00:02, 113.95it/s]
+Loading weights:  56%|█████▋    | 408/723 [00:04<00:02, 112.35it/s]
+Loading weights:  58%|█████▊    | 420/723 [00:04<00:03, 93.81it/s] 
+Loading weights:  65%|██████▍   | 467/723 [00:04<00:01, 184.23it/s]
+Loading weights:  75%|███████▍  | 540/723 [00:04<00:00, 322.79it/s]
+Loading weights:  85%|████████▍ | 614/723 [00:04<00:00, 430.19it/s]
+Loading weights:  95%|█████████▍| 686/723 [00:04<00:00, 504.21it/s]
+Loading weights: 100%|██████████| 723/723 [00:04<00:00, 145.49it/s]
+
+Fetching 10 files:   0%|          | 0/10 [00:00<?, ?it/s]
+Fetching 10 files: 100%|██████████| 10/10 [00:00<00:00, 2500.18it/s]
+DATASET {'total': 37632, 'skipped': 0, 'reason': None, 'truncated': 0}
+DATASET {'total': 336, 'skipped': 0, 'reason': None, 'truncated': 0}
+==((====))==  Unsloth - 2x faster free finetuning | Num GPUs used = 1
+   \\   /|    Num examples = 37,632 | Num Epochs = 1 | Total steps = 4,704
+O^O/ \_/ \    Batch size per device = 8 | Gradient accumulation steps = 1
+\        /    Data Parallel GPUs = 1 | Total batch size (8 x 1 x 1) = 8
+ "-____-"     Trainable parameters = 64,511,492 of 3,072,856,068 (2.10% trained)
+Unsloth: Will smartly offload gradients to save VRAM!
+`causal_conv1d_fn` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.
+Unsloth: Double buffering enabled (parallel H2D + compute) for backward pass.
+{'loss': '0.558', 'grad_norm': '0.02008', 'learning_rate': '1.5e-05', 'epoch': '0.002126'}
+{'loss': '1.08', 'grad_norm': '5.816', 'learning_rate': '3.167e-05', 'epoch': '0.004252'}
+{'loss': '0.4498', 'grad_norm': '2.955', 'learning_rate': '4.833e-05', 'epoch': '0.006378'}
+{'loss': '0.5634', 'grad_norm': '8.06', 'learning_rate': '6.5e-05', 'epoch': '0.008503'}
+{'loss': '0.3582', 'grad_norm': '4.414', 'learning_rate': '8.167e-05', 'epoch': '0.01063'}
+{'loss': '0.3634', 'grad_norm': '9.22', 'learning_rate': '9.833e-05', 'epoch': '0.01276'}
+{'loss': '0.2393', 'grad_norm': '1.614', 'learning_rate': '0.0001', 'epoch': '0.01488'}
+{'loss': '0.4323', 'grad_norm': '6.926', 'learning_rate': '0.0001', 'epoch': '0.01701'}
+{'loss': '0.3648', 'grad_norm': '8.569', 'learning_rate': '9.999e-05', 'epoch': '0.01913'}
+{'loss': '0.3323', 'grad_norm': '0.01813', 'learning_rate': '9.998e-05', 'epoch': '0.02126'}
+{'loss': '0.2075', 'grad_norm': '4.307', 'learning_rate': '9.997e-05', 'epoch': '0.02338'}
+{'loss': '0.264', 'grad_norm': '9.808', 'learning_rate': '9.996e-05', 'epoch': '0.02551'}
+{'loss': '0.3461', 'grad_norm': '8.125', 'learning_rate': '9.995e-05', 'epoch': '0.02764'}
+{'loss': '0.584', 'grad_norm': '0.1433', 'learning_rate': '9.993e-05', 'epoch': '0.02976'}
+{'loss': '0.2821', 'grad_norm': '8.195', 'learning_rate': '9.991e-05', 'epoch': '0.03189'}
+{'loss': '0.05979', 'grad_norm': '0.03348', 'learning_rate': '9.989e-05', 'epoch': '0.03401'}
+{'loss': '0.4937', 'grad_norm': '0.05421', 'learning_rate': '9.986e-05', 'epoch': '0.03614'}
+{'loss': '0.3767', 'grad_norm': '4.892', 'learning_rate': '9.984e-05', 'epoch': '0.03827'}
+{'loss': '0.3282', 'grad_norm': '4.204', 'learning_rate': '9.981e-05', 'epoch': '0.04039'}
+{'loss': '0.146', 'grad_norm': '72.95', 'learning_rate': '9.978e-05', 'epoch': '0.04252'}
+Unsloth: Restored added_tokens_decoder metadata in <USER_HOME>\tiny-visual-reasoning-lab\runs\v2\checkpoints\checkpoint-200\.unsloth-save-3sh4o61q\tokenizer_config.json.
+{'loss': '0.1544', 'grad_norm': '0.0789', 'learning_rate': '9.975e-05', 'epoch': '0.04464'}
+{'loss': '0.239', 'grad_norm': '12.32', 'learning_rate': '9.971e-05', 'epoch': '0.04677'}
+{'loss': '0.2741', 'grad_norm': '0.5862', 'learning_rate': '9.967e-05', 'epoch': '0.04889'}
+{'loss': '0.4555', 'grad_norm': '17.39', 'learning_rate': '9.963e-05', 'epoch': '0.05102'}
+{'loss': '0.2967', 'grad_norm': '3.343', 'learning_rate': '9.959e-05', 'epoch': '0.05315'}
+{'loss': '0.3372', 'grad_norm': '0.722', 'learning_rate': '9.955e-05', 'epoch': '0.05527'}
+{'loss': '0.1427', 'grad_norm': '5.633', 'learning_rate': '9.95e-05', 'epoch': '0.0574'}
+{'loss': '0.3004', 'grad_norm': '0.04622', 'learning_rate': '9.945e-05', 'epoch': '0.05952'}
+{'loss': '0.1854', 'grad_norm': '0.07623', 'learning_rate': '9.94e-05', 'epoch': '0.06165'}
+{'loss': '0.4801', 'grad_norm': '8.978', 'learning_rate': '9.935e-05', 'epoch': '0.06378'}
+{'loss': '0.3721', 'grad_norm': '3.819', 'learning_rate': '9.929e-05', 'epoch': '0.0659'}
+{'loss': '0.1417', 'grad_norm': '0.08035', 'learning_rate': '9.923e-05', 'epoch': '0.06803'}
+{'loss': '0.1423', 'grad_norm': '0.3461', 'learning_rate': '9.917e-05', 'epoch': '0.07015'}
+{'loss': '0.418', 'grad_norm': '7.915', 'learning_rate': '9.911e-05', 'epoch': '0.07228'}
+{'loss': '0.2608', 'grad_norm': '0.08696', 'learning_rate': '9.905e-05', 'epoch': '0.0744'}
+{'loss': '0.2193', 'grad_norm': '0.004944', 'learning_rate': '9.898e-05', 'epoch': '0.07653'}
+{'loss': '0.2954', 'grad_norm': '37.86', 'learning_rate': '9.891e-05', 'epoch': '0.07866'}
+{'loss': '0.2612', 'grad_norm': '10.04', 'learning_rate': '9.884e-05', 'epoch': '0.08078'}
+{'loss': '0.3757', 'grad_norm': '5.191', 'learning_rate': '9.877e-05', 'epoch': '0.08291'}
+VALIDATION 400 0.9375
+Unsloth: Restored added_tokens_decoder metadata in <USER_HOME>\tiny-visual-reasoning-lab\runs\v2\best\.unsloth-save-_z9izere\tokenizer_config.json.
+Unsloth: Restored added_tokens_decoder metadata in <USER_HOME>\tiny-visual-reasoning-lab\runs\v2\best\tokenizer_config.json.
+{'loss': '0.1677', 'grad_norm': '3.325', 'learning_rate': '9.869e-05', 'epoch': '0.08503'}
+Unsloth: Restored added_tokens_decoder metadata in <USER_HOME>\tiny-visual-reasoning-lab\runs\v2\checkpoints\checkpoint-400\.unsloth-save-vycsda0x\tokenizer_config.json.
+{'loss': '0.4512', 'grad_norm': '3.853', 'learning_rate': '9.861e-05', 'epoch': '0.08716'}
+{'loss': '0.04891', 'grad_norm': '0.2848', 'learning_rate': '9.853e-05', 'epoch': '0.08929'}
+{'loss': '0.09815', 'grad_norm': '20.13', 'learning_rate': '9.845e-05', 'epoch': '0.09141'}
+{'loss': '0.5038', 'grad_norm': '1.931', 'learning_rate': '9.837e-05', 'epoch': '0.09354'}
+{'loss': '0.3245', 'grad_norm': '0.487', 'learning_rate': '9.828e-05', 'epoch': '0.09566'}
+{'loss': '0.528', 'grad_norm': '0.1588', 'learning_rate': '9.819e-05', 'epoch': '0.09779'}
+{'loss': '0.06393', 'grad_norm': '0.1362', 'learning_rate': '9.81e-05', 'epoch': '0.09991'}
+{'loss': '0.3399', 'grad_norm': '2.602', 'learning_rate': '9.8e-05', 'epoch': '0.102'}
+{'loss': '0.2956', 'grad_norm': '21.85', 'learning_rate': '9.791e-05', 'epoch': '0.1042'}
+{'loss': '0.2953', 'grad_norm': '12.25', 'learning_rate': '9.781e-05', 'epoch': '0.1063'}
+{'loss': '0.2578', 'grad_norm': '15.63', 'learning_rate': '9.771e-05', 'epoch': '0.1084'}
+{'loss': '0.3283', 'grad_norm': '3.681', 'learning_rate': '9.761e-05', 'epoch': '0.1105'}
+{'loss': '0.3681', 'grad_norm': '8.379', 'learning_rate': '9.75e-05', 'epoch': '0.1127'}
+{'loss': '0.1842', 'grad_norm': '3.819', 'learning_rate': '9.74e-05', 'epoch': '0.1148'}
+{'loss': '0.2498', 'grad_norm': '0.02034', 'learning_rate': '9.729e-05', 'epoch': '0.1169'}
+{'loss': '0.2073', 'grad_norm': '0.5129', 'learning_rate': '9.718e-05', 'epoch': '0.119'}
+{'loss': '0.2878', 'grad_norm': '0.3534', 'learning_rate': '9.707e-05', 'epoch': '0.1212'}
+{'loss': '0.3059', 'grad_norm': '1.183', 'learning_rate': '9.695e-05', 'epoch': '0.1233'}
+{'loss': '0.1394', 'grad_norm': '2.66', 'learning_rate': '9.683e-05', 'epoch': '0.1254'}
+{'loss': '0.3933', 'grad_norm': '6.708', 'learning_rate': '9.671e-05', 'epoch': '0.1276'}
+Unsloth: Restored added_tokens_decoder metadata in <USER_HOME>\tiny-visual-reasoning-lab\runs\v2\checkpoints\checkpoint-600\.unsloth-save-pnqstvir\tokenizer_config.json.
+{'loss': '0.113', 'grad_norm': '29.59', 'learning_rate': '9.659e-05', 'epoch': '0.1297'}
+{'loss': '0.3018', 'grad_norm': '0.1758', 'learning_rate': '9.647e-05', 'epoch': '0.1318'}
+{'loss': '0.1506', 'grad_norm': '5.462', 'learning_rate': '9.634e-05', 'epoch': '0.1339'}
+{'loss': '0.1369', 'grad_norm': '0.02205', 'learning_rate': '9.621e-05', 'epoch': '0.1361'}
+{'loss': '0.1785', 'grad_norm': '0.2054', 'learning_rate': '9.608e-05', 'epoch': '0.1382'}
+{'loss': '0.1365', 'grad_norm': '0.5022', 'learning_rate': '9.595e-05', 'epoch': '0.1403'}
+{'loss': '0.2063', 'grad_norm': '8.862', 'learning_rate': '9.582e-05', 'epoch': '0.1424'}
+{'loss': '0.2572', 'grad_norm': '11.26', 'learning_rate': '9.568e-05', 'epoch': '0.1446'}
+{'loss': '0.1446', 'grad_norm': '11', 'learning_rate': '9.554e-05', 'epoch': '0.1467'}
+{'loss': '0.2575', 'grad_norm': '0.1654', 'learning_rate': '9.54e-05', 'epoch': '0.1488'}
+{'loss': '0.2786', 'grad_norm': '1.566', 'learning_rate': '9.526e-05', 'epoch': '0.1509'}
+{'loss': '0.2564', 'grad_norm': '2.51', 'learning_rate': '9.511e-05', 'epoch': '0.1531'}
+{'loss': '0.1288', 'grad_norm': '1.021', 'learning_rate': '9.497e-05', 'epoch': '0.1552'}
+{'loss': '0.1366', 'grad_norm': '0.02184', 'learning_rate': '9.482e-05', 'epoch': '0.1573'}
+{'loss': '0.3263', 'grad_norm': '3.069', 'learning_rate': '9.467e-05', 'epoch': '0.1594'}
+{'loss': '0.379', 'grad_norm': '6.778', 'learning_rate': '9.451e-05', 'epoch': '0.1616'}
+{'loss': '0.1336', 'grad_norm': '0.05595', 'learning_rate': '9.436e-05', 'epoch': '0.1637'}
+{'loss': '0.2572', 'grad_norm': '11.76', 'learning_rate': '9.42e-05', 'epoch': '0.1658'}
+{'loss': '0.1371', 'grad_norm': '14.49', 'learning_rate': '9.404e-05', 'epoch': '0.1679'}
+VALIDATION 800 0.9464285714285714
+Unsloth: Restored added_tokens_decoder metadata in <USER_HOME>\tiny-visual-reasoning-lab\runs\v2\best\.unsloth-save-o7a3qhx4\tokenizer_config.json.
+{'loss': '0.1845', 'grad_norm': '4.737', 'learning_rate': '9.388e-05', 'epoch': '0.1701'}
+Unsloth: Restored added_tokens_decoder metadata in <USER_HOME>\tiny-visual-reasoning-lab\runs\v2\checkpoints\checkpoint-800\.unsloth-save-ehpescr7\tokenizer_config.json.
+{'loss': '0.2889', 'grad_norm': '22.57', 'learning_rate': '9.372e-05', 'epoch': '0.1722'}
+{'loss': '0.2579', 'grad_norm': '0.4261', 'learning_rate': '9.355e-05', 'epoch': '0.1743'}
+{'loss': '0.2394', 'grad_norm': '21.04', 'learning_rate': '9.339e-05', 'epoch': '0.1764'}
+{'loss': '0.2748', 'grad_norm': '67.24', 'learning_rate': '9.322e-05', 'epoch': '0.1786'}
+{'loss': '0.1166', 'grad_norm': '0.01408', 'learning_rate': '9.305e-05', 'epoch': '0.1807'}
+{'loss': '0.2085', 'grad_norm': '0.03269', 'learning_rate': '9.287e-05', 'epoch': '0.1828'}
+{'loss': '0.2952', 'grad_norm': '0.2473', 'learning_rate': '9.27e-05', 'epoch': '0.1849'}
+{'loss': '0.2441', 'grad_norm': '7.287', 'learning_rate': '9.252e-05', 'epoch': '0.1871'}
+{'loss': '0.2001', 'grad_norm': '6.751', 'learning_rate': '9.234e-05', 'epoch': '0.1892'}
+{'loss': '0.2372', 'grad_norm': '6.206', 'learning_rate': '9.216e-05', 'epoch': '0.1913'}
+{'loss': '0.1702', 'grad_norm': '0.2091', 'learning_rate': '9.198e-05', 'epoch': '0.1935'}
+{'loss': '0.1938', 'grad_norm': '0.05521', 'learning_rate': '9.179e-05', 'epoch': '0.1956'}
+{'loss': '0.2992', 'grad_norm': '13.84', 'learning_rate': '9.161e-05', 'epoch': '0.1977'}
+{'loss': '0.3954', 'grad_norm': '0.1938', 'learning_rate': '9.142e-05', 'epoch': '0.1998'}
+{'loss': '0.09411', 'grad_norm': '0.06175', 'learning_rate': '9.123e-05', 'epoch': '0.202'}
+{'loss': '0.3541', 'grad_norm': '0.4149', 'learning_rate': '9.104e-05', 'epoch': '0.2041'}
+{'loss': '0.03056', 'grad_norm': '7.592', 'learning_rate': '9.084e-05', 'epoch': '0.2062'}
+{'loss': '0.322', 'grad_norm': '5.876', 'learning_rate': '9.064e-05', 'epoch': '0.2083'}
+{'loss': '0.07817', 'grad_norm': '0.01901', 'learning_rate': '9.045e-05', 'epoch': '0.2105'}
+{'loss': '0.1009', 'grad_norm': '0.4114', 'learning_rate': '9.025e-05', 'epoch': '0.2126'}
+Unsloth: Restored added_tokens_decoder metadata in <USER_HOME>\tiny-visual-reasoning-lab\runs\v2\checkpoints\checkpoint-1000\.unsloth-save-ay18foaj\tokenizer_config.json.
+{'loss': '0.2708', 'grad_norm': '7.499', 'learning_rate': '9.005e-05', 'epoch': '0.2147'}
+{'loss': '0.2069', 'grad_norm': '0.1883', 'learning_rate': '8.984e-05', 'epoch': '0.2168'}
+{'loss': '0.1971', 'grad_norm': '13.21', 'learning_rate': '8.964e-05', 'epoch': '0.219'}
+{'loss': '0.05016', 'grad_norm': '0.04916', 'learning_rate': '8.943e-05', 'epoch': '0.2211'}
+{'loss': '0.275', 'grad_norm': '9.977', 'learning_rate': '8.922e-05', 'epoch': '0.2232'}
+{'loss': '0.4851', 'grad_norm': '2.238', 'learning_rate': '8.901e-05', 'epoch': '0.2253'}
+{'loss': '0.2894', 'grad_norm': '2.666', 'learning_rate': '8.88e-05', 'epoch': '0.2275'}
+{'loss': '0.1893', 'grad_norm': '0.2156', 'learning_rate': '8.858e-05', 'epoch': '0.2296'}
+{'loss': '0.1728', 'grad_norm': '0.04132', 'learning_rate': '8.837e-05', 'epoch': '0.2317'}
+{'loss': '0.3595', 'grad_norm': '1.691', 'learning_rate': '8.815e-05', 'epoch': '0.2338'}
+{'loss': '0.349', 'grad_norm': '3.041', 'learning_rate': '8.793e-05', 'epoch': '0.236'}
+{'loss': '0.2525', 'grad_norm': '2.224', 'learning_rate': '8.771e-05', 'epoch': '0.2381'}
+{'loss': '0.1443', 'grad_norm': '0.03799', 'learning_rate': '8.749e-05', 'epoch': '0.2402'}
+{'loss': '0.04938', 'grad_norm': '1.057', 'learning_rate': '8.726e-05', 'epoch': '0.2423'}
+{'loss': '0.08575', 'grad_norm': '0.3488', 'learning_rate': '8.703e-05', 'epoch': '0.2445'}
+{'loss': '0.1158', 'grad_norm': '12.75', 'learning_rate': '8.681e-05', 'epoch': '0.2466'}
+{'loss': '0.05793', 'grad_norm': '0.1964', 'learning_rate': '8.658e-05', 'epoch': '0.2487'}
+{'loss': '0.2546', 'grad_norm': '1.101', 'learning_rate': '8.635e-05', 'epoch': '0.2509'}
+{'loss': '0.267', 'grad_norm': '4.381', 'learning_rate': '8.611e-05', 'epoch': '0.253'}
+VALIDATION 1200 0.9494047619047619
+Unsloth: Restored added_tokens_decoder metadata in <USER_HOME>\tiny-visual-reasoning-lab\runs\v2\best\.unsloth-save-iol6uxtk\tokenizer_config.json.
+{'loss': '0.03878', 'grad_norm': '0.07577', 'learning_rate': '8.588e-05', 'epoch': '0.2551'}
+Unsloth: Restored added_tokens_decoder metadata in <USER_HOME>\tiny-visual-reasoning-lab\runs\v2\checkpoints\checkpoint-1200\.unsloth-save-ysrb8u6l\tokenizer_config.json.
+{'loss': '0.1444', 'grad_norm': '3.118', 'learning_rate': '8.564e-05', 'epoch': '0.2572'}
+{'loss': '0.3251', 'grad_norm': '0.1097', 'learning_rate': '8.54e-05', 'epoch': '0.2594'}
+{'loss': '0.1391', 'grad_norm': '0.3087', 'learning_rate': '8.516e-05', 'epoch': '0.2615'}
+{'loss': '0.2617', 'grad_norm': '0.1371', 'learning_rate': '8.492e-05', 'epoch': '0.2636'}
+{'loss': '0.4773', 'grad_norm': '1.138', 'learning_rate': '8.468e-05', 'epoch': '0.2657'}
+{'loss': '0.3194', 'grad_norm': '5.367', 'learning_rate': '8.443e-05', 'epoch': '0.2679'}
+{'loss': '0.2843', 'grad_norm': '1.178', 'learning_rate': '8.419e-05', 'epoch': '0.27'}
+{'loss': '0.03265', 'grad_norm': '0.4221', 'learning_rate': '8.394e-05', 'epoch': '0.2721'}
+{'loss': '0.101', 'grad_norm': '3.085', 'learning_rate': '8.369e-05', 'epoch': '0.2742'}
+{'loss': '0.3894', 'grad_norm': '44.97', 'learning_rate': '8.344e-05', 'epoch': '0.2764'}
+{'loss': '0.2036', 'grad_norm': '6.447', 'learning_rate': '8.319e-05', 'epoch': '0.2785'}
+{'loss': '0.1527', 'grad_norm': '0.1969', 'learning_rate': '8.294e-05', 'epoch': '0.2806'}
+{'loss': '0.3068', 'grad_norm': '0.2573', 'learning_rate': '8.268e-05', 'epoch': '0.2827'}
+{'loss': '0.2146', 'grad_norm': '4.953', 'learning_rate': '8.242e-05', 'epoch': '0.2849'}
+{'loss': '0.2273', 'grad_norm': '0.08095', 'learning_rate': '8.217e-05', 'epoch': '0.287'}
+{'loss': '0.2777', 'grad_norm': '4.011', 'learning_rate': '8.191e-05', 'epoch': '0.2891'}
+{'loss': '0.1305', 'grad_norm': '0.09663', 'learning_rate': '8.164e-05', 'epoch': '0.2912'}
+{'loss': '0.3719', 'grad_norm': '9.984', 'learning_rate': '8.138e-05', 'epoch': '0.2934'}
+{'loss': '0.1692', 'grad_norm': '8.959', 'learning_rate': '8.112e-05', 'epoch': '0.2955'}
+{'loss': '0.1', 'grad_norm': '0.1367', 'learning_rate': '8.085e-05', 'epoch': '0.2976'}
+Unsloth: Restored added_tokens_decoder metadata in <USER_HOME>\tiny-visual-reasoning-lab\runs\v2\checkpoints\checkpoint-1400\.unsloth-save-xzdvcu1n\tokenizer_config.json.
+{'loss': '0.1866', 'grad_norm': '9.543', 'learning_rate': '8.059e-05', 'epoch': '0.2997'}
+{'loss': '0.08227', 'grad_norm': '1.061', 'learning_rate': '8.032e-05', 'epoch': '0.3019'}
+{'loss': '0.2146', 'grad_norm': '0.1667', 'learning_rate': '8.005e-05', 'epoch': '0.304'}
+{'loss': '0.1564', 'grad_norm': '5.1', 'learning_rate': '7.978e-05', 'epoch': '0.3061'}
+{'loss': '0.2096', 'grad_norm': '6.941', 'learning_rate': '7.95e-05', 'epoch': '0.3082'}
+{'loss': '0.1008', 'grad_norm': '0.07208', 'learning_rate': '7.923e-05', 'epoch': '0.3104'}
+{'loss': '0.1569', 'grad_norm': '5.349', 'learning_rate': '7.896e-05', 'epoch': '0.3125'}
+{'loss': '0.1087', 'grad_norm': '0.07681', 'learning_rate': '7.868e-05', 'epoch': '0.3146'}
+{'loss': '0.2866', 'grad_norm': '0.02659', 'learning_rate': '7.84e-05', 'epoch': '0.3168'}
+{'loss': '0.1605', 'grad_norm': '0.1401', 'learning_rate': '7.812e-05', 'epoch': '0.3189'}
+{'loss': '0.07903', 'grad_norm': '0.2215', 'learning_rate': '7.784e-05', 'epoch': '0.321'}
+{'loss': '0.1517', 'grad_norm': '0.04261', 'learning_rate': '7.756e-05', 'epoch': '0.3231'}
+{'loss': '0.1659', 'grad_norm': '17.13', 'learning_rate': '7.728e-05', 'epoch': '0.3253'}
+{'loss': '0.08388', 'grad_norm': '0.01432', 'learning_rate': '7.699e-05', 'epoch': '0.3274'}
+{'loss': '0.08919', 'grad_norm': '19.88', 'learning_rate': '7.671e-05', 'epoch': '0.3295'}
+{'loss': '0.05487', 'grad_norm': '0.153', 'learning_rate': '7.642e-05', 'epoch': '0.3316'}
+{'loss': '0.07069', 'grad_norm': '6.272', 'learning_rate': '7.613e-05', 'epoch': '0.3338'}
+{'loss': '0.5037', 'grad_norm': '9.007', 'learning_rate': '7.584e-05', 'epoch': '0.3359'}
+{'loss': '0.04872', 'grad_norm': '0.5267', 'learning_rate': '7.555e-05', 'epoch': '0.338'}
+VALIDATION 1600 0.9613095238095238
+Unsloth: Restored added_tokens_decoder metadata in <USER_HOME>\tiny-visual-reasoning-lab\runs\v2\best\.unsloth-save-n5myahxm\tokenizer_config.json.
+{'loss': '0.09729', 'grad_norm': '7.311', 'learning_rate': '7.526e-05', 'epoch': '0.3401'}
+Unsloth: Restored added_tokens_decoder metadata in <USER_HOME>\tiny-visual-reasoning-lab\runs\v2\checkpoints\checkpoint-1600\.unsloth-save-_5vvvouf\tokenizer_config.json.
+{'loss': '0.2341', 'grad_norm': '3.699', 'learning_rate': '7.497e-05', 'epoch': '0.3423'}
+{'loss': '0.0363', 'grad_norm': '0.0641', 'learning_rate': '7.468e-05', 'epoch': '0.3444'}
+{'loss': '0.1001', 'grad_norm': '0.1024', 'learning_rate': '7.438e-05', 'epoch': '0.3465'}
+{'loss': '0.03234', 'grad_norm': '1.223', 'learning_rate': '7.409e-05', 'epoch': '0.3486'}
+{'loss': '0.2084', 'grad_norm': '27.36', 'learning_rate': '7.379e-05', 'epoch': '0.3508'}
+{'loss': '0.102', 'grad_norm': '0.3943', 'learning_rate': '7.349e-05', 'epoch': '0.3529'}
+{'loss': '0.5989', 'grad_norm': '0.007196', 'learning_rate': '7.319e-05', 'epoch': '0.355'}
+{'loss': '0.2047', 'grad_norm': '2.989', 'learning_rate': '7.289e-05', 'epoch': '0.3571'}
+{'loss': '0.1261', 'grad_norm': '2.666', 'learning_rate': '7.259e-05', 'epoch': '0.3593'}
+{'loss': '0.1422', 'grad_norm': '5.746', 'learning_rate': '7.229e-05', 'epoch': '0.3614'}
+{'loss': '0.2868', 'grad_norm': '2.141', 'learning_rate': '7.199e-05', 'epoch': '0.3635'}
+{'loss': '0.0656', 'grad_norm': '1.123', 'learning_rate': '7.168e-05', 'epoch': '0.3656'}
+{'loss': '0.2707', 'grad_norm': '3.53', 'learning_rate': '7.138e-05', 'epoch': '0.3678'}
+{'loss': '0.1354', 'grad_norm': '0.1361', 'learning_rate': '7.107e-05', 'epoch': '0.3699'}
+{'loss': '0.3147', 'grad_norm': '0.06806', 'learning_rate': '7.076e-05', 'epoch': '0.372'}
+{'loss': '0.04493', 'grad_norm': '0.4969', 'learning_rate': '7.045e-05', 'epoch': '0.3741'}
+{'loss': '0.1909', 'grad_norm': '0.1085', 'learning_rate': '7.015e-05', 'epoch': '0.3763'}
+{'loss': '0.1602', 'grad_norm': '0.05857', 'learning_rate': '6.984e-05', 'epoch': '0.3784'}
+{'loss': '0.08406', 'grad_norm': '25.66', 'learning_rate': '6.952e-05', 'epoch': '0.3805'}
+{'loss': '0.01444', 'grad_norm': '0.1991', 'learning_rate': '6.921e-05', 'epoch': '0.3827'}
+Unsloth: Restored added_tokens_decoder metadata in <USER_HOME>\tiny-visual-reasoning-lab\runs\v2\checkpoints\checkpoint-1800\.unsloth-save-6h_qb4m1\tokenizer_config.json.
+{'loss': '0.04554', 'grad_norm': '0.01451', 'learning_rate': '6.89e-05', 'epoch': '0.3848'}
+{'loss': '0.1736', 'grad_norm': '0.1241', 'learning_rate': '6.859e-05', 'epoch': '0.3869'}
+{'loss': '0.01799', 'grad_norm': '0.002229', 'learning_rate': '6.827e-05', 'epoch': '0.389'}
+{'loss': '0.1387', 'grad_norm': '0.2257', 'learning_rate': '6.796e-05', 'epoch': '0.3912'}
+{'loss': '0.1958', 'grad_norm': '10.33', 'learning_rate': '6.764e-05', 'epoch': '0.3933'}
+{'loss': '0.1342', 'grad_norm': '0.05048', 'learning_rate': '6.732e-05', 'epoch': '0.3954'}
+{'loss': '0.08909', 'grad_norm': '0.0427', 'learning_rate': '6.701e-05', 'epoch': '0.3975'}
+{'loss': '0.06468', 'grad_norm': '4.837', 'learning_rate': '6.669e-05', 'epoch': '0.3997'}
+{'loss': '0.0121', 'grad_norm': '1.795', 'learning_rate': '6.637e-05', 'epoch': '0.4018'}
+{'loss': '0.1419', 'grad_norm': '0.01152', 'learning_rate': '6.605e-05', 'epoch': '0.4039'}
+{'loss': '0.2173', 'grad_norm': '0.1848', 'learning_rate': '6.573e-05', 'epoch': '0.406'}
+{'loss': '0.1836', 'grad_norm': '0.0131', 'learning_rate': '6.541e-05', 'epoch': '0.4082'}
+{'loss': '0.2415', 'grad_norm': '10.91', 'learning_rate': '6.508e-05', 'epoch': '0.4103'}
+{'loss': '0.05365', 'grad_norm': '0.06705', 'learning_rate': '6.476e-05', 'epoch': '0.4124'}
+{'loss': '0.06981', 'grad_norm': '0.03621', 'learning_rate': '6.444e-05', 'epoch': '0.4145'}
+{'loss': '0.3445', 'grad_norm': '8.078', 'learning_rate': '6.411e-05', 'epoch': '0.4167'}
+{'loss': '0.1171', 'grad_norm': '0.2212', 'learning_rate': '6.379e-05', 'epoch': '0.4188'}
+{'loss': '0.2688', 'grad_norm': '5.277', 'learning_rate': '6.346e-05', 'epoch': '0.4209'}
+{'loss': '0.1579', 'grad_norm': '0.04572', 'learning_rate': '6.314e-05', 'epoch': '0.423'}
+VALIDATION 2000 0.9642857142857143
+Unsloth: Restored added_tokens_decoder metadata in <USER_HOME>\tiny-visual-reasoning-lab\runs\v2\best\.unsloth-save-gse7t0xl\tokenizer_config.json.
+{'loss': '0.1371', 'grad_norm': '0.1381', 'learning_rate': '6.281e-05', 'epoch': '0.4252'}
+Unsloth: Restored added_tokens_decoder metadata in <USER_HOME>\tiny-visual-reasoning-lab\runs\v2\checkpoints\checkpoint-2000\.unsloth-save-4skx2zqn\tokenizer_config.json.
+{'loss': '0.1128', 'grad_norm': '12.21', 'learning_rate': '6.248e-05', 'epoch': '0.4273'}
+{'loss': '0.2057', 'grad_norm': '2.272', 'learning_rate': '6.216e-05', 'epoch': '0.4294'}
+{'loss': '0.1938', 'grad_norm': '1.339', 'learning_rate': '6.183e-05', 'epoch': '0.4315'}
+{'loss': '0.08867', 'grad_norm': '3.178', 'learning_rate': '6.15e-05', 'epoch': '0.4337'}
+{'loss': '0.1637', 'grad_norm': '7.747', 'learning_rate': '6.117e-05', 'epoch': '0.4358'}
+{'loss': '0.2613', 'grad_norm': '6.068', 'learning_rate': '6.084e-05', 'epoch': '0.4379'}
+{'loss': '0.122', 'grad_norm': '3.43', 'learning_rate': '6.051e-05', 'epoch': '0.4401'}
+{'loss': '0.01382', 'grad_norm': '0.1604', 'learning_rate': '6.018e-05', 'epoch': '0.4422'}
+{'loss': '0.04722', 'grad_norm': '0.6313', 'learning_rate': '5.985e-05', 'epoch': '0.4443'}
+{'loss': '0.3028', 'grad_norm': '0.5141', 'learning_rate': '5.951e-05', 'epoch': '0.4464'}
+{'loss': '0.1604', 'grad_norm': '2.577', 'learning_rate': '5.918e-05', 'epoch': '0.4486'}
+{'loss': '0.1738', 'grad_norm': '0.2135', 'learning_rate': '5.885e-05', 'epoch': '0.4507'}
+{'loss': '0.02856', 'grad_norm': '0.5825', 'learning_rate': '5.852e-05', 'epoch': '0.4528'}
+{'loss': '0.2744', 'grad_norm': '0.1665', 'learning_rate': '5.818e-05', 'epoch': '0.4549'}
+{'loss': '0.01793', 'grad_norm': '0.04358', 'learning_rate': '5.785e-05', 'epoch': '0.4571'}
+{'loss': '0.1581', 'grad_norm': '16.05', 'learning_rate': '5.751e-05', 'epoch': '0.4592'}
+{'loss': '0.3057', 'grad_norm': '2.136', 'learning_rate': '5.718e-05', 'epoch': '0.4613'}
+{'loss': '0.1003', 'grad_norm': '0.1643', 'learning_rate': '5.684e-05', 'epoch': '0.4634'}
+{'loss': '0.2369', 'grad_norm': '2.283', 'learning_rate': '5.651e-05', 'epoch': '0.4656'}
+{'loss': '0.109', 'grad_norm': '4.536', 'learning_rate': '5.617e-05', 'epoch': '0.4677'}
+Unsloth: Restored added_tokens_decoder metadata in <USER_HOME>\tiny-visual-reasoning-lab\runs\v2\checkpoints\checkpoint-2200\.unsloth-save-tao_qmf7\tokenizer_config.json.
+{'loss': '0.1239', 'grad_norm': '0.1284', 'learning_rate': '5.584e-05', 'epoch': '0.4698'}
+{'loss': '0.1986', 'grad_norm': '21.3', 'learning_rate': '5.55e-05', 'epoch': '0.4719'}
+{'loss': '0.02718', 'grad_norm': '9.208', 'learning_rate': '5.517e-05', 'epoch': '0.4741'}
+{'loss': '0.2508', 'grad_norm': '5.737', 'learning_rate': '5.483e-05', 'epoch': '0.4762'}
+{'loss': '0.2111', 'grad_norm': '0.04218', 'learning_rate': '5.449e-05', 'epoch': '0.4783'}
+{'loss': '0.1231', 'grad_norm': '0.04807', 'learning_rate': '5.416e-05', 'epoch': '0.4804'}
+{'loss': '0.2298', 'grad_norm': '6.308', 'learning_rate': '5.382e-05', 'epoch': '0.4826'}
+{'loss': '0.1202', 'grad_norm': '4.247', 'learning_rate': '5.348e-05', 'epoch': '0.4847'}
+{'loss': '0.09187', 'grad_norm': '7.479', 'learning_rate': '5.314e-05', 'epoch': '0.4868'}
+{'loss': '0.0132', 'grad_norm': '0.1002', 'learning_rate': '5.281e-05', 'epoch': '0.4889'}
+{'loss': '0.1585', 'grad_norm': '8.651', 'learning_rate': '5.247e-05', 'epoch': '0.4911'}
+{'loss': '0.01238', 'grad_norm': '0.04804', 'learning_rate': '5.213e-05', 'epoch': '0.4932'}
+{'loss': '0.1211', 'grad_norm': '10.99', 'learning_rate': '5.179e-05', 'epoch': '0.4953'}
+{'loss': '0.2915', 'grad_norm': '0.01691', 'learning_rate': '5.145e-05', 'epoch': '0.4974'}
+{'loss': '0.02043', 'grad_norm': '0.01647', 'learning_rate': '5.112e-05', 'epoch': '0.4996'}
+{'loss': '0.2388', 'grad_norm': '0.2167', 'learning_rate': '5.078e-05', 'epoch': '0.5017'}
+{'loss': '0.1381', 'grad_norm': '6.984', 'learning_rate': '5.044e-05', 'epoch': '0.5038'}
+{'loss': '0.06635', 'grad_norm': '0.06644', 'learning_rate': '5.01e-05', 'epoch': '0.506'}
+{'loss': '0.24', 'grad_norm': '0.1349', 'learning_rate': '4.976e-05', 'epoch': '0.5081'}
+VALIDATION 2400 0.9613095238095238
+{'loss': '0.04765', 'grad_norm': '0.2735', 'learning_rate': '4.943e-05', 'epoch': '0.5102'}
+Unsloth: Restored added_tokens_decoder metadata in <USER_HOME>\tiny-visual-reasoning-lab\runs\v2\checkpoints\checkpoint-2400\.unsloth-save-yf9rph47\tokenizer_config.json.
+{'loss': '0.2785', 'grad_norm': '4.064', 'learning_rate': '4.909e-05', 'epoch': '0.5123'}
+{'loss': '0.08934', 'grad_norm': '0.7578', 'learning_rate': '4.875e-05', 'epoch': '0.5145'}
+{'loss': '0.07029', 'grad_norm': '0.06146', 'learning_rate': '4.841e-05', 'epoch': '0.5166'}
+{'loss': '0.1501', 'grad_norm': '2.262', 'learning_rate': '4.807e-05', 'epoch': '0.5187'}
+{'loss': '0.08828', 'grad_norm': '1.355', 'learning_rate': '4.773e-05', 'epoch': '0.5208'}
+{'loss': '0.2463', 'grad_norm': '11.99', 'learning_rate': '4.74e-05', 'epoch': '0.523'}
+{'loss': '0.159', 'grad_norm': '0.1498', 'learning_rate': '4.706e-05', 'epoch': '0.5251'}
+{'loss': '0.1466', 'grad_norm': '5.024', 'learning_rate': '4.672e-05', 'epoch': '0.5272'}
+{'loss': '0.09236', 'grad_norm': '0.07621', 'learning_rate': '4.638e-05', 'epoch': '0.5293'}
+{'loss': '0.03115', 'grad_norm': '0.1383', 'learning_rate': '4.605e-05', 'epoch': '0.5315'}
+{'loss': '0.2901', 'grad_norm': '6.209', 'learning_rate': '4.571e-05', 'epoch': '0.5336'}
+{'loss': '0.08769', 'grad_norm': '0.2298', 'learning_rate': '4.537e-05', 'epoch': '0.5357'}
+{'loss': '0.1926', 'grad_norm': '0.0231', 'learning_rate': '4.504e-05', 'epoch': '0.5378'}
+{'loss': '0.0511', 'grad_norm': '8.595', 'learning_rate': '4.47e-05', 'epoch': '0.54'}
+{'loss': '0.07977', 'grad_norm': '2.45', 'learning_rate': '4.436e-05', 'epoch': '0.5421'}
+{'loss': '0.1988', 'grad_norm': '1.209', 'learning_rate': '4.403e-05', 'epoch': '0.5442'}
+{'loss': '0.04114', 'grad_norm': '0.01419', 'learning_rate': '4.369e-05', 'epoch': '0.5463'}
+{'loss': '0.08268', 'grad_norm': '0.2636', 'learning_rate': '4.336e-05', 'epoch': '0.5485'}
+{'loss': '0.1031', 'grad_norm': '0.008551', 'learning_rate': '4.302e-05', 'epoch': '0.5506'}
+{'loss': '0.05154', 'grad_norm': '0.6026', 'learning_rate': '4.269e-05', 'epoch': '0.5527'}
+Unsloth: Restored added_tokens_decoder metadata in <USER_HOME>\tiny-visual-reasoning-lab\runs\v2\checkpoints\checkpoint-2600\.unsloth-save-f1sv2gxw\tokenizer_config.json.
+{'loss': '0.1153', 'grad_norm': '0.1461', 'learning_rate': '4.235e-05', 'epoch': '0.5548'}
+{'loss': '0.09682', 'grad_norm': '0.09616', 'learning_rate': '4.202e-05', 'epoch': '0.557'}
+{'loss': '0.1599', 'grad_norm': '0.1803', 'learning_rate': '4.168e-05', 'epoch': '0.5591'}
+{'loss': '0.2147', 'grad_norm': '0.008726', 'learning_rate': '4.135e-05', 'epoch': '0.5612'}
+{'loss': '0.1116', 'grad_norm': '0.01786', 'learning_rate': '4.102e-05', 'epoch': '0.5634'}
+{'loss': '0.02941', 'grad_norm': '0.1327', 'learning_rate': '4.069e-05', 'epoch': '0.5655'}
+{'loss': '0.08049', 'grad_norm': '0.003234', 'learning_rate': '4.035e-05', 'epoch': '0.5676'}
+{'loss': '0.08756', 'grad_norm': '0.002513', 'learning_rate': '4.002e-05', 'epoch': '0.5697'}
+{'loss': '0.2318', 'grad_norm': '0.466', 'learning_rate': '3.969e-05', 'epoch': '0.5719'}
+{'loss': '0.06642', 'grad_norm': '0.9209', 'learning_rate': '3.936e-05', 'epoch': '0.574'}
+{'loss': '0.09481', 'grad_norm': '0.91', 'learning_rate': '3.903e-05', 'epoch': '0.5761'}
+{'loss': '0.1017', 'grad_norm': '6.096', 'learning_rate': '3.87e-05', 'epoch': '0.5782'}
+{'loss': '0.07326', 'grad_norm': '0.8066', 'learning_rate': '3.837e-05', 'epoch': '0.5804'}
+{'loss': '0.3278', 'grad_norm': '4.44', 'learning_rate': '3.804e-05', 'epoch': '0.5825'}
+{'loss': '0.0162', 'grad_norm': '0.01933', 'learning_rate': '3.771e-05', 'epoch': '0.5846'}
+{'loss': '0.08154', 'grad_norm': '0.08895', 'learning_rate': '3.739e-05', 'epoch': '0.5867'}
+{'loss': '0.08368', 'grad_norm': '0.03445', 'learning_rate': '3.706e-05', 'epoch': '0.5889'}
+{'loss': '0.08394', 'grad_norm': '0.05407', 'learning_rate': '3.673e-05', 'epoch': '0.591'}
+{'loss': '0.1512', 'grad_norm': '0.02246', 'learning_rate': '3.641e-05', 'epoch': '0.5931'}
+VALIDATION 2800 0.9642857142857143
+{'loss': '0.1601', 'grad_norm': '0.1408', 'learning_rate': '3.608e-05', 'epoch': '0.5952'}
+Unsloth: Restored added_tokens_decoder metadata in <USER_HOME>\tiny-visual-reasoning-lab\runs\v2\checkpoints\checkpoint-2800\.unsloth-save-s31ykavp\tokenizer_config.json.
+{'loss': '0.04563', 'grad_norm': '0.004592', 'learning_rate': '3.576e-05', 'epoch': '0.5974'}
+{'loss': '0.03119', 'grad_norm': '0.6696', 'learning_rate': '3.543e-05', 'epoch': '0.5995'}
+{'loss': '0.002093', 'grad_norm': '0.007145', 'learning_rate': '3.511e-05', 'epoch': '0.6016'}
+{'loss': '0.1701', 'grad_norm': '0.05636', 'learning_rate': '3.479e-05', 'epoch': '0.6037'}
+{'loss': '0.1029', 'grad_norm': '0.1665', 'learning_rate': '3.447e-05', 'epoch': '0.6059'}
+{'loss': '0.2248', 'grad_norm': '0.003349', 'learning_rate': '3.414e-05', 'epoch': '0.608'}
+{'loss': '0.07099', 'grad_norm': '0.05397', 'learning_rate': '3.382e-05', 'epoch': '0.6101'}
+{'loss': '0.01398', 'grad_norm': '0.1041', 'learning_rate': '3.35e-05', 'epoch': '0.6122'}
+{'loss': '0.0009524', 'grad_norm': '0.03288', 'learning_rate': '3.319e-05', 'epoch': '0.6144'}
+{'loss': '0.1361', 'grad_norm': '0.006152', 'learning_rate': '3.287e-05', 'epoch': '0.6165'}
+{'loss': '0.08483', 'grad_norm': '14.08', 'learning_rate': '3.255e-05', 'epoch': '0.6186'}
+{'loss': '0.2589', 'grad_norm': '0.1466', 'learning_rate': '3.223e-05', 'epoch': '0.6207'}
+{'loss': '0.08811', 'grad_norm': '0.05023', 'learning_rate': '3.192e-05', 'epoch': '0.6229'}
+{'loss': '0.1063', 'grad_norm': '0.09437', 'learning_rate': '3.16e-05', 'epoch': '0.625'}
+{'loss': '0.09623', 'grad_norm': '0.01138', 'learning_rate': '3.129e-05', 'epoch': '0.6271'}
+{'loss': '0.2044', 'grad_norm': '0.04443', 'learning_rate': '3.098e-05', 'epoch': '0.6293'}
+{'loss': '0.1779', 'grad_norm': '0.09685', 'learning_rate': '3.066e-05', 'epoch': '0.6314'}
+{'loss': '0.1963', 'grad_norm': '1.632', 'learning_rate': '3.035e-05', 'epoch': '0.6335'}
+{'loss': '0.01361', 'grad_norm': '0.07265', 'learning_rate': '3.004e-05', 'epoch': '0.6356'}
+{'loss': '0.1382', 'grad_norm': '2.043', 'learning_rate': '2.973e-05', 'epoch': '0.6378'}
+Unsloth: Restored added_tokens_decoder metadata in <USER_HOME>\tiny-visual-reasoning-lab\runs\v2\checkpoints\checkpoint-3000\.unsloth-save-pjzbkfnd\tokenizer_config.json.
+{'loss': '0.1588', 'grad_norm': '0.1449', 'learning_rate': '2.942e-05', 'epoch': '0.6399'}
+{'loss': '0.08448', 'grad_norm': '0.4802', 'learning_rate': '2.911e-05', 'epoch': '0.642'}
+{'loss': '0.1138', 'grad_norm': '0.05013', 'learning_rate': '2.881e-05', 'epoch': '0.6441'}
+{'loss': '0.1172', 'grad_norm': '0.1678', 'learning_rate': '2.85e-05', 'epoch': '0.6463'}
+{'loss': '0.02669', 'grad_norm': '0.0825', 'learning_rate': '2.82e-05', 'epoch': '0.6484'}
+{'loss': '0.1801', 'grad_norm': '4.25', 'learning_rate': '2.789e-05', 'epoch': '0.6505'}
+{'loss': '0.06842', 'grad_norm': '3.997', 'learning_rate': '2.759e-05', 'epoch': '0.6526'}
+{'loss': '0.1408', 'grad_norm': '0.3694', 'learning_rate': '2.729e-05', 'epoch': '0.6548'}
+{'loss': '0.1205', 'grad_norm': '0.03715', 'learning_rate': '2.699e-05', 'epoch': '0.6569'}
+{'loss': '0.2327', 'grad_norm': '0.02964', 'learning_rate': '2.669e-05', 'epoch': '0.659'}
+{'loss': '0.1089', 'grad_norm': '17.8', 'learning_rate': '2.639e-05', 'epoch': '0.6611'}
+{'loss': '0.02213', 'grad_norm': '1.779', 'learning_rate': '2.609e-05', 'epoch': '0.6633'}
+{'loss': '0.3113', 'grad_norm': '0.08227', 'learning_rate': '2.58e-05', 'epoch': '0.6654'}
+{'loss': '0.1269', 'grad_norm': '0.05524', 'learning_rate': '2.55e-05', 'epoch': '0.6675'}
+{'loss': '0.06844', 'grad_norm': '0.03573', 'learning_rate': '2.521e-05', 'epoch': '0.6696'}
+{'loss': '0.04678', 'grad_norm': '0.01575', 'learning_rate': '2.491e-05', 'epoch': '0.6718'}
+{'loss': '0.08553', 'grad_norm': '0.02442', 'learning_rate': '2.462e-05', 'epoch': '0.6739'}
+{'loss': '0.06152', 'grad_norm': '14.91', 'learning_rate': '2.433e-05', 'epoch': '0.676'}
+{'loss': '0.1251', 'grad_norm': '8.904', 'learning_rate': '2.404e-05', 'epoch': '0.6781'}
+VALIDATION 3200 0.9732142857142857
+Unsloth: Restored added_tokens_decoder metadata in <USER_HOME>\tiny-visual-reasoning-lab\runs\v2\best\.unsloth-save-arpjz1vh\tokenizer_config.json.
+{'loss': '0.05535', 'grad_norm': '0.08209', 'learning_rate': '2.375e-05', 'epoch': '0.6803'}
+Unsloth: Restored added_tokens_decoder metadata in <USER_HOME>\tiny-visual-reasoning-lab\runs\v2\checkpoints\checkpoint-3200\.unsloth-save-v2agajrp\tokenizer_config.json.
+{'loss': '0.05424', 'grad_norm': '0.6144', 'learning_rate': '2.346e-05', 'epoch': '0.6824'}
+{'loss': '0.09602', 'grad_norm': '5.033', 'learning_rate': '2.318e-05', 'epoch': '0.6845'}
+{'loss': '0.1673', 'grad_norm': '5.009', 'learning_rate': '2.289e-05', 'epoch': '0.6866'}
+{'loss': '0.09475', 'grad_norm': '0.2918', 'learning_rate': '2.261e-05', 'epoch': '0.6888'}
+{'loss': '0.08171', 'grad_norm': '0.167', 'learning_rate': '2.233e-05', 'epoch': '0.6909'}
+{'loss': '0.01373', 'grad_norm': '0.04962', 'learning_rate': '2.205e-05', 'epoch': '0.693'}
+{'loss': '0.007535', 'grad_norm': '0.02962', 'learning_rate': '2.177e-05', 'epoch': '0.6952'}
+{'loss': '0.08187', 'grad_norm': '121', 'learning_rate': '2.149e-05', 'epoch': '0.6973'}
+{'loss': '0.0671', 'grad_norm': '0.002197', 'learning_rate': '2.121e-05', 'epoch': '0.6994'}
+{'loss': '0.1431', 'grad_norm': '12.84', 'learning_rate': '2.093e-05', 'epoch': '0.7015'}
+{'loss': '0.192', 'grad_norm': '6.287', 'learning_rate': '2.066e-05', 'epoch': '0.7037'}
+{'loss': '0.1487', 'grad_norm': '21.76', 'learning_rate': '2.039e-05', 'epoch': '0.7058'}
+{'loss': '0.07251', 'grad_norm': '2.961', 'learning_rate': '2.011e-05', 'epoch': '0.7079'}
+{'loss': '0.09333', 'grad_norm': '4.342', 'learning_rate': '1.984e-05', 'epoch': '0.71'}
+{'loss': '0.2084', 'grad_norm': '2.011', 'learning_rate': '1.958e-05', 'epoch': '0.7122'}
+{'loss': '0.1411', 'grad_norm': '3.292', 'learning_rate': '1.931e-05', 'epoch': '0.7143'}
+{'loss': '0.008564', 'grad_norm': '0.2912', 'learning_rate': '1.904e-05', 'epoch': '0.7164'}
+{'loss': '0.04101', 'grad_norm': '0.02164', 'learning_rate': '1.878e-05', 'epoch': '0.7185'}
+{'loss': '0.09164', 'grad_norm': '0.2616', 'learning_rate': '1.851e-05', 'epoch': '0.7207'}
+{'loss': '0.05252', 'grad_norm': '10.79', 'learning_rate': '1.825e-05', 'epoch': '0.7228'}
+Unsloth: Restored added_tokens_decoder metadata in <USER_HOME>\tiny-visual-reasoning-lab\runs\v2\checkpoints\checkpoint-3400\.unsloth-save-9kc35agc\tokenizer_config.json.
+{'loss': '0.003817', 'grad_norm': '0.03708', 'learning_rate': '1.799e-05', 'epoch': '0.7249'}
+{'loss': '0.004737', 'grad_norm': '0.05308', 'learning_rate': '1.773e-05', 'epoch': '0.727'}
+{'loss': '0.01149', 'grad_norm': '7.18', 'learning_rate': '1.747e-05', 'epoch': '0.7292'}
+{'loss': '0.01307', 'grad_norm': '0.05137', 'learning_rate': '1.722e-05', 'epoch': '0.7313'}
+{'loss': '0.1489', 'grad_norm': '0.09044', 'learning_rate': '1.696e-05', 'epoch': '0.7334'}
+{'loss': '0.02618', 'grad_norm': '2.666', 'learning_rate': '1.671e-05', 'epoch': '0.7355'}
+{'loss': '0.03979', 'grad_norm': '0.0125', 'learning_rate': '1.646e-05', 'epoch': '0.7377'}
+{'loss': '0.07604', 'grad_norm': '0.01156', 'learning_rate': '1.621e-05', 'epoch': '0.7398'}
+{'loss': '0.002812', 'grad_norm': '0.02335', 'learning_rate': '1.596e-05', 'epoch': '0.7419'}
+{'loss': '0.2287', 'grad_norm': '11.42', 'learning_rate': '1.571e-05', 'epoch': '0.744'}
+{'loss': '0.01854', 'grad_norm': '22.83', 'learning_rate': '1.547e-05', 'epoch': '0.7462'}
+{'loss': '0.02763', 'grad_norm': '0.08531', 'learning_rate': '1.522e-05', 'epoch': '0.7483'}
+{'loss': '0.05372', 'grad_norm': '2.915', 'learning_rate': '1.498e-05', 'epoch': '0.7504'}
+{'loss': '0.09026', 'grad_norm': '0.4771', 'learning_rate': '1.474e-05', 'epoch': '0.7526'}
+{'loss': '0.1473', 'grad_norm': '0.007518', 'learning_rate': '1.45e-05', 'epoch': '0.7547'}
+{'loss': '0.01536', 'grad_norm': '0.04914', 'learning_rate': '1.426e-05', 'epoch': '0.7568'}
+{'loss': '0.1714', 'grad_norm': '0.00667', 'learning_rate': '1.403e-05', 'epoch': '0.7589'}
+{'loss': '0.004642', 'grad_norm': '0.1696', 'learning_rate': '1.379e-05', 'epoch': '0.7611'}
+{'loss': '0.2086', 'grad_norm': '9.926', 'learning_rate': '1.356e-05', 'epoch': '0.7632'}
+VALIDATION 3600 0.9761904761904762
+Unsloth: Restored added_tokens_decoder metadata in <USER_HOME>\tiny-visual-reasoning-lab\runs\v2\best\.unsloth-save-n8b0_txb\tokenizer_config.json.
+{'loss': '0.04881', 'grad_norm': '0.001662', 'learning_rate': '1.333e-05', 'epoch': '0.7653'}
+Unsloth: Restored added_tokens_decoder metadata in <USER_HOME>\tiny-visual-reasoning-lab\runs\v2\checkpoints\checkpoint-3600\.unsloth-save-lvq2k1n3\tokenizer_config.json.
+{'loss': '0.23', 'grad_norm': '0.02381', 'learning_rate': '1.31e-05', 'epoch': '0.7674'}
+{'loss': '0.001765', 'grad_norm': '0.05273', 'learning_rate': '1.287e-05', 'epoch': '0.7696'}
+{'loss': '0.07372', 'grad_norm': '0.3442', 'learning_rate': '1.265e-05', 'epoch': '0.7717'}
+{'loss': '0.1212', 'grad_norm': '0.6955', 'learning_rate': '1.242e-05', 'epoch': '0.7738'}
+{'loss': '0.05904', 'grad_norm': '0.00628', 'learning_rate': '1.22e-05', 'epoch': '0.7759'}
+{'loss': '0.02347', 'grad_norm': '0.3127', 'learning_rate': '1.198e-05', 'epoch': '0.7781'}
+{'loss': '0.08274', 'grad_norm': '0.03352', 'learning_rate': '1.176e-05', 'epoch': '0.7802'}
+{'loss': '0.06934', 'grad_norm': '0.06918', 'learning_rate': '1.155e-05', 'epoch': '0.7823'}
+{'loss': '0.2648', 'grad_norm': '0.05126', 'learning_rate': '1.133e-05', 'epoch': '0.7844'}
+{'loss': '0.2115', 'grad_norm': '0.2054', 'learning_rate': '1.112e-05', 'epoch': '0.7866'}
+{'loss': '0.215', 'grad_norm': '2.896', 'learning_rate': '1.091e-05', 'epoch': '0.7887'}
+{'loss': '0.03393', 'grad_norm': '0.01199', 'learning_rate': '1.07e-05', 'epoch': '0.7908'}
+{'loss': '0.03612', 'grad_norm': '0.02733', 'learning_rate': '1.049e-05', 'epoch': '0.7929'}
+{'loss': '0.01033', 'grad_norm': '0.007392', 'learning_rate': '1.028e-05', 'epoch': '0.7951'}
+{'loss': '0.002791', 'grad_norm': '0.004197', 'learning_rate': '1.008e-05', 'epoch': '0.7972'}
+{'loss': '0.1361', 'grad_norm': '0.672', 'learning_rate': '9.874e-06', 'epoch': '0.7993'}
+{'loss': '0.00105', 'grad_norm': '0.04013', 'learning_rate': '9.673e-06', 'epoch': '0.8014'}
+{'loss': '0.03615', 'grad_norm': '0.008508', 'learning_rate': '9.474e-06', 'epoch': '0.8036'}
+{'loss': '0.1203', 'grad_norm': '0.03765', 'learning_rate': '9.277e-06', 'epoch': '0.8057'}
+{'loss': '0.08637', 'grad_norm': '0.008631', 'learning_rate': '9.081e-06', 'epoch': '0.8078'}
+Unsloth: Restored added_tokens_decoder metadata in <USER_HOME>\tiny-visual-reasoning-lab\runs\v2\checkpoints\checkpoint-3800\.unsloth-save-qcwqsb82\tokenizer_config.json.
+{'loss': '0.02057', 'grad_norm': '0.03347', 'learning_rate': '8.888e-06', 'epoch': '0.8099'}
+{'loss': '0.08619', 'grad_norm': '3.787', 'learning_rate': '8.696e-06', 'epoch': '0.8121'}
+{'loss': '0.03084', 'grad_norm': '79.77', 'learning_rate': '8.507e-06', 'epoch': '0.8142'}
+{'loss': '0.0359', 'grad_norm': '2.345', 'learning_rate': '8.319e-06', 'epoch': '0.8163'}
+{'loss': '0.3136', 'grad_norm': '6.636', 'learning_rate': '8.133e-06', 'epoch': '0.8185'}
+{'loss': '0.02676', 'grad_norm': '4.602', 'learning_rate': '7.949e-06', 'epoch': '0.8206'}
+{'loss': '0.1598', 'grad_norm': '11.97', 'learning_rate': '7.767e-06', 'epoch': '0.8227'}
+{'loss': '0.003177', 'grad_norm': '1.291', 'learning_rate': '7.587e-06', 'epoch': '0.8248'}
+{'loss': '0.002664', 'grad_norm': '0.3478', 'learning_rate': '7.409e-06', 'epoch': '0.827'}
+{'loss': '0.004683', 'grad_norm': '0.009339', 'learning_rate': '7.232e-06', 'epoch': '0.8291'}
+{'loss': '0.1642', 'grad_norm': '19.75', 'learning_rate': '7.058e-06', 'epoch': '0.8312'}
+{'loss': '0.08304', 'grad_norm': '0.05653', 'learning_rate': '6.886e-06', 'epoch': '0.8333'}
+{'loss': '0.1643', 'grad_norm': '0.1122', 'learning_rate': '6.716e-06', 'epoch': '0.8355'}
+{'loss': '0.04105', 'grad_norm': '0.0104', 'learning_rate': '6.547e-06', 'epoch': '0.8376'}
+{'loss': '0.005922', 'grad_norm': '0.009622', 'learning_rate': '6.381e-06', 'epoch': '0.8397'}
+{'loss': '0.1112', 'grad_norm': '0.005131', 'learning_rate': '6.217e-06', 'epoch': '0.8418'}
+{'loss': '0.002463', 'grad_norm': '0.03292', 'learning_rate': '6.054e-06', 'epoch': '0.844'}
+{'loss': '0.002478', 'grad_norm': '0.2779', 'learning_rate': '5.894e-06', 'epoch': '0.8461'}
+{'loss': '0.02497', 'grad_norm': '0.04524', 'learning_rate': '5.736e-06', 'epoch': '0.8482'}
+VALIDATION 4000 0.9732142857142857
+{'loss': '0.05613', 'grad_norm': '0.0471', 'learning_rate': '5.579e-06', 'epoch': '0.8503'}
+Unsloth: Restored added_tokens_decoder metadata in <USER_HOME>\tiny-visual-reasoning-lab\runs\v2\checkpoints\checkpoint-4000\.unsloth-save-34iem3j5\tokenizer_config.json.
+{'loss': '0.05317', 'grad_norm': '0.1975', 'learning_rate': '5.425e-06', 'epoch': '0.8525'}
+{'loss': '0.1553', 'grad_norm': '17.35', 'learning_rate': '5.273e-06', 'epoch': '0.8546'}
+{'loss': '0.002012', 'grad_norm': '0.07401', 'learning_rate': '5.123e-06', 'epoch': '0.8567'}
+{'loss': '0.0682', 'grad_norm': '0.0169', 'learning_rate': '4.975e-06', 'epoch': '0.8588'}
+{'loss': '0.09492', 'grad_norm': '0.02989', 'learning_rate': '4.829e-06', 'epoch': '0.861'}
+{'loss': '0.1805', 'grad_norm': '0.02743', 'learning_rate': '4.685e-06', 'epoch': '0.8631'}
+{'loss': '0.1376', 'grad_norm': '0.01119', 'learning_rate': '4.543e-06', 'epoch': '0.8652'}
+{'loss': '0.05694', 'grad_norm': '0.8893', 'learning_rate': '4.403e-06', 'epoch': '0.8673'}
+{'loss': '0.1032', 'grad_norm': '0.002469', 'learning_rate': '4.265e-06', 'epoch': '0.8695'}
+{'loss': '0.04633', 'grad_norm': '0.03991', 'learning_rate': '4.129e-06', 'epoch': '0.8716'}
+{'loss': '0.008753', 'grad_norm': '0.005225', 'learning_rate': '3.996e-06', 'epoch': '0.8737'}
+{'loss': '0.06456', 'grad_norm': '0.004977', 'learning_rate': '3.864e-06', 'epoch': '0.8759'}
+{'loss': '0.1313', 'grad_norm': '0.01461', 'learning_rate': '3.735e-06', 'epoch': '0.878'}
+{'loss': '0.06715', 'grad_norm': '0.01513', 'learning_rate': '3.608e-06', 'epoch': '0.8801'}
+{'loss': '0.0785', 'grad_norm': '0.08563', 'learning_rate': '3.483e-06', 'epoch': '0.8822'}
+{'loss': '0.007266', 'grad_norm': '0.1941', 'learning_rate': '3.36e-06', 'epoch': '0.8844'}
+{'loss': '0.0368', 'grad_norm': '0.008146', 'learning_rate': '3.239e-06', 'epoch': '0.8865'}
+{'loss': '0.06965', 'grad_norm': '0.01599', 'learning_rate': '3.12e-06', 'epoch': '0.8886'}
+{'loss': '0.05269', 'grad_norm': '0.03695', 'learning_rate': '3.004e-06', 'epoch': '0.8907'}
+{'loss': '0.09728', 'grad_norm': '5.615', 'learning_rate': '2.889e-06', 'epoch': '0.8929'}
+Unsloth: Restored added_tokens_decoder metadata in <USER_HOME>\tiny-visual-reasoning-lab\runs\v2\checkpoints\checkpoint-4200\.unsloth-save-_w5y1v4t\tokenizer_config.json.
+{'loss': '0.07121', 'grad_norm': '0.004831', 'learning_rate': '2.777e-06', 'epoch': '0.895'}
+{'loss': '0.08537', 'grad_norm': '0.127', 'learning_rate': '2.667e-06', 'epoch': '0.8971'}
+{'loss': '0.09851', 'grad_norm': '0.02068', 'learning_rate': '2.559e-06', 'epoch': '0.8992'}
+{'loss': '0.2397', 'grad_norm': '0.05786', 'learning_rate': '2.453e-06', 'epoch': '0.9014'}
+{'loss': '0.1044', 'grad_norm': '0.01504', 'learning_rate': '2.35e-06', 'epoch': '0.9035'}
+{'loss': '0.03882', 'grad_norm': '0.009494', 'learning_rate': '2.249e-06', 'epoch': '0.9056'}
+{'loss': '0.1186', 'grad_norm': '0.0208', 'learning_rate': '2.149e-06', 'epoch': '0.9077'}
+{'loss': '0.05159', 'grad_norm': '0.005413', 'learning_rate': '2.052e-06', 'epoch': '0.9099'}
+{'loss': '0.08749', 'grad_norm': '0.01707', 'learning_rate': '1.957e-06', 'epoch': '0.912'}
+{'loss': '0.09395', 'grad_norm': '0.05411', 'learning_rate': '1.865e-06', 'epoch': '0.9141'}
+{'loss': '0.1688', 'grad_norm': '0.02082', 'learning_rate': '1.774e-06', 'epoch': '0.9162'}
+{'loss': '0.0442', 'grad_norm': '0.01109', 'learning_rate': '1.686e-06', 'epoch': '0.9184'}
+{'loss': '0.1251', 'grad_norm': '0.1442', 'learning_rate': '1.6e-06', 'epoch': '0.9205'}
+{'loss': '0.01623', 'grad_norm': '0.005661', 'learning_rate': '1.516e-06', 'epoch': '0.9226'}
+{'loss': '0.08446', 'grad_norm': '9.733', 'learning_rate': '1.435e-06', 'epoch': '0.9247'}
+{'loss': '0.1221', 'grad_norm': '0.02666', 'learning_rate': '1.356e-06', 'epoch': '0.9269'}
+{'loss': '0.0008927', 'grad_norm': '0.03286', 'learning_rate': '1.278e-06', 'epoch': '0.929'}
+{'loss': '0.01249', 'grad_norm': '0.002069', 'learning_rate': '1.204e-06', 'epoch': '0.9311'}
+{'loss': '0.02405', 'grad_norm': '0.005495', 'learning_rate': '1.131e-06', 'epoch': '0.9332'}
+VALIDATION 4400 0.9732142857142857
+{'loss': '0.05807', 'grad_norm': '0.07426', 'learning_rate': '1.061e-06', 'epoch': '0.9354'}
+Unsloth: Restored added_tokens_decoder metadata in <USER_HOME>\tiny-visual-reasoning-lab\runs\v2\checkpoints\checkpoint-4400\.unsloth-save-4x9_6gnj\tokenizer_config.json.
+{'loss': '0.04649', 'grad_norm': '0.02665', 'learning_rate': '9.923e-07', 'epoch': '0.9375'}
+{'loss': '0.07387', 'grad_norm': '11.67', 'learning_rate': '9.264e-07', 'epoch': '0.9396'}
+{'loss': '0.003269', 'grad_norm': '0.08259', 'learning_rate': '8.627e-07', 'epoch': '0.9418'}
+{'loss': '0.003449', 'grad_norm': '5.335', 'learning_rate': '8.013e-07', 'epoch': '0.9439'}
+{'loss': '0.1666', 'grad_norm': '0.01143', 'learning_rate': '7.421e-07', 'epoch': '0.946'}
+{'loss': '0.04095', 'grad_norm': '0.007088', 'learning_rate': '6.852e-07', 'epoch': '0.9481'}
+{'loss': '0.001716', 'grad_norm': '0.317', 'learning_rate': '6.305e-07', 'epoch': '0.9503'}
+{'loss': '0.03353', 'grad_norm': '0.01817', 'learning_rate': '5.781e-07', 'epoch': '0.9524'}
+{'loss': '0.0426', 'grad_norm': '15.65', 'learning_rate': '5.279e-07', 'epoch': '0.9545'}
+{'loss': '0.06098', 'grad_norm': '0.1339', 'learning_rate': '4.8e-07', 'epoch': '0.9566'}
+{'loss': '0.1475', 'grad_norm': '57.49', 'learning_rate': '4.344e-07', 'epoch': '0.9588'}
+{'loss': '0.06219', 'grad_norm': '0.02798', 'learning_rate': '3.91e-07', 'epoch': '0.9609'}
+{'loss': '0.03324', 'grad_norm': '0.17', 'learning_rate': '3.5e-07', 'epoch': '0.963'}
+{'loss': '0.1499', 'grad_norm': '0.0102', 'learning_rate': '3.112e-07', 'epoch': '0.9651'}
+{'loss': '0.0313', 'grad_norm': '0.1762', 'learning_rate': '2.746e-07', 'epoch': '0.9673'}
+{'loss': '0.1498', 'grad_norm': '8.438', 'learning_rate': '2.403e-07', 'epoch': '0.9694'}
+{'loss': '0.005252', 'grad_norm': '0.06414', 'learning_rate': '2.084e-07', 'epoch': '0.9715'}
+{'loss': '0.0258', 'grad_norm': '0.06743', 'learning_rate': '1.787e-07', 'epoch': '0.9736'}
+{'loss': '0.05524', 'grad_norm': '0.03299', 'learning_rate': '1.512e-07', 'epoch': '0.9758'}
+{'loss': '0.04281', 'grad_norm': '0.06154', 'learning_rate': '1.261e-07', 'epoch': '0.9779'}
+Unsloth: Restored added_tokens_decoder metadata in <USER_HOME>\tiny-visual-reasoning-lab\runs\v2\checkpoints\checkpoint-4600\.unsloth-save-rtbx8zej\tokenizer_config.json.
+{'loss': '0.0887', 'grad_norm': '5.538', 'learning_rate': '1.032e-07', 'epoch': '0.98'}
+{'loss': '0.1086', 'grad_norm': '7.22', 'learning_rate': '8.264e-08', 'epoch': '0.9821'}
+{'loss': '0.02632', 'grad_norm': '0.003316', 'learning_rate': '6.434e-08', 'epoch': '0.9843'}
+{'loss': '0.0008339', 'grad_norm': '0.004673', 'learning_rate': '4.833e-08', 'epoch': '0.9864'}
+{'loss': '0.09822', 'grad_norm': '0.06195', 'learning_rate': '3.46e-08', 'epoch': '0.9885'}
+{'loss': '0.1879', 'grad_norm': '5.707', 'learning_rate': '2.317e-08', 'epoch': '0.9906'}
+{'loss': '0.135', 'grad_norm': '0.008714', 'learning_rate': '1.401e-08', 'epoch': '0.9928'}
+{'loss': '0.09134', 'grad_norm': '0.01447', 'learning_rate': '7.15e-09', 'epoch': '0.9949'}
+{'loss': '0.1627', 'grad_norm': '0.03726', 'learning_rate': '2.574e-09', 'epoch': '0.997'}
+{'loss': '0.002494', 'grad_norm': '0.111', 'learning_rate': '2.86e-10', 'epoch': '0.9991'}
+Unsloth: Restored added_tokens_decoder metadata in <USER_HOME>\tiny-visual-reasoning-lab\runs\v2\checkpoints\checkpoint-4704\.unsloth-save-uu68zd__\tokenizer_config.json.
+{'train_runtime': '8885', 'train_samples_per_second': '4.236', 'train_steps_per_second': '0.529', 'train_loss': '0.1534', 'epoch': '1'}
+VALIDATION 4704 0.9732142857142857
+Unsloth: Restored added_tokens_decoder metadata in <USER_HOME>\tiny-visual-reasoning-lab\runs\v2\adapter\.unsloth-save-zdjse0zj\tokenizer_config.json.
+Unsloth: Restored added_tokens_decoder metadata in <USER_HOME>\tiny-visual-reasoning-lab\runs\v2\adapter\tokenizer_config.json.
+TRAINED <USER_HOME>\tiny-visual-reasoning-lab\runs\v2

@@ -89,7 +89,7 @@ def counterfactual(p,board):
         q['target']=next(k for k in board if k!=p['target'])
     else:return None
     return q
-def make_split(name,pool,families,quota,heldout_language,seed):
+def make_split(name,pool,families,quota,heldout_language,seed,form_choices=None):
     rng=random.Random(seed);counts=Counter();rows=[];scene_rows=defaultdict(list);pairs=0;scenes=0
     keys=[]
     for f in families:
@@ -115,7 +115,7 @@ def make_split(name,pool,families,quota,heldout_language,seed):
             q=counterfactual(p,board)
             if q and execute(board,q)[0]!=execute(board,p)[0]:candidates.append(q)
             pair_id=f'{name}-pair-{attempt}-{_}' if len(candidates)==2 else None
-            variant=rng.randrange(4,6) if heldout_language else rng.randrange(4)
+            variant=rng.choice(form_choices) if form_choices is not None else rng.randrange(4,6) if heldout_language else rng.randrange(4)
             text_seed=rng.randrange(2**31)
             for candidate in candidates:
                 signature=json.dumps(candidate,sort_keys=True)

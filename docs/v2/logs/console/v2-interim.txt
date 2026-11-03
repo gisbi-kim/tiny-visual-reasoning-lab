@@ -1,0 +1,71 @@
+W1103 20:45:14.994000 46316 Lib\site-packages\torch\utils\_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W1103 20:45:15.032000 46316 Lib\site-packages\torch\utils\_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+
+Loading weights:   0%|          | 0/723 [00:00<?, ?it/s]
+Loading weights:   0%|          | 1/723 [00:00<03:32,  3.40it/s]
+Loading weights:   3%|▎         | 22/723 [00:00<00:10, 64.94it/s]
+Loading weights:   5%|▍         | 36/723 [00:00<00:08, 83.90it/s]
+Loading weights:   7%|▋         | 47/723 [00:00<00:07, 86.46it/s]
+Loading weights:   8%|▊         | 60/723 [00:00<00:06, 97.37it/s]
+Loading weights:  10%|▉         | 72/723 [00:00<00:07, 83.60it/s]
+Loading weights:  11%|█▏        | 82/723 [00:01<00:09, 71.21it/s]
+Loading weights:  13%|█▎        | 95/723 [00:01<00:07, 83.64it/s]
+Loading weights:  15%|█▍        | 106/723 [00:01<00:08, 76.87it/s]
+Loading weights:  18%|█▊        | 128/723 [00:01<00:06, 92.17it/s]
+Loading weights:  20%|█▉        | 142/723 [00:01<00:06, 90.92it/s]
+Loading weights:  21%|██        | 152/723 [00:01<00:06, 86.74it/s]
+Loading weights:  23%|██▎       | 167/723 [00:02<00:06, 92.56it/s]
+Loading weights:  25%|██▌       | 181/723 [00:02<00:05, 90.77it/s]
+Loading weights:  27%|██▋       | 195/723 [00:02<00:06, 83.68it/s]
+Loading weights:  28%|██▊       | 204/723 [00:02<00:06, 83.67it/s]
+Loading weights:  30%|███       | 220/723 [00:02<00:05, 95.87it/s]
+Loading weights:  32%|███▏      | 233/723 [00:02<00:05, 96.83it/s]
+Loading weights:  34%|███▎      | 243/723 [00:02<00:06, 78.89it/s]
+Loading weights:  35%|███▌      | 254/723 [00:03<00:05, 81.55it/s]
+Loading weights:  37%|███▋      | 265/723 [00:03<00:05, 85.29it/s]
+Loading weights:  38%|███▊      | 274/723 [00:03<00:05, 78.33it/s]
+Loading weights:  39%|███▉      | 283/723 [00:03<00:05, 80.89it/s]
+Loading weights:  40%|████      | 292/723 [00:03<00:05, 73.07it/s]
+Loading weights:  42%|████▏     | 301/723 [00:03<00:06, 64.44it/s]
+Loading weights:  43%|████▎     | 308/723 [00:03<00:06, 60.06it/s]
+Loading weights:  44%|████▍     | 318/723 [00:04<00:07, 52.14it/s]
+Loading weights:  46%|████▌     | 330/723 [00:04<00:06, 62.13it/s]
+Loading weights:  48%|████▊     | 344/723 [00:04<00:04, 78.13it/s]
+Loading weights:  49%|████▉     | 354/723 [00:04<00:05, 68.82it/s]
+Loading weights:  50%|█████     | 362/723 [00:04<00:05, 60.80it/s]
+Loading weights:  51%|█████▏    | 371/723 [00:04<00:05, 58.71it/s]
+Loading weights:  53%|█████▎    | 385/723 [00:05<00:04, 71.62it/s]
+Loading weights:  54%|█████▍    | 393/723 [00:05<00:05, 60.94it/s]
+Loading weights:  56%|█████▋    | 407/723 [00:05<00:04, 64.92it/s]
+Loading weights:  57%|█████▋    | 414/723 [00:05<00:04, 62.93it/s]
+Loading weights:  61%|██████    | 438/723 [00:05<00:02, 100.16it/s]
+Loading weights:  71%|███████   | 511/723 [00:05<00:00, 245.87it/s]
+Loading weights:  78%|███████▊  | 562/723 [00:05<00:00, 299.64it/s]
+Loading weights:  87%|████████▋ | 626/723 [00:05<00:00, 385.33it/s]
+Loading weights:  98%|█████████▊| 710/723 [00:06<00:00, 470.10it/s]
+Loading weights: 100%|██████████| 723/723 [00:06<00:00, 117.77it/s]
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `causal_conv1d_fn` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.
+[transformers] `chunk_gated_delta_rule` is falling back to its reference PyTorch implementation because `flash-linear-attention` is not installed. This is correct but much slower; install `flash-linear-attention` for the optimized kernel.
+test_language 8 56
+test_language 16 56
+test_language 24 56
+test_language 32 56
+test_language 40 56
+test_language 48 56
+test_language 56 56
+test_composition 8 56
+test_composition 16 56
+test_composition 24 56
+test_composition 32 56
+test_composition 40 56
+test_composition 48 56
+test_composition 56 56
+test_combined 8 56
+test_combined 16 56
+test_combined 24 56
+test_combined 32 56
+test_combined 40 56
+test_combined 48 56
+test_combined 56 56
+INTERIM_COMPLETE <USER_HOME>\tiny-visual-reasoning-lab\results\v2\interim-step-1600.json

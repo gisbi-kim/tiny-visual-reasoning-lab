@@ -1,0 +1,17 @@
+START evaluation
+DONE evaluation
+START diagnostics
+DONE diagnostics
+START freeform
+DONE freeform
+START native_reload
+DONE native_reload
+START portable_cuda_reload
+DONE portable_cuda_reload
+START portable_cpu_reload
+DONE portable_cpu_reload
+START export
+DONE export
+START report
+DONE report
+LOCAL_EVALUATION_AND_PACKAGE_READY

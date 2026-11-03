@@ -83,6 +83,8 @@ def main():
     parser.add_argument('--limit',type=int,default=0)
     parser.add_argument('--suites',nargs='+',default=['test_id','test_language','test_composition','test_combined'])
     parser.add_argument('--output',default='results')
+    parser.add_argument('--calibration-split',default='calibration')
+    parser.add_argument('--warmup-split',default='validation')
     args=parser.parse_args()
     checkpoint=Path(args.checkpoint)
     output=Path(args.output)
@@ -90,7 +92,7 @@ def main():
     engine=DecisionEngine(checkpoint,args.device)
     load_seconds=time.perf_counter()-start
     if args.calibrate:
-        rows=read_rows('calibration')
+        rows=read_rows(args.calibration_split)
         values=[];targets=[]
         for i,row in enumerate(rows):
             with Image.open(ROOT/'data'/row['image']) as image:
@@ -106,12 +108,12 @@ def main():
             raise RuntimeError('Calibration expects base saved temperatures of one')
         losses=[float(torch.nn.functional.cross_entropy(logits/float(t),gold)) for t in temps]
         best=int(np.argmin(losses))
-        calibration=dict(temperature=float(temps[best]),nll=float(losses[best]),rows=len(rows),split='calibration',
+        calibration=dict(temperature=float(temps[best]),nll=float(losses[best]),rows=len(rows),split=args.calibration_split,
                          uncalibrated_nll=float(torch.nn.functional.cross_entropy(logits,gold)))
         dump(checkpoint/'calibration.json',calibration)
         engine.temperature=calibration['temperature']
     # Warm-up is excluded from steady-state latency.
-    row=read_rows('validation')[0]
+    row=read_rows(args.warmup_split)[0]
     with Image.open(ROOT/'data'/row['image']) as image:engine.predict(image,row['instruction'])
     report=dict(checkpoint=str(checkpoint),device=str(engine.device),dtype=str(engine.dtype),load_seconds=load_seconds,
         latency_scope='Synchronized DecisionEngine.predict: processor, transfer, backbone, head and probabilities; includes any lazy pixel read/decode inside the call. Image.open is outside the timer.',suites={})

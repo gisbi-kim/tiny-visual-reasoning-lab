@@ -1,0 +1,13 @@
+{
+  "count": 24,
+  "accuracy": {
+    "native": 0.9583333333333334,
+    "cuda": 0.9583333333333334,
+    "cpu": 0.9583333333333334
+  },
+  "native_cuda_top1_agreement": 1.0,
+  "cpu_cuda_top1_agreement": 1.0,
+  "native_validation_accuracy_336": 0.9761904761904762,
+  "portable_validation_accuracy_336": 0.9761904761904762,
+  "scope": "Fixed validation probe: two examples per family, both languages, all seven actions. Final scores use portable CUDA; physical Mac/MPS not tested."
+}

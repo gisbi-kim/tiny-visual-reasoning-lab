@@ -1,0 +1,32 @@
+{
+  "recorded_at": "2026-11-03T11:00:24.967210+00:00",
+  "parent_release": "model-v1",
+  "parent_selected_step": 2400,
+  "parent_checkpoint": "C:\\Users\\gsk620\\tiny-visual-reasoning-lab\\runs\\main\\best",
+  "parent_weights": {
+    "adapter_model.safetensors": "99b194f2736865a46eb46224877a209a6c8c14dcf305b93d0df430c69a6cebd2",
+    "joint_head.safetensors": "15f054cc537a71211161e0526609bbfa38726e5ad9379a5ac3c75e310f64ea2c"
+  },
+  "previous_source_commit": "44db3abf9e727e4f7cbb7683be6fc19b9fecfe1e",
+  "code_sha256": {
+    "train.py": "935c9faf21e3cd9372501607e7d66249cf09a46eb02470ee023bf263c19bbebb",
+    "prepare_v2.py": "e295962569b648e519a49c43981c316d3b7f9a8ef1b4fd565dd0213502e9ae0b",
+    "prepare_data.py": "c97966aed92a78ac6b404d7c40d7c15037258fd850a9ad8bbe7235f90c5fb942",
+    "language.py": "6d70c0ee5d043fa06c0a3c141c1158f07debbffde9eb12d5092a06465acdd7a4",
+    "oracle.py": "dce094ff8ce3c223d935afd52a2c16b82e293c2ec2806effeea0e013bd0474eb",
+    "catalog.py": "45d8aeed1a3e28a967fabafc57708d9d0029f843f0902961f60ccfc60913ba1f",
+    "render.py": "d90a276c6478f2f9706230ba1fd39ea7ebd863a00ea86b28d7c9e1ce836f8179",
+    "schema.py": "1eebb364cd4be8097c1202a7fbb903da3a86324f6d37be388929188b935fc4c5",
+    "engine.py": "7786315b6594c2bf6e840129a1ed4fe8ef93f8caabd3f6d61bbdf7414a73a577",
+    "evaluate.py": "64ce758f48a088cb7a5d18207f1b45099d46bdfeb3bdf085fab7c3081479e227"
+  },
+  "data_sha256": {
+    "v2_train": "885bba2e0cfa37b906a0acf3882a86e549b59199116ab21d0c5d7ce46351ebb1",
+    "v2_validation": "85793df06b9411599ef0ea4ce43ef705902fca693733728f2a5f1a5c2228446a",
+    "v2_calibration": "6bedfd159b3d2b4e506b2101be0750189eee39062033887017873d49bcb2b3d7",
+    "v2_test": "fa08841c0177e05ffcf73dec9d35c2ffae10e505f90e33eae7ff8b45f83f4c77",
+    "v2_validation_select": "f194b3813c33ba3e198acd1996d2816520a7461120f7b2a358be783a33e036b5",
+    "v2_reload_probe": "909c2f968147584da0304002e4f0e3d20696aa65837e51829ef484ce6f94caaa"
+  },
+  "note": "Code hashes identify the working-tree implementation used for v2. Original v1 data, checkpoints and reports are retained."
+}

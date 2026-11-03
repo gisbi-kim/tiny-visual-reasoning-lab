@@ -11,8 +11,9 @@ def sha256(path):
     return h.hexdigest()
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument('--output',default='weights');args=p.parse_args()
-    manifest=ROOT/'docs/release.json'
+    p=argparse.ArgumentParser();p.add_argument('--output',default='weights')
+    p.add_argument('--version',choices=['latest','v1','v2'],default='latest');args=p.parse_args()
+    manifest=ROOT/'docs'/('release.json' if args.version=='latest' else f'release-{args.version}.json')
     if not manifest.exists():raise SystemExit('No published trained checkpoint is recorded in this checkout yet.')
     release=json.loads(manifest.read_text(encoding='utf-8'));destination=Path(args.output).resolve()
     if destination.exists():

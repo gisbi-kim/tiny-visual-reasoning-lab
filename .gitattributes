@@ -3,3 +3,5 @@ clef_reference.py -text
 CLEF_LICENSE.txt -text
 LICENSE -text
 *.png binary
+docs/v2/logs/** -text whitespace=cr-at-eol
+docs/v2/logs/console/** whitespace=-blank-at-eol,-blank-at-eof,cr-at-eol

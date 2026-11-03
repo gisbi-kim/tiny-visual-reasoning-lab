@@ -1,0 +1,788 @@
+[
+  {
+    "step": 50,
+    "accuracy": 1.0,
+    "predictions": [
+      {
+        "gold": "A",
+        "type": "choice",
+        "choice": "A",
+        "confidence": 1.0,
+        "probabilities": {
+          "A": 1.0,
+          "B": 0.0,
+          "C": 0.0,
+          "D": 0.0,
+          "E": 0.0,
+          "F": 0.0,
+          "NONE": 0.0
+        },
+        "answer": "A"
+      },
+      {
+        "gold": "NONE",
+        "type": "choice",
+        "choice": "NONE",
+        "confidence": 0.9999,
+        "probabilities": {
+          "A": 0.0,
+          "B": 0.0,
+          "C": 0.0,
+          "D": 0.0,
+          "E": 0.0,
+          "F": 0.0,
+          "NONE": 0.9999
+        },
+        "answer": "NONE"
+      },
+      {
+        "gold": "A",
+        "type": "choice",
+        "choice": "A",
+        "confidence": 1.0,
+        "probabilities": {
+          "A": 1.0,
+          "B": 0.0,
+          "C": 0.0,
+          "D": 0.0,
+          "E": 0.0,
+          "F": 0.0,
+          "NONE": 0.0
+        },
+        "answer": "A"
+      },
+      {
+        "gold": "F",
+        "type": "choice",
+        "choice": "F",
+        "confidence": 1.0,
+        "probabilities": {
+          "A": 0.0,
+          "B": 0.0,
+          "C": 0.0,
+          "D": 0.0,
+          "E": 0.0,
+          "F": 1.0,
+          "NONE": 0.0
+        },
+        "answer": "F"
+      },
+      {
+        "gold": "NONE",
+        "type": "choice",
+        "choice": "NONE",
+        "confidence": 1.0,
+        "probabilities": {
+          "A": 0.0,
+          "B": 0.0,
+          "C": 0.0,
+          "D": 0.0,
+          "E": 0.0,
+          "F": 0.0,
+          "NONE": 1.0
+        },
+        "answer": "NONE"
+      },
+      {
+        "gold": "E",
+        "type": "choice",
+        "choice": "E",
+        "confidence": 1.0,
+        "probabilities": {
+          "A": 0.0,
+          "B": 0.0,
+          "C": 0.0,
+          "D": 0.0,
+          "E": 1.0,
+          "F": 0.0,
+          "NONE": 0.0
+        },
+        "answer": "E"
+      },
+      {
+        "gold": "NONE",
+        "type": "choice",
+        "choice": "NONE",
+        "confidence": 0.9999,
+        "probabilities": {
+          "A": 0.0,
+          "B": 0.0,
+          "C": 0.0,
+          "D": 0.0,
+          "E": 0.0,
+          "F": 0.0,
+          "NONE": 0.9999
+        },
+        "answer": "NONE"
+      },
+      {
+        "gold": "F",
+        "type": "choice",
+        "choice": "F",
+        "confidence": 1.0,
+        "probabilities": {
+          "A": 0.0,
+          "B": 0.0,
+          "C": 0.0,
+          "D": 0.0,
+          "E": 0.0,
+          "F": 1.0,
+          "NONE": 0.0
+        },
+        "answer": "F"
+      },
+      {
+        "gold": "D",
+        "type": "choice",
+        "choice": "D",
+        "confidence": 1.0,
+        "probabilities": {
+          "A": 0.0,
+          "B": 0.0,
+          "C": 0.0,
+          "D": 1.0,
+          "E": 0.0,
+          "F": 0.0,
+          "NONE": 0.0
+        },
+        "answer": "D"
+      },
+      {
+        "gold": "F",
+        "type": "choice",
+        "choice": "F",
+        "confidence": 1.0,
+        "probabilities": {
+          "A": 0.0,
+          "B": 0.0,
+          "C": 0.0,
+          "D": 0.0,
+          "E": 0.0,
+          "F": 1.0,
+          "NONE": 0.0
+        },
+        "answer": "F"
+      },
+      {
+        "gold": "A",
+        "type": "choice",
+        "choice": "A",
+        "confidence": 1.0,
+        "probabilities": {
+          "A": 1.0,
+          "B": 0.0,
+          "C": 0.0,
+          "D": 0.0,
+          "E": 0.0,
+          "F": 0.0,
+          "NONE": 0.0
+        },
+        "answer": "A"
+      },
+      {
+        "gold": "C",
+        "type": "choice",
+        "choice": "C",
+        "confidence": 1.0,
+        "probabilities": {
+          "A": 0.0,
+          "B": 0.0,
+          "C": 1.0,
+          "D": 0.0,
+          "E": 0.0,
+          "F": 0.0,
+          "NONE": 0.0
+        },
+        "answer": "C"
+      },
+      {
+        "gold": "NONE",
+        "type": "choice",
+        "choice": "NONE",
+        "confidence": 1.0,
+        "probabilities": {
+          "A": 0.0,
+          "B": 0.0,
+          "C": 0.0,
+          "D": 0.0,
+          "E": 0.0,
+          "F": 0.0,
+          "NONE": 1.0
+        },
+        "answer": "NONE"
+      },
+      {
+        "gold": "NONE",
+        "type": "choice",
+        "choice": "NONE",
+        "confidence": 1.0,
+        "probabilities": {
+          "A": 0.0,
+          "B": 0.0,
+          "C": 0.0,
+          "D": 0.0,
+          "E": 0.0,
+          "F": 0.0,
+          "NONE": 1.0
+        },
+        "answer": "NONE"
+      },
+      {
+        "gold": "F",
+        "type": "choice",
+        "choice": "F",
+        "confidence": 1.0,
+        "probabilities": {
+          "A": 0.0,
+          "B": 0.0,
+          "C": 0.0,
+          "D": 0.0,
+          "E": 0.0,
+          "F": 1.0,
+          "NONE": 0.0
+        },
+        "answer": "F"
+      },
+      {
+        "gold": "NONE",
+        "type": "choice",
+        "choice": "NONE",
+        "confidence": 0.9999,
+        "probabilities": {
+          "A": 0.0,
+          "B": 0.0,
+          "C": 0.0,
+          "D": 0.0,
+          "E": 0.0,
+          "F": 0.0,
+          "NONE": 0.9999
+        },
+        "answer": "NONE"
+      }
+    ]
+  },
+  {
+    "step": 100,
+    "accuracy": 1.0,
+    "predictions": [
+      {
+        "gold": "A",
+        "type": "choice",
+        "choice": "A",
+        "confidence": 1.0,
+        "probabilities": {
+          "A": 1.0,
+          "B": 0.0,
+          "C": 0.0,
+          "D": 0.0,
+          "E": 0.0,
+          "F": 0.0,
+          "NONE": 0.0
+        },
+        "answer": "A"
+      },
+      {
+        "gold": "NONE",
+        "type": "choice",
+        "choice": "NONE",
+        "confidence": 1.0,
+        "probabilities": {
+          "A": 0.0,
+          "B": 0.0,
+          "C": 0.0,
+          "D": 0.0,
+          "E": 0.0,
+          "F": 0.0,
+          "NONE": 1.0
+        },
+        "answer": "NONE"
+      },
+      {
+        "gold": "A",
+        "type": "choice",
+        "choice": "A",
+        "confidence": 1.0,
+        "probabilities": {
+          "A": 1.0,
+          "B": 0.0,
+          "C": 0.0,
+          "D": 0.0,
+          "E": 0.0,
+          "F": 0.0,
+          "NONE": 0.0
+        },
+        "answer": "A"
+      },
+      {
+        "gold": "F",
+        "type": "choice",
+        "choice": "F",
+        "confidence": 1.0,
+        "probabilities": {
+          "A": 0.0,
+          "B": 0.0,
+          "C": 0.0,
+          "D": 0.0,
+          "E": 0.0,
+          "F": 1.0,
+          "NONE": 0.0
+        },
+        "answer": "F"
+      },
+      {
+        "gold": "NONE",
+        "type": "choice",
+        "choice": "NONE",
+        "confidence": 1.0,
+        "probabilities": {
+          "A": 0.0,
+          "B": 0.0,
+          "C": 0.0,
+          "D": 0.0,
+          "E": 0.0,
+          "F": 0.0,
+          "NONE": 1.0
+        },
+        "answer": "NONE"
+      },
+      {
+        "gold": "E",
+        "type": "choice",
+        "choice": "E",
+        "confidence": 1.0,
+        "probabilities": {
+          "A": 0.0,
+          "B": 0.0,
+          "C": 0.0,
+          "D": 0.0,
+          "E": 1.0,
+          "F": 0.0,
+          "NONE": 0.0
+        },
+        "answer": "E"
+      },
+      {
+        "gold": "NONE",
+        "type": "choice",
+        "choice": "NONE",
+        "confidence": 1.0,
+        "probabilities": {
+          "A": 0.0,
+          "B": 0.0,
+          "C": 0.0,
+          "D": 0.0,
+          "E": 0.0,
+          "F": 0.0,
+          "NONE": 1.0
+        },
+        "answer": "NONE"
+      },
+      {
+        "gold": "F",
+        "type": "choice",
+        "choice": "F",
+        "confidence": 1.0,
+        "probabilities": {
+          "A": 0.0,
+          "B": 0.0,
+          "C": 0.0,
+          "D": 0.0,
+          "E": 0.0,
+          "F": 1.0,
+          "NONE": 0.0
+        },
+        "answer": "F"
+      },
+      {
+        "gold": "D",
+        "type": "choice",
+        "choice": "D",
+        "confidence": 1.0,
+        "probabilities": {
+          "A": 0.0,
+          "B": 0.0,
+          "C": 0.0,
+          "D": 1.0,
+          "E": 0.0,
+          "F": 0.0,
+          "NONE": 0.0
+        },
+        "answer": "D"
+      },
+      {
+        "gold": "F",
+        "type": "choice",
+        "choice": "F",
+        "confidence": 1.0,
+        "probabilities": {
+          "A": 0.0,
+          "B": 0.0,
+          "C": 0.0,
+          "D": 0.0,
+          "E": 0.0,
+          "F": 1.0,
+          "NONE": 0.0
+        },
+        "answer": "F"
+      },
+      {
+        "gold": "A",
+        "type": "choice",
+        "choice": "A",
+        "confidence": 1.0,
+        "probabilities": {
+          "A": 1.0,
+          "B": 0.0,
+          "C": 0.0,
+          "D": 0.0,
+          "E": 0.0,
+          "F": 0.0,
+          "NONE": 0.0
+        },
+        "answer": "A"
+      },
+      {
+        "gold": "C",
+        "type": "choice",
+        "choice": "C",
+        "confidence": 1.0,
+        "probabilities": {
+          "A": 0.0,
+          "B": 0.0,
+          "C": 1.0,
+          "D": 0.0,
+          "E": 0.0,
+          "F": 0.0,
+          "NONE": 0.0
+        },
+        "answer": "C"
+      },
+      {
+        "gold": "NONE",
+        "type": "choice",
+        "choice": "NONE",
+        "confidence": 1.0,
+        "probabilities": {
+          "A": 0.0,
+          "B": 0.0,
+          "C": 0.0,
+          "D": 0.0,
+          "E": 0.0,
+          "F": 0.0,
+          "NONE": 1.0
+        },
+        "answer": "NONE"
+      },
+      {
+        "gold": "NONE",
+        "type": "choice",
+        "choice": "NONE",
+        "confidence": 1.0,
+        "probabilities": {
+          "A": 0.0,
+          "B": 0.0,
+          "C": 0.0,
+          "D": 0.0,
+          "E": 0.0,
+          "F": 0.0,
+          "NONE": 1.0
+        },
+        "answer": "NONE"
+      },
+      {
+        "gold": "F",
+        "type": "choice",
+        "choice": "F",
+        "confidence": 1.0,
+        "probabilities": {
+          "A": 0.0,
+          "B": 0.0,
+          "C": 0.0,
+          "D": 0.0,
+          "E": 0.0,
+          "F": 1.0,
+          "NONE": 0.0
+        },
+        "answer": "F"
+      },
+      {
+        "gold": "NONE",
+        "type": "choice",
+        "choice": "NONE",
+        "confidence": 1.0,
+        "probabilities": {
+          "A": 0.0,
+          "B": 0.0,
+          "C": 0.0,
+          "D": 0.0,
+          "E": 0.0,
+          "F": 0.0,
+          "NONE": 1.0
+        },
+        "answer": "NONE"
+      }
+    ]
+  },
+  {
+    "step": 100,
+    "accuracy": 1.0,
+    "predictions": [
+      {
+        "gold": "A",
+        "type": "choice",
+        "choice": "A",
+        "confidence": 1.0,
+        "probabilities": {
+          "A": 1.0,
+          "B": 0.0,
+          "C": 0.0,
+          "D": 0.0,
+          "E": 0.0,
+          "F": 0.0,
+          "NONE": 0.0
+        },
+        "answer": "A"
+      },
+      {
+        "gold": "NONE",
+        "type": "choice",
+        "choice": "NONE",
+        "confidence": 1.0,
+        "probabilities": {
+          "A": 0.0,
+          "B": 0.0,
+          "C": 0.0,
+          "D": 0.0,
+          "E": 0.0,
+          "F": 0.0,
+          "NONE": 1.0
+        },
+        "answer": "NONE"
+      },
+      {
+        "gold": "A",
+        "type": "choice",
+        "choice": "A",
+        "confidence": 1.0,
+        "probabilities": {
+          "A": 1.0,
+          "B": 0.0,
+          "C": 0.0,
+          "D": 0.0,
+          "E": 0.0,
+          "F": 0.0,
+          "NONE": 0.0
+        },
+        "answer": "A"
+      },
+      {
+        "gold": "F",
+        "type": "choice",
+        "choice": "F",
+        "confidence": 1.0,
+        "probabilities": {
+          "A": 0.0,
+          "B": 0.0,
+          "C": 0.0,
+          "D": 0.0,
+          "E": 0.0,
+          "F": 1.0,
+          "NONE": 0.0
+        },
+        "answer": "F"
+      },
+      {
+        "gold": "NONE",
+        "type": "choice",
+        "choice": "NONE",
+        "confidence": 1.0,
+        "probabilities": {
+          "A": 0.0,
+          "B": 0.0,
+          "C": 0.0,
+          "D": 0.0,
+          "E": 0.0,
+          "F": 0.0,
+          "NONE": 1.0
+        },
+        "answer": "NONE"
+      },
+      {
+        "gold": "E",
+        "type": "choice",
+        "choice": "E",
+        "confidence": 1.0,
+        "probabilities": {
+          "A": 0.0,
+          "B": 0.0,
+          "C": 0.0,
+          "D": 0.0,
+          "E": 1.0,
+          "F": 0.0,
+          "NONE": 0.0
+        },
+        "answer": "E"
+      },
+      {
+        "gold": "NONE",
+        "type": "choice",
+        "choice": "NONE",
+        "confidence": 1.0,
+        "probabilities": {
+          "A": 0.0,
+          "B": 0.0,
+          "C": 0.0,
+          "D": 0.0,
+          "E": 0.0,
+          "F": 0.0,
+          "NONE": 1.0
+        },
+        "answer": "NONE"
+      },
+      {
+        "gold": "F",
+        "type": "choice",
+        "choice": "F",
+        "confidence": 1.0,
+        "probabilities": {
+          "A": 0.0,
+          "B": 0.0,
+          "C": 0.0,
+          "D": 0.0,
+          "E": 0.0,
+          "F": 1.0,
+          "NONE": 0.0
+        },
+        "answer": "F"
+      },
+      {
+        "gold": "D",
+        "type": "choice",
+        "choice": "D",
+        "confidence": 1.0,
+        "probabilities": {
+          "A": 0.0,
+          "B": 0.0,
+          "C": 0.0,
+          "D": 1.0,
+          "E": 0.0,
+          "F": 0.0,
+          "NONE": 0.0
+        },
+        "answer": "D"
+      },
+      {
+        "gold": "F",
+        "type": "choice",
+        "choice": "F",
+        "confidence": 1.0,
+        "probabilities": {
+          "A": 0.0,
+          "B": 0.0,
+          "C": 0.0,
+          "D": 0.0,
+          "E": 0.0,
+          "F": 1.0,
+          "NONE": 0.0
+        },
+        "answer": "F"
+      },
+      {
+        "gold": "A",
+        "type": "choice",
+        "choice": "A",
+        "confidence": 1.0,
+        "probabilities": {
+          "A": 1.0,
+          "B": 0.0,
+          "C": 0.0,
+          "D": 0.0,
+          "E": 0.0,
+          "F": 0.0,
+          "NONE": 0.0
+        },
+        "answer": "A"
+      },
+      {
+        "gold": "C",
+        "type": "choice",
+        "choice": "C",
+        "confidence": 1.0,
+        "probabilities": {
+          "A": 0.0,
+          "B": 0.0,
+          "C": 1.0,
+          "D": 0.0,
+          "E": 0.0,
+          "F": 0.0,
+          "NONE": 0.0
+        },
+        "answer": "C"
+      },
+      {
+        "gold": "NONE",
+        "type": "choice",
+        "choice": "NONE",
+        "confidence": 1.0,
+        "probabilities": {
+          "A": 0.0,
+          "B": 0.0,
+          "C": 0.0,
+          "D": 0.0,
+          "E": 0.0,
+          "F": 0.0,
+          "NONE": 1.0
+        },
+        "answer": "NONE"
+      },
+      {
+        "gold": "NONE",
+        "type": "choice",
+        "choice": "NONE",
+        "confidence": 1.0,
+        "probabilities": {
+          "A": 0.0,
+          "B": 0.0,
+          "C": 0.0,
+          "D": 0.0,
+          "E": 0.0,
+          "F": 0.0,
+          "NONE": 1.0
+        },
+        "answer": "NONE"
+      },
+      {
+        "gold": "F",
+        "type": "choice",
+        "choice": "F",
+        "confidence": 1.0,
+        "probabilities": {
+          "A": 0.0,
+          "B": 0.0,
+          "C": 0.0,
+          "D": 0.0,
+          "E": 0.0,
+          "F": 1.0,
+          "NONE": 0.0
+        },
+        "answer": "F"
+      },
+      {
+        "gold": "NONE",
+        "type": "choice",
+        "choice": "NONE",
+        "confidence": 1.0,
+        "probabilities": {
+          "A": 0.0,
+          "B": 0.0,
+          "C": 0.0,
+          "D": 0.0,
+          "E": 0.0,
+          "F": 0.0,
+          "NONE": 1.0
+        },
+        "answer": "NONE"
+      }
+    ]
+  }
+]

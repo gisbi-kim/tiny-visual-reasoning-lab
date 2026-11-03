@@ -1,0 +1,7 @@
+{
+  "temperature": 1.7278259805078635,
+  "nll": 0.15301479399204254,
+  "rows": 560,
+  "split": "calibration",
+  "uncalibrated_nll": 0.20341722667217255
+}

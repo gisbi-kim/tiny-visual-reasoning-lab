@@ -1,0 +1,83 @@
+🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.
+W1103 14:45:33.148000 48020 Lib\site-packages\torch\utils\_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W1103 14:45:33.192000 48020 Lib\site-packages\torch\utils\_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+Unsloth: xformers is installed but cannot load with torch 2.14.1+cu130 (it was built for 2.10.0+cu128), so PyTorch attention is used instead.
+To install a matching xformers, run `unsloth install-kernels xformers`, or `pip uninstall xformers` to hide this. UNSLOTH_ENABLE_LOGGING=1 shows the full error.
+🦥 Unsloth Zoo will now patch everything to make training faster!
+==((====))==  Unsloth 2026.10.10: Fast Qwen3_5 patching. Transformers: 5.17.0.
+   \\   /|    NVIDIA GeForce RTX 4070 Ti SUPER. Num GPUs = 1. Max memory: 15.992 GB. Platform: Windows.
+O^O/ \_/ \    Torch: 2.14.1+cu130. CUDA: 8.9. CUDA Toolkit: 13.0. Triton: 3.9.0
+\        /    Bfloat16 = TRUE. FA [Xformers = None. FA2 = False]
+ "-____-"     Free license: http://github.com/unslothai/unsloth
+Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
+
+Loading weights:   0%|          | 0/723 [00:00<?, ?it/s]
+Loading weights:   0%|          | 1/723 [00:00<09:10,  1.31it/s]
+Loading weights:   2%|▏         | 12/723 [00:00<00:39, 17.82it/s]
+Loading weights:   4%|▎         | 26/723 [00:01<00:18, 38.12it/s]
+Loading weights:   6%|▌         | 40/723 [00:01<00:12, 55.93it/s]
+Loading weights:   7%|▋         | 50/723 [00:01<00:10, 62.64it/s]
+Loading weights:   9%|▉         | 65/723 [00:01<00:08, 81.91it/s]
+Loading weights:  11%|█         | 78/723 [00:01<00:06, 92.57it/s]
+Loading weights:  12%|█▏        | 90/723 [00:01<00:06, 93.57it/s]
+Loading weights:  14%|█▍        | 101/723 [00:01<00:07, 80.23it/s]
+Loading weights:  16%|█▋        | 118/723 [00:01<00:06, 94.99it/s]
+Loading weights:  18%|█▊        | 131/723 [00:02<00:05, 100.53it/s]
+Loading weights:  20%|█▉        | 142/723 [00:02<00:05, 97.83it/s] 
+Loading weights:  21%|██        | 153/723 [00:02<00:07, 79.13it/s]
+Loading weights:  24%|██▎       | 170/723 [00:02<00:05, 97.60it/s]
+Loading weights:  25%|██▌       | 181/723 [00:02<00:05, 97.42it/s]
+Loading weights:  27%|██▋       | 192/723 [00:02<00:05, 95.59it/s]
+Loading weights:  28%|██▊       | 203/723 [00:02<00:05, 88.84it/s]
+Loading weights:  29%|██▉       | 213/723 [00:02<00:05, 85.13it/s]
+Loading weights:  31%|███       | 225/723 [00:03<00:05, 93.30it/s]
+Loading weights:  33%|███▎      | 238/723 [00:03<00:04, 100.80it/s]
+Loading weights:  34%|███▍      | 249/723 [00:03<00:04, 100.44it/s]
+Loading weights:  36%|███▌      | 260/723 [00:03<00:06, 75.86it/s] 
+Loading weights:  38%|███▊      | 274/723 [00:03<00:05, 88.94it/s]
+Loading weights:  39%|███▉      | 285/723 [00:03<00:04, 87.83it/s]
+Loading weights:  41%|████      | 295/723 [00:03<00:05, 77.17it/s]
+Loading weights:  42%|████▏     | 305/723 [00:04<00:05, 82.24it/s]
+Loading weights:  43%|████▎     | 314/723 [00:04<00:05, 70.24it/s]
+Loading weights:  45%|████▌     | 327/723 [00:04<00:04, 82.17it/s]
+Loading weights:  46%|████▋     | 336/723 [00:04<00:04, 78.58it/s]
+Loading weights:  48%|████▊     | 345/723 [00:04<00:05, 73.66it/s]
+Loading weights:  49%|████▉     | 357/723 [00:04<00:04, 84.15it/s]
+Loading weights:  51%|█████     | 366/723 [00:04<00:05, 65.80it/s]
+Loading weights:  53%|█████▎    | 380/723 [00:05<00:04, 79.86it/s]
+Loading weights:  54%|█████▍    | 389/723 [00:05<00:04, 77.53it/s]
+Loading weights:  55%|█████▌    | 398/723 [00:05<00:04, 74.46it/s]
+Loading weights:  57%|█████▋    | 411/723 [00:05<00:03, 81.34it/s]
+Loading weights:  58%|█████▊    | 420/723 [00:05<00:04, 70.52it/s]
+Loading weights:  63%|██████▎   | 454/723 [00:05<00:02, 130.06it/s]
+Loading weights:  70%|██████▉   | 506/723 [00:05<00:00, 222.74it/s]
+Loading weights:  78%|███████▊  | 564/723 [00:05<00:00, 313.98it/s]
+Loading weights:  86%|████████▌ | 622/723 [00:05<00:00, 383.48it/s]
+Loading weights:  93%|█████████▎| 674/723 [00:06<00:00, 421.09it/s]
+Loading weights:  99%|█████████▉| 719/723 [00:06<00:00, 422.10it/s]
+Loading weights: 100%|██████████| 723/723 [00:06<00:00, 116.60it/s]
+
+Fetching 10 files:   0%|          | 0/10 [00:00<?, ?it/s]
+Fetching 10 files: 100%|██████████| 10/10 [00:00<00:00, 1999.38it/s]
+DATASET {'total': 32, 'skipped': 0, 'reason': None, 'truncated': 0}
+DATASET {'total': 8, 'skipped': 0, 'reason': None, 'truncated': 0}
+==((====))==  Unsloth - 2x faster free finetuning | Num GPUs used = 1
+   \\   /|    Num examples = 32 | Num Epochs = 1 | Total steps = 4
+O^O/ \_/ \    Batch size per device = 2 | Gradient accumulation steps = 1
+\        /    Data Parallel GPUs = 1 | Total batch size (2 x 1 x 1) = 2
+ "-____-"     Trainable parameters = 64,511,492 of 3,072,856,068 (2.10% trained)
+Unsloth: Will smartly offload gradients to save VRAM!
+`causal_conv1d_fn` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.
+{'loss': '1.945', 'grad_norm': '3.346', 'learning_rate': '0', 'epoch': '0.0625'}
+Unsloth: Double buffering enabled (parallel H2D + compute) for backward pass.
+{'loss': '1.945', 'grad_norm': '3.018', 'learning_rate': '0.0002', 'epoch': '0.125'}
+{'loss': '2.066', 'grad_norm': '3.507', 'learning_rate': '0.00015', 'epoch': '0.1875'}
+{'loss': '1.91', 'grad_norm': '5.028', 'learning_rate': '5e-05', 'epoch': '0.25'}
+Unsloth: Restored added_tokens_decoder metadata in <USER_HOME>\tiny-visual-reasoning-lab\runs\smoke\checkpoints\checkpoint-4\.unsloth-save-73x_h6tz\tokenizer_config.json.
+{'train_runtime': '51.97', 'train_samples_per_second': '0.154', 'train_steps_per_second': '0.077', 'train_loss': '1.966', 'epoch': '0.25'}
+VALIDATION 4 0.0
+Unsloth: Restored added_tokens_decoder metadata in <USER_HOME>\tiny-visual-reasoning-lab\runs\smoke\best\.unsloth-save-fp4jd31l\tokenizer_config.json.
+Unsloth: Restored added_tokens_decoder metadata in <USER_HOME>\tiny-visual-reasoning-lab\runs\smoke\best\tokenizer_config.json.
+Unsloth: Restored added_tokens_decoder metadata in <USER_HOME>\tiny-visual-reasoning-lab\runs\smoke\adapter\.unsloth-save-m4_jeotm\tokenizer_config.json.
+Unsloth: Restored added_tokens_decoder metadata in <USER_HOME>\tiny-visual-reasoning-lab\runs\smoke\adapter\tokenizer_config.json.
+TRAINED <USER_HOME>\tiny-visual-reasoning-lab\runs\smoke

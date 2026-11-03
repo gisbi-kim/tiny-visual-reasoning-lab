@@ -53,6 +53,9 @@ def main():
     parser.add_argument('--overfit',action='store_true')
     parser.add_argument('--val-count',type=int,default=140)
     parser.add_argument('--revision',default='851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a')
+    parser.add_argument('--init-checkpoint',default=None)
+    parser.add_argument('--train-split',default='train')
+    parser.add_argument('--validation-split',default='validation_select')
     args = parser.parse_args()
     from unsloth import FastDecisionModel, DecisionTrainer
     import torch
@@ -65,19 +68,26 @@ def main():
     status('loading')
     base = 'Qwen/Qwen3.5-4B'
     revision = args.revision
-    model,processor = FastDecisionModel.from_pretrained(model_name=base,revision=revision,
+    model,processor = FastDecisionModel.from_pretrained(model_name=args.init_checkpoint or base,revision=revision,
         max_seq_length=1024,load_in_4bit=args.four_bit,dtype=torch.bfloat16,
         random_state=3407,use_gradient_checkpointing='unsloth')
     if not hasattr(processor,'image_processor'): raise RuntimeError('Vision processor is required')
-    model = FastDecisionModel.get_peft_model(model,r=16,lora_alpha=16,lora_dropout=0,
-        random_state=3407,use_gradient_checkpointing='unsloth')
+    if not args.init_checkpoint:
+        model = FastDecisionModel.get_peft_model(model,r=16,lora_alpha=16,lora_dropout=0,
+            random_state=3407,use_gradient_checkpointing='unsloth')
+    else:
+        # Continue the existing adapter/head; never initialize a second LoRA.
+        for name,param in model.encoder.named_parameters():
+            param.requires_grad_('lora_' in name)
+        model.head.requires_grad_(True)
     model.decision_config['base_revision'] = revision
-    train_rows = read_rows('train')
+    train_rows = read_rows(args.train_split)
     if args.limit: train_rows = train_rows[:args.limit]
-    val_rows = train_rows if args.overfit else read_rows('validation_select')[:args.val_count]
+    val_rows = train_rows if args.overfit else read_rows(args.validation_split)[:args.val_count]
     # PEFT accounts for packed Params4bit logical elements; raw tensor.numel()
     # would undercount a quantized backbone.
     encoder_trainable,encoder_total=model.encoder.get_nb_trainable_parameters()
+    if encoder_trainable<=0:raise RuntimeError('LoRA must be trainable')
     head_total=sum(p.numel() for p in model.head.parameters())
     quantization=getattr(model.encoder.config,'quantization_config',None)
     if quantization is not None:
@@ -133,7 +143,7 @@ def main():
             dump(run/'history.json',state.log_history)
         def on_step_end(self,arguments,state,control,**kwargs):
             if args.validate_every and state.global_step % args.validate_every == 0:
-                status('validation',step=state.global_step)
+                status('validation',step=state.global_step,elapsed_seconds=time.monotonic()-start)
                 validate(state.global_step)
             if time.monotonic()-start >= args.seconds:
                 control.should_training_stop=True
@@ -152,7 +162,8 @@ def main():
     result=trainer.train()
     dump(run/'metrics.json',dict(**result.metrics,peak_allocated_gb=torch.cuda.max_memory_allocated()/2**30,
                                peak_reserved_gb=torch.cuda.max_memory_reserved()/2**30))
-    validate(trainer.state.global_step)
+    if not validation_history or validation_history[-1]['step']!=trainer.state.global_step:
+        validate(trainer.state.global_step)
     save_checkpoint(run/'adapter')
     dump(run/'files.json',{p.name:dict(bytes=p.stat().st_size,sha256=hashlib.sha256(p.read_bytes()).hexdigest())
                           for p in (run/'adapter').iterdir() if p.is_file()})

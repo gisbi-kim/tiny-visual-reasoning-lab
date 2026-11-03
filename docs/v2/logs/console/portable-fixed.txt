@@ -1,0 +1,41 @@
+W1103 15:06:39.298000 53096 Lib\site-packages\torch\utils\_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W1103 15:06:39.335000 53096 Lib\site-packages\torch\utils\_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+
+Loading weights:   0%|          | 0/723 [00:00<?, ?it/s]
+Loading weights:   0%|          | 1/723 [00:00<05:58,  2.01it/s]
+Loading weights:   2%|▏         | 13/723 [00:00<00:25, 27.64it/s]
+Loading weights:   4%|▍         | 28/723 [00:00<00:12, 55.35it/s]
+Loading weights:   6%|▌         | 45/723 [00:00<00:08, 81.83it/s]
+Loading weights:   8%|▊         | 57/723 [00:00<00:07, 91.52it/s]
+Loading weights:  10%|▉         | 69/723 [00:01<00:06, 96.16it/s]
+Loading weights:  12%|█▏        | 89/723 [00:01<00:05, 122.00it/s]
+Loading weights:  14%|█▍        | 103/723 [00:01<00:05, 115.22it/s]
+Loading weights:  16%|█▋        | 119/723 [00:01<00:04, 125.68it/s]
+Loading weights:  19%|█▊        | 134/723 [00:01<00:04, 127.10it/s]
+Loading weights:  21%|██        | 149/723 [00:01<00:04, 133.31it/s]
+Loading weights:  23%|██▎       | 167/723 [00:01<00:03, 143.15it/s]
+Loading weights:  25%|██▌       | 182/723 [00:01<00:03, 139.59it/s]
+Loading weights:  27%|██▋       | 197/723 [00:01<00:04, 128.23it/s]
+Loading weights:  29%|██▉       | 211/723 [00:02<00:04, 115.77it/s]
+Loading weights:  31%|███▏      | 226/723 [00:02<00:04, 118.68it/s]
+Loading weights:  33%|███▎      | 242/723 [00:02<00:03, 128.84it/s]
+Loading weights:  35%|███▌      | 256/723 [00:02<00:03, 131.45it/s]
+Loading weights:  38%|███▊      | 273/723 [00:02<00:03, 137.14it/s]
+Loading weights:  40%|███▉      | 288/723 [00:02<00:03, 137.65it/s]
+Loading weights:  42%|████▏     | 302/723 [00:02<00:03, 137.16it/s]
+Loading weights:  44%|████▎     | 316/723 [00:02<00:03, 114.94it/s]
+Loading weights:  46%|████▌     | 331/723 [00:03<00:03, 119.29it/s]
+Loading weights:  48%|████▊     | 346/723 [00:03<00:03, 121.56it/s]
+Loading weights:  50%|█████     | 363/723 [00:03<00:02, 127.50it/s]
+Loading weights:  53%|█████▎    | 380/723 [00:03<00:02, 136.80it/s]
+Loading weights:  54%|█████▍    | 394/723 [00:03<00:02, 137.66it/s]
+Loading weights:  56%|█████▋    | 408/723 [00:03<00:02, 134.57it/s]
+Loading weights:  58%|█████▊    | 422/723 [00:03<00:02, 121.54it/s]
+Loading weights:  70%|██████▉   | 504/723 [00:03<00:00, 303.79it/s]
+Loading weights:  79%|███████▉  | 574/723 [00:03<00:00, 406.09it/s]
+Loading weights:  93%|█████████▎| 672/723 [00:04<00:00, 565.11it/s]
+Loading weights: 100%|██████████| 723/723 [00:04<00:00, 175.30it/s]
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `causal_conv1d_fn` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.
+[transformers] `chunk_gated_delta_rule` is falling back to its reference PyTorch implementation because `flash-linear-attention` is not installed. This is correct but much slower; install `flash-linear-attention` for the optimized kernel.
+BACKEND_RESULT portable 1.0 352

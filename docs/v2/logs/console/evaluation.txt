@@ -1,0 +1,60 @@
+W1103 17:25:41.889000 35112 Lib\site-packages\torch\utils\_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W1103 17:25:41.918000 35112 Lib\site-packages\torch\utils\_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+Loading weights:   0%|          | 0/723 [00:00<?, ?it/s]Loading weights:   0%|          | 1/723 [00:00<09:24,  1.28it/s]Loading weights:   2%|▏         | 12/723 [00:00<00:40, 17.43it/s]Loading weights:   3%|▎         | 25/723 [00:01<00:18, 37.06it/s]Loading weights:   5%|▍         | 36/723 [00:01<00:13, 51.18it/s]Loading weights:   6%|▋         | 46/723 [00:01<00:12, 54.98it/s]Loading weights:   8%|▊         | 61/723 [00:01<00:09, 72.99it/s]Loading weights:  10%|▉         | 71/723 [00:01<00:08, 76.75it/s]Loading weights:  11%|█         | 81/723 [00:01<00:08, 79.36it/s]Loading weights:  13%|█▎        | 95/723 [00:01<00:06, 92.29it/s]Loading weights:  15%|█▍        | 106/723 [00:01<00:06, 96.47it/s]Loading weights:  17%|█▋        | 120/723 [00:01<00:05, 105.24it/s]Loading weights:  19%|█▊        | 134/723 [00:02<00:05, 112.20it/s]Loading weights:  20%|██        | 148/723 [00:02<00:04, 118.06it/s]Loading weights:  23%|██▎       | 167/723 [00:02<00:04, 132.95it/s]Loading weights:  25%|██▌       | 181/723 [00:02<00:04, 123.70it/s]Loading weights:  27%|██▋       | 195/723 [00:02<00:04, 127.71it/s]Loading weights:  29%|██▉       | 209/723 [00:02<00:04, 116.93it/s]Loading weights:  31%|███       | 225/723 [00:02<00:03, 124.92it/s]Loading weights:  33%|███▎      | 240/723 [00:02<00:03, 125.58it/s]Loading weights:  36%|███▌      | 257/723 [00:02<00:03, 130.78it/s]Loading weights:  38%|███▊      | 274/723 [00:03<00:03, 139.98it/s]Loading weights:  40%|███▉      | 289/723 [00:03<00:03, 138.85it/s]Loading weights:  42%|████▏     | 304/723 [00:03<00:03, 131.76it/s]Loading weights:  44%|████▍     | 318/723 [00:03<00:03, 115.71it/s]Loading weights:  46%|████▌     | 332/723 [00:03<00:03, 121.74it/s]Loading weights:  49%|████▉     | 354/723 [00:03<00:02, 141.37it/s]Loading weights:  51%|█████     | 369/723 [00:03<00:02, 125.99it/s]Loading weights:  53%|█████▎    | 385/723 [00:03<00:02, 128.38it/s]Loading weights:  56%|█████▋    | 407/723 [00:04<00:02, 145.32it/s]Loading weights:  58%|█████▊    | 422/723 [00:04<00:02, 122.02it/s]Loading weights:  70%|██████▉   | 506/723 [00:04<00:00, 288.34it/s]Loading weights:  85%|████████▍ | 612/723 [00:04<00:00, 477.37it/s]Loading weights:  99%|█████████▉| 716/723 [00:04<00:00, 613.22it/s]Loading weights: 100%|██████████| 723/723 [00:04<00:00, 157.12it/s]
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `causal_conv1d_fn` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.
+[transformers] `chunk_gated_delta_rule` is falling back to its reference PyTorch implementation because `flash-linear-attention` is not installed. This is correct but much slower; install `flash-linear-attention` for the optimized kernel.
+CALIBRATION 100 560
+CALIBRATION 200 560
+CALIBRATION 300 560
+CALIBRATION 400 560
+CALIBRATION 500 560
+EVALUATION test_id 100 1120
+EVALUATION test_id 200 1120
+EVALUATION test_id 300 1120
+EVALUATION test_id 400 1120
+EVALUATION test_id 500 1120
+EVALUATION test_id 600 1120
+EVALUATION test_id 700 1120
+EVALUATION test_id 800 1120
+EVALUATION test_id 900 1120
+EVALUATION test_id 1000 1120
+EVALUATION test_id 1100 1120
+test_id 0.9348214285714286
+EVALUATION test_language 100 1120
+EVALUATION test_language 200 1120
+EVALUATION test_language 300 1120
+EVALUATION test_language 400 1120
+EVALUATION test_language 500 1120
+EVALUATION test_language 600 1120
+EVALUATION test_language 700 1120
+EVALUATION test_language 800 1120
+EVALUATION test_language 900 1120
+EVALUATION test_language 1000 1120
+EVALUATION test_language 1100 1120
+test_language 0.7928571428571428
+EVALUATION test_composition 100 1120
+EVALUATION test_composition 200 1120
+EVALUATION test_composition 300 1120
+EVALUATION test_composition 400 1120
+EVALUATION test_composition 500 1120
+EVALUATION test_composition 600 1120
+EVALUATION test_composition 700 1120
+EVALUATION test_composition 800 1120
+EVALUATION test_composition 900 1120
+EVALUATION test_composition 1000 1120
+EVALUATION test_composition 1100 1120
+test_composition 0.6776785714285715
+EVALUATION test_combined 100 1120
+EVALUATION test_combined 200 1120
+EVALUATION test_combined 300 1120
+EVALUATION test_combined 400 1120
+EVALUATION test_combined 500 1120
+EVALUATION test_combined 600 1120
+EVALUATION test_combined 700 1120
+EVALUATION test_combined 800 1120
+EVALUATION test_combined 900 1120
+EVALUATION test_combined 1000 1120
+EVALUATION test_combined 1100 1120
+test_combined 0.5482142857142858
+REPORT results\report.json

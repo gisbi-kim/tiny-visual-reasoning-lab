@@ -1,0 +1,23 @@
+BUILD train scenes 500 rows 4000 remaining 27360
+BUILD train scenes 1000 rows 8000 remaining 23360
+BUILD train scenes 1500 rows 12000 remaining 19360
+BUILD train scenes 2000 rows 16000 remaining 15360
+BUILD train scenes 2500 rows 20000 remaining 11360
+BUILD train scenes 3000 rows 24000 remaining 7360
+BUILD train scenes 3500 rows 27988 remaining 3372
+BUILD train scenes 4000 rows 31234 remaining 126
+BUILT train 31360 4024
+BUILT validation 1120 148
+BUILT calibration 560 74
+BUILT test_id 1120 150
+BUILT test_language 1120 148
+BUILT test_composition 1120 143
+BUILT test_combined 1120 144
+AUDIT_OK train 31360
+AUDIT_OK validation 1120
+AUDIT_OK calibration 560
+AUDIT_OK test_id 1120
+AUDIT_OK test_language 1120
+AUDIT_OK test_composition 1120
+AUDIT_OK test_combined 1120
+DATA_READY

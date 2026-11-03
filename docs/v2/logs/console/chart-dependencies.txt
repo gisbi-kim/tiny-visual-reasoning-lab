@@ -1,0 +1,12 @@
+Collecting pygal
+  Downloading pygal-3.1.3-py3-none-any.whl.metadata (3.0 kB)
+Collecting importlib-metadata (from pygal)
+  Using cached importlib_metadata-10.1.0-py3-none-any.whl.metadata (4.5 kB)
+Collecting zipp>=3.20 (from importlib-metadata->pygal)
+  Using cached zipp-4.1.2-py3-none-any.whl.metadata (3.6 kB)
+Downloading pygal-3.1.3-py3-none-any.whl (132 kB)
+Using cached importlib_metadata-10.1.0-py3-none-any.whl (32 kB)
+Using cached zipp-4.1.2-py3-none-any.whl (10 kB)
+Installing collected packages: zipp, importlib-metadata, pygal
+
+Successfully installed importlib-metadata-10.1.0 pygal-3.1.3 zipp-4.1.2

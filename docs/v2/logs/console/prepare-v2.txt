@@ -1,0 +1,18 @@
+BUILD v2_train scenes 500 rows 4000 remaining 33632
+BUILD v2_train scenes 1000 rows 8000 remaining 29632
+BUILD v2_train scenes 1500 rows 12000 remaining 25632
+BUILD v2_train scenes 2000 rows 16000 remaining 21632
+BUILD v2_train scenes 2500 rows 20000 remaining 17632
+BUILD v2_train scenes 3000 rows 23998 remaining 13634
+BUILD v2_train scenes 3500 rows 27996 remaining 9636
+BUILD v2_train scenes 4000 rows 31984 remaining 5648
+BUILD v2_train scenes 4500 rows 35782 remaining 1850
+BUILT v2_train 37632 4825
+V2_AUDIT_OK v2_train 37632 144
+BUILT v2_validation 2016 264
+V2_AUDIT_OK v2_validation 2016 144
+BUILT v2_calibration 1008 134
+V2_AUDIT_OK v2_calibration 1008 144
+BUILT v2_test 2016 268
+V2_AUDIT_OK v2_test 2016 144
+V2_DATA_READY

@@ -1,0 +1,1967 @@
+[
+  {
+    "instruction": "Follow this request: Choose the animal photo in the same column as the tile immediately above refrigerator. A move outside the grid means NONE.",
+    "action": "NONE",
+    "language": "en",
+    "family": "neighbor_col_filter",
+    "program": {
+      "family": "neighbor_col_filter",
+      "anchor": "refrigerator",
+      "direction": "up",
+      "group": "animal"
+    },
+    "trace": [
+      {
+        "anchor": 2
+      },
+      {
+        "intermediate": null
+      },
+      {
+        "candidates": []
+      }
+    ],
+    "variant": 0,
+    "text_seed": 462693837,
+    "contrast_pair": "v2_test-pair-55-0",
+    "scene_id": "v2_test-00054",
+    "image": "images/v2_test-00054.png",
+    "source_ids": [
+      "val/images/val_9178.JPEG",
+      "val/images/val_7937.JPEG",
+      "val/images/val_6884.JPEG",
+      "val/images/val_7101.JPEG",
+      "val/images/val_5607.JPEG",
+      "val/images/val_3330.JPEG"
+    ],
+    "object_keys": [
+      "teapot",
+      "bus",
+      "refrigerator",
+      "abacus",
+      "lion",
+      "cat"
+    ],
+    "boxes": [
+      [
+        0,
+        4,
+        64,
+        58
+      ],
+      [
+        4,
+        16,
+        63,
+        57
+      ],
+      [
+        0,
+        0,
+        64,
+        64
+      ],
+      [
+        0,
+        1,
+        64,
+        64
+      ],
+      [
+        0,
+        2,
+        64,
+        63
+      ],
+      [
+        8,
+        0,
+        61,
+        64
+      ]
+    ],
+    "render_seed": 1480548712,
+    "surface_version": 2,
+    "prediction": {
+      "action": "F",
+      "probabilities": {
+        "A": 0.003920108079910278,
+        "B": 0.003916328307241201,
+        "C": 0.00843827985227108,
+        "D": 0.007676553446799517,
+        "E": 0.03398613631725311,
+        "F": 0.660590648651123,
+        "NONE": 0.28147193789482117
+      },
+      "latency_ms": 156.6858000587672,
+      "device": "cuda",
+      "dtype": "torch.bfloat16",
+      "quantized_base": true,
+      "cpu_fallback_enabled": false
+    }
+  },
+  {
+    "instruction": "이 사진판을 보고 답해 줘. 펭귄이 있는 가로줄에서 곤충 사진을 찾은 뒤 그 바로 아래쪽 사진을 선택해. 칸을 벗어나는 이동은 NONE으로 답해.",
+    "action": "D",
+    "language": "ko",
+    "family": "row_filter_then_neighbor",
+    "program": {
+      "family": "row_filter_then_neighbor",
+      "anchor": "penguin",
+      "direction": "down",
+      "group": "insect"
+    },
+    "trace": [
+      {
+        "anchor": 2
+      },
+      {
+        "intermediate": 2
+      },
+      {
+        "candidates": [
+          0
+        ]
+      }
+    ],
+    "variant": 1,
+    "text_seed": 1894218363,
+    "contrast_pair": "v2_test-pair-209-16",
+    "scene_id": "v2_test-00208",
+    "image": "images/v2_test-00208.png",
+    "source_ids": [
+      "val/images/val_8501.JPEG",
+      "val/images/val_853.JPEG",
+      "val/images/val_8411.JPEG",
+      "val/images/val_1304.JPEG",
+      "val/images/val_1677.JPEG",
+      "val/images/val_9553.JPEG"
+    ],
+    "object_keys": [
+      "dragonfly",
+      "dog",
+      "penguin",
+      "refrigerator",
+      "pig",
+      "lifeboat"
+    ],
+    "boxes": [
+      [
+        4,
+        6,
+        63,
+        28
+      ],
+      [
+        0,
+        5,
+        64,
+        62
+      ],
+      [
+        0,
+        1,
+        64,
+        56
+      ],
+      [
+        0,
+        0,
+        64,
+        64
+      ],
+      [
+        36,
+        37,
+        64,
+        64
+      ],
+      [
+        15,
+        14,
+        64,
+        42
+      ]
+    ],
+    "render_seed": 755325276,
+    "surface_version": 2,
+    "prediction": {
+      "action": "NONE",
+      "probabilities": {
+        "A": 0.0020796218886971474,
+        "B": 0.001454903744161129,
+        "C": 0.0016011955449357629,
+        "D": 0.03656459227204323,
+        "E": 0.00515896687284112,
+        "F": 0.009130933322012424,
+        "NONE": 0.9440097808837891
+      },
+      "latency_ms": 156.55219997279346,
+      "device": "cuda",
+      "dtype": "torch.bfloat16",
+      "quantized_base": true,
+      "cpu_fallback_enabled": false
+    }
+  },
+  {
+    "instruction": "다음 조건에 맞춰 사진을 골라 줘. 고를 사진은 먹거리 사진이면서 바나나 사진과 행이 같아야 해. 칸을 벗어나는 이동은 NONE으로 답해.",
+    "action": "F",
+    "language": "ko",
+    "family": "row_filter",
+    "program": {
+      "family": "row_filter",
+      "anchor": "banana",
+      "group": "food"
+    },
+    "trace": [
+      {
+        "anchor": 5
+      },
+      {
+        "intermediate": 5
+      },
+      {
+        "candidates": [
+          5
+        ]
+      }
+    ],
+    "variant": 4,
+    "text_seed": 552782418,
+    "contrast_pair": null,
+    "scene_id": "v2_test-00225",
+    "image": "images/v2_test-00225.png",
+    "source_ids": [
+      "val/images/val_2177.JPEG",
+      "val/images/val_1352.JPEG",
+      "val/images/val_3790.JPEG",
+      "val/images/val_9527.JPEG",
+      "val/images/val_9303.JPEG",
+      "val/images/val_7411.JPEG"
+    ],
+    "object_keys": [
+      "goose",
+      "frog",
+      "tractor",
+      "dog",
+      "camel",
+      "banana"
+    ],
+    "boxes": [
+      [
+        9,
+        24,
+        40,
+        49
+      ],
+      [
+        6,
+        9,
+        60,
+        51
+      ],
+      [
+        28,
+        20,
+        64,
+        51
+      ],
+      [
+        0,
+        2,
+        64,
+        64
+      ],
+      [
+        0,
+        11,
+        29,
+        62
+      ],
+      [
+        0,
+        31,
+        48,
+        64
+      ]
+    ],
+    "render_seed": 619549286,
+    "surface_version": 2,
+    "prediction": {
+      "action": "NONE",
+      "probabilities": {
+        "A": 0.006541486829519272,
+        "B": 0.01030234806239605,
+        "C": 0.006558817811310291,
+        "D": 0.00675219064578414,
+        "E": 0.006749885156750679,
+        "F": 0.012892190366983414,
+        "NONE": 0.9502031207084656
+      },
+      "latency_ms": 158.7998999748379,
+      "device": "cuda",
+      "dtype": "torch.bfloat16",
+      "quantized_base": true,
+      "cpu_fallback_enabled": false
+    }
+  },
+  {
+    "instruction": "Look at this photo board. Select insect, searching only within the row reached by one step to the right from sunglasses. Choose NONE if no tile qualifies.",
+    "action": "F",
+    "language": "en",
+    "family": "neighbor_row_filter",
+    "program": {
+      "family": "neighbor_row_filter",
+      "anchor": "sunglasses",
+      "direction": "right",
+      "group": "insect"
+    },
+    "trace": [
+      {
+        "anchor": 4
+      },
+      {
+        "intermediate": 5
+      },
+      {
+        "candidates": [
+          5
+        ]
+      }
+    ],
+    "variant": 4,
+    "text_seed": 1521342545,
+    "contrast_pair": null,
+    "scene_id": "v2_test-00159",
+    "image": "images/v2_test-00159.png",
+    "source_ids": [
+      "val/images/val_1472.JPEG",
+      "val/images/val_783.JPEG",
+      "val/images/val_6690.JPEG",
+      "val/images/val_4811.JPEG",
+      "val/images/val_452.JPEG",
+      "val/images/val_3083.JPEG"
+    ],
+    "object_keys": [
+      "camel",
+      "penguin",
+      "tractor",
+      "bus",
+      "sunglasses",
+      "ladybug"
+    ],
+    "boxes": [
+      [
+        22,
+        28,
+        64,
+        61
+      ],
+      [
+        17,
+        0,
+        62,
+        64
+      ],
+      [
+        0,
+        1,
+        64,
+        64
+      ],
+      [
+        0,
+        13,
+        64,
+        60
+      ],
+      [
+        0,
+        0,
+        64,
+        64
+      ],
+      [
+        18,
+        23,
+        49,
+        53
+      ]
+    ],
+    "render_seed": 1587857910,
+    "surface_version": 2,
+    "prediction": {
+      "action": "NONE",
+      "probabilities": {
+        "A": 0.0032416069880127907,
+        "B": 0.0031424860935658216,
+        "C": 0.0034254165366292,
+        "D": 0.004377682693302631,
+        "E": 0.00455187214538455,
+        "F": 0.3603551685810089,
+        "NONE": 0.6209058165550232
+      },
+      "latency_ms": 157.2480001486838,
+      "device": "cuda",
+      "dtype": "torch.bfloat16",
+      "quantized_base": true,
+      "cpu_fallback_enabled": false
+    }
+  },
+  {
+    "instruction": "불곰이 있는 가로줄에서 탈것 사진을 찾아줘. 해당하는 사진이 없으면 NONE이야.",
+    "action": "NONE",
+    "language": "ko",
+    "family": "row_filter",
+    "program": {
+      "family": "row_filter",
+      "anchor": "bear",
+      "group": "vehicle"
+    },
+    "trace": [
+      {
+        "anchor": 3
+      },
+      {
+        "intermediate": 3
+      },
+      {
+        "candidates": []
+      }
+    ],
+    "variant": 1,
+    "text_seed": 506075714,
+    "contrast_pair": null,
+    "scene_id": "v2_test-00051",
+    "image": "images/v2_test-00051.png",
+    "source_ids": [
+      "val/images/val_9867.JPEG",
+      "val/images/val_1809.JPEG",
+      "val/images/val_3795.JPEG",
+      "val/images/val_442.JPEG",
+      "val/images/val_1830.JPEG",
+      "val/images/val_3931.JPEG"
+    ],
+    "object_keys": [
+      "lifeboat",
+      "penguin",
+      "lion",
+      "bear",
+      "backpack",
+      "lemon"
+    ],
+    "boxes": [
+      [
+        0,
+        0,
+        62,
+        59
+      ],
+      [
+        0,
+        5,
+        61,
+        64
+      ],
+      [
+        0,
+        32,
+        26,
+        54
+      ],
+      [
+        0,
+        14,
+        63,
+        50
+      ],
+      [
+        3,
+        0,
+        60,
+        64
+      ],
+      [
+        0,
+        4,
+        49,
+        58
+      ]
+    ],
+    "render_seed": 1754598638,
+    "surface_version": 2,
+    "prediction": {
+      "action": "A",
+      "probabilities": {
+        "A": 0.5252447724342346,
+        "B": 0.005725703667849302,
+        "C": 0.006240684539079666,
+        "D": 0.00783085823059082,
+        "E": 0.007680090609937906,
+        "F": 0.00755329942330718,
+        "NONE": 0.4397245943546295
+      },
+      "latency_ms": 157.2914000134915,
+      "device": "cuda",
+      "dtype": "torch.bfloat16",
+      "quantized_base": true,
+      "cpu_fallback_enabled": false
+    }
+  },
+  {
+    "instruction": "Please help me select one tile. Is the number of electrical or electronic device photos at least 2? If yes select keyboard; if not select ladybug. Choose NONE if no tile qualifies.",
+    "action": "C",
+    "language": "en",
+    "family": "count_branch",
+    "program": {
+      "family": "count_branch",
+      "group": "electronic",
+      "yes": "keyboard",
+      "no": "ladybug",
+      "threshold": 2
+    },
+    "trace": [
+      {
+        "count": 1,
+        "comparison_value": 2,
+        "condition": false
+      }
+    ],
+    "variant": 3,
+    "text_seed": 330911947,
+    "contrast_pair": "v2_test-pair-106-0",
+    "scene_id": "v2_test-00105",
+    "image": "images/v2_test-00105.png",
+    "source_ids": [
+      "val/images/val_4236.JPEG",
+      "val/images/val_8406.JPEG",
+      "val/images/val_2883.JPEG",
+      "val/images/val_1622.JPEG",
+      "val/images/val_7435.JPEG",
+      "val/images/val_1668.JPEG"
+    ],
+    "object_keys": [
+      "tractor",
+      "train",
+      "ladybug",
+      "car",
+      "pomegranate",
+      "keyboard"
+    ],
+    "boxes": [
+      [
+        0,
+        0,
+        64,
+        54
+      ],
+      [
+        18,
+        23,
+        49,
+        46
+      ],
+      [
+        15,
+        24,
+        39,
+        46
+      ],
+      [
+        6,
+        19,
+        64,
+        64
+      ],
+      [
+        0,
+        32,
+        29,
+        64
+      ],
+      [
+        0,
+        41,
+        33,
+        64
+      ]
+    ],
+    "render_seed": 697431764,
+    "surface_version": 2,
+    "prediction": {
+      "action": "E",
+      "probabilities": {
+        "A": 0.0019288245821371675,
+        "B": 0.0022696771193295717,
+        "C": 0.0037730750627815723,
+        "D": 0.0036564941983669996,
+        "E": 0.8907455801963806,
+        "F": 0.03722937032580376,
+        "NONE": 0.06039692834019661
+      },
+      "latency_ms": 166.64559999480844,
+      "device": "cuda",
+      "dtype": "torch.bfloat16",
+      "quantized_base": true,
+      "cpu_fallback_enabled": false
+    }
+  },
+  {
+    "instruction": "Count the animal pictures. Select banana if the count is at least three, or refrigerator if it is lower. A move outside the grid means NONE.",
+    "action": "NONE",
+    "language": "en",
+    "family": "count_branch",
+    "program": {
+      "family": "count_branch",
+      "group": "animal",
+      "yes": "banana",
+      "no": "refrigerator",
+      "threshold": 3
+    },
+    "trace": [
+      {
+        "count": 3,
+        "comparison_value": 3,
+        "condition": true
+      }
+    ],
+    "variant": 1,
+    "text_seed": 377553862,
+    "contrast_pair": "v2_test-pair-143-16",
+    "scene_id": "v2_test-00142",
+    "image": "images/v2_test-00142.png",
+    "source_ids": [
+      "val/images/val_5211.JPEG",
+      "val/images/val_6770.JPEG",
+      "val/images/val_2305.JPEG",
+      "val/images/val_1790.JPEG",
+      "val/images/val_5806.JPEG",
+      "val/images/val_714.JPEG"
+    ],
+    "object_keys": [
+      "cat",
+      "lion",
+      "backpack",
+      "dog",
+      "refrigerator",
+      "pizza"
+    ],
+    "boxes": [
+      [
+        0,
+        19,
+        57,
+        48
+      ],
+      [
+        0,
+        1,
+        46,
+        61
+      ],
+      [
+        0,
+        0,
+        64,
+        64
+      ],
+      [
+        9,
+        0,
+        64,
+        64
+      ],
+      [
+        0,
+        0,
+        64,
+        64
+      ],
+      [
+        0,
+        0,
+        64,
+        64
+      ]
+    ],
+    "render_seed": 1113045295,
+    "surface_version": 2,
+    "prediction": {
+      "action": "E",
+      "probabilities": {
+        "A": 0.0021052947267889977,
+        "B": 0.001777899218723178,
+        "C": 0.0018607585225254297,
+        "D": 0.002887014066800475,
+        "E": 0.6204939484596252,
+        "F": 0.002706308616325259,
+        "NONE": 0.36816880106925964
+      },
+      "latency_ms": 152.65009994618595,
+      "device": "cuda",
+      "dtype": "torch.bfloat16",
+      "quantized_base": true,
+      "cpu_fallback_enabled": false
+    }
+  },
+  {
+    "instruction": "부탁 하나 할게. 세로줄을 피자 사진이 있는 쪽으로 한정하면, 곤충 사진의 위치는? 해당하는 사진이 없으면 NONE이야.",
+    "action": "D",
+    "language": "ko",
+    "family": "col_filter",
+    "program": {
+      "family": "col_filter",
+      "anchor": "pizza",
+      "group": "insect"
+    },
+    "trace": [
+      {
+        "anchor": 0
+      },
+      {
+        "intermediate": 0
+      },
+      {
+        "candidates": [
+          3
+        ]
+      }
+    ],
+    "variant": 5,
+    "text_seed": 1002134296,
+    "contrast_pair": null,
+    "scene_id": "v2_test-00240",
+    "image": "images/v2_test-00240.png",
+    "source_ids": [
+      "val/images/val_1502.JPEG",
+      "val/images/val_1979.JPEG",
+      "val/images/val_7752.JPEG",
+      "val/images/val_8454.JPEG",
+      "val/images/val_283.JPEG",
+      "val/images/val_8768.JPEG"
+    ],
+    "object_keys": [
+      "pizza",
+      "backpack",
+      "bus",
+      "dragonfly",
+      "sunglasses",
+      "dog"
+    ],
+    "boxes": [
+      [
+        0,
+        12,
+        64,
+        55
+      ],
+      [
+        15,
+        0,
+        60,
+        64
+      ],
+      [
+        0,
+        1,
+        64,
+        61
+      ],
+      [
+        14,
+        1,
+        57,
+        64
+      ],
+      [
+        0,
+        0,
+        64,
+        49
+      ],
+      [
+        10,
+        0,
+        64,
+        64
+      ]
+    ],
+    "render_seed": 533298521,
+    "surface_version": 2,
+    "prediction": {
+      "action": "NONE",
+      "probabilities": {
+        "A": 0.0020161874126642942,
+        "B": 0.0010848450474441051,
+        "C": 0.001145876245573163,
+        "D": 0.03698788955807686,
+        "E": 0.0017853676108643413,
+        "F": 0.001792791299521923,
+        "NONE": 0.9551870226860046
+      },
+      "latency_ms": 153.2791000790894,
+      "device": "cuda",
+      "dtype": "torch.bfloat16",
+      "quantized_base": true,
+      "cpu_fallback_enabled": false
+    }
+  },
+  {
+    "instruction": "다음 조건에 맞춰 사진을 골라 줘. 교통수단 사진 개수가 2 이상일 때는 고양이, 그 외에는 리모컨. 해당 사진은 어디야?",
+    "action": "NONE",
+    "language": "ko",
+    "family": "count_branch",
+    "program": {
+      "family": "count_branch",
+      "group": "vehicle",
+      "yes": "cat",
+      "no": "remote",
+      "threshold": 2
+    },
+    "trace": [
+      {
+        "count": 1,
+        "comparison_value": 2,
+        "condition": false
+      }
+    ],
+    "variant": 3,
+    "text_seed": 2144357481,
+    "contrast_pair": "v2_test-pair-40-5",
+    "scene_id": "v2_test-00039",
+    "image": "images/v2_test-00039.png",
+    "source_ids": [
+      "val/images/val_815.JPEG",
+      "val/images/val_8733.JPEG",
+      "val/images/val_4117.JPEG",
+      "val/images/val_9693.JPEG",
+      "val/images/val_7750.JPEG",
+      "val/images/val_4443.JPEG"
+    ],
+    "object_keys": [
+      "goose",
+      "banana",
+      "lifeboat",
+      "elephant",
+      "cat",
+      "abacus"
+    ],
+    "boxes": [
+      [
+        12,
+        0,
+        58,
+        64
+      ],
+      [
+        22,
+        9,
+        64,
+        64
+      ],
+      [
+        0,
+        6,
+        64,
+        49
+      ],
+      [
+        5,
+        12,
+        64,
+        63
+      ],
+      [
+        21,
+        4,
+        44,
+        58
+      ],
+      [
+        0,
+        17,
+        64,
+        46
+      ]
+    ],
+    "render_seed": 1748928764,
+    "surface_version": 2,
+    "prediction": {
+      "action": "B",
+      "probabilities": {
+        "A": 0.005575887393206358,
+        "B": 0.6831821203231812,
+        "C": 0.006278960034251213,
+        "D": 0.004814025014638901,
+        "E": 0.03237421438097954,
+        "F": 0.005081671755760908,
+        "NONE": 0.2626931369304657
+      },
+      "latency_ms": 152.71289995871484,
+      "device": "cuda",
+      "dtype": "torch.bfloat16",
+      "quantized_base": true,
+      "cpu_fallback_enabled": false
+    }
+  },
+  {
+    "instruction": "Follow this request: The default answer is sunglasses. Change it to cauliflower only if the food count exceeds the animal count. A move outside the grid means NONE.",
+    "action": "B",
+    "language": "en",
+    "family": "compare_count",
+    "program": {
+      "family": "compare_count",
+      "group": "food",
+      "yes": "cauliflower",
+      "no": "sunglasses",
+      "other_group": "animal"
+    },
+    "trace": [
+      {
+        "count": 1,
+        "comparison_value": 1,
+        "condition": false
+      }
+    ],
+    "variant": 4,
+    "text_seed": 1077508721,
+    "contrast_pair": null,
+    "scene_id": "v2_test-00064",
+    "image": "images/v2_test-00064.png",
+    "source_ids": [
+      "val/images/val_8522.JPEG",
+      "val/images/val_3964.JPEG",
+      "val/images/val_2900.JPEG",
+      "val/images/val_4516.JPEG",
+      "val/images/val_2387.JPEG",
+      "val/images/val_6802.JPEG"
+    ],
+    "object_keys": [
+      "umbrella",
+      "sunglasses",
+      "ladybug",
+      "pretzel",
+      "abacus",
+      "teddy"
+    ],
+    "boxes": [
+      [
+        36,
+        2,
+        64,
+        31
+      ],
+      [
+        19,
+        0,
+        48,
+        64
+      ],
+      [
+        8,
+        37,
+        43,
+        62
+      ],
+      [
+        6,
+        15,
+        41,
+        57
+      ],
+      [
+        0,
+        0,
+        64,
+        64
+      ],
+      [
+        0,
+        0,
+        64,
+        64
+      ]
+    ],
+    "render_seed": 980957009,
+    "surface_version": 2,
+    "prediction": {
+      "action": "A",
+      "probabilities": {
+        "A": 0.6227965354919434,
+        "B": 0.07049451768398285,
+        "C": 0.005641135852783918,
+        "D": 0.004274790175259113,
+        "E": 0.0041252365335822105,
+        "F": 0.01218972634524107,
+        "NONE": 0.28047800064086914
+      },
+      "latency_ms": 159.71059980802238,
+      "device": "cuda",
+      "dtype": "torch.bfloat16",
+      "quantized_base": true,
+      "cpu_fallback_enabled": false
+    }
+  },
+  {
+    "instruction": "Look at this photo board. Which bird picture shares a row with cat? A move outside the grid means NONE.",
+    "action": "C",
+    "language": "en",
+    "family": "row_filter",
+    "program": {
+      "family": "row_filter",
+      "anchor": "cat",
+      "group": "bird"
+    },
+    "trace": [
+      {
+        "anchor": 0
+      },
+      {
+        "intermediate": 0
+      },
+      {
+        "candidates": [
+          2
+        ]
+      }
+    ],
+    "variant": 3,
+    "text_seed": 1310026413,
+    "contrast_pair": null,
+    "scene_id": "v2_test-00101",
+    "image": "images/v2_test-00101.png",
+    "source_ids": [
+      "val/images/val_2063.JPEG",
+      "val/images/val_8899.JPEG",
+      "val/images/val_3863.JPEG",
+      "val/images/val_9624.JPEG",
+      "val/images/val_6849.JPEG",
+      "val/images/val_608.JPEG"
+    ],
+    "object_keys": [
+      "cat",
+      "frog",
+      "penguin",
+      "remote",
+      "lemon",
+      "pretzel"
+    ],
+    "boxes": [
+      [
+        12,
+        0,
+        45,
+        64
+      ],
+      [
+        6,
+        18,
+        46,
+        64
+      ],
+      [
+        20,
+        0,
+        60,
+        64
+      ],
+      [
+        5,
+        8,
+        38,
+        59
+      ],
+      [
+        12,
+        5,
+        38,
+        32
+      ],
+      [
+        9,
+        12,
+        47,
+        34
+      ]
+    ],
+    "render_seed": 2117285447,
+    "surface_version": 2,
+    "prediction": {
+      "action": "NONE",
+      "probabilities": {
+        "A": 0.1245959997177124,
+        "B": 0.004054951947182417,
+        "C": 0.3871672749519348,
+        "D": 0.002580371219664812,
+        "E": 0.002518916269764304,
+        "F": 0.003347152378410101,
+        "NONE": 0.4757353961467743
+      },
+      "latency_ms": 156.9466998334974,
+      "device": "cuda",
+      "dtype": "torch.bfloat16",
+      "quantized_base": true,
+      "cpu_fallback_enabled": false
+    }
+  },
+  {
+    "instruction": "Follow this request: Which tile should I click to select the koala picture? Choose NONE if no tile qualifies.",
+    "action": "NONE",
+    "language": "en",
+    "family": "direct",
+    "program": {
+      "family": "direct",
+      "target": "koala"
+    },
+    "trace": [],
+    "variant": 5,
+    "text_seed": 1430826983,
+    "contrast_pair": "v2_test-pair-102-10",
+    "scene_id": "v2_test-00101",
+    "image": "images/v2_test-00101.png",
+    "source_ids": [
+      "val/images/val_2063.JPEG",
+      "val/images/val_8899.JPEG",
+      "val/images/val_3863.JPEG",
+      "val/images/val_9624.JPEG",
+      "val/images/val_6849.JPEG",
+      "val/images/val_608.JPEG"
+    ],
+    "object_keys": [
+      "cat",
+      "frog",
+      "penguin",
+      "remote",
+      "lemon",
+      "pretzel"
+    ],
+    "boxes": [
+      [
+        12,
+        0,
+        45,
+        64
+      ],
+      [
+        6,
+        18,
+        46,
+        64
+      ],
+      [
+        20,
+        0,
+        60,
+        64
+      ],
+      [
+        5,
+        8,
+        38,
+        59
+      ],
+      [
+        12,
+        5,
+        38,
+        32
+      ],
+      [
+        9,
+        12,
+        47,
+        34
+      ]
+    ],
+    "render_seed": 2117285447,
+    "surface_version": 2,
+    "prediction": {
+      "action": "A",
+      "probabilities": {
+        "A": 0.9006503820419312,
+        "B": 0.0035707440692931414,
+        "C": 0.0032492997124791145,
+        "D": 0.002259043976664543,
+        "E": 0.0020889276638627052,
+        "F": 0.004065593238919973,
+        "NONE": 0.08411599695682526
+      },
+      "latency_ms": 159.3969000969082,
+      "device": "cuda",
+      "dtype": "torch.bfloat16",
+      "quantized_base": true,
+      "cpu_fallback_enabled": false
+    }
+  },
+  {
+    "instruction": "부탁 하나 할게. 조류 사진 개수가 곤충 사진 개수보다 클 때 피자 사진을 선택하고, 같거나 작으면 냉장고 사진을 선택해. 해당하는 사진이 없으면 NONE이야.",
+    "action": "B",
+    "language": "ko",
+    "family": "compare_count",
+    "program": {
+      "family": "compare_count",
+      "group": "bird",
+      "yes": "pizza",
+      "no": "refrigerator",
+      "other_group": "insect"
+    },
+    "trace": [
+      {
+        "count": 1,
+        "comparison_value": 0,
+        "condition": true
+      }
+    ],
+    "variant": 2,
+    "text_seed": 425613310,
+    "contrast_pair": "v2_test-pair-99-4",
+    "scene_id": "v2_test-00098",
+    "image": "images/v2_test-00098.png",
+    "source_ids": [
+      "val/images/val_5134.JPEG",
+      "val/images/val_1488.JPEG",
+      "val/images/val_562.JPEG",
+      "val/images/val_4849.JPEG",
+      "val/images/val_1746.JPEG",
+      "val/images/val_3075.JPEG"
+    ],
+    "object_keys": [
+      "ice_cream",
+      "pizza",
+      "refrigerator",
+      "cauliflower",
+      "pig",
+      "penguin"
+    ],
+    "boxes": [
+      [
+        0,
+        12,
+        57,
+        64
+      ],
+      [
+        0,
+        6,
+        64,
+        54
+      ],
+      [
+        0,
+        1,
+        64,
+        64
+      ],
+      [
+        0,
+        1,
+        64,
+        64
+      ],
+      [
+        17,
+        3,
+        55,
+        64
+      ],
+      [
+        0,
+        5,
+        36,
+        64
+      ]
+    ],
+    "render_seed": 1329173161,
+    "surface_version": 2,
+    "prediction": {
+      "action": "C",
+      "probabilities": {
+        "A": 0.0047082011587917805,
+        "B": 0.40936771035194397,
+        "C": 0.5065862536430359,
+        "D": 0.0019425238715484738,
+        "E": 0.0019838258158415556,
+        "F": 0.0036026225425302982,
+        "NONE": 0.07180891185998917
+      },
+      "latency_ms": 160.94860015437007,
+      "device": "cuda",
+      "dtype": "torch.bfloat16",
+      "quantized_base": true,
+      "cpu_fallback_enabled": false
+    }
+  },
+  {
+    "instruction": "돼지가 보이는 칸을 선택해 줘.",
+    "action": "NONE",
+    "language": "ko",
+    "family": "direct",
+    "program": {
+      "family": "direct",
+      "target": "pig"
+    },
+    "trace": [],
+    "variant": 1,
+    "text_seed": 1439068100,
+    "contrast_pair": "v2_test-pair-133-1",
+    "scene_id": "v2_test-00132",
+    "image": "images/v2_test-00132.png",
+    "source_ids": [
+      "val/images/val_3928.JPEG",
+      "val/images/val_7331.JPEG",
+      "val/images/val_1089.JPEG",
+      "val/images/val_832.JPEG",
+      "val/images/val_1922.JPEG",
+      "val/images/val_4585.JPEG"
+    ],
+    "object_keys": [
+      "teddy",
+      "bus",
+      "pomegranate",
+      "teapot",
+      "pepper",
+      "guinea_pig"
+    ],
+    "boxes": [
+      [
+        4,
+        8,
+        56,
+        61
+      ],
+      [
+        0,
+        1,
+        64,
+        64
+      ],
+      [
+        10,
+        22,
+        37,
+        46
+      ],
+      [
+        9,
+        5,
+        58,
+        64
+      ],
+      [
+        19,
+        32,
+        42,
+        57
+      ],
+      [
+        4,
+        22,
+        57,
+        46
+      ]
+    ],
+    "render_seed": 1606108791,
+    "surface_version": 2,
+    "prediction": {
+      "action": "F",
+      "probabilities": {
+        "A": 0.0015796617371961474,
+        "B": 0.0016100176144391298,
+        "C": 0.001956840045750141,
+        "D": 0.002759308088570833,
+        "E": 0.002814084989950061,
+        "F": 0.9281341433525085,
+        "NONE": 0.06114596128463745
+      },
+      "latency_ms": 156.24079992994666,
+      "device": "cuda",
+      "dtype": "torch.bfloat16",
+      "quantized_base": true,
+      "cpu_fallback_enabled": false
+    }
+  },
+  {
+    "instruction": "Select the tile showing pig.",
+    "action": "NONE",
+    "language": "en",
+    "family": "direct",
+    "program": {
+      "family": "direct",
+      "target": "pig"
+    },
+    "trace": [],
+    "variant": 1,
+    "text_seed": 1439068100,
+    "contrast_pair": "v2_test-pair-133-1",
+    "scene_id": "v2_test-00132",
+    "image": "images/v2_test-00132.png",
+    "source_ids": [
+      "val/images/val_3928.JPEG",
+      "val/images/val_7331.JPEG",
+      "val/images/val_1089.JPEG",
+      "val/images/val_832.JPEG",
+      "val/images/val_1922.JPEG",
+      "val/images/val_4585.JPEG"
+    ],
+    "object_keys": [
+      "teddy",
+      "bus",
+      "pomegranate",
+      "teapot",
+      "pepper",
+      "guinea_pig"
+    ],
+    "boxes": [
+      [
+        4,
+        8,
+        56,
+        61
+      ],
+      [
+        0,
+        1,
+        64,
+        64
+      ],
+      [
+        10,
+        22,
+        37,
+        46
+      ],
+      [
+        9,
+        5,
+        58,
+        64
+      ],
+      [
+        19,
+        32,
+        42,
+        57
+      ],
+      [
+        4,
+        22,
+        57,
+        46
+      ]
+    ],
+    "render_seed": 1606108791,
+    "surface_version": 2,
+    "prediction": {
+      "action": "F",
+      "probabilities": {
+        "A": 0.00172107620164752,
+        "B": 0.0017229786608368158,
+        "C": 0.002203016309067607,
+        "D": 0.00300412904471159,
+        "E": 0.003168624360114336,
+        "F": 0.9253628849983215,
+        "NONE": 0.06281732022762299
+      },
+      "latency_ms": 149.31330014951527,
+      "device": "cuda",
+      "dtype": "torch.bfloat16",
+      "quantized_base": true,
+      "cpu_fallback_enabled": false
+    }
+  },
+  {
+    "instruction": "부탁 하나 할게. 키보드의 바로 아래 사진에서 다시 좌측으로 한 칸 이동해. 도착한 칸을 선택해. 칸을 벗어나는 이동은 NONE으로 답해.",
+    "action": "D",
+    "language": "ko",
+    "family": "chain",
+    "program": {
+      "family": "chain",
+      "anchor": "keyboard",
+      "direction": "down",
+      "second_direction": "left"
+    },
+    "trace": [
+      {
+        "anchor": 1
+      },
+      {
+        "intermediate": 4
+      }
+    ],
+    "variant": 2,
+    "text_seed": 603166201,
+    "contrast_pair": "v2_test-pair-150-5",
+    "scene_id": "v2_test-00149",
+    "image": "images/v2_test-00149.png",
+    "source_ids": [
+      "val/images/val_9896.JPEG",
+      "val/images/val_5166.JPEG",
+      "val/images/val_1097.JPEG",
+      "val/images/val_5431.JPEG",
+      "val/images/val_5974.JPEG",
+      "val/images/val_6583.JPEG"
+    ],
+    "object_keys": [
+      "backpack",
+      "keyboard",
+      "bus",
+      "lemon",
+      "dragonfly",
+      "elephant"
+    ],
+    "boxes": [
+      [
+        3,
+        0,
+        61,
+        64
+      ],
+      [
+        0,
+        5,
+        64,
+        55
+      ],
+      [
+        3,
+        8,
+        64,
+        64
+      ],
+      [
+        6,
+        0,
+        44,
+        43
+      ],
+      [
+        11,
+        2,
+        41,
+        64
+      ],
+      [
+        0,
+        5,
+        54,
+        59
+      ]
+    ],
+    "render_seed": 646773094,
+    "surface_version": 2,
+    "prediction": {
+      "action": "NONE",
+      "probabilities": {
+        "A": 0.004530193749815226,
+        "B": 0.004188713151961565,
+        "C": 0.003989786375313997,
+        "D": 0.33043038845062256,
+        "E": 0.029143985360860825,
+        "F": 0.0071075186133384705,
+        "NONE": 0.6206093430519104
+      },
+      "latency_ms": 157.09430002607405,
+      "device": "cuda",
+      "dtype": "torch.bfloat16",
+      "quantized_base": true,
+      "cpu_fallback_enabled": false
+    }
+  },
+  {
+    "instruction": "Please help me select one tile. If the number of vehicle pictures is at least the number of watercraft pictures, choose elephant. In the remaining case, choose backpack. A move outside the grid means NONE.",
+    "action": "F",
+    "language": "en",
+    "family": "compare_count",
+    "program": {
+      "family": "compare_count",
+      "group": "boat",
+      "yes": "backpack",
+      "no": "elephant",
+      "other_group": "vehicle"
+    },
+    "trace": [
+      {
+        "count": 0,
+        "comparison_value": 1,
+        "condition": false
+      }
+    ],
+    "variant": 5,
+    "text_seed": 1224483064,
+    "contrast_pair": "v2_test-pair-62-2",
+    "scene_id": "v2_test-00061",
+    "image": "images/v2_test-00061.png",
+    "source_ids": [
+      "val/images/val_6679.JPEG",
+      "val/images/val_3593.JPEG",
+      "val/images/val_5638.JPEG",
+      "val/images/val_1062.JPEG",
+      "val/images/val_2953.JPEG",
+      "val/images/val_7289.JPEG"
+    ],
+    "object_keys": [
+      "teapot",
+      "train",
+      "backpack",
+      "bear",
+      "dragonfly",
+      "elephant"
+    ],
+    "boxes": [
+      [
+        2,
+        0,
+        62,
+        64
+      ],
+      [
+        12,
+        20,
+        49,
+        51
+      ],
+      [
+        0,
+        0,
+        64,
+        64
+      ],
+      [
+        11,
+        17,
+        45,
+        41
+      ],
+      [
+        0,
+        6,
+        64,
+        63
+      ],
+      [
+        3,
+        13,
+        51,
+        64
+      ]
+    ],
+    "render_seed": 1667547909,
+    "surface_version": 2,
+    "prediction": {
+      "action": "D",
+      "probabilities": {
+        "A": 0.00795847736299038,
+        "B": 0.012308298610150814,
+        "C": 0.014869919046759605,
+        "D": 0.681106448173523,
+        "E": 0.003779744263738394,
+        "F": 0.14955195784568787,
+        "NONE": 0.13042514026165009
+      },
+      "latency_ms": 157.33740013092756,
+      "device": "cuda",
+      "dtype": "torch.bfloat16",
+      "quantized_base": true,
+      "cpu_fallback_enabled": false
+    }
+  },
+  {
+    "instruction": "Please help me select one tile. If there are at least 1 fruit photos, choose cat; otherwise choose teapot. Choose NONE if no tile qualifies.",
+    "action": "E",
+    "language": "en",
+    "family": "count_branch",
+    "program": {
+      "family": "count_branch",
+      "group": "fruit",
+      "yes": "cat",
+      "no": "teapot",
+      "threshold": 1
+    },
+    "trace": [
+      {
+        "count": 1,
+        "comparison_value": 1,
+        "condition": true
+      }
+    ],
+    "variant": 0,
+    "text_seed": 1146680559,
+    "contrast_pair": "v2_test-pair-16-1",
+    "scene_id": "v2_test-00015",
+    "image": "images/v2_test-00015.png",
+    "source_ids": [
+      "val/images/val_6697.JPEG",
+      "val/images/val_1434.JPEG",
+      "val/images/val_563.JPEG",
+      "val/images/val_3609.JPEG",
+      "val/images/val_6344.JPEG",
+      "val/images/val_8422.JPEG"
+    ],
+    "object_keys": [
+      "teapot",
+      "lemon",
+      "cauliflower",
+      "goldfish",
+      "cat",
+      "frog"
+    ],
+    "boxes": [
+      [
+        1,
+        0,
+        62,
+        64
+      ],
+      [
+        0,
+        5,
+        55,
+        55
+      ],
+      [
+        1,
+        1,
+        64,
+        64
+      ],
+      [
+        21,
+        19,
+        64,
+        55
+      ],
+      [
+        0,
+        2,
+        64,
+        64
+      ],
+      [
+        0,
+        11,
+        64,
+        64
+      ]
+    ],
+    "render_seed": 389930715,
+    "surface_version": 2,
+    "prediction": {
+      "action": "NONE",
+      "probabilities": {
+        "A": 0.019236674532294273,
+        "B": 0.005347743630409241,
+        "C": 0.0049475715495646,
+        "D": 0.004981399513781071,
+        "E": 0.1450222134590149,
+        "F": 0.005069602280855179,
+        "NONE": 0.8153946995735168
+      },
+      "latency_ms": 158.30620005726814,
+      "device": "cuda",
+      "dtype": "torch.bfloat16",
+      "quantized_base": true,
+      "cpu_fallback_enabled": false
+    }
+  },
+  {
+    "instruction": "Please help me select one tile. Use the immediate lower neighbor of lion as a reference; select the animal photo in its row. A move outside the grid means NONE.",
+    "action": "D",
+    "language": "en",
+    "family": "neighbor_row_filter",
+    "program": {
+      "family": "neighbor_row_filter",
+      "anchor": "lion",
+      "direction": "down",
+      "group": "animal"
+    },
+    "trace": [
+      {
+        "anchor": 0
+      },
+      {
+        "intermediate": 3
+      },
+      {
+        "candidates": [
+          3
+        ]
+      }
+    ],
+    "variant": 2,
+    "text_seed": 1309687957,
+    "contrast_pair": "v2_test-pair-88-0",
+    "scene_id": "v2_test-00087",
+    "image": "images/v2_test-00087.png",
+    "source_ids": [
+      "val/images/val_1757.JPEG",
+      "val/images/val_4118.JPEG",
+      "val/images/val_1073.JPEG",
+      "val/images/val_7355.JPEG",
+      "val/images/val_2570.JPEG",
+      "val/images/val_7956.JPEG"
+    ],
+    "object_keys": [
+      "lion",
+      "banana",
+      "penguin",
+      "cat",
+      "pepper",
+      "tractor"
+    ],
+    "boxes": [
+      [
+        0,
+        18,
+        64,
+        61
+      ],
+      [
+        6,
+        0,
+        55,
+        64
+      ],
+      [
+        13,
+        14,
+        64,
+        64
+      ],
+      [
+        0,
+        3,
+        59,
+        64
+      ],
+      [
+        0,
+        0,
+        64,
+        64
+      ],
+      [
+        25,
+        28,
+        64,
+        59
+      ]
+    ],
+    "render_seed": 1320593841,
+    "surface_version": 2,
+    "prediction": {
+      "action": "NONE",
+      "probabilities": {
+        "A": 0.017842089757323265,
+        "B": 0.0038860798813402653,
+        "C": 0.01002673339098692,
+        "D": 0.35643354058265686,
+        "E": 0.006018849089741707,
+        "F": 0.00571884959936142,
+        "NONE": 0.6000738143920898
+      },
+      "latency_ms": 158.2766999490559,
+      "device": "cuda",
+      "dtype": "torch.bfloat16",
+      "quantized_base": true,
+      "cpu_fallback_enabled": false
+    }
+  },
+  {
+    "instruction": "부탁 하나 할게. 과일 사진이 1장 이상이면 고양이 사진을, 아니면 티포트 사진을 골라. 해당하는 사진이 없으면 NONE이야.",
+    "action": "E",
+    "language": "ko",
+    "family": "count_branch",
+    "program": {
+      "family": "count_branch",
+      "group": "fruit",
+      "yes": "cat",
+      "no": "teapot",
+      "threshold": 1
+    },
+    "trace": [
+      {
+        "count": 1,
+        "comparison_value": 1,
+        "condition": true
+      }
+    ],
+    "variant": 0,
+    "text_seed": 1146680559,
+    "contrast_pair": "v2_test-pair-16-1",
+    "scene_id": "v2_test-00015",
+    "image": "images/v2_test-00015.png",
+    "source_ids": [
+      "val/images/val_6697.JPEG",
+      "val/images/val_1434.JPEG",
+      "val/images/val_563.JPEG",
+      "val/images/val_3609.JPEG",
+      "val/images/val_6344.JPEG",
+      "val/images/val_8422.JPEG"
+    ],
+    "object_keys": [
+      "teapot",
+      "lemon",
+      "cauliflower",
+      "goldfish",
+      "cat",
+      "frog"
+    ],
+    "boxes": [
+      [
+        1,
+        0,
+        62,
+        64
+      ],
+      [
+        0,
+        5,
+        55,
+        55
+      ],
+      [
+        1,
+        1,
+        64,
+        64
+      ],
+      [
+        21,
+        19,
+        64,
+        55
+      ],
+      [
+        0,
+        2,
+        64,
+        64
+      ],
+      [
+        0,
+        11,
+        64,
+        64
+      ]
+    ],
+    "render_seed": 389930715,
+    "surface_version": 2,
+    "prediction": {
+      "action": "NONE",
+      "probabilities": {
+        "A": 0.022403253242373466,
+        "B": 0.004618313163518906,
+        "C": 0.004216032102704048,
+        "D": 0.004016847815364599,
+        "E": 0.06108791008591652,
+        "F": 0.004306839779019356,
+        "NONE": 0.8993507623672485
+      },
+      "latency_ms": 156.48060012608767,
+      "device": "cuda",
+      "dtype": "torch.bfloat16",
+      "quantized_base": true,
+      "cpu_fallback_enabled": false
+    }
+  }
+]

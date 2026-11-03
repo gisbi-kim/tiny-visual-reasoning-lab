@@ -1,0 +1,33 @@
+{
+  "scope": "Exactly the original v1 test rows and images. Forms/compositions withheld in v1 are trained in v2, so the v2 scores no longer measure unseen-form/task generalization. Test photos remain excluded from training.",
+  "suites": {
+    "test_language": {
+      "label": "새 사진 + v1에서 보류했던 표현",
+      "count": 1120,
+      "v1_accuracy": 0.7928571428571428,
+      "v2_accuracy": 0.9571428571428572,
+      "delta_percentage_points": 16.428571428571438
+    },
+    "test_composition": {
+      "label": "새 사진 + v1에서 보류했던 조건 조합",
+      "count": 1120,
+      "v1_accuracy": 0.6776785714285715,
+      "v2_accuracy": 0.9571428571428572,
+      "delta_percentage_points": 27.946428571428573
+    },
+    "test_combined": {
+      "label": "새 사진 + v1에서 보류했던 표현·조합",
+      "count": 1120,
+      "v1_accuracy": 0.5482142857142858,
+      "v2_accuracy": 0.95625,
+      "delta_percentage_points": 40.80357142857143
+    },
+    "test_id": {
+      "label": "새 사진 + v1에서도 학습한 유형",
+      "count": 1120,
+      "v1_accuracy": 0.9348214285714286,
+      "v2_accuracy": 0.9535714285714286,
+      "delta_percentage_points": 1.8750000000000044
+    }
+  }
+}

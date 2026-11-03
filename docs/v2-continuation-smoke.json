@@ -1,0 +1,9 @@
+{
+  "initial_checkpoint": "runs/main/best",
+  "smoke_steps": 4,
+  "changed_lora_tensors": 496,
+  "total_lora_tensors": 496,
+  "lora_trainable_parameters": 32464896,
+  "all_weights_finite": true,
+  "note": "Continuation training mechanics check, not final model performance."
+}

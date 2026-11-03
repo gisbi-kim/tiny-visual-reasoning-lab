@@ -1,0 +1,10 @@
+{
+  "python": "3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]",
+  "packages": {
+    "importlib_metadata": "10.1.0",
+    "pygal": "3.1.3",
+    "zipp": "4.1.2"
+  },
+  "install_scope": "Separate project-local .cache/chart-deps; shared training environment not modified.",
+  "plotting_note": "Pygal generates standalone SVG. Matplotlib DLL loading was blocked by Windows application-control policy; that policy was not changed."
+}

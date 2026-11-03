@@ -1,9 +1,21 @@
 """Exact program execution for data construction/evaluation; never inference."""
-from catalog import matches
+from catalog import matches,CATALOG
 from schema import ACTIONS
 TRAIN_FAMILIES=('direct','neighbor','row_filter','col_filter','neighbor_filter','chain','count_branch','compare_count','row_except','neighbor_row_filter')
 HELDOUT_FAMILIES=('neighbor_col_filter','row_filter_then_neighbor')
 DIRECTIONS=('left','right','up','down')
+
+def conditional_can_vary(program):
+    """Whether both branch outcomes are possible over six distinct catalog classes."""
+    family=program['family']
+    if family=='count_branch':
+        count=sum(matches(key,program['group']) for key in CATALOG)
+        minimum=max(0,6-(len(CATALOG)-count));maximum=min(6,count)
+        return minimum<program['threshold']<=maximum
+    if family=='compare_count':
+        values=sorted(int(matches(key,program['group']))-int(matches(key,program['other_group'])) for key in CATALOG)
+        return sum(values[:6])<=0<sum(values[-6:])
+    return None
 def unique(indices):
     return indices[0] if len(indices)==1 else None if not indices else 'AMBIGUOUS'
 def adjacent(index,direction):

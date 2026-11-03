@@ -1,6 +1,6 @@
 import random
 from catalog import CATALOG
-from oracle import execute,TRAIN_FAMILIES,HELDOUT_FAMILIES
+from oracle import execute,conditional_can_vary,TRAIN_FAMILIES,HELDOUT_FAMILIES
 from prepare_data import proposal,counterfactual
 from language import instruction,KO,EN
 from schema import model_input
@@ -49,3 +49,9 @@ def test_input_boundary():
     assert payload['state']==text
     assert set(payload)=={'state','images','questions'}
     assert not any(k in payload for k in ('program','trace','object_keys','action','source_ids'))
+
+def test_conditional_difficulty_uses_domain_constraints():
+    assert not conditional_can_vary({'family':'count_branch','group':'boat','threshold':3})
+    assert conditional_can_vary({'family':'count_branch','group':'boat','threshold':1})
+    assert not conditional_can_vary({'family':'compare_count','group':'mammal','other_group':'animal'})
+    assert conditional_can_vary({'family':'compare_count','group':'animal','other_group':'mammal'})

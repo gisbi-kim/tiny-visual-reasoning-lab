@@ -1,0 +1,4 @@
+{
+  "note": "Six demo photographs selected by visual inspection for recognizable main objects, before testing the trained model on this board. This is an illustrative board, not a random benchmark. Training and evaluation datasets were not changed.",
+  "indices": {"dog": 0, "banana": 2, "cat": 0, "lifeboat": 4, "goldfish": 3, "backpack": 1}
+}

@@ -14,6 +14,7 @@ def create_app(engine):
     app.config['MAX_CONTENT_LENGTH']=3*1024*1024
     lock=threading.Lock();rng=random.Random()
     examples=json.loads((ROOT/'data/demo.json').read_text(encoding='utf-8'))
+    demo_indices=json.loads((ROOT/'docs/demo-selection.json').read_text(encoding='utf-8'))['indices']
     by_key={}
     for item in examples:by_key.setdefault(item['key'],[]).append(item)
     @app.get('/')
@@ -24,7 +25,7 @@ def create_app(engine):
     def scene():
         canonical=(request.get_json(silent=True) or {}).get('canonical',False)
         keys=['dog','banana','cat','lifeboat','goldfish','backpack'] if canonical else rng.sample(list(by_key),6)
-        items=[by_key[k][0] if canonical else rng.choice(by_key[k]) for k in keys]
+        items=[by_key[k][demo_indices[k]] if canonical else rng.choice(by_key[k]) for k in keys]
         pictures=[]
         for item in items:
             with Image.open(ROOT/'data'/item['image']) as im:pictures.append(im.convert('RGB'))

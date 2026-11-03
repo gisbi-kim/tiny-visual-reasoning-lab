@@ -10,6 +10,7 @@ import numpy as np
 from PIL import Image
 from engine import DecisionEngine
 from schema import ACTIONS
+from oracle import conditional_can_vary
 
 ROOT=Path(__file__).resolve().parent
 
@@ -24,7 +25,7 @@ def metrics(predictions):
     confusion=[[0]*len(ACTIONS) for _ in ACTIONS]
     correct=[];confidence=[];nll=[];brier=[]
     groups=defaultdict(list);semantics=defaultdict(list);minimal_pairs=defaultdict(list)
-    condition=defaultdict(list);language=defaultdict(list)
+    condition=defaultdict(list);language=defaultdict(list);branch_difficulty=defaultdict(list)
     for p in predictions:
         gold=p['action'];pred=p['prediction']['action'];probs=p['prediction']['probabilities']
         ok=gold==pred
@@ -36,6 +37,8 @@ def metrics(predictions):
         semantics[(p['scene_id'],json.dumps(p['program'],sort_keys=True))].append(p)
         if p.get('contrast_pair'):minimal_pairs[(p['contrast_pair'],p['language'])].append(p)
         condition[p['family']].append(ok);language[p['language']].append(ok)
+        varies=conditional_can_vary(p['program'])
+        if varies is not None:branch_difficulty['image_dependent_branch' if varies else 'catalog_determined_branch'].append(ok)
     ece=0
     for lo in np.arange(0,1,.1):
         ix=[i for i,c in enumerate(confidence) if lo<=c<lo+.1 or lo>.89 and c==1]
@@ -64,6 +67,7 @@ def metrics(predictions):
         action_recall={a:div(confusion[i][i],sum(confusion[i])) for i,a in enumerate(ACTIONS)},
         none_precision=div(confusion[-1][-1],sum(row[-1] for row in confusion)),none_recall=div(confusion[-1][-1],sum(confusion[-1])),
         condition_accuracy={k:float(np.mean(v)) for k,v in condition.items()},language_accuracy={k:float(np.mean(v)) for k,v in language.items()},
+        conditional_difficulty={k:{'count':len(v),'accuracy':float(np.mean(v))} for k,v in branch_difficulty.items()},
         changed_instruction_both_correct= float(np.mean(paired)) if paired else None,changed_instruction_pairs=len(paired),
         minimal_contrast_both_correct=float(np.mean(minimal)) if minimal else None,minimal_contrast_pairs=len(minimal),
         same_meaning_all_correct=float(np.mean(paraphrase)) if paraphrase else None,same_meaning_groups=len(paraphrase),

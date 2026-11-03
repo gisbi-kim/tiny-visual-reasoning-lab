@@ -9,6 +9,7 @@
 <p>여섯 장의 사진에 한국어나 영어로 지시해 보세요. 위치, 분류, 개수 조건을 조합해 A–F 중 하나 또는 NONE을 선택합니다.</p>
 <div class="layout"><section class="panel"><label>01 · 사진 격자</label><div class="board"><img id="scene" alt="두 행, 세 열로 배치된 사진 여섯 장"><div class="labels" id="labels"></div></div>
 <div class="row"><button id="random">새 사진 조합</button><button id="canonical">예제 사진</button></div>
+<p class="help">예제 사진은 대상을 알아보기 쉽게 직접 골랐습니다. 모델의 정답 여부로 고른 사진은 아닙니다.</p>
 <p class="help">사진마다 중심 대상 하나를 기준으로 판단합니다. A·B·C는 윗줄, D·E·F는 아랫줄입니다. 경계를 넘어가거나 조건에 맞는 사진이 없으면 NONE입니다.</p>
 <details><summary>이 실험이 다루는 범위</summary><p>40개 범주의 Tiny ImageNet 사진으로 학습했습니다. 사진 안의 모든 사물 수를 세는 작업이 아니라 조건에 해당하는 <strong>사진 수</strong>를 셉니다. 임의의 장문 대화나 모든 사물 종류를 지원하는 모델은 아닙니다. 자유 입력은 그대로 모델에 전달되며 규칙 기반 정답기로 대체하지 않습니다.</p></details>
 </section><section class="panel"><label for="instruction">02 · 자연어 지시</label><textarea id="instruction" maxlength="1000">고양이에서 왼쪽으로 한 칸, 그다음 아래로 한 칸 이동한 사진을 골라줘.</textarea>

@@ -6,6 +6,7 @@ from huggingface_hub import snapshot_download
 ROOT=Path(__file__).resolve().parent
 BASE_MODEL='Qwen/Qwen3.5-4B'
 BASE_REVISION='851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a'
+DATASET_SHA256='6198c8ae015e2b3e007c7841da39ec069199b9aa3bfa943a462022fe5e43c821'
 def digest(p):
     h=hashlib.sha256()
     with p.open('rb') as f:
@@ -24,6 +25,7 @@ def main():
         temporary=archive.with_suffix('.part')
         urllib.request.urlretrieve(source,temporary)
         temporary.replace(archive)
+    if digest(archive)!=DATASET_SHA256:raise RuntimeError('Original dataset checksum differs from the recorded training source')
     with zipfile.ZipFile(archive) as z:
         if not (raw/'tiny-imagenet-200/wnids.txt').exists():
             for member in z.infolist():

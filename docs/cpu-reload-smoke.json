@@ -1,0 +1,12 @@
+{
+  "scope": "16-example overfit smoke test, not independent test accuracy",
+  "cpu_accuracy": 1.0,
+  "cuda_accuracy": 1.0,
+  "top1_agreement": 1.0,
+  "cpu_dtype": "float32, unquantized base",
+  "cuda_dtype": "bfloat16 compute, NF4 base",
+  "cpu_median_latency_ms": 6379.5708999969065,
+  "cuda_median_latency_ms": 159.3214999884367,
+  "timing_note": "First call excluded; CPU check ran while main GPU training continued, so this is not an isolated performance benchmark.",
+  "mps": "Not tested on physical Mac hardware"
+}

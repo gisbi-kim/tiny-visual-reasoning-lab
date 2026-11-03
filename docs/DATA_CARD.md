@@ -20,6 +20,8 @@ Two entirely held-out composition families combine existing primitives in new or
 
 The actual 31,360 training rows are balanced across family × language × action. Conditional task families are additionally balanced across true/false outcomes. There are 3,148 accepted minimal contrast pairs when each language is counted separately. Pair members use the same authored form and lexical seed, change a direction/threshold/target/category comparison, and have different answers. Other instructions may share a scene without being a minimal pair.
 
+Of the 6,272 conditional training rows, 5,766 have both branch outcomes possible within the six-distinct-class board domain. In 506 rows (1.61% of all training rows), the catalog itself determines the branch: for example, this subset has only one boat class, so three distinct boat tiles cannot occur. Such rows still require visual target selection but do not require counting the current board to choose the branch. They are retained as valid tasks and reported separately from image-dependent branches in evaluation (`conditional-difficulty-audit.json`); not every conditional row is presented as equally difficult visual reasoning.
+
 ## Splits
 
 For each class, original training photos are deterministically shuffled after filtering: 40 for validation, 20 for calibration, the remainder for training. Labeled original validation photos supply the final test pool. Original unlabeled test photos are not used.

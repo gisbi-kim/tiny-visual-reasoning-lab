@@ -1,0 +1,36 @@
+{
+  "definition": "Can both branch outcomes occur on some six-distinct-class board from this catalog? Final target selection still requires the photograph even for catalog-determined branches.",
+  "splits": {
+    "calibration": {
+      "all_rows": 560,
+      "image_dependent_branch": 108,
+      "catalog_determined_branch": 4
+    },
+    "test_combined": {
+      "all_rows": 1120
+    },
+    "test_composition": {
+      "all_rows": 1120
+    },
+    "test_id": {
+      "all_rows": 1120,
+      "image_dependent_branch": 204,
+      "catalog_determined_branch": 20
+    },
+    "test_language": {
+      "all_rows": 1120,
+      "image_dependent_branch": 206,
+      "catalog_determined_branch": 18
+    },
+    "train": {
+      "all_rows": 31360,
+      "image_dependent_branch": 5766,
+      "catalog_determined_branch": 506
+    },
+    "validation": {
+      "all_rows": 1120,
+      "image_dependent_branch": 214,
+      "catalog_determined_branch": 10
+    }
+  }
+}

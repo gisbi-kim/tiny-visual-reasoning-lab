@@ -1,0 +1,72 @@
+{
+  "repository": "gisbi-kim/tiny-visual-reasoning-lab",
+  "tag": "model-v1",
+  "url": "https://github.com/gisbi-kim/tiny-visual-reasoning-lab/releases/download/model-v1/tiny-visual-reasoning-4b.zip",
+  "bytes": 174182037,
+  "sha256": "03f9514689bc32ab8329a4bda2f4767b5543e08da6121ed0d3efe47899942c81",
+  "files": {
+    "adapter_config.json": {
+      "bytes": 1822,
+      "sha256": "b5e6ee369a05adf9fc99c745b026824933a7c14e9a6af432742b7d1d4c2e50fe"
+    },
+    "adapter_model.safetensors": {
+      "bytes": 129934448,
+      "sha256": "99b194f2736865a46eb46224877a209a6c8c14dcf305b93d0df430c69a6cebd2"
+    },
+    "calibration.json": {
+      "bytes": 159,
+      "sha256": "53a8b7bd79907e6a711770527112930024bb9112b037e0a4709d0c63b8416644"
+    },
+    "chat_template.jinja": {
+      "bytes": 7909,
+      "sha256": "a92e1dd97cb1cb175c9b70c0828e146bea4371c2643319b661b777e89811972e"
+    },
+    "CLEF_LICENSE.txt": {
+      "bytes": 11544,
+      "sha256": "bbedc3fda3305820b977265f01b8619d87570a6739de3a5582c3464840f1e57a"
+    },
+    "inference_schema.json": {
+      "bytes": 842,
+      "sha256": "40cab3765ee8e66ae9744ed53bf4f54389894bf3b5adbf65d8aabcb272eca9db"
+    },
+    "joint_head.safetensors": {
+      "bytes": 64105230,
+      "sha256": "15f054cc537a71211161e0526609bbfa38726e5ad9379a5ac3c75e310f64ea2c"
+    },
+    "joint_head_config.json": {
+      "bytes": 123,
+      "sha256": "7538b25ccdd739040bdd91fe48d2a2ee916bfa0302cb9fa272f06d98f6e42923"
+    },
+    "LICENSE": {
+      "bytes": 11543,
+      "sha256": "861762745fff6d0216ac262632b9960e44522e39598c50ada19ddfffb44fd84b"
+    },
+    "processor_config.json": {
+      "bytes": 1281,
+      "sha256": "729f505a1a4ad800ee9e41880374e37a765d3cfacddd9d7c722ef492755f849b"
+    },
+    "quantization.json": {
+      "bytes": 919,
+      "sha256": "6c2d2efc9066a517a7dbcea81f584f02d63994acbacbb5488a90a49faf3c7234"
+    },
+    "README.md": {
+      "bytes": 1305,
+      "sha256": "0a1ca3b485acafffa14adaa8b5d7846e6dd1e5cc49e3d67d6580aa0a41e1f9e9"
+    },
+    "tokenizer.json": {
+      "bytes": 19989325,
+      "sha256": "06b9509352d2af50381ab2247e083b80d32d5c0aba91c272ca9ff729b6a0e523"
+    },
+    "tokenizer_config.json": {
+      "bytes": 7486,
+      "sha256": "a83b46fe00ff80606f59579e23edba71c78c919a4d3bfc5fb75a6d1983236617"
+    },
+    "unsloth_decision_config.json": {
+      "bytes": 247,
+      "sha256": "e16d309a47e3e00763152bfe85c7c1e30df0e1feae4c468a692966fa0107b2bd"
+    }
+  },
+  "base_model": "Qwen/Qwen3.5-4B",
+  "base_revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+  "created_at": "2026-11-03T08:43:41.554547+00:00"
+}

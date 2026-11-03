@@ -114,7 +114,7 @@ def main():
     row=read_rows('validation')[0]
     with Image.open(ROOT/'data'/row['image']) as image:engine.predict(image,row['instruction'])
     report=dict(checkpoint=str(checkpoint),device=str(engine.device),dtype=str(engine.dtype),load_seconds=load_seconds,
-        latency_scope='Processor, device transfer, backbone, Clef head, probability calculation, synchronized; image disk read excluded',suites={})
+        latency_scope='Synchronized DecisionEngine.predict: processor, transfer, backbone, head and probabilities; includes any lazy pixel read/decode inside the call. Image.open is outside the timer.',suites={})
     for name in args.suites:
         rows=read_rows(name)
         if args.limit: rows=rows[:args.limit]

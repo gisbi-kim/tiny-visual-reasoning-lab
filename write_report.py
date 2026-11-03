@@ -9,6 +9,9 @@ def percent(value):return f'{100*value:.2f}%'
 def main():
     config=read('docs/training-config.json');train=read('docs/training-metrics.json')
     report=read('results/report.json');validation=read('docs/validation-history.json')
+    # PIL opens lazily: decoding triggered by convert() is inside predict timing.
+    report['latency_scope']='Synchronized DecisionEngine.predict: processor, transfer, backbone, head and probabilities; includes any lazy pixel read/decode inside the call. Image.open is outside the timer.'
+    (ROOT/'results/report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
     best=max(validation,key=lambda x:x['accuracy']);release=read('docs/release.json')
     fraction=config['trainable_parameters']/config['total_parameters']
     rows=[]
@@ -16,6 +19,24 @@ def main():
     for key,m in report['suites'].items():
         ci=m['scene_bootstrap_ci95']
         rows.append(f"| {labels.get(key,key)} | {m['count']:,} | {percent(m['accuracy'])} | {percent(ci[0])}–{percent(ci[1])} |")
+    family_names={'direct':'대상 찾기','neighbor':'인접 위치','row_filter':'같은 행의 범주','col_filter':'같은 열의 범주',
+        'neighbor_filter':'인접 위치 + 범주','chain':'두 단계 이동','count_branch':'개수 기준 분기',
+        'compare_count':'범주별 개수 비교','row_except':'같은 행에서 제외','neighbor_row_filter':'이동한 행에서 범주 찾기'}
+    low=sorted(report['suites']['test_id']['condition_accuracy'].items(),key=lambda item:item[1])[:3]
+    difficult=' / '.join(f"{family_names.get(k,k)} {percent(v)}" for k,v in low)
+    composition=report['suites']['test_composition']['condition_accuracy']
+    diagnostic=read('results/diagnostics.json');freeform=read('results/freeform.json')
+    backends={name:read(f'results/{name}-reload.json') for name in ('native','cuda','cpu')}
+    def answer(row):return row['prediction'].get('action',row['prediction'].get('answer'))
+    reference=backends['cuda']['rows']
+    reload_report={'scope':'First 16 fixed validation-selection examples, not a separate accuracy benchmark.',
+        'count':len(reference),'accuracy':{name:b['accuracy'] for name,b in backends.items()},
+        'native_cuda_top1_agreement':sum(answer(a)==answer(b) for a,b in zip(backends['native']['rows'],reference))/len(reference),
+        'cpu_cuda_top1_agreement':sum(answer(a)==answer(b) for a,b in zip(backends['cpu']['rows'],reference))/len(reference),
+        'native_selection_accuracy_140':best['accuracy'],'portable_validation_accuracy_140':diagnostic['original_accuracy'],
+        'note':'Native uses uncalibrated scores; portable CUDA/CPU apply the saved scalar calibration. Final test scores use portable CUDA. Physical MPS not tested.'}
+    (ROOT/'docs/reload-final.json').write_text(json.dumps(reload_report,indent=2),encoding='utf-8')
+    freeform_failures='\n'.join(f"- 지시: {r['instruction']} → 정답 `{r['gold']}`, 예측 `{r['prediction']['action']}`" for r in freeform['rows'] if r['gold']!=r['prediction']['action'])
     text=f'''# 학습·평가 기록
 
 ## 실제 학습
@@ -26,6 +47,7 @@ def main():
 - 본학습 경과 시간: **{train['train_runtime']/60:.1f}분**. 고정 검증 실행·체크포인트 저장을 포함한 trainer 실행 시간이며, 사전 다운로드·데이터 생성·최종 평가는 제외합니다.
 - 완료 step: **{validation[-1]['step']:,}**, batch {config['batch']}, gradient accumulation {config['accum']}. 학습 예제 {config['train_rows']:,}개.
 - 선택한 체크포인트: **step {best['step']:,}**, 검증 140개 정확도 {percent(best['accuracy'])}. 동일한 최고 점수면 먼저 저장된 체크포인트를 유지합니다. 이 값은 최종 test 점수가 아닙니다.
+- 전체 run의 예제 제시 횟수는 {validation[-1]['step']*config['batch']*config['accum']:,}회, 배포 체크포인트 시점까지는 {best['step']*config['batch']*config['accum']:,}회입니다. 데이터셋 크기와 제시 횟수는 다릅니다. 중간 체크포인트가 선택됐다면 이후 학습한 step은 배포 가중치에 포함되지 않습니다.
 - NF4 4bit + BF16 연산, LoRA rank {config['lora_rank']} / alpha {config['lora_alpha']}, dropout 0. 기본 모델의 기존 가중치는 고정합니다.
 - LoRA learning rate {config['lr']}, head learning rate {config['head_lr']}, AdamW, cosine schedule, warmup 60 steps, seed {config['seed']}.
 - 학습 시 최대 PyTorch 할당 **{train['peak_allocated_gb']:.2f} GiB**, 최대 예약 **{train['peak_reserved_gb']:.2f} GiB**. 다른 앱과 디스플레이가 쓰는 GPU 메모리는 이 수치에 포함되지 않습니다.
@@ -51,6 +73,10 @@ def main():
 
 네 test suite는 같은 최종 사진 풀을 공유하며, 한 사진이 여러 장면에 재사용됩니다. 위 구간은 장면 단위로 resampling하므로 사진 재사용에 의한 의존성을 완전히 반영하지 못합니다. 언어·작업군별 점수와 혼동행렬, NONE precision/recall, 대조쌍, 확률 보정, 지연 시간은 [기계 판독 결과](../results/report.json)를 확인하세요.
 
+새 사진 테스트에서 정확도가 낮았던 세 작업군은 **{difficult}**입니다. 전체 점수만으로 모든 종류의 추론을 동일하게 잘한다고 해석하면 안 됩니다. `results/failure-examples.json`에는 각 test suite에서 처음 나온 오답 세 개를 원본 사진 ID·지시·실제 확률과 함께 기록합니다.
+
+보류한 조합도 난이도 차이가 큽니다. **이동한 칸의 열에서 범주 찾기: {percent(composition['neighbor_col_filter'])}**, **같은 행에서 범주를 찾은 뒤 이동하기: {percent(composition['row_filter_then_neighbor'])}**입니다. 후자의 새로운 작업 순서에서는 일반화가 특히 약했습니다. 자유로운 표현·새로운 조건 조합을 안정적으로 해결하는 범용 추론 모델로 해석하면 안 됩니다.
+
 ## 파일은 어디서 받나
 
 | 파일 | 출처 | 다운로드 크기 |
@@ -61,7 +87,17 @@ def main():
 
 첫 실행 이후 빨라지는 것은 기본 모델과 학습 가중치를 로컬에 캐시하기 때문입니다. 기본 모델 전체를 다시 학습하거나 앱 시작 때 학습하는 방식이 아닙니다. 학습 가중치는 `download_model.py`가 archive 및 개별 파일 SHA-256을 검사합니다. 모델 원본 파일 hash는 `base-model-files.json`, release hash는 `release.json`에 있습니다.
 
+별도 환경변수를 지정하지 않았다면 기본 모델은 사용자 홈의 `~/.cache/huggingface/hub`에, 이 프로젝트의 학습 가중치는 프로젝트 안 `weights/`에 저장됩니다. `HF_HOME`을 설정하면 기본 모델 캐시 위치가 달라집니다.
+
 ## 재현·검증 범위
+
+실제 입력 의존성도 점검했습니다. 고정 검증 140개에서 배포 코드 정확도는 {percent(diagnostic['original_accuracy'])}, 사진을 지운 뒤 **원래 정답과 비교한 비율**은 {percent(diagnostic['blank_image_original_label_accuracy'])}, 구체 지시를 일반적인 요청으로 바꾼 경우는 {percent(diagnostic['generic_instruction_original_label_accuracy'])}였습니다. 뒤의 두 값은 빈 이미지나 불충분한 지시 자체의 정답률이 아니라, 기존 입력에 의존하는지 보는 진단입니다. 사진의 열을 바꿔 정답이 달라진 {diagnostic['changed_gold_cases']}개 사례에서 원본·변경본을 모두 맞힌 비율은 {percent(diagnostic['changed_gold_both_correct'])}입니다. [전체 진단](../results/diagnostics.json).
+
+한 가지 예제 사진판에 사전 작성한 구어체 지시 14개에서는 {sum(r['gold']==r['prediction']['action'] for r in freeform['rows'])}개를 맞혔습니다. 작은 시연이며 일반 성능 추정치가 아닙니다. 아래 오답도 그대로 공개합니다. [모든 입력·실제 확률](../results/freeform.json).
+
+{freeform_failures}
+
+최종 가중치를 새 프로세스로 불러온 검증 16개에서 학습용 코드와 배포 CUDA의 답 일치율은 {percent(reload_report['native_cuda_top1_agreement'])}, CPU와 배포 CUDA는 {percent(reload_report['cpu_cuda_top1_agreement'])}였습니다. 140개 전체에서는 학습용 코드 {percent(best['accuracy'])}, 배포 코드 {percent(diagnostic['original_accuracy'])}로 완전히 같지는 않았습니다. 따라서 최종 test 점수는 실제 배포 코드를 기준으로 제시했습니다. [재로딩 기록](reload-final.json).
 
 - [학습 설정](training-config.json), [학습 시간·메모리](training-metrics.json), [검증 추이](validation-history.json), [데이터·코드 hash](provenance.json).
 - [데이터 구성과 한계](DATA_CARD.md), [실제 encoder 입력 검사](../results/encoder-audit.json).

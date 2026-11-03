@@ -1,5 +1,5 @@
 {
-  "review": "Five fixed training-source crops per initial class visually inspected before main training; no final-test model predictions used. Initial ball classes also excluded because most annotated objects fail the prespecified minimum-size rule.",
+  "review": "Five fixed training-source crops per initial class visually inspected by the coding agent before main training; no final-test model predictions used. This was not independent human annotation. Initial ball classes also excluded because most annotated objects fail the prespecified minimum-size rule.",
   "excluded_classes": {
     "albatross": "fine-grained bird distinction at 64px",
     "bee": "many selected train crops have difficult subject visibility",

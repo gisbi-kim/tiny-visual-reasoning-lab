@@ -4,7 +4,7 @@ This is a bounded visual instruction-following benchmark built from Tiny ImageNe
 
 ## Construction and provenance
 
-The original Stanford archive is recorded with its byte size and SHA-256 in `dataset-download.json`. The 40 selected synsets, bilingual aliases and semantic groups are in `catalog.json`. A fixed manual review examined five training crops per candidate class, before any final-test evaluation. This is sample-based class curation, not exhaustive human annotation.
+The original Stanford archive is recorded with its byte size and SHA-256 in `dataset-download.json`. The 40 selected synsets, bilingual aliases and semantic groups are in `catalog.json`. The coding agent visually inspected five fixed training crops per candidate class, before any final-test evaluation. This is sample-based agent curation, not independent human annotation or exhaustive review.
 
 Images with annotated objects smaller than 20 pixels along either dimension or 512 pixels in area are rejected. The filter removed 2,664 small-object photos and three exact RGB duplicates across the selected sources. Source bounding boxes are converted from inclusive coordinates to PIL's exclusive coordinates. Bounding-box crops preserve aspect ratio, fit in a 112×112 region and occupy six 128×128 tiles. Final inputs are 384×256 RGB. No class name, answer letter or oracle trace is drawn into the image supplied to the model. The UI's A–F labels are a browser overlay.
 
@@ -14,7 +14,7 @@ Each generated program must resolve to a unique tile or NONE. Ambiguous programs
 
 ## Language diversity
 
-Each of 12 task families has six authored semantic forms in each language. The ten training families use forms 0–3; forms 4–5 are held out. Lexical aliases, polite/conversational framing, imperative/question wording and defaults/negated conditions add variation. A seeded renderer generates text from the program without seeing its answer. 29,350 distinct training strings do not imply 29,350 distinct semantic structures. No paid API or language-model paraphrase generation was used.
+Each of 12 task families has six semantic forms authored and reviewed by the coding agent in each language. The ten training families use forms 0–3; forms 4–5 are held out. Lexical aliases, polite/conversational framing, imperative/question wording and defaults/negated conditions add variation. A seeded renderer generates text from the program without seeing its answer. 29,350 distinct training strings do not imply 29,350 distinct semantic structures. No separate teacher model or paid API was called to generate per-row paraphrases; expansion is deterministic code, not independent human labeling.
 
 Two entirely held-out composition families combine existing primitives in new orders. Four test suites separate photo generalization, wording generalization, composition generalization, and their combination. A small Korean copula fix affected 23 held-out wording rows before final evaluation; training/validation/calibration rows were unchanged (`language-review.json`).
 

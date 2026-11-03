@@ -1,0 +1,14 @@
+{
+  "scope": "First 16 fixed validation-selection examples, not a separate accuracy benchmark.",
+  "count": 16,
+  "accuracy": {
+    "native": 0.9375,
+    "cuda": 0.9375,
+    "cpu": 0.9375
+  },
+  "native_cuda_top1_agreement": 1.0,
+  "cpu_cuda_top1_agreement": 1.0,
+  "native_selection_accuracy_140": 0.95,
+  "portable_validation_accuracy_140": 0.9428571428571428,
+  "note": "Native uses uncalibrated scores; portable CUDA/CPU apply the saved scalar calibration. Final test scores use portable CUDA. Physical MPS not tested."
+}

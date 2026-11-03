@@ -1,4 +1,4 @@
-"""Manually reviewed main-object vocabulary and conservative category membership."""
+"""Visually reviewed main-object vocabulary and conservative category membership."""
 # Synsets are authoritative Tiny ImageNet labels. Groups describe the annotated
 # main object, not every object/background in a photograph.
 ROWS=[

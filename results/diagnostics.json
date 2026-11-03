@@ -1,0 +1,1413 @@
+{
+  "count": 140,
+  "source": "fixed validation selection subset; not a new independent test set",
+  "original_accuracy": 0.9428571428571428,
+  "blank_image_original_label_accuracy": 0.14285714285714285,
+  "generic_instruction_original_label_accuracy": 0.14285714285714285,
+  "ablation_note": "Ablations retain original labels solely to measure reliance on inputs; they are not valid task accuracy on blank/underspecified inputs.",
+  "reordering": "Swap columns 1 and 3 without mirroring pixels; hold text fixed and recompute gold with the oracle; skip ambiguous new boards.",
+  "changed_gold_cases": 75,
+  "changed_gold_both_correct": 0.8666666666666667,
+  "rows": [
+    {
+      "scene_id": "validation-00022",
+      "instruction": "부탁 하나 할게. 구명보트가 있는 가로줄에서 주방용품 사진을 찾아줘. 칸을 벗어나는 이동은 NONE으로 답해.",
+      "gold": "NONE",
+      "original": "NONE",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "NONE",
+      "reordered_prediction": "NONE"
+    },
+    {
+      "scene_id": "validation-00125",
+      "instruction": "부탁 하나 할게. 먼저 백팩 사진의 행을 찾고, 그 행의 교통수단 사진을 선택해. 해당하는 사진이 없으면 NONE이야.",
+      "gold": "E",
+      "original": "E",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "E",
+      "reordered_prediction": "E"
+    },
+    {
+      "scene_id": "validation-00019",
+      "instruction": "Choose the photo one tile to the right of the sports car photo. A move outside the grid means NONE.",
+      "gold": "NONE",
+      "original": "NONE",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "B",
+      "reordered_prediction": "B"
+    },
+    {
+      "scene_id": "validation-00076",
+      "instruction": "Look at this photo board. Find sports car, then move one tile up. Choose NONE if no tile qualifies.",
+      "gold": "B",
+      "original": "B",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "B",
+      "reordered_prediction": "B"
+    },
+    {
+      "scene_id": "validation-00116",
+      "instruction": "Please help me select one tile. Which vehicle picture shares a column with pig? A move outside the grid means NONE.",
+      "gold": "A",
+      "original": "A",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "C",
+      "reordered_prediction": "C"
+    },
+    {
+      "scene_id": "validation-00046",
+      "instruction": "Please help me select one tile. Select the immediate left neighbor of the fridge picture.",
+      "gold": "D",
+      "original": "D",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "D",
+      "reordered_prediction": "D"
+    },
+    {
+      "scene_id": "validation-00069",
+      "instruction": "거위 사진과 오른쪽으로 바로 이웃한 사진은 어느 칸이야? 칸을 벗어나는 이동은 NONE으로 답해.",
+      "gold": "B",
+      "original": "B",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "NONE",
+      "reordered_prediction": "NONE"
+    },
+    {
+      "scene_id": "validation-00042",
+      "instruction": "이 사진판을 보고 답해 줘. 트랙터가 있는 가로줄에서 동물 사진을 찾아줘. 해당하는 사진이 없으면 NONE이야.",
+      "gold": "A",
+      "original": "A",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "C",
+      "reordered_prediction": "NONE"
+    },
+    {
+      "scene_id": "validation-00044",
+      "instruction": "Follow this request: If electrical or electronic device photos outnumber watercraft photos, choose teapot; otherwise choose elephant. Choose NONE if no tile qualifies.",
+      "gold": "A",
+      "original": "B",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "C",
+      "reordered_prediction": "B"
+    },
+    {
+      "scene_id": "validation-00065",
+      "instruction": "이 사진판을 보고 답해 줘. 과일 사진 수를 세어 봐. 1장 이상이면 레몬, 부족하면 아프리카코끼리를 선택해.",
+      "gold": "B",
+      "original": "B",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "B",
+      "reordered_prediction": "B"
+    },
+    {
+      "scene_id": "validation-00088",
+      "instruction": "부탁 하나 할게. 주방용품 사진 수를 세어 봐. 1장 이상이면 트랙터, 부족하면 나비를 선택해. 해당하는 사진이 없으면 NONE이야.",
+      "gold": "A",
+      "original": "A",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "C",
+      "reordered_prediction": "C"
+    },
+    {
+      "scene_id": "validation-00050",
+      "instruction": "다음 조건에 맞춰 사진을 골라 줘. 코끼리가 있는 가로줄에서 포유류에 해당하지 않는 사진을 선택해.",
+      "gold": "C",
+      "original": "C",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "A",
+      "reordered_prediction": "A"
+    },
+    {
+      "scene_id": "validation-00083",
+      "instruction": "Look at this photo board. Find animal in the horizontal row containing lion.",
+      "gold": "C",
+      "original": "C",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "A",
+      "reordered_prediction": "A"
+    },
+    {
+      "scene_id": "validation-00058",
+      "instruction": "Look at this photo board. If there are at least 1 vehicle photos, choose golden retriever; otherwise choose keyboard.",
+      "gold": "E",
+      "original": "E",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "E",
+      "reordered_prediction": "F"
+    },
+    {
+      "scene_id": "validation-00088",
+      "instruction": "Follow this request: Which photo is immediately to the left of teapot? A move outside the grid means NONE.",
+      "gold": "A",
+      "original": "A",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "A",
+      "reordered_prediction": "A"
+    },
+    {
+      "scene_id": "validation-00084",
+      "instruction": "부탁 하나 할게. 고속열차 사진을 골라.",
+      "gold": "C",
+      "original": "C",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "A",
+      "reordered_prediction": "A"
+    },
+    {
+      "scene_id": "validation-00144",
+      "instruction": "이 사진판을 보고 답해 줘. 오렌지의 행을 찾고 그 행의 포유류 사진들을 빼 줘. 남은 사진은 어디야? 칸을 벗어나는 이동은 NONE으로 답해.",
+      "gold": "B",
+      "original": "B",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "B",
+      "reordered_prediction": "B"
+    },
+    {
+      "scene_id": "validation-00025",
+      "instruction": "부탁 하나 할게. 아프리카코끼리의 바로 위쪽 사진에서 다시 오른쪽으로 한 칸 이동해. 도착한 칸을 선택해. 해당하는 사진이 없으면 NONE이야.",
+      "gold": "C",
+      "original": "C",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "C",
+      "reordered_prediction": "C"
+    },
+    {
+      "scene_id": "validation-00142",
+      "instruction": "Follow this request: Choose the photo that is not animal in the same row as bear.",
+      "gold": "C",
+      "original": "C",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "A",
+      "reordered_prediction": "A"
+    },
+    {
+      "scene_id": "validation-00125",
+      "instruction": "부탁 하나 할게. 개구리의 행을 찾고 그 행의 동물 사진들을 빼 줘. 남은 사진은 어디야? 칸을 벗어나는 이동은 NONE으로 답해.",
+      "gold": "A",
+      "original": "A",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "C",
+      "reordered_prediction": "C"
+    },
+    {
+      "scene_id": "validation-00081",
+      "instruction": "동물 사진 개수가 탈것 사진 개수보다 클 때 자동차 사진을 선택하고, 같거나 작으면 펭귄 사진을 선택해. 칸을 벗어나는 이동은 NONE으로 답해.",
+      "gold": "B",
+      "original": "B",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "B",
+      "reordered_prediction": "B"
+    },
+    {
+      "scene_id": "validation-00041",
+      "instruction": "이 사진판을 보고 답해 줘. 선글라스 사진과 같은 행에서 주방용품 사진을 제외하고 남는 사진을 골라. 칸을 벗어나는 이동은 NONE으로 답해.",
+      "gold": "NONE",
+      "original": "NONE",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "NONE",
+      "reordered_prediction": "NONE"
+    },
+    {
+      "scene_id": "validation-00073",
+      "instruction": "Look at this photo board. Check the immediate lower neighbor of umbrella. Choose it only if it is a food picture.",
+      "gold": "F",
+      "original": "F",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "D",
+      "reordered_prediction": "D"
+    },
+    {
+      "scene_id": "validation-00035",
+      "instruction": "다음 조건에 맞춰 사진을 골라 줘. 포유류 사진 수를 세어 봐. 2장 이상이면 잠자리, 부족하면 고양이를 선택해. 해당하는 사진이 없으면 NONE이야.",
+      "gold": "NONE",
+      "original": "NONE",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "NONE",
+      "reordered_prediction": "NONE"
+    },
+    {
+      "scene_id": "validation-00074",
+      "instruction": "Follow this request: In order: find lemon, step down, step to the left. Each step is one tile. Where do you end? Choose NONE if no tile qualifies.",
+      "gold": "E",
+      "original": "E",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "NONE",
+      "reordered_prediction": "NONE"
+    },
+    {
+      "scene_id": "validation-00036",
+      "instruction": "다음 조건에 맞춰 사진을 골라 줘. 과일 사진이 교통수단 사진보다 많으면 콜리플라워, 아니면 곰 사진을 골라. 칸을 벗어나는 이동은 NONE으로 답해.",
+      "gold": "A",
+      "original": "A",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "C",
+      "reordered_prediction": "C"
+    },
+    {
+      "scene_id": "validation-00015",
+      "instruction": "다음 조건에 맞춰 사진을 골라 줘. 아이스크림이 보이는 칸을 선택해 줘. 해당하는 사진이 없으면 NONE이야.",
+      "gold": "F",
+      "original": "F",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "D",
+      "reordered_prediction": "D"
+    },
+    {
+      "scene_id": "validation-00090",
+      "instruction": "From tractor, move one tile to the right, then one tile up. Select the destination. A move outside the grid means NONE.",
+      "gold": "C",
+      "original": "C",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "C",
+      "reordered_prediction": "C"
+    },
+    {
+      "scene_id": "validation-00143",
+      "instruction": "Follow this request: Find the row of ice cream; remove its vehicle pictures. Which photo remains?",
+      "gold": "B",
+      "original": "B",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "B",
+      "reordered_prediction": "B"
+    },
+    {
+      "scene_id": "validation-00027",
+      "instruction": "이 사진판을 보고 답해 줘. 코끼리 사진에서 왼쪽으로 한 칸 이동한 사진을 골라. 칸을 벗어나는 이동은 NONE으로 답해.",
+      "gold": "A",
+      "original": "A",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "A",
+      "reordered_prediction": "A"
+    },
+    {
+      "scene_id": "validation-00127",
+      "instruction": "Follow this request: Choose the food photo in the same row as the tile immediately above African elephant. Choose NONE if no tile qualifies.",
+      "gold": "A",
+      "original": "A",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "C",
+      "reordered_prediction": "C"
+    },
+    {
+      "scene_id": "validation-00046",
+      "instruction": "주판 사진은 어디 있어? 칸을 벗어나는 이동은 NONE으로 답해.",
+      "gold": "NONE",
+      "original": "NONE",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "NONE",
+      "reordered_prediction": "NONE"
+    },
+    {
+      "scene_id": "validation-00094",
+      "instruction": "음식 사진이 더 많아, 수상 운송수단 사진이 더 많아? 음식 쪽이 더 많으면 황소개구리, 동점도 포함해서 그 외에는 레몬을 골라. 해당하는 사진이 없으면 NONE이야.",
+      "gold": "NONE",
+      "original": "NONE",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "NONE",
+      "reordered_prediction": "NONE"
+    },
+    {
+      "scene_id": "validation-00004",
+      "instruction": "이 사진판을 보고 답해 줘. 동물 사진 수를 세어 봐. 4장 이상이면 고양이, 부족하면 낙타를 선택해. 해당하는 사진이 없으면 NONE이야.",
+      "gold": "F",
+      "original": "NONE",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "D",
+      "reordered_prediction": "D"
+    },
+    {
+      "scene_id": "validation-00047",
+      "instruction": "다음 조건에 맞춰 사진을 골라 줘. 모래시계 사진과 오른쪽으로 바로 이웃한 사진은 어느 칸이야? 해당하는 사진이 없으면 NONE이야.",
+      "gold": "C",
+      "original": "C",
+      "without_specific_instruction": "NONE",
+      "without_image": "C",
+      "reordered_gold": "C",
+      "reordered_prediction": "C"
+    },
+    {
+      "scene_id": "validation-00056",
+      "instruction": "Look at this photo board. With 3 or more insect photos present, pick hourglass. In all other cases, pick goldfish.",
+      "gold": "C",
+      "original": "NONE",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "A",
+      "reordered_prediction": "NONE"
+    },
+    {
+      "scene_id": "validation-00097",
+      "instruction": "부탁 하나 할게. 음식 사진 중 아이스크림 사진과 가로줄이 같은 것은 어디 있어?",
+      "gold": "C",
+      "original": "C",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "A",
+      "reordered_prediction": "A"
+    },
+    {
+      "scene_id": "validation-00114",
+      "instruction": "먼저 냉장고를 찾고 오른쪽 한 칸 이동해. 그 칸과 행이 같은 전기나 전자로 작동하는 기기 사진은 어디야?",
+      "gold": "A",
+      "original": "A",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "NONE",
+      "reordered_prediction": "NONE"
+    },
+    {
+      "scene_id": "validation-00014",
+      "instruction": "이 사진판을 보고 답해 줘. 주판 사진과 오른쪽으로 바로 이웃한 사진은 어느 칸이야? 해당하는 사진이 없으면 NONE이야.",
+      "gold": "NONE",
+      "original": "NONE",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "E",
+      "reordered_prediction": "E"
+    },
+    {
+      "scene_id": "validation-00108",
+      "instruction": "Choose the vehicle photo in the same row as the tile immediately below refrigerator.",
+      "gold": "D",
+      "original": "D",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "F",
+      "reordered_prediction": "F"
+    },
+    {
+      "scene_id": "validation-00036",
+      "instruction": "Which animal picture shares a column with umbrella? A move outside the grid means NONE.",
+      "gold": "F",
+      "original": "F",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "D",
+      "reordered_prediction": "D"
+    },
+    {
+      "scene_id": "validation-00038",
+      "instruction": "새 사진 개수가 먹거리 사진 개수보다 클 때 선글라스 사진을 선택하고, 같거나 작으면 고양이 사진을 선택해. 해당하는 사진이 없으면 NONE이야.",
+      "gold": "F",
+      "original": "F",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "D",
+      "reordered_prediction": "NONE"
+    },
+    {
+      "scene_id": "validation-00083",
+      "instruction": "Follow this request: First find car, then step one tile to the left. Which mammal photo shares that row?",
+      "gold": "F",
+      "original": "F",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "D",
+      "reordered_prediction": "D"
+    },
+    {
+      "scene_id": "validation-00065",
+      "instruction": "Look at this photo board. Choose the kitchenware item photo in the same row as teapot.",
+      "gold": "D",
+      "original": "D",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "F",
+      "reordered_prediction": "F"
+    },
+    {
+      "scene_id": "validation-00074",
+      "instruction": "다음 조건에 맞춰 사진을 골라 줘. 순서대로 레몬 찾기, 아래쪽 한 칸, 왼쪽 한 칸. 마지막 사진은 어디야? 해당하는 사진이 없으면 NONE이야.",
+      "gold": "E",
+      "original": "E",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "NONE",
+      "reordered_prediction": "NONE"
+    },
+    {
+      "scene_id": "validation-00115",
+      "instruction": "Follow this request: If a fruit photo is immediately to the left of guinea pig, select it.",
+      "gold": "A",
+      "original": "A",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "NONE",
+      "reordered_prediction": "NONE"
+    },
+    {
+      "scene_id": "validation-00074",
+      "instruction": "Look at this photo board. If there are at least 1 mammal photos, choose dragonfly; otherwise choose umbrella.",
+      "gold": "F",
+      "original": "NONE",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "D",
+      "reordered_prediction": "D"
+    },
+    {
+      "scene_id": "validation-00080",
+      "instruction": "이 사진판을 보고 답해 줘. 순서대로 곰 찾기, 아래쪽 한 칸, 왼쪽 한 칸. 마지막 사진은 어디야? 칸을 벗어나는 이동은 NONE으로 답해.",
+      "gold": "D",
+      "original": "D",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "D",
+      "reordered_prediction": "D"
+    },
+    {
+      "scene_id": "validation-00094",
+      "instruction": "Please help me select one tile. Start at the immediate lower neighbor of hourglass and move one tile to the right. Choose the final photo. A move outside the grid means NONE.",
+      "gold": "F",
+      "original": "F",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "F",
+      "reordered_prediction": "F"
+    },
+    {
+      "scene_id": "validation-00002",
+      "instruction": "무당벌레 사진과 같은 행에 있는 곤충 사진을 골라. 해당하는 사진이 없으면 NONE이야.",
+      "gold": "B",
+      "original": "B",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "B",
+      "reordered_prediction": "B"
+    },
+    {
+      "scene_id": "validation-00102",
+      "instruction": "부탁 하나 할게. 먼저 낙타를 찾고 아래쪽 한 칸 이동해. 그 칸과 행이 같은 동물 사진은 어디야? 칸을 벗어나는 이동은 NONE으로 답해.",
+      "gold": "F",
+      "original": "F",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "D",
+      "reordered_prediction": "D"
+    },
+    {
+      "scene_id": "validation-00096",
+      "instruction": "부탁 하나 할게. 골든리트리버 사진의 바로 오른쪽에 있는 동물 사진을 골라. 해당하는 사진이 없으면 NONE이야.",
+      "gold": "F",
+      "original": "F",
+      "without_specific_instruction": "NONE",
+      "without_image": "C",
+      "reordered_gold": "F",
+      "reordered_prediction": "F"
+    },
+    {
+      "scene_id": "validation-00130",
+      "instruction": "부탁 하나 할게. 낙타의 행을 찾고 그 행의 포유류 사진들을 빼 줘. 남은 사진은 어디야? 칸을 벗어나는 이동은 NONE으로 답해.",
+      "gold": "F",
+      "original": "F",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "D",
+      "reordered_prediction": "D"
+    },
+    {
+      "scene_id": "validation-00059",
+      "instruction": "Look at this photo board. Are there more animal than mammal pictures? If yes choose penguin; if not, including ties, choose African elephant. A move outside the grid means NONE.",
+      "gold": "F",
+      "original": "C",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "D",
+      "reordered_prediction": "D"
+    },
+    {
+      "scene_id": "validation-00015",
+      "instruction": "Follow this request: Select the tile showing ice cream. Choose NONE if no tile qualifies.",
+      "gold": "F",
+      "original": "F",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "D",
+      "reordered_prediction": "D"
+    },
+    {
+      "scene_id": "validation-00087",
+      "instruction": "부탁 하나 할게. 동물 사진 중 콜리플라워 사진과 세로줄이 같은 것은 어디 있어? 해당하는 사진이 없으면 NONE이야.",
+      "gold": "A",
+      "original": "A",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "C",
+      "reordered_prediction": "C"
+    },
+    {
+      "scene_id": "validation-00128",
+      "instruction": "Please help me select one tile. Choose the mammal photo immediately to the left of sports car.",
+      "gold": "D",
+      "original": "D",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "NONE",
+      "reordered_prediction": "NONE"
+    },
+    {
+      "scene_id": "validation-00041",
+      "instruction": "Look at this photo board. Which tile shows pomegranate? Choose NONE if no tile qualifies.",
+      "gold": "C",
+      "original": "D",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "A",
+      "reordered_prediction": "F"
+    },
+    {
+      "scene_id": "validation-00000",
+      "instruction": "다음 조건에 맞춰 사진을 골라 줘. 석류가 보이는 칸을 선택해 줘. 해당하는 사진이 없으면 NONE이야.",
+      "gold": "A",
+      "original": "A",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "C",
+      "reordered_prediction": "C"
+    },
+    {
+      "scene_id": "validation-00128",
+      "instruction": "기니피그에서 위쪽으로 한 칸 간 곳이 동물 사진이면 그 칸을 선택해. 해당하는 사진이 없으면 NONE이야.",
+      "gold": "A",
+      "original": "A",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "C",
+      "reordered_prediction": "C"
+    },
+    {
+      "scene_id": "validation-00025",
+      "instruction": "다음 조건에 맞춰 사진을 골라 줘. 전기나 전자로 작동하는 기기 사진이 음식 사진보다 많으면 구명보트, 아니면 아프리카코끼리 사진을 골라.",
+      "gold": "E",
+      "original": "E",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "E",
+      "reordered_prediction": "E"
+    },
+    {
+      "scene_id": "validation-00019",
+      "instruction": "If there are at least 2 electrical or electronic device photos, choose pretzel; otherwise choose pizza.",
+      "gold": "A",
+      "original": "A",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "C",
+      "reordered_prediction": "C"
+    },
+    {
+      "scene_id": "validation-00011",
+      "instruction": "다음 조건에 맞춰 사진을 골라 줘. 곤충 사진 중 콜리플라워 사진과 세로줄이 같은 것은 어디 있어? 칸을 벗어나는 이동은 NONE으로 답해.",
+      "gold": "NONE",
+      "original": "NONE",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "NONE",
+      "reordered_prediction": "NONE"
+    },
+    {
+      "scene_id": "validation-00138",
+      "instruction": "Look at this photo board. Find the row of koala; remove its mammal pictures. Which photo remains?",
+      "gold": "F",
+      "original": "F",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "D",
+      "reordered_prediction": "D"
+    },
+    {
+      "scene_id": "validation-00039",
+      "instruction": "다음 조건에 맞춰 사진을 골라 줘. 교통수단 사진 개수가 1 이상일 때는 사자, 그 외에는 나비. 해당 사진은 어디야? 칸을 벗어나는 이동은 NONE으로 답해.",
+      "gold": "D",
+      "original": "D",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "F",
+      "reordered_prediction": "F"
+    },
+    {
+      "scene_id": "validation-00097",
+      "instruction": "Look at this photo board. Choose the mammal photo in the same row as ice cream.",
+      "gold": "B",
+      "original": "B",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "B",
+      "reordered_prediction": "B"
+    },
+    {
+      "scene_id": "validation-00126",
+      "instruction": "Please help me select one tile. Which mammal picture shares a column with ice cream?",
+      "gold": "E",
+      "original": "E",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "E",
+      "reordered_prediction": "E"
+    },
+    {
+      "scene_id": "validation-00079",
+      "instruction": "다음 조건에 맞춰 사진을 골라 줘. 낙타가 있는 세로줄에서 포유류 사진을 찾아줘. 칸을 벗어나는 이동은 NONE으로 답해.",
+      "gold": "F",
+      "original": "F",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "D",
+      "reordered_prediction": "D"
+    },
+    {
+      "scene_id": "validation-00019",
+      "instruction": "Follow this request: Select pretzel when there are more mammal photos than fish photos. If the counts are equal or the first is smaller, select sports car.",
+      "gold": "D",
+      "original": "D",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "F",
+      "reordered_prediction": "F"
+    },
+    {
+      "scene_id": "validation-00134",
+      "instruction": "이 사진판을 보고 답해 줘. 금붕어에서 위쪽으로 한 칸 간 곳이 동물 사진이면 그 칸을 선택해. 해당하는 사진이 없으면 NONE이야.",
+      "gold": "C",
+      "original": "C",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "A",
+      "reordered_prediction": "A"
+    },
+    {
+      "scene_id": "validation-00095",
+      "instruction": "Look at this photo board. Choose the animal photo in the same row as the tile immediately above goldfish.",
+      "gold": "B",
+      "original": "B",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "B",
+      "reordered_prediction": "B"
+    },
+    {
+      "scene_id": "validation-00008",
+      "instruction": "Please help me select one tile. Choose the dragonfly photo.",
+      "gold": "A",
+      "original": "A",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "C",
+      "reordered_prediction": "C"
+    },
+    {
+      "scene_id": "validation-00117",
+      "instruction": "이 사진판을 보고 답해 줘. 모래시계 사진의 바로 아래쪽에 있는 동물 사진을 골라. 칸을 벗어나는 이동은 NONE으로 답해.",
+      "gold": "D",
+      "original": "NONE",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "F",
+      "reordered_prediction": "NONE"
+    },
+    {
+      "scene_id": "validation-00011",
+      "instruction": "Follow this request: Which insect picture shares a column with cauliflower? A move outside the grid means NONE.",
+      "gold": "NONE",
+      "original": "NONE",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "NONE",
+      "reordered_prediction": "NONE"
+    },
+    {
+      "scene_id": "validation-00058",
+      "instruction": "부탁 하나 할게. 바나나 사진과 아래쪽으로 바로 이웃한 사진은 어느 칸이야? 해당하는 사진이 없으면 NONE이야.",
+      "gold": "E",
+      "original": "E",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "E",
+      "reordered_prediction": "E"
+    },
+    {
+      "scene_id": "validation-00038",
+      "instruction": "Follow this request: If there are at least 2 electrical or electronic device photos, choose school bus; otherwise choose keyboard. Choose NONE if no tile qualifies.",
+      "gold": "NONE",
+      "original": "NONE",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "NONE",
+      "reordered_prediction": "C"
+    },
+    {
+      "scene_id": "validation-00018",
+      "instruction": "티포트의 아래쪽 이웃 칸을 확인해서 포유류 사진일 때만 골라줘. 해당하는 사진이 없으면 NONE이야.",
+      "gold": "E",
+      "original": "E",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "E",
+      "reordered_prediction": "E"
+    },
+    {
+      "scene_id": "validation-00019",
+      "instruction": "다음 조건에 맞춰 사진을 골라 줘. 포유류 사진 개수가 어류 사진 개수보다 클 때 프레첼 사진을 선택하고, 같거나 작으면 스포츠카 사진을 선택해.",
+      "gold": "D",
+      "original": "D",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "F",
+      "reordered_prediction": "F"
+    },
+    {
+      "scene_id": "validation-00092",
+      "instruction": "Follow this request: From penguin, move one tile to the left, then find bird in the row you reach.",
+      "gold": "E",
+      "original": "E",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "E",
+      "reordered_prediction": "E"
+    },
+    {
+      "scene_id": "validation-00001",
+      "instruction": "Follow this request: In order: find goose, step to the right, step up. Each step is one tile. Where do you end? A move outside the grid means NONE.",
+      "gold": "NONE",
+      "original": "NONE",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "NONE",
+      "reordered_prediction": "NONE"
+    },
+    {
+      "scene_id": "validation-00050",
+      "instruction": "Follow this request: Select the tile showing banana. Choose NONE if no tile qualifies.",
+      "gold": "E",
+      "original": "E",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "E",
+      "reordered_prediction": "E"
+    },
+    {
+      "scene_id": "validation-00147",
+      "instruction": "Follow this request: In the row containing banana, exclude food pictures and choose the remaining photo. Choose NONE if no tile qualifies.",
+      "gold": "D",
+      "original": "D",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "F",
+      "reordered_prediction": "F"
+    },
+    {
+      "scene_id": "validation-00031",
+      "instruction": "Look at this photo board. Find animal in the horizontal row containing abacus.",
+      "gold": "E",
+      "original": "E",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "E",
+      "reordered_prediction": "E"
+    },
+    {
+      "scene_id": "validation-00099",
+      "instruction": "Look at this photo board. Which food picture shares a column with pizza? A move outside the grid means NONE.",
+      "gold": "B",
+      "original": "B",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "B",
+      "reordered_prediction": "NONE"
+    },
+    {
+      "scene_id": "validation-00086",
+      "instruction": "다음 조건에 맞춰 사진을 골라 줘. 사진들 중에서 기차를 찾아줘. 칸을 벗어나는 이동은 NONE으로 답해.",
+      "gold": "D",
+      "original": "D",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "F",
+      "reordered_prediction": "F"
+    },
+    {
+      "scene_id": "validation-00020",
+      "instruction": "Please help me select one tile. First find camel, then step one tile down. Which fish photo shares that row? Choose NONE if no tile qualifies.",
+      "gold": "NONE",
+      "original": "NONE",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "NONE",
+      "reordered_prediction": "NONE"
+    },
+    {
+      "scene_id": "validation-00006",
+      "instruction": "이 사진판을 보고 답해 줘. 기차 사진에서 아래쪽으로 한 칸, 이어서 왼쪽으로 한 칸 이동한 사진을 골라.",
+      "gold": "NONE",
+      "original": "NONE",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "NONE",
+      "reordered_prediction": "NONE"
+    },
+    {
+      "scene_id": "validation-00070",
+      "instruction": "이 사진판을 보고 답해 줘. 먼저 개구리를 찾고 아래쪽 한 칸 이동해. 그 칸과 행이 같은 주방용품 사진은 어디야? 해당하는 사진이 없으면 NONE이야.",
+      "gold": "D",
+      "original": "D",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "F",
+      "reordered_prediction": "F"
+    },
+    {
+      "scene_id": "validation-00076",
+      "instruction": "Please help me select one tile. Find bus, go one tile to the right, and then one tile up. Choose NONE if no tile qualifies.",
+      "gold": "B",
+      "original": "B",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "NONE",
+      "reordered_prediction": "NONE"
+    },
+    {
+      "scene_id": "validation-00088",
+      "instruction": "이 사진판을 보고 답해 줘. 먼저 나비 사진의 행을 찾고, 그 행의 곤충 사진을 선택해. 칸을 벗어나는 이동은 NONE으로 답해.",
+      "gold": "F",
+      "original": "F",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "D",
+      "reordered_prediction": "D"
+    },
+    {
+      "scene_id": "validation-00122",
+      "instruction": "다음 조건에 맞춰 사진을 골라 줘. 콜리플라워의 바로 왼쪽 사진에서 다시 위쪽으로 한 칸 이동해. 도착한 칸을 선택해.",
+      "gold": "A",
+      "original": "A",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "A",
+      "reordered_prediction": "A"
+    },
+    {
+      "scene_id": "validation-00064",
+      "instruction": "Please help me select one tile. Find goldfish, then move one tile up. Choose NONE if no tile qualifies.",
+      "gold": "C",
+      "original": "C",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "A",
+      "reordered_prediction": "A"
+    },
+    {
+      "scene_id": "validation-00145",
+      "instruction": "부탁 하나 할게. 탈것 사진이 아니면서 버스 사진과 같은 행에 있는 사진을 찾아. 해당하는 사진이 없으면 NONE이야.",
+      "gold": "E",
+      "original": "E",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "E",
+      "reordered_prediction": "E"
+    },
+    {
+      "scene_id": "validation-00083",
+      "instruction": "Select lion when there are more animal photos than food photos. If the counts are equal or the first is smaller, select camel.",
+      "gold": "C",
+      "original": "C",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "A",
+      "reordered_prediction": "A"
+    },
+    {
+      "scene_id": "validation-00048",
+      "instruction": "먹거리 사진이 더 많아, 포유류 사진이 더 많아? 먹거리 쪽이 더 많으면 선글라스, 동점도 포함해서 그 외에는 코알라를 골라. 해당하는 사진이 없으면 NONE이야.",
+      "gold": "C",
+      "original": "NONE",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "A",
+      "reordered_prediction": "NONE"
+    },
+    {
+      "scene_id": "validation-00107",
+      "instruction": "부탁 하나 할게. 피망 사진의 바로 위쪽 칸과 같은 행에 있는 곤충 사진을 골라. 해당하는 사진이 없으면 NONE이야.",
+      "gold": "C",
+      "original": "C",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "A",
+      "reordered_prediction": "A"
+    },
+    {
+      "scene_id": "validation-00012",
+      "instruction": "다음 조건에 맞춰 사진을 골라 줘. 아이스크림 사진은 어디 있어? 해당하는 사진이 없으면 NONE이야.",
+      "gold": "B",
+      "original": "B",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "B",
+      "reordered_prediction": "B"
+    },
+    {
+      "scene_id": "validation-00014",
+      "instruction": "Look at this photo board. Which photo is immediately to the left of abacus? Choose NONE if no tile qualifies.",
+      "gold": "E",
+      "original": "E",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "NONE",
+      "reordered_prediction": "NONE"
+    },
+    {
+      "scene_id": "validation-00116",
+      "instruction": "이 사진판을 보고 답해 줘. 바나나 사진과 같은 행에 있는 동물 사진을 골라. 칸을 벗어나는 이동은 NONE으로 답해.",
+      "gold": "D",
+      "original": "D",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "F",
+      "reordered_prediction": "F"
+    },
+    {
+      "scene_id": "validation-00068",
+      "instruction": "부탁 하나 할게. 아이스크림의 바로 아래쪽 사진에서 다시 오른쪽으로 한 칸 이동해. 도착한 칸을 선택해. 칸을 벗어나는 이동은 NONE으로 답해.",
+      "gold": "F",
+      "original": "F",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "F",
+      "reordered_prediction": "F"
+    },
+    {
+      "scene_id": "validation-00020",
+      "instruction": "1장 이상의 곤충 사진이 있으면 잠자리를 찾아줘. 그렇지 않으면 낙타를 찾아줘. 해당하는 사진이 없으면 NONE이야.",
+      "gold": "C",
+      "original": "C",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "A",
+      "reordered_prediction": "A"
+    },
+    {
+      "scene_id": "validation-00106",
+      "instruction": "동물 사진 중 거위 사진과 세로줄이 같은 것은 어디 있어? 칸을 벗어나는 이동은 NONE으로 답해.",
+      "gold": "D",
+      "original": "D",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "F",
+      "reordered_prediction": "F"
+    },
+    {
+      "scene_id": "validation-00057",
+      "instruction": "Please help me select one tile. Choose the photo that is not food in the same row as remote control. A move outside the grid means NONE.",
+      "gold": "NONE",
+      "original": "NONE",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "NONE",
+      "reordered_prediction": "NONE"
+    },
+    {
+      "scene_id": "validation-00080",
+      "instruction": "이 사진판을 보고 답해 줘. 석류의 바로 위쪽 사진에서 다시 오른쪽으로 한 칸 이동해. 도착한 칸을 선택해.",
+      "gold": "B",
+      "original": "B",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "NONE",
+      "reordered_prediction": "NONE"
+    },
+    {
+      "scene_id": "validation-00120",
+      "instruction": "이 사진판을 보고 답해 줘. 먼저 오렌지를 찾고 위쪽 한 칸 이동해. 그 칸과 행이 같은 동물 사진은 어디야? 칸을 벗어나는 이동은 NONE으로 답해.",
+      "gold": "B",
+      "original": "B",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "B",
+      "reordered_prediction": "B"
+    },
+    {
+      "scene_id": "validation-00075",
+      "instruction": "Select the immediate right neighbor of the sports car picture. Choose NONE if no tile qualifies.",
+      "gold": "F",
+      "original": "F",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "F",
+      "reordered_prediction": "F"
+    },
+    {
+      "scene_id": "validation-00105",
+      "instruction": "Look at this photo board. Check the immediate upper neighbor of pig. Choose it only if it is a fruit picture. A move outside the grid means NONE.",
+      "gold": "C",
+      "original": "C",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "A",
+      "reordered_prediction": "A"
+    },
+    {
+      "scene_id": "validation-00107",
+      "instruction": "Locate the column of sunglasses, then select its insect picture. Choose NONE if no tile qualifies.",
+      "gold": "C",
+      "original": "C",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "A",
+      "reordered_prediction": "A"
+    },
+    {
+      "scene_id": "validation-00045",
+      "instruction": "Are there more boat than food pictures? If yes choose lion; if not, including ties, choose teddy bear. Choose NONE if no tile qualifies.",
+      "gold": "NONE",
+      "original": "NONE",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "NONE",
+      "reordered_prediction": "NONE"
+    },
+    {
+      "scene_id": "validation-00033",
+      "instruction": "리모컨 사진과 왼쪽으로 바로 이웃한 사진은 어느 칸이야? 칸을 벗어나는 이동은 NONE으로 답해.",
+      "gold": "D",
+      "original": "D",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "D",
+      "reordered_prediction": "D"
+    },
+    {
+      "scene_id": "validation-00108",
+      "instruction": "잠자리가 있는 세로줄에서 탈것 사진을 찾아줘. 해당하는 사진이 없으면 NONE이야.",
+      "gold": "B",
+      "original": "B",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "B",
+      "reordered_prediction": "B"
+    },
+    {
+      "scene_id": "validation-00010",
+      "instruction": "Please help me select one tile. Move one tile to the right from penguin; select that tile only if it shows fish. Choose NONE if no tile qualifies.",
+      "gold": "NONE",
+      "original": "NONE",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "NONE",
+      "reordered_prediction": "NONE"
+    },
+    {
+      "scene_id": "validation-00006",
+      "instruction": "주방용품 사진이 모래시계 사진의 바로 오른쪽에 있으면 선택해.",
+      "gold": "NONE",
+      "original": "NONE",
+      "without_specific_instruction": "NONE",
+      "without_image": "C",
+      "reordered_gold": "NONE",
+      "reordered_prediction": "NONE"
+    },
+    {
+      "scene_id": "validation-00022",
+      "instruction": "Please help me select one tile. Find kitchenware item in the horizontal row containing lifeboat. A move outside the grid means NONE.",
+      "gold": "NONE",
+      "original": "NONE",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "NONE",
+      "reordered_prediction": "NONE"
+    },
+    {
+      "scene_id": "validation-00090",
+      "instruction": "From tractor, move one tile to the left, then one tile up. Select the destination. A move outside the grid means NONE.",
+      "gold": "A",
+      "original": "A",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "A",
+      "reordered_prediction": "A"
+    },
+    {
+      "scene_id": "validation-00115",
+      "instruction": "Please help me select one tile. If a insect photo is immediately below guinea pig, select it.",
+      "gold": "E",
+      "original": "E",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "E",
+      "reordered_prediction": "E"
+    },
+    {
+      "scene_id": "validation-00034",
+      "instruction": "다음 조건에 맞춰 사진을 골라 줘. 사진들 중에서 스포츠카를 찾아줘. 해당하는 사진이 없으면 NONE이야.",
+      "gold": "E",
+      "original": "E",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "E",
+      "reordered_prediction": "E"
+    },
+    {
+      "scene_id": "validation-00066",
+      "instruction": "Look at this photo board. From teddy bear, move one tile down, then one tile to the left. Select the destination. Choose NONE if no tile qualifies.",
+      "gold": "D",
+      "original": "D",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "D",
+      "reordered_prediction": "D"
+    },
+    {
+      "scene_id": "validation-00109",
+      "instruction": "Look at this photo board. Locate the row of sunglasses, then select its insect picture. Choose NONE if no tile qualifies.",
+      "gold": "A",
+      "original": "A",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "C",
+      "reordered_prediction": "C"
+    },
+    {
+      "scene_id": "validation-00016",
+      "instruction": "Look at this photo board. Choose the golden retriever photo. Choose NONE if no tile qualifies.",
+      "gold": "NONE",
+      "original": "NONE",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "NONE",
+      "reordered_prediction": "NONE"
+    },
+    {
+      "scene_id": "validation-00088",
+      "instruction": "Please help me select one tile. Choose the lemon photo.",
+      "gold": "D",
+      "original": "D",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "F",
+      "reordered_prediction": "F"
+    },
+    {
+      "scene_id": "validation-00033",
+      "instruction": "리모컨 사진과 오른쪽으로 바로 이웃한 사진은 어느 칸이야? 칸을 벗어나는 이동은 NONE으로 답해.",
+      "gold": "F",
+      "original": "F",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "F",
+      "reordered_prediction": "F"
+    },
+    {
+      "scene_id": "validation-00013",
+      "instruction": "Please help me select one tile. Are there more fish than vehicle pictures? If yes choose pretzel; if not, including ties, choose cauliflower. A move outside the grid means NONE.",
+      "gold": "B",
+      "original": "B",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "B",
+      "reordered_prediction": "B"
+    },
+    {
+      "scene_id": "validation-00078",
+      "instruction": "Please help me select one tile. Which food picture shares a row with umbrella? A move outside the grid means NONE.",
+      "gold": "F",
+      "original": "F",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "D",
+      "reordered_prediction": "D"
+    },
+    {
+      "scene_id": "validation-00121",
+      "instruction": "Check the immediate left neighbor of tractor. Choose it only if it is a food picture. Choose NONE if no tile qualifies.",
+      "gold": "B",
+      "original": "B",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "NONE",
+      "reordered_prediction": "NONE"
+    },
+    {
+      "scene_id": "validation-00062",
+      "instruction": "부탁 하나 할게. 선글라스 사진의 바로 오른쪽 칸과 같은 행에 있는 조류 사진을 골라. 해당하는 사진이 없으면 NONE이야.",
+      "gold": "E",
+      "original": "E",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "NONE",
+      "reordered_prediction": "NONE"
+    },
+    {
+      "scene_id": "validation-00114",
+      "instruction": "Follow this request: Choose the animal photo in the same column as fridge. Choose NONE if no tile qualifies.",
+      "gold": "D",
+      "original": "D",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "F",
+      "reordered_prediction": "F"
+    },
+    {
+      "scene_id": "validation-00035",
+      "instruction": "다음 조건에 맞춰 사진을 골라 줘. 무당벌레 사진과 같은 열에 있는 동물 사진을 골라.",
+      "gold": "E",
+      "original": "E",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "E",
+      "reordered_prediction": "E"
+    },
+    {
+      "scene_id": "validation-00002",
+      "instruction": "다음 조건에 맞춰 사진을 골라 줘. 무당벌레의 왼쪽 이웃 칸을 기준으로 같은 가로줄의 배 사진을 선택해. 해당하는 사진이 없으면 NONE이야.",
+      "gold": "NONE",
+      "original": "NONE",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "NONE",
+      "reordered_prediction": "NONE"
+    },
+    {
+      "scene_id": "validation-00141",
+      "instruction": "Please help me select one tile. Find a non-vehicle photo that shares a row with car. Choose NONE if no tile qualifies.",
+      "gold": "E",
+      "original": "E",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "E",
+      "reordered_prediction": "E"
+    },
+    {
+      "scene_id": "validation-00093",
+      "instruction": "Look at this photo board. Choose the photo that is not vehicle in the same row as abacus.",
+      "gold": "A",
+      "original": "A",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "C",
+      "reordered_prediction": "C"
+    },
+    {
+      "scene_id": "validation-00136",
+      "instruction": "다음 조건에 맞춰 사진을 골라 줘. 포유류 사진이 아니면서 피망 사진과 같은 행에 있는 사진을 찾아. 해당하는 사진이 없으면 NONE이야.",
+      "gold": "D",
+      "original": "D",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "F",
+      "reordered_prediction": "F"
+    },
+    {
+      "scene_id": "validation-00076",
+      "instruction": "Please help me select one tile. With 2 or more vehicle photos present, pick bus. In all other cases, pick butterfly.",
+      "gold": "D",
+      "original": "D",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "F",
+      "reordered_prediction": "F"
+    },
+    {
+      "scene_id": "validation-00117",
+      "instruction": "Follow this request: First find bell pepper, then step one tile up. Which vehicle photo shares that row? Choose NONE if no tile qualifies.",
+      "gold": "C",
+      "original": "C",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "A",
+      "reordered_prediction": "A"
+    },
+    {
+      "scene_id": "validation-00087",
+      "instruction": "부탁 하나 할게. 1장 이상의 동물 사진이 있으면 나비를 찾아줘. 그렇지 않으면 스포츠카를 찾아줘. 칸을 벗어나는 이동은 NONE으로 답해.",
+      "gold": "E",
+      "original": "E",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "E",
+      "reordered_prediction": "E"
+    },
+    {
+      "scene_id": "validation-00039",
+      "instruction": "Is the number of animal photos at least 3? If yes select koala; if not select backpack.",
+      "gold": "B",
+      "original": "B",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "B",
+      "reordered_prediction": "B"
+    },
+    {
+      "scene_id": "validation-00095",
+      "instruction": "이 사진판을 보고 답해 줘. 기차의 오른쪽 이웃 칸을 확인해서 동물 사진일 때만 골라줘. 칸을 벗어나는 이동은 NONE으로 답해.",
+      "gold": "B",
+      "original": "B",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "NONE",
+      "reordered_prediction": "NONE"
+    },
+    {
+      "scene_id": "validation-00052",
+      "instruction": "Find the picture of orange.",
+      "gold": "B",
+      "original": "B",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "B",
+      "reordered_prediction": "B"
+    },
+    {
+      "scene_id": "validation-00122",
+      "instruction": "이 사진판을 보고 답해 줘. 우산 사진과 같은 열에 있는 먹거리 사진을 골라. 해당하는 사진이 없으면 NONE이야.",
+      "gold": "C",
+      "original": "C",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "A",
+      "reordered_prediction": "A"
+    },
+    {
+      "scene_id": "validation-00030",
+      "instruction": "Follow this request: Compare the counts of animal and electrical or electronic device pictures. Choose dragonfly only if the first is larger; otherwise teapot. A move outside the grid means NONE.",
+      "gold": "E",
+      "original": "E",
+      "without_specific_instruction": "NONE",
+      "without_image": "NONE",
+      "reordered_gold": "E",
+      "reordered_prediction": "E"
+    }
+  ]
+}

@@ -32,6 +32,7 @@ This archive contains trained LoRA, a trained Clef selection head, processor and
 The separate base model is downloaded from Hugging Face. No Tiny ImageNet photographs are included.
 
 Trained locally on {config['gpu']} for {metrics['train_runtime']:.1f} seconds; selected step {best['step']}.
+The time above is the complete training/selection run. The released checkpoint contains updates only through its selected step ({best['step']*config['batch']*config['accum']:,} sample presentations).
 Trainable logical parameters: {config['trainable_parameters']:,}/{config['total_parameters']:,} ({percentage:.4f}%).
 LoRA: {config['lora_trainable_parameters']:,}; Clef head: {config['head_parameters']:,}.
 These counts include the decision head; 4-bit storage does not reduce the logical denominator.

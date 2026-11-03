@@ -7,7 +7,7 @@ from engine import DecisionEngine
 
 ROOT=Path(__file__).resolve().parent
 # Canonical layout: dog / banana / cat ; lifeboat / goldfish / backpack.
-# Independent handwritten gold, not passed to inference.
+# Prewritten gold from this fixed board's semantics, not passed to inference.
 CASES=[
     ('고양이 있는 칸에서 좌측으로 갔다가 밑으로 내려가면 어디야?','E'),
     ('개 사진 아래 칸으로 내려간 다음 오른쪽 옆 칸을 찍어줘.','E'),

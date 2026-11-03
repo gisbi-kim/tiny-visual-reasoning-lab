@@ -1,0 +1,499 @@
+{
+  "checkpoint": "runs\\main\\best",
+  "device": "cuda",
+  "dtype": "torch.bfloat16",
+  "load_seconds": 6.880350900115445,
+  "latency_scope": "Synchronized DecisionEngine.predict: processor, transfer, backbone, head and probabilities; includes any lazy pixel read/decode inside the call. Image.open is outside the timer.",
+  "suites": {
+    "test_id": {
+      "count": 1120,
+      "accuracy": 0.9348214285714286,
+      "scene_bootstrap_ci95": [
+        0.9143878284963989,
+        0.9535103383458646
+      ],
+      "ci_note": "Scene-cluster bootstrap; repeated original photographs across scenes may still induce dependence.",
+      "action_order": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "NONE"
+      ],
+      "confusion": [
+        [
+          145,
+          1,
+          0,
+          2,
+          3,
+          0,
+          9
+        ],
+        [
+          2,
+          151,
+          1,
+          0,
+          0,
+          0,
+          6
+        ],
+        [
+          0,
+          0,
+          154,
+          1,
+          2,
+          0,
+          3
+        ],
+        [
+          1,
+          1,
+          0,
+          147,
+          2,
+          1,
+          8
+        ],
+        [
+          0,
+          2,
+          0,
+          0,
+          148,
+          0,
+          10
+        ],
+        [
+          0,
+          0,
+          2,
+          1,
+          2,
+          153,
+          2
+        ],
+        [
+          0,
+          3,
+          2,
+          3,
+          2,
+          1,
+          149
+        ]
+      ],
+      "action_recall": {
+        "A": 0.90625,
+        "B": 0.94375,
+        "C": 0.9625,
+        "D": 0.91875,
+        "E": 0.925,
+        "F": 0.95625,
+        "NONE": 0.93125
+      },
+      "none_precision": 0.7967914438502673,
+      "none_recall": 0.93125,
+      "condition_accuracy": {
+        "row_except": 0.9910714285714286,
+        "neighbor_row_filter": 0.9464285714285714,
+        "direct": 0.9464285714285714,
+        "compare_count": 0.8928571428571429,
+        "chain": 0.9285714285714286,
+        "count_branch": 0.8303571428571429,
+        "neighbor": 0.9821428571428571,
+        "col_filter": 0.9285714285714286,
+        "row_filter": 0.9285714285714286,
+        "neighbor_filter": 0.9732142857142857
+      },
+      "language_accuracy": {
+        "ko": 0.9339285714285714,
+        "en": 0.9357142857142857
+      },
+      "conditional_difficulty": {
+        "image_dependent_branch": {
+          "count": 204,
+          "accuracy": 0.8480392156862745
+        },
+        "catalog_determined_branch": {
+          "count": 20,
+          "accuracy": 1.0
+        }
+      },
+      "changed_instruction_both_correct": 0.865,
+      "changed_instruction_pairs": 2600,
+      "minimal_contrast_both_correct": 0.7909090909090909,
+      "minimal_contrast_pairs": 110,
+      "same_meaning_all_correct": 0.9142857142857143,
+      "same_meaning_groups": 560,
+      "nll": 0.21987930650044762,
+      "brier": 0.09936051827628818,
+      "ece_10_bins": 0.015689122251101868,
+      "median_latency_ms": 155.456000007689,
+      "p95_latency_ms": 158.60952504444867
+    },
+    "test_language": {
+      "count": 1120,
+      "accuracy": 0.7928571428571428,
+      "scene_bootstrap_ci95": [
+        0.7587359229639301,
+        0.8235307154776804
+      ],
+      "ci_note": "Scene-cluster bootstrap; repeated original photographs across scenes may still induce dependence.",
+      "action_order": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "NONE"
+      ],
+      "confusion": [
+        [
+          117,
+          1,
+          2,
+          5,
+          2,
+          1,
+          32
+        ],
+        [
+          1,
+          124,
+          4,
+          3,
+          2,
+          1,
+          25
+        ],
+        [
+          4,
+          2,
+          128,
+          0,
+          3,
+          1,
+          22
+        ],
+        [
+          5,
+          2,
+          2,
+          131,
+          3,
+          2,
+          15
+        ],
+        [
+          1,
+          2,
+          1,
+          4,
+          128,
+          4,
+          20
+        ],
+        [
+          3,
+          0,
+          6,
+          4,
+          9,
+          121,
+          17
+        ],
+        [
+          2,
+          7,
+          1,
+          2,
+          3,
+          6,
+          139
+        ]
+      ],
+      "action_recall": {
+        "A": 0.73125,
+        "B": 0.775,
+        "C": 0.8,
+        "D": 0.81875,
+        "E": 0.8,
+        "F": 0.75625,
+        "NONE": 0.86875
+      },
+      "none_precision": 0.5148148148148148,
+      "none_recall": 0.86875,
+      "condition_accuracy": {
+        "neighbor_row_filter": 0.9196428571428571,
+        "direct": 0.9464285714285714,
+        "col_filter": 0.8928571428571429,
+        "count_branch": 0.75,
+        "neighbor_filter": 0.6339285714285714,
+        "chain": 0.6339285714285714,
+        "compare_count": 0.6875,
+        "neighbor": 0.6339285714285714,
+        "row_filter": 0.9464285714285714,
+        "row_except": 0.8839285714285714
+      },
+      "language_accuracy": {
+        "en": 0.7946428571428571,
+        "ko": 0.7910714285714285
+      },
+      "conditional_difficulty": {
+        "image_dependent_branch": {
+          "count": 206,
+          "accuracy": 0.7330097087378641
+        },
+        "catalog_determined_branch": {
+          "count": 18,
+          "accuracy": 0.5555555555555556
+        }
+      },
+      "changed_instruction_both_correct": 0.6116279069767442,
+      "changed_instruction_pairs": 2580,
+      "minimal_contrast_both_correct": 0.5625,
+      "minimal_contrast_pairs": 112,
+      "same_meaning_all_correct": 0.7446428571428572,
+      "same_meaning_groups": 560,
+      "nll": 0.7802239959641923,
+      "brier": 0.3184789051971574,
+      "ece_10_bins": 0.11447400346930536,
+      "median_latency_ms": 155.61795001849532,
+      "p95_latency_ms": 158.04625004529953
+    },
+    "test_composition": {
+      "count": 1120,
+      "accuracy": 0.6776785714285715,
+      "scene_bootstrap_ci95": [
+        0.6376515319715809,
+        0.717034189120488
+      ],
+      "ci_note": "Scene-cluster bootstrap; repeated original photographs across scenes may still induce dependence.",
+      "action_order": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "NONE"
+      ],
+      "confusion": [
+        [
+          106,
+          10,
+          4,
+          0,
+          0,
+          0,
+          40
+        ],
+        [
+          5,
+          92,
+          6,
+          0,
+          0,
+          0,
+          57
+        ],
+        [
+          2,
+          9,
+          103,
+          0,
+          0,
+          0,
+          46
+        ],
+        [
+          1,
+          0,
+          0,
+          97,
+          16,
+          6,
+          40
+        ],
+        [
+          0,
+          0,
+          0,
+          4,
+          100,
+          8,
+          48
+        ],
+        [
+          0,
+          0,
+          2,
+          0,
+          5,
+          109,
+          44
+        ],
+        [
+          3,
+          0,
+          3,
+          0,
+          2,
+          0,
+          152
+        ]
+      ],
+      "action_recall": {
+        "A": 0.6625,
+        "B": 0.575,
+        "C": 0.64375,
+        "D": 0.60625,
+        "E": 0.625,
+        "F": 0.68125,
+        "NONE": 0.95
+      },
+      "none_precision": 0.3559718969555035,
+      "none_recall": 0.95,
+      "condition_accuracy": {
+        "neighbor_col_filter": 0.9,
+        "row_filter_then_neighbor": 0.45535714285714285
+      },
+      "language_accuracy": {
+        "en": 0.6589285714285714,
+        "ko": 0.6964285714285714
+      },
+      "conditional_difficulty": {},
+      "changed_instruction_both_correct": 0.40824468085106386,
+      "changed_instruction_pairs": 2256,
+      "minimal_contrast_both_correct": 0.53125,
+      "minimal_contrast_pairs": 96,
+      "same_meaning_all_correct": 0.6142857142857143,
+      "same_meaning_groups": 560,
+      "nll": 1.2801353531115227,
+      "brier": 0.5071416223085387,
+      "ece_10_bins": 0.21714989817036043,
+      "median_latency_ms": 156.21235000435263,
+      "p95_latency_ms": 160.10942481225356
+    },
+    "test_combined": {
+      "count": 1120,
+      "accuracy": 0.5482142857142858,
+      "scene_bootstrap_ci95": [
+        0.5079918360750396,
+        0.5903500786228585
+      ],
+      "ci_note": "Scene-cluster bootstrap; repeated original photographs across scenes may still induce dependence.",
+      "action_order": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "NONE"
+      ],
+      "confusion": [
+        [
+          76,
+          17,
+          7,
+          2,
+          0,
+          0,
+          58
+        ],
+        [
+          16,
+          78,
+          18,
+          0,
+          3,
+          0,
+          45
+        ],
+        [
+          9,
+          15,
+          88,
+          0,
+          0,
+          2,
+          46
+        ],
+        [
+          7,
+          0,
+          0,
+          74,
+          18,
+          6,
+          55
+        ],
+        [
+          0,
+          4,
+          1,
+          10,
+          79,
+          14,
+          52
+        ],
+        [
+          0,
+          2,
+          1,
+          3,
+          18,
+          70,
+          66
+        ],
+        [
+          2,
+          1,
+          2,
+          3,
+          3,
+          0,
+          149
+        ]
+      ],
+      "action_recall": {
+        "A": 0.475,
+        "B": 0.4875,
+        "C": 0.55,
+        "D": 0.4625,
+        "E": 0.49375,
+        "F": 0.4375,
+        "NONE": 0.93125
+      },
+      "none_precision": 0.31634819532908703,
+      "none_recall": 0.93125,
+      "condition_accuracy": {
+        "neighbor_col_filter": 0.7785714285714286,
+        "row_filter_then_neighbor": 0.31785714285714284
+      },
+      "language_accuracy": {
+        "en": 0.6071428571428571,
+        "ko": 0.48928571428571427
+      },
+      "conditional_difficulty": {},
+      "changed_instruction_both_correct": 0.23274410774410775,
+      "changed_instruction_pairs": 2376,
+      "minimal_contrast_both_correct": 0.36666666666666664,
+      "minimal_contrast_pairs": 90,
+      "same_meaning_all_correct": 0.44285714285714284,
+      "same_meaning_groups": 560,
+      "nll": 2.0705512702811975,
+      "brier": 0.7526262766307118,
+      "ece_10_bins": 0.33134972128484935,
+      "median_latency_ms": 158.5697999689728,
+      "p95_latency_ms": 166.48637511534616
+    }
+  }
+}

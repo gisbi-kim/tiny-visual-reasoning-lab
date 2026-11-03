@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Tiny ImageNet과 Qwen3.5-4B 기반 decision model의 데이터 설계, LoRA 학습, v1·v2 비교와 실제 실험 기록.">
+<title>사진 여섯 장과 자연어 조건으로 decision model 학습하기</title>
+<style>
+:root{color-scheme:light;--ink:#24313d;--muted:#66727c;--accent:#226b88}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#fafbf9;color:var(--ink);font:17px/1.85 system-ui,-apple-system,"Malgun Gothic",sans-serif;word-break:keep-all;overflow-wrap:anywhere}header{border-bottom:1px solid #dce1df;padding:20px 5vw;font-size:13px;color:var(--muted)}header a{font-weight:600}main{display:grid;grid-template-columns:230px minmax(0,820px);gap:48px;max-width:1200px;margin:50px auto 90px;padding:0 28px}nav{position:sticky;top:24px;align-self:start;max-height:90vh;overflow:auto;font-size:13px}nav ol{list-style:none;padding:0}nav li{margin:9px 0}nav a{color:var(--muted);text-decoration:none}h1{font-size:34px;line-height:1.45;letter-spacing:-.045em;margin:0 0 28px}h2{font-size:25px;line-height:1.5;letter-spacing:-.025em;margin:64px 0 20px;scroll-margin-top:30px}h3{font-size:20px;margin-top:35px}p{margin:18px 0}a{color:var(--accent);text-underline-offset:3px}strong{font-weight:700}table{display:block;overflow-x:auto;border-collapse:collapse;width:100%;margin:24px 0;font-size:14px;white-space:normal}th,td{padding:10px 14px;border-bottom:1px solid #dce1df;text-align:left;min-width:90px}th{background:#edf2f2;font-weight:650}pre{padding:20px;background:#edf1f2;border:1px solid #dce1df;border-radius:6px;overflow-x:auto;font-size:13px;line-height:1.7}code{font-family:ui-monospace,Consolas,monospace}p code,li code{background:#edf1f2;padding:2px 4px;border-radius:3px;font-size:.9em}img{max-width:100%;height:auto;display:block;margin:28px auto;background:white}blockquote{margin:25px 0;border-left:3px solid #9cb6bf;padding:2px 22px;color:#55636d}article>ul,article>ol{padding-left:25px}footer{border-top:1px solid #dce1df;margin-top:70px;padding-top:20px;font-size:13px;color:var(--muted)}@media(max-width:950px){main{display:block;max-width:830px}nav{position:static;max-height:none;border-bottom:1px solid #dce1df;margin-bottom:35px;padding-bottom:16px}nav ol{columns:2}}@media(max-width:560px){body{font-size:16px}main{padding:0 18px;margin-top:28px}h1{font-size:28px}h2{font-size:23px;margin-top:48px}nav ol{columns:1}th,td{padding:9px 10px}pre{padding:14px}}
+</style></head><body><header>Tiny Visual Reasoning Lab · 기술 실험 기록 · <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab">코드와 실험 자료</a></header>
+<main><nav aria-label="목차"><strong>목차</strong><ol><li><a href="#section-1">1. 풀고 싶은 문제</a></li><li><a href="#section-2">2. 기본 모델과 우리가 학습하는 부분</a></li><li><a href="#section-3">3. 사진보다 먼저 정해야 하는 의미</a></li><li><a href="#section-4">4. 자연어와 정답을 함께 만드는 방법</a></li><li><a href="#section-5">5. v1에서 v2로 바꾼 이유</a></li><li><a href="#section-6">6. 한 에폭의 의미와 실제 학습</a></li><li><a href="#section-7">7. 무엇이 얼마나 좋아졌는가</a></li><li><a href="#section-8">8. 전체 정확도만으로 알 수 없는 것</a></li><li><a href="#section-9">9. v1과 v2에서 얻은 교훈</a></li><li><a href="#section-10">10. 가중치의 출처와 다시 실행하기</a></li><li><a href="#section-11">11. 코드와 기록을 남기는 기준</a></li></ol></nav><article><h1>사진 여섯 장과 자연어 조건으로 decision model 학습하기</h1>
+<p>Tiny ImageNet 사진과 자연어 지시로 작은 선택 문제를 구성하고, Qwen3.5-4B 기반 decision model을 학습한 기록이다. v1에서 드러난 표현·조건 조합의 약점을 v2의 데이터 구성으로 보완하였다. 이 글에서는 데이터가 무엇을 의미하는지부터 학습 대상, 실제 개선 폭, 실패 사례와 재현 방법까지 살펴본다. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab">코드와 가중치</a>, <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/v2/INDEX.md">실험 자료 안내</a>를 함께 공개한다.</p>
+<h2 id="section-1">1. 풀고 싶은 문제</h2>
+<p>사진을 분류하는 모델은 보통 한 장의 사진을 입력받아 고양이, 바나나 등의 이름을 출력한다. 이번에는 사진을 여섯 장 놓고, 자연어로 주어진 조건에 맞는 위치를 고르게 하였다. 예를 들어 다음과 같은 사진판을 생각해 보자.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>왼쪽</th>
+<th>가운데</th>
+<th>오른쪽</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>윗줄</td>
+<td>A: 개</td>
+<td>B: 바나나</td>
+<td>C: 고양이</td>
+</tr>
+<tr>
+<td>아랫줄</td>
+<td>D: 구명보트</td>
+<td>E: 금붕어</td>
+<td>F: 배낭</td>
+</tr>
+</tbody>
+</table>
+<p>“고양이 사진을 골라”의 답은 C이다. “고양이에서 왼쪽으로 한 칸, 그다음 아래로 한 칸 이동해”라고 하면 C → B → E 순서로 따라가야 한다. “동물 사진이 세 장 이상이면 바나나를, 아니면 배낭을 골라”의 답은 B이다. 개, 고양이, 금붕어가 동물에 해당하기 때문이다.</p>
+<p>이때 세는 것은 <strong>동물이 나온 사진의 수</strong>이다. 한 사진에 여러 동물이 있더라도 중심 대상 하나로 표현한다. 격자 밖으로 이동하거나 조건에 맞는 사진이 없으면 NONE을 선택한다. 출력 공간은 A, B, C, D, E, F, NONE의 일곱 가지이다.</p>
+<h2 id="section-2">2. 기본 모델과 우리가 학습하는 부분</h2>
+<p>기반 모델은 Qwen3.5-4B이다. 이 모델은 이미지와 텍스트를 함께 처리할 수 있다. 여기에 LoRA와 Clef 방식의 선택용 head를 붙였다. 입력 사진과 자연어 지시에서 표현을 계산한 뒤, 선택용 head가 각 선택지의 점수를 내는 구조이다.</p>
+<p>여기서 Clef는 head의 구조와 입력 형식을 뜻한다. Cloudflare가 배포한 완성형 Clef 모델의 가중치를 가져온 실험은 아니다. v1은 Qwen의 사전학습 가중치에 새 LoRA와 head를 붙여 학습했고, v2는 그 학습 결과를 이어받았다. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/train.py">실제 모델 생성 코드</a>와 <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/engine.py">배포 추론 코드</a>를 공개한다.</p>
+<p>Head는 단순한 7출력 선형층보다 복잡하다. 입력 hidden size는 2,560, head 내부 폭은 512이고, routing 2층·decoder 4층·attention head 8개·feed-forward 폭 2,048을 사용한다. 입력 sequence의 hidden states와 질문·선택지 span을 이용해 선택지별 점수를 만든다. 선택지 span은 입력의 token 위치이며 정답 위치를 의미하지 않는다. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/clef_reference.py">Head 참조 구현</a>에서 구체적인 연산을 확인할 수 있다.</p>
+<pre><code class="language-text">2×3 사진 격자 + 자연어 지시 + 선택지 정의
+                 ↓
+       Qwen3.5-4B + 학습한 LoRA
+                 ↓
+          학습한 Clef head
+                 ↓
+         A B C D E F NONE 점수
+</code></pre>
+<p>앱에서 Qwen이 자유로운 설명문을 생성하는 것은 아니다. 또한 정답을 만드는 규칙 프로그램을 앱에 넣어 대신 계산하게 하지 않았다. 규칙 프로그램은 학습 데이터의 정답을 만들고 검사하는 데 사용한다. 실제 예측 경로에는 사진과 사용자가 입력한 문장만 들어간다.</p>
+<p>학습은 정답 선택지를 알려 주는 지도학습이다. 일곱 점수에 softmax를 적용한 확률을 p라고 하면, 정답 a<em>에 대한 loss는 −log p(a</em>)이다. 틀린 선택에 높은 확률을 줄수록 손실이 커지고, 그 gradient로 LoRA와 head를 갱신한다. 사람이 작성한 단계별 사고 과정을 생성하도록 학습한 것은 아니다.</p>
+<p>LoRA는 사전학습 가중치 W를 고정한 상태에서 작은 행렬 A, B를 학습하여 W + (alpha/r)BA 형태로 가중치의 변화를 표현한다. 이번에는 rank와 alpha를 모두 16으로 두었다. LoRA 32,464,896개와 선택용 head 32,046,596개를 학습하여 합계 64,511,492개가 학습 대상이다. 기본 모델·LoRA·head를 포함한 논리 파라미터 4,603,777,028개 중 약 1.40%에 해당한다.</p>
+<p>4bit 양자화는 저장과 연산에 필요한 메모리를 줄이는 방법이다. 4bit로 저장했다고 파라미터의 개수 자체가 줄어드는 것은 아니므로, 학습 비율의 분모는 압축된 텐서의 저장 원소 수와 구분하였다.</p>
+<h2 id="section-3">3. 사진보다 먼저 정해야 하는 의미</h2>
+<p>원본은 Tiny ImageNet이다. 200개 클래스 중 작은 사진에서도 대상이 비교적 분명한 40개 클래스를 사용하였다. 원본 bounding box로 중심 대상을 잘라 비율을 유지한 채 격자에 배치하고, 너무 작은 대상과 RGB가 완전히 같은 중복 사진을 제외하였다. 원본 해상도는 64×64이므로 확대하더라도 실제 세부 정보가 새로 생기는 것은 아니다.</p>
+<p>사진마다 어떤 범주에 속하는지 명시적인 표를 만들었다. 예를 들어 금붕어는 물고기이면서 동물이다. 곰 인형은 동물 사진으로 세지 않는다. 이 정의가 불명확하면 “동물이 몇 장인가”라는 문장에 대해 정답부터 일관되지 않게 된다.</p>
+<p>클래스 표본과 문장 틀은 코딩 에이전트가 검토하였다. 모든 사진을 사람이 독립적으로 검수한 데이터는 아니다. 가려진 물체나 배경에 있는 다른 물체 때문에 실제 이미지의 의미가 모호할 수 있다는 한계는 남는다.</p>
+<h2 id="section-4">4. 자연어와 정답을 함께 만드는 방법</h2>
+<p>먼저 문장과 독립적인 의미 프로그램을 만든다. 예를 들어 앞의 C → B → E 문제는 다음과 같이 쓸 수 있다.</p>
+<pre><code class="language-json">{&quot;family&quot;:&quot;chain&quot;,&quot;anchor&quot;:&quot;cat&quot;,&quot;direction&quot;:&quot;left&quot;,&quot;second_direction&quot;:&quot;down&quot;}
+</code></pre>
+<p>사진판의 대상 목록에 이 프로그램을 실행하여 정답을 구하고, 같은 프로그램을 여러 문장으로 표현한다. 문장을 만드는 함수에는 정답을 전달하지 않는다. 방향이나 대상을 바꿨을 때 정답이 달라지는 문제 쌍도 함께 만든다. 같은 사진판이라도 지시를 제대로 읽어야 답할 수 있도록 하기 위해서이다.</p>
+<p>v2에서는 12개 조건 유형에 대해 한국어·영어 각각 6개의 문장 틀을 사용한다. 총 144개의 틀에 대상 이름, 범주, 요청 표현을 조합한다. “3장/세 장”, “3/three”, “왼쪽/좌측”과 같은 표기도 섞었다. 이 수치는 세상의 모든 자연어 표현을 다루었다는 뜻은 아니다. 범위를 정하고 그 범위 안의 표현을 고르게 공급한 합성 데이터이다.</p>
+<p>원본 사진 12,830장으로 격자 4,825장을 만들고, 여기에 지시와 정답을 붙여 37,632개의 학습 예제를 만들었다. 서로 다른 문장은 36,328개이다. 한 격자에 여러 지시를 붙이므로 원본 사진 수, 격자 수, 학습 예제 수는 서로 다르다.</p>
+<h2 id="section-5">5. v1에서 v2로 바꾼 이유</h2>
+<p>v1에서는 일부 문장 틀과 두 조건 조합을 학습에서 제외하였다. 가령 “고양이 왼쪽 사진”을 학습한 뒤 “고를 사진 오른쪽에 고양이가 있어야 한다”는 표현도 이해하는지 확인하려는 목적이었다. 같은 행에서 범주를 찾은 다음 한 칸 이동하는 조건도 별도로 보류하였다.</p>
+<p>두 버전의 데이터 크기도 함께 보자. v2는 단순히 같은 예제를 한 번 더 반복한 실행이 아니라, 사용할 표현과 조건의 범위를 넓혀 새로 구성한 데이터로 이어서 학습한 실행이다.</p>
+<table>
+<thead>
+<tr>
+<th>학습 데이터</th>
+<th style="text-align:right">v1</th>
+<th style="text-align:right">v2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>원본 사진</td>
+<td style="text-align:right">12,023장</td>
+<td style="text-align:right">12,830장</td>
+</tr>
+<tr>
+<td>2×3 사진판</td>
+<td style="text-align:right">4,024개</td>
+<td style="text-align:right">4,825개</td>
+</tr>
+<tr>
+<td>지시·정답 예제</td>
+<td style="text-align:right">31,360개</td>
+<td style="text-align:right">37,632개</td>
+</tr>
+<tr>
+<td>서로 다른 문장</td>
+<td style="text-align:right">29,350개</td>
+<td style="text-align:right">36,328개</td>
+</tr>
+</tbody>
+</table>
+<p>사진 수는 각 버전 안의 고유 개수이다. 같은 학습 사진 풀을 사용하므로 두 열을 더해 전체 고유 사진 수로 삼으면 안 된다. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/data-summary.json">v1 집계</a>, <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/v2-data-summary.json">v2 집계</a>에 세부 구성을 남겼다.</p>
+<p>이 설계는 배운 내용을 새로운 표현과 조합에 적용하는 능력을 조사할 때 유용하다. 반면 사용자가 실제로 입력할 것으로 예상하는 표현까지 제외할 필요는 없다. v2에서는 지원할 12개 조건과 144개 표현을 모두 학습하는 방향으로 바꾸었다.</p>
+<p>여기서 표현의 분할과 사진의 분할을 구분해야 한다. 표현을 모두 학습시키더라도 평가 사진까지 학습에 넣을 이유는 없다. 원본 사진 ID와 전체 RGB hash를 기준으로 학습·검증·보정·평가를 분리하였다. v1 평가 사진은 v2 학습에 들어가지 않는다.</p>
+<h2 id="section-6">6. 한 에폭의 의미와 실제 학습</h2>
+<p>이번 v2는 사전학습 모델에서 곧바로 시작한 첫 학습이 아니다. v1에서 검증으로 선택한 step 2,400의 LoRA와 head에서 이어서 학습한다. 계획한 추가 학습량은 37,632개 예제, batch 8, 4,704 step으로 1 epoch이다.</p>
+<p>한 epoch는 각 예제를 한 번씩 사용하는 단위이다. 같은 원리를 한 번만 본다는 뜻은 아니다. 조건 유형 하나당 3,136개 예제가 있으며, 서로 다른 사진과 표현에서 같은 원리를 반복하게 된다. 가중치도 한 epoch 안에서 4,704번 업데이트한다.</p>
+<p>기반 VLM은 이미 이미지·언어에 관한 큰 규모의 학습을 거친 상태이다. 예전 ImageNet 분류 사전학습이 주로 시각 특징을 전달했다면, VLM은 이미지와 언어의 대응 및 지시 처리 능력도 가져온다. 적은 추가 학습으로 이 작업에 적응할 수 있는 이유로 생각할 수 있다. 다만 이번 실험은 그 기여를 분리해 측정한 실험이 아니며, 파인튜닝 전 순수 Qwen 대조군을 실행하지 않았다. LoRA 역시 적은 epoch로 충분하다는 보증이 아니라 파라미터 효율적인 적응 방법이다.</p>
+<p>실제 장비는 Windows의 RTX 4070 Ti SUPER 16 GB 한 장, Ryzen 7 9800X3D, RAM 64 GB이다. NF4 4bit로 기본 모델을 읽고 BF16으로 계산한다. LoRA 학습률은 1e-4, head 학습률은 5e-5이며 cosine schedule을 사용한다.</p>
+<p>실제 추가 학습은 148.1분 동안 진행되었다. Trainer 기록 기준이며, 사전 다운로드·데이터 생성·최종 평가 시간은 제외한다. v1의 전체 run 135.7분과 별개인 추가 시간이다. 고정 검증 336개에서 가장 높았던 step 3,600의 가중치를 배포한다. 최고 점수가 같으면 먼저 저장된 체크포인트를 유지한다.</p>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>실제 기록</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>장비</td>
+<td>NVIDIA GeForce RTX 4070 Ti SUPER · Windows · RAM 약 64 GB</td>
+</tr>
+<tr>
+<td>추가 학습 예제</td>
+<td>37,632개</td>
+</tr>
+<tr>
+<td>추가 학습 완료</td>
+<td>4,704 step · 1.00 epoch</td>
+</tr>
+<tr>
+<td>Trainer 실행 시간</td>
+<td>148.1분</td>
+</tr>
+<tr>
+<td>선택한 배포 체크포인트</td>
+<td>v2 step 3,600</td>
+</tr>
+<tr>
+<td>선택 시점까지 v2 예제 제시</td>
+<td>28,800회</td>
+</tr>
+<tr>
+<td>고정 검증 336개에서 선택 점수</td>
+<td>97.62%</td>
+</tr>
+<tr>
+<td>최대 PyTorch 할당 / 예약</td>
+<td>6.20 / 7.06 GiB</td>
+</tr>
+</tbody>
+</table>
+<p>v1의 부모 체크포인트는 step 2,400에서 선택되어 19,200회의 예제 제시를 반영했다. v2 배포 체크포인트는 거기서 28,800회를 추가로 본 상태이다. 데이터셋이 바뀌었으므로 두 단계의 epoch를 단순히 더하지 않는다. 전체 run이 1 epoch를 완료했더라도 이후 step의 업데이트가 앞서 선택된 배포 가중치에 포함되는 것은 아니다.</p>
+<p><img src="assets/v2-training-history.svg" alt="v2의 학습 loss와 이동평균, 고정 검증 정확도의 변화" loading="lazy" /></p>
+<p>위 그림의 loss는 기록된 logging 간격의 값과 20개 기록의 이동평균이다. 아래 검증 곡선은 학습에 넣지 않은 검증 사진으로 계산했다. 전체 점수만 보고 새로운 조합의 개선을 추정하지 않고, 다음 절에서 실제 같은 평가 문제끼리 비교한다. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/v2/training-config.json">설정</a>, <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/v2/training-history.json">전체 loss 기록</a>, <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/v2/validation-history.json">검증 추이</a>, <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/v2/training-metrics.json">실제 시간·메모리</a>.</p>
+<h2 id="section-7">7. 무엇이 얼마나 좋아졌는가</h2>
+<p>사용자가 궁금했던 비교는 기존의 세 평가 문제를 그대로 다시 풀렸을 때의 변화이다. 사진·문장·정답이 동일한 1,120개씩을 사용한다.</p>
+<table>
+<thead>
+<tr>
+<th>기존 평가 구분</th>
+<th style="text-align:right">v1</th>
+<th style="text-align:right">v2 최종</th>
+<th style="text-align:right">변화</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>새 사진 + v1에서 보류했던 표현</td>
+<td style="text-align:right">79.29%</td>
+<td style="text-align:right"><strong>95.71%</strong></td>
+<td style="text-align:right"><strong>+16.43%p</strong></td>
+</tr>
+<tr>
+<td>새 사진 + v1에서 보류했던 조건 조합</td>
+<td style="text-align:right">67.77%</td>
+<td style="text-align:right"><strong>95.71%</strong></td>
+<td style="text-align:right"><strong>+27.95%p</strong></td>
+</tr>
+<tr>
+<td>새 사진 + v1에서 보류했던 표현·조합</td>
+<td style="text-align:right">54.82%</td>
+<td style="text-align:right"><strong>95.62%</strong></td>
+<td style="text-align:right"><strong>+40.80%p</strong></td>
+</tr>
+</tbody>
+</table>
+<p>v2에서는 위 표현과 조합을 학습했다. 따라서 v2의 점수는 해당 유형을 학습한 효과를 보여 준다. 여전히 보지 못한 표현이나 작업 조합에 대한 일반화 점수라고 부르면 안 된다. 사진은 새 사진으로 유지된다.</p>
+<p><img src="assets/original-suite-comparison.svg" alt="기존 세 평가 항목의 동일 문제에서 계산한 v1과 v2 정확도" loading="lazy" /></p>
+<p>세 항목은 각각 같은 1,120개 문제를 사용하며, 전체 예측의 사진 ID·문장·정답이 일치하는지 코드로 검사하였다. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/v2/original-suite-comparison.json">기존 문제 전후 비교 JSON</a>과 <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/tree/main/results/v2/finetuned">문제별 실제 예측</a>에서 확인할 수 있다.</p>
+<p>별도로 모든 유형을 균형 있게 포함한 v2_test 2,016문제에서는 v1 <strong>84.52% → v2 95.78%</strong> 결과를 보였다. 한국어는 84.33% → 95.63%, 영어는 84.72% → 95.93%였다. 이 집계는 위의 세 항목과 다른 문제 집합이다. 서로 다른 표의 전후 점수를 섞어서 개선 폭을 계산하지 않는다. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/v2/comparison.json">동일 2,016문제 비교</a>.</p>
+<p>중간에는 고정 표본 56개씩을 CPU로 평가한다. 표본 점수는 방향을 살펴보는 자료이며 전체 1,120개의 결과를 대신하지 않는다. 중간 결과를 보고 학습 설정이나 체크포인트 선택 기준을 바꾸지 않는다. 최종 비교는 저장한 가중치를 별도 프로세스에서 다시 읽어 양쪽 모두 같은 CUDA 배포 코드로 수행한다.</p>
+<h2 id="section-8">8. 전체 정확도만으로 알 수 없는 것</h2>
+<p>대상 찾기, 두 단계 이동, 개수 분기, 범주별 개수 비교는 서로 다른 어려움이 있다. 아래 표는 별도 v2_test 2,016문제에서 계산한 조건별 결과이다. 조건마다 168문제이며, 위의 기존 세 항목 표와 구분한다.</p>
+<table>
+<thead>
+<tr>
+<th>조건 유형</th>
+<th style="text-align:right">v1</th>
+<th style="text-align:right">v2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>같은 행에서 제외</td>
+<td style="text-align:right">85.71%</td>
+<td style="text-align:right">97.02%</td>
+</tr>
+<tr>
+<td>이동한 칸의 행에서 범주 찾기</td>
+<td style="text-align:right">90.48%</td>
+<td style="text-align:right">97.02%</td>
+</tr>
+<tr>
+<td>이동한 칸의 열에서 범주 찾기</td>
+<td style="text-align:right">93.45%</td>
+<td style="text-align:right">99.40%</td>
+</tr>
+<tr>
+<td>두 단계 이동</td>
+<td style="text-align:right">88.10%</td>
+<td style="text-align:right">99.40%</td>
+</tr>
+<tr>
+<td>대상 찾기</td>
+<td style="text-align:right">89.29%</td>
+<td style="text-align:right">91.07%</td>
+</tr>
+<tr>
+<td>같은 열의 범주</td>
+<td style="text-align:right">94.05%</td>
+<td style="text-align:right">98.81%</td>
+</tr>
+<tr>
+<td>개수 기준 분기</td>
+<td style="text-align:right">79.17%</td>
+<td style="text-align:right">88.69%</td>
+</tr>
+<tr>
+<td>인접 위치와 범주</td>
+<td style="text-align:right">85.12%</td>
+<td style="text-align:right">99.40%</td>
+</tr>
+<tr>
+<td>인접 위치</td>
+<td style="text-align:right">87.50%</td>
+<td style="text-align:right">97.62%</td>
+</tr>
+<tr>
+<td>같은 행의 범주를 찾은 뒤 이동</td>
+<td style="text-align:right">44.64%</td>
+<td style="text-align:right">95.83%</td>
+</tr>
+<tr>
+<td>범주별 개수 비교</td>
+<td style="text-align:right">82.74%</td>
+<td style="text-align:right">88.10%</td>
+</tr>
+<tr>
+<td>같은 행의 범주</td>
+<td style="text-align:right">94.05%</td>
+<td style="text-align:right">97.02%</td>
+</tr>
+</tbody>
+</table>
+<p>다음은 기존 세 평가 항목에서 순서상 처음 나온 v2 오답이다. 결과를 좋게 보이게 할 목적으로 실패 유형을 골라내지 않았다. 각 문장의 사진판과 정답 정의는 위에서 연결한 전체 예측 파일의 source IDs와 프로그램으로 추적할 수 있다.</p>
+<ul>
+<li><code>test_language</code>: “부탁 하나 할게. 고를 사진은 먹거리 사진이면서 이집트고양이 사진과 행이 같아야 해. 해당하는 사진이 없으면 NONE이야.” → 정답 <strong>A</strong>, 예측 <strong>NONE</strong>. 사진판 ID <code>test_language-00106</code>.</li>
+<li><code>test_composition</code>: “First find ladybug, then step one tile to the left. Which fish photo shares that column? Choose NONE if no tile qualifies.” → 정답 <strong>NONE</strong>, 예측 <strong>A</strong>. 사진판 ID <code>test_composition-00003</code>.</li>
+<li><code>test_combined</code>: “부탁 하나 할게. 포유류 사진을 고르되, 고양이에서 오른쪽 한 칸 이동해서 도착한 열 안에서 찾아야 해. 해당하는 사진이 없으면 NONE이야.” → 정답 <strong>NONE</strong>, 예측 <strong>C</strong>. 사진판 ID <code>test_combined-00001</code>.</li>
+</ul>
+<p>고정 사진판의 같은 구어체 14개에서는 <strong>v1 12/14 → v2 11/14</strong> 결과를 보였다. 이 시연에서는 오히려 한 문제를 덜 맞혔다. 하나의 사진판에서 이미 작성해 둔 작은 시연이므로 일반적인 성능 하락을 추정할 근거는 부족하지만, 작성한 표현 틀의 개선을 자유로운 말투 전체의 개선으로 확대해서도 안 된다. 개수와 비교 조건을 구어체로 바꾸었을 때의 오답을 그대로 남겼다. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/v2/freeform.json">구어체 실제 예측</a>.</p>
+<p>CPU/CUDA/학습용 구현을 별도 프로세스로 다시 불러온 24개 검증 표본에서 CPU–CUDA 답 일치율은 100.00%, 학습용–배포 CUDA 일치율은 100.00%였다. 전체 검증 336개에서는 학습용 97.62%, 배포 코드 97.62%였다. 구현과 수치 정밀도가 다를 수 있으므로 최종 성능은 실제 배포 CUDA 경로로 계산하였다. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/v2/reload-final.json">재로딩 검사</a>.</p>
+<p>선택 확률은 별도의 1,008개 보정 데이터로 temperature를 조정했다. 선택한 값은 1.8302이며, 보정 데이터의 negative log-likelihood는 0.1997 → 0.1420였다. 양의 scalar로 점수를 나누므로 가장 큰 점수의 위치는 바뀌지 않는다. 이 보정은 top-1 정확도를 직접 올리는 방법이 아니라 확신의 정도를 조정하는 절차이다. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/v2/logs/calibration/v2.json">보정 기록</a>.</p>
+<p>모델이 내부적으로 어떤 계산 경로를 사용했는지는 선택 정확도만으로 증명되지 않는다. 사진과 지시의 의미를 얼마나 일반적으로 조합하는지도 작성한 문제 범위 밖에서 별도 확인해야 한다. 근접 중복이나 기반 모델의 ImageNet 사전학습 노출 여부까지 완전히 배제한 실험은 아니다.</p>
+<h2 id="section-9">9. v1과 v2에서 얻은 교훈</h2>
+<p>이번 실험의 관심사는 높은 정확도 하나를 얻는 데 그치지 않는다. 이미 시각과 언어를 학습한 VLM을 사용하면, 원하는 판단 작업의 예제를 잘 구성하여 비교적 짧은 추가 학습으로 행동을 조정할 수 있는지 살펴보았다.</p>
+<p>v1은 일부 표현과 조건 조합을 보류해 두었다. 이 경우 새 표현 79.29%, 새 조건 조합 67.77%, 둘을 함께 바꾼 경우 54.82%였으며, 지원하려는 입력 중 어떤 부분에 학습 경험이 부족한지 확인할 수 있었다. v2에서는 같은 4B 기반 구조와 기존 LoRA/head를 유지하면서 해당 표현과 조합을 학습 데이터에 포함하였다. 한정된 작업에서 부족했던 학습 경험을 구체적인 예제로 보완한 셈이다.</p>
+<p>1,600 step 중간 모델의 고정 56문제씩에서는 v1 대비 새 표현 76.79% → 96.43%, 새 조합 69.64% → 98.21%, 표현·조합 58.93% → 98.21%로 개선되었다. 작은 표본이고 v2는 CPU, v1은 저장된 CUDA 예측이므로 잠정적인 관찰이었다. 앞 절의 같은 1,120문제 전체 최종 GPU 비교를 주된 근거로 삼고, 중간 표본은 개선 과정을 보여 주는 보조 자료로 남긴다. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/v2/interim-step-1600.json">1,600 step 표본</a>, <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/v2/interim-step-2000.json">2,000 step 표본</a>.</p>
+<p>여기서 실용적인 장점은 이미 학습된 시각·언어 표현을 활용하여, 작업에 맞는 입력과 정답의 대응을 추가로 가르칠 수 있다는 점이다. v2의 실제 추가 시간과 데이터양, 개선폭을 함께 제시해야 이 장점이 어느 정도인지 판단할 수 있다. 데이터는 정답이 일관되고, 실제 사용할 표현·조건을 포함하며, 다양한 사진에서도 같은 규칙이 유지되도록 구성해야 한다. 이번에 방향·임계값·대상을 바꾼 대조쌍과 한·영 표현의 균형을 둔 이유도 여기에 있다.</p>
+<p>해석의 범위도 정해 둘 필요가 있다. v2는 v1에서 보류했던 문제 유형을 실제로 학습했으므로, 개선을 새로운 모든 조합을 추론하는 능력의 향상이라고 말할 수는 없다. 또 이번 v2는 v1의 학습 결과를 이어받았으며, 전혀 파인튜닝하지 않은 Qwen과의 직접 비교는 수행하지 않았다. 따라서 이 실험은 <strong>기존 VLM 기반 decision model에서 부족한 표현·조건을 데이터로 보완했을 때 나타난 적응 효과</strong>를 보여 주는 사례로 해석한다.</p>
+<p>두 번째 중간 검사에서는 검증으로 선택된 2,000 step 가중치로 같은 표본을 풀렸다. 새 표현은 98.21%, 새 조합은 98.21%, 표현·조합은 94.64%였다. 1,600 step 결과와 비교하면 새 표현은 한 문제 더 맞혔고, 표현·조합은 두 문제 덜 맞혔다. v1보다 개선된 상태라도 모든 항목이 학습량에 따라 단조롭게 좋아지는 것은 아니다. 작은 표본의 변동과 조건별 차이를 확인하고, 최종 전체 평가를 따로 두어야 하는 이유이다.</p>
+<h2 id="section-10">10. 가중치의 출처와 다시 실행하기</h2>
+<p>기본 Qwen 모델은 Hugging Face의 고정 revision에서 받는다. 우리가 학습한 LoRA와 Clef head, processor, 보정값은 이 프로젝트의 GitHub Release에서 받는다. 원본 Tiny ImageNet 사진은 Stanford에서 별도로 내려받는다. GitHub의 작은 코드 저장소를 clone했다고 기본 모델 전체가 함께 내려온 것은 아니다.</p>
+<p>첫 실행 후 빨라지는 것은 저장된 기본 모델과 학습 가중치를 다시 사용하기 때문이다. 실행할 때마다 학습을 다시 하는 구조가 아니다.</p>
+<table>
+<thead>
+<tr>
+<th>구성</th>
+<th>출처와 크기</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>기본 VLM</td>
+<td>Hugging Face <code>Qwen/Qwen3.5-4B</code>, 원본 snapshot 약 9.34 GB</td>
+</tr>
+<tr>
+<td>학습한 LoRA·head·processor·보정값</td>
+<td>GitHub <code>model-v2</code>, 174,218,456 bytes</td>
+</tr>
+<tr>
+<td>원본 사진 데이터</td>
+<td>Stanford Tiny ImageNet, 248,100,043 bytes</td>
+</tr>
+</tbody>
+</table>
+<p>기본 모델 revision은 <code>851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a</code>로 고정하였다. 학습한 가중치 archive의 SHA-256은 <code>8bfc48b4850ae200d4320c77bddba03eea4f52e2b66f737910aa8b15ec296240</code>이다. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/release-v2.json">v2 다운로드 manifest</a>, <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/base-model-files.json">기본 모델 파일 hash</a>, <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/releases/tag/model-v1">v1 보관본</a>을 제공한다.</p>
+<pre><code class="language-bash">git clone https://github.com/gisbi-kim/tiny-visual-reasoning-lab.git
+cd tiny-visual-reasoning-lab
+python -m pip install torch torchvision
+python -m pip install -r requirements.txt
+python download_model.py --version v2 --output weights-v2
+python fetch_assets.py --dataset-only
+python prepare_demo.py
+python app.py --checkpoint weights-v2 --device cpu
+</code></pre>
+<p>Python 3.11 또는 3.12의 가상환경에서 실행한다. NVIDIA CUDA에서는 해당 환경에 맞는 PyTorch와 bitsandbytes를 설치한 뒤 <code>--device cuda</code>를 사용한다. 브라우저 주소는 <code>http://127.0.0.1:7861</code>이다. 자세한 설치·학습 재현 명령은 <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/README.md">README</a>와 <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/V2_TRAINING.md">v2 학습 기록</a>에 있다.</p>
+<p>CPU/MPS 경로는 float32 모델을 사용하므로 기본 모델 자체만 약 18.3 GB가 필요하다. 실제 Mac에서 동작과 속도를 검증하지 못했으며, 16 GB Mac에 충분히 들어간다고 보장하지 않는다.</p>
+<h2 id="section-11">11. 코드와 기록을 남기는 기준</h2>
+<p>코드뿐 아니라 데이터 집계, 학습 설정, 기록된 loss와 검증 추이, calibration, 최종 예측, 실패 사례, 환경과 다운로드 검증을 함께 남긴다. 학습 중 모든 microbatch의 입력과 예측을 저장한 것은 아니므로 기록되지 않은 과거 예측을 사후 생성하여 로그처럼 제공하지 않는다.</p>
+<p>본문은 이해를 위한 설명이고, 수치의 근거는 기계 판독 가능한 JSON과 실제 로그이다. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/v2/INDEX.md">실험 자료 안내</a>에는 설정·학습 추이·전체 예측·중간 평가·실패 사례·환경·가중치·검사 기록을 연결하였다. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/tree/main/docs/v2/logs">콘솔 로그와 실행별 기록</a>, <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/v2/logs/manifest.json">공개 파일과 원본의 hash manifest</a>, <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/v2/INSTALL_CHECK.md">공개 다운로드·앱 검사</a>도 함께 제공한다. 기록에서는 개인 홈 경로와 터미널 제어문자만 정리하고 수치를 보존하였다.</p>
+<p>이 사례에서 확인하려는 실용적인 교훈은 이미 학습된 VLM에 원하는 판단 작업을 명확한 데이터로 가르치는 방법이다. 표현과 조건의 범위를 정하고, 일관된 정답을 만들고, 같은 평가 문제의 전후 변화와 실패까지 확인해야 적응 효과를 설명할 수 있다.</p>
+<p>참고: <a href="https://huggingface.co/Qwen/Qwen3.5-4B">Qwen3.5-4B</a>, <a href="https://arxiv.org/abs/2106.09685">LoRA 논문</a>, <a href="https://arxiv.org/abs/2103.00020">CLIP 논문</a>, <a href="https://huggingface.co/Cloudflare/clef">Clef</a>, <a href="https://gisbi-kim.github.io/jev-mnist-tutorial/">이전 MNIST 튜토리얼</a>.</p>
+<footer>그림과 표는 저장된 실제 실험 결과에서 생성했습니다. 원본 설정·예측·로그는 본문의 GitHub 링크에서 확인할 수 있습니다.</footer></article></main></body></html>

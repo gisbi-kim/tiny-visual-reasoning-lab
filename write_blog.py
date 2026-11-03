@@ -129,6 +129,7 @@ Python 3.11 또는 3.12의 가상환경에서 실행한다. NVIDIA CUDA에서는
     if any(marker in text for marker in ('평가 후 입력','작성 중인 원고','최종 글에는','최종 원고에서는')):
         raise RuntimeError('Unresolved draft placeholder')
     # Typography only: keep generated measurements and identifiers intact.
+    text = text.replace('**였다.', '** 결과를 보였다.')
     for before, after in {
         '모두16': '모두 16', '합계64': '합계 64', '파라미터4,': '파라미터 4,',
         '약1.40': '약 1.40', '분명한40': '분명한 40', '해상도는64': '해상도는 64',

@@ -1,0 +1,13 @@
+{
+  "checked_at": "2026-11-03T13:58:34.618017+00:00",
+  "seconds": 17.70621840003878,
+  "url": "https://github.com/gisbi-kim/tiny-visual-reasoning-lab/releases/download/model-v2/tiny-visual-reasoning-4b-v2.zip",
+  "bytes": 174218456,
+  "sha256": "8bfc48b4850ae200d4320c77bddba03eea4f52e2b66f737910aa8b15ec296240",
+  "verified_file_count": 15,
+  "anonymous_urllib_download": true,
+  "fresh_adapter_directory": true,
+  "base_model_cache_reused": true,
+  "python_packages_reused": true,
+  "physical_mac_tested": false
+}

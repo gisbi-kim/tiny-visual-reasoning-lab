@@ -1,0 +1,40 @@
+{
+  "checked_at": "2026-11-03T14:04:43.994492+00:00",
+  "deployment_run": "https://github.com/gisbi-kim/tiny-visual-reasoning-lab/actions/runs/41649860037",
+  "checks": [
+    {
+      "url": "https://gisbi-kim.github.io/tiny-visual-reasoning-lab/index.html",
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "bytes": 34734,
+      "sha256": "cc7d1552aaebe2712c3eb5e4d26c544ccb097882541f3a6a0303f9b70f134b34",
+      "matches_published_commit": true
+    },
+    {
+      "url": "https://gisbi-kim.github.io/tiny-visual-reasoning-lab/assets/v2-training-history.svg",
+      "status": 200,
+      "content_type": "image/svg+xml",
+      "bytes": 47599,
+      "sha256": "df93eefabab73311f7c422571b68942502e1d21cc19f888c94d66ce8a256484b",
+      "matches_published_commit": true
+    },
+    {
+      "url": "https://gisbi-kim.github.io/tiny-visual-reasoning-lab/assets/original-suite-comparison.svg",
+      "status": 200,
+      "content_type": "image/svg+xml",
+      "bytes": 14444,
+      "sha256": "ecec08e936d7ac14c1220cc04d9a4211840b26cf2650a5f74456d5eeadc46423",
+      "matches_published_commit": true
+    }
+  ],
+  "local_browser_review": {
+    "desktop": true,
+    "mobile_viewport_requested": [
+      390,
+      844
+    ],
+    "mobile_document_client_width": 375,
+    "mobile_document_scroll_width": 375,
+    "table_internal_horizontal_scroll": true
+  }
+}

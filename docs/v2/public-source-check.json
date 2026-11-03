@@ -1,0 +1,11 @@
+{
+  "checked_at": "2026-11-03T14:03:46.670326+00:00",
+  "commit": "3cd48d363681b9b589e9c18ae3dd1200486978c6",
+  "url": "https://codeload.github.com/gisbi-kim/tiny-visual-reasoning-lab/tar.gz/3cd48d363681b9b589e9c18ae3dd1200486978c6",
+  "anonymous_urllib_download": true,
+  "archive_bytes": 4235691,
+  "archive_sha256": "b37ffaa6ea5078a358f96064e9f32cb6f579d2ec99b1b6c0945795bde23d6734",
+  "seconds": 0.9541317000985146,
+  "verified_log_files": 84,
+  "latest_release": "model-v2"
+}

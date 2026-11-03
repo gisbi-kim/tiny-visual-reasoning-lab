@@ -26,6 +26,7 @@
 | 학습한 v2 가중치 위치·크기·파일 hash | [release-v2.json](../release-v2.json) |
 | Python·라이브러리·운영체제 | [environment.json](../environment.json), [실행 당시 패키지 목록](logs/runs/v2/requirements.lock.txt) |
 | 공개 가중치 다운로드·실제 앱 검사 | [INSTALL_CHECK.md](INSTALL_CHECK.md) |
+| 공개 로그 84개 해시 검사·블로그 배포 검사 | [public-source-check.json](public-source-check.json), [pages-check.json](pages-check.json) |
 
 ## 로그를 읽을 때
 

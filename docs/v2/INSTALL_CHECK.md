@@ -38,3 +38,9 @@ python verify_v2_public.py api
 빈 지시는 HTTP 400, 무작위 사진판 생성과 앱 첫 화면은 HTTP 200이었다. 무작위 사진판이 기존 사진판과 달라졌으며 첫 화면에 v2 표시가 있는지도 확인했다. 기존 MNIST 앱의 7860 포트 역시 HTTP 200으로 응답했다. 기존 `weights/`와 `model-v1`은 보존했다.
 
 학습용·배포 CUDA·CPU 구현에서 별도 프로세스로 가중치를 다시 읽은 24개 검증 표본은 모두 같은 답을 냈다(정확도 각각 23/24). 전체 최종 정확도는 [별도 평가 보고서](../../results/v2/finetuned/report.json), 재로딩 범위는 [reload-final.json](reload-final.json)을 참고한다.
+
+## 공개 코드·로그와 블로그
+
+공개 GitHub 소스 archive도 인증 없이 다시 내려받아, 공개 로그 **84개 전체**의 SHA-256이 manifest와 일치하는지 검사했다. 로그의 줄바꿈은 Git에서 변환하지 않도록 보존했다. [공개 소스 검사](public-source-check.json).
+
+[블로그](https://gisbi-kim.github.io/tiny-visual-reasoning-lab/)는 GitHub Pages 배포가 성공한 뒤 실제 주소를 확인했다. HTML과 두 SVG가 모두 HTTP 200이며 배포 commit의 파일 내용과 일치한다. 데스크톱과 390×844 모바일 viewport에서 본문·표·그림을 확인했다. 모바일 표는 내부 가로 스크롤을 사용하며 문서 전체의 가로 넘침은 없었다. [배포·파일·화면 검사](pages-check.json).

@@ -74,7 +74,17 @@ v1의 부모 체크포인트는 step 2,400에서 선택되어 19,200회의 예�
              'count_branch': '개수 기준 분기', 'compare_count': '범주별 개수 비교', 'row_except': '같은 행에서 제외',
              'neighbor_row_filter': '이동한 칸의 행에서 범주 찾기', 'neighbor_col_filter': '이동한 칸의 열에서 범주 찾기',
              'row_filter_then_neighbor': '같은 행의 범주를 찾은 뒤 이동'}
-    families = '\n'.join(f"| {names[k]} | {pct(v['v1'])} | {pct(v['v2'])} |" for k,v in common['condition_accuracy'].items())
+    # Examples come from the very same test set as the per-family scores.
+    rows = read('results/v2/finetuned/v2_test_predictions.json')
+    instructions = {}
+    for row in rows:
+        if row['language'] == 'ko':
+            instructions.setdefault(row['family'], set()).add(row['instruction'])
+    def family_examples(key):
+        chosen = sorted(instructions[key], key=lambda value: (len(value), value))[:3]
+        assert len(chosen) == 3
+        return ' / '.join(f'{i}. {value.replace("|", "&#124;")}' for i, value in enumerate(chosen, 1))
+    families = '\n'.join(f"| {names[k]} | {family_examples(k)} | {pct(v['v1'])} | {pct(v['v2'])} |" for k,v in common['condition_accuracy'].items())
     examples = []
     for suite in ('test_language','test_composition','test_combined'):
         rows = read(f'results/v2/finetuned/{suite}_predictions.json')
@@ -84,8 +94,8 @@ v1의 부모 체크포인트는 step 2,400에서 선택되어 19,200회의 예�
     paragraph('대상 찾기, 두 단계 이동,',
         f'''대상 찾기, 두 단계 이동, 개수 분기, 범주별 개수 비교는 서로 다른 어려움이 있다. 아래 표는 별도 v2_test 2,016문제에서 계산한 조건별 결과이다. 조건마다 168문제이며, 위의 기존 세 항목 표와 구분한다.
 
-| 조건 유형 | v1 | v2 |
-|---|---:|---:|
+| 조건 유형 | 예시 지시 (실제 평가 문장) | v1 | v2 |
+|---|---|---:|---:|
 {families}
 
 다음은 기존 세 평가 항목에서 순서상 처음 나온 v2 오답이다. 결과를 좋게 보이게 할 목적으로 실패 유형을 골라내지 않았다. 각 문장의 사진판과 정답 정의는 위에서 연결한 전체 예측 파일의 source IDs와 프로그램으로 추적할 수 있다.

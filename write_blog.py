@@ -83,7 +83,7 @@ v1의 부모 체크포인트는 step 2,400에서 선택되어 19,200회의 예�
     def family_examples(key):
         chosen = sorted(instructions[key], key=lambda value: (len(value), value))[:3]
         assert len(chosen) == 3
-        return ' / '.join(f'{i}. {value.replace("|", "&#124;")}' for i, value in enumerate(chosen, 1))
+        return '<ul>' + ''.join(f'<li>{value.replace("|", "&#124;")}</li>' for value in chosen) + '</ul>'
     families = '\n'.join(f"| {names[k]} | {family_examples(k)} | {pct(v['v1'])} | {pct(v['v2'])} |" for k,v in common['condition_accuracy'].items())
     examples = []
     for suite in ('test_language','test_composition','test_combined'):

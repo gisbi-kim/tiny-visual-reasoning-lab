@@ -6,6 +6,8 @@ Tiny ImageNet 사진 여섯 장과 한국어·영어 지시를 읽고 **A–F �
 
 같은 96문제에서 기본 생성형 Qwen과 v2 decision model을 비교한 [측정 요약](results/generative-comparison/summary.json)과 [실험 코드](compare_generation.py)를 공개합니다. 모델에 추가 학습한 범위와 출력 방식이 함께 다르며, 생성형 결과는 지시문과 출력 토큰 제한의 영향을 받습니다.
 
+생성형의 40·120토큰, 생각 모드 켬·끔 추가 비교는 [네 조건의 결과](results/generative-comparison/reasoning-summary.json)와 [실험 코드](compare_reasoning_modes.py)에 있습니다. 생각 모드에서 한도 안에 최종 답이 나오지 않은 경우도 따로 기록했습니다.
+
 예: “고양이에서 왼쪽으로 한 칸, 그다음 아래로 한 칸 이동한 사진을 골라줘.” / “If there are at least three animal photographs, choose the banana; otherwise choose the backpack.”
 
 **Qwen3.5-4B + LoRA + Clef decision head**를 실제로 학습한 실험입니다. 정답 생성기는 데이터 제작·검증에만 쓰이며 앱의 예측 경로에는 들어가지 않습니다. 출력은 선택지와 확률입니다. 자유로운 설명문이나 내부 추론 과정을 생성하는 모델은 아닙니다.

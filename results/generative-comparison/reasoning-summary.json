@@ -1,0 +1,60 @@
+{
+  "count": 96,
+  "decision_correct": 93,
+  "decision_median_ms": 157.08660008385777,
+  "old_8_token_strict_correct": 29,
+  "old_8_token_relaxed_correct": 30,
+  "runs": [
+    {
+      "config": "thinking-0-tokens-40",
+      "budget": 40,
+      "thinking": false,
+      "strict_correct": 29,
+      "relaxed_correct": 30,
+      "no_final": 0,
+      "invalid": 3,
+      "hit_token_limit": 3,
+      "median_ms": 243.71399998199195,
+      "median_generated_tokens": 4.0
+    },
+    {
+      "config": "thinking-1-tokens-40",
+      "budget": 40,
+      "thinking": true,
+      "strict_correct": 0,
+      "relaxed_correct": 0,
+      "no_final": 96,
+      "invalid": 96,
+      "hit_token_limit": 96,
+      "median_ms": 1597.8611500468105,
+      "median_generated_tokens": 40.0
+    },
+    {
+      "config": "thinking-0-tokens-120",
+      "budget": 120,
+      "thinking": false,
+      "strict_correct": 29,
+      "relaxed_correct": 30,
+      "no_final": 0,
+      "invalid": 3,
+      "hit_token_limit": 3,
+      "median_ms": 239.85674988944083,
+      "median_generated_tokens": 4.0
+    },
+    {
+      "config": "thinking-1-tokens-120",
+      "budget": 120,
+      "thinking": true,
+      "strict_correct": 0,
+      "relaxed_correct": 0,
+      "no_final": 96,
+      "invalid": 96,
+      "hit_token_limit": 96,
+      "median_ms": 4613.296950003132,
+      "median_generated_tokens": 120.0
+    }
+  ],
+  "evaluation": "identical seed-3407 96-example sample, greedy decoding, same prompt, 4bit/BF16, synchronized CUDA, model load excluded",
+  "final_answer_parsing": "Only text following </think> when thinking is enabled; strict A-F/NONE or relaxed prefix answer:/정답:. Incomplete or unparsable counts wrong.",
+  "limitations": "base generative model vs fine-tuned decision model; prompt and decoding budgets affect results; 96 rows share source images."
+}

@@ -44,6 +44,10 @@ def add(text):
 이 비교는 실제 사용 경로를 비교한 결과다. 생성형에는 파인튜닝을 하지 않았고 v2에는 추가 학습을 했으므로 정확도 차이를 출력 head만의 효과로 볼 수는 없다. 프롬프트와 출력 길이를 바꾸면 생성형의 성능과 시간도 달라질 수 있다. 그래도 이 설정에서는 원하는 답을 바로 전달하는 선택 방식의 속도와, 작업 데이터를 추가했을 때의 정확도를 함께 확인할 수 있었다. [측정 요약](../results/generative-comparison/summary.json) · [생성형의 실제 출력](../results/generative-comparison/generative.json) · [decision model의 실제 출력](../results/generative-comparison/decision.json) · [실험 코드](../compare_generation.py).
 
 '''
+    reasoning_files=[ROOT/f'results/generative-comparison/thinking-{int(t)}-tokens-{n}.json' for t,n in [(False,40),(True,40),(False,120),(True,120)]]
+    if all(path.exists() for path in reasoning_files):
+        from reasoning_article import create
+        section=create()
     text=text.replace('## 11. 가중치의 출처와 다시 실행하기',section+'## 11. 가중치의 출처와 다시 실행하기',1)
     text=text.replace('같은 조건에서 생성형 Qwen의 답변 시간은 재지 않았으므로, 이 숫자만으로 몇 배 빠르다고 말할 수는 없다. 다만 선택 점수만 계산하는 구조가 왜 필요한지는 짐작할 수 있다.', '이 수치를 기억해 두자. 뒤에서 같은 96문제를 생성형 Qwen과 decision model에 각각 풀려 보고 시간도 직접 비교한다.')
     text=text.replace('다만 이번 실험은 그 기여를 분리해 측정한 실험이 아니며, 파인튜닝 전 순수 Qwen 대조군을 실행하지 않았다.', '다만 초기 실험만으로는 사전학습의 기여를 분리하기 어렵다. 뒤에서 순수 Qwen도 같은 문제의 일부에 실행해 비교한다.')

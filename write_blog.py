@@ -212,24 +212,32 @@ Python 3.11 또는 3.12의 가상환경에서 실행한다. NVIDIA CUDA에서는
         text = text.replace(before, after)
     from polish_blog import polish
     text = polish(text)
-    # Keep the published examples tied to saved test predictions and training rows.
+    # Show each saved test case once, immediately followed by the related training example.
     paired = read('docs/v2/training-evaluation-examples.json')['examples']
-    labels = {'test_language': '같은 뜻을 바꿔 쓴 표현', 'test_composition': '새로운 조건 조합', 'test_combined': '바꿔 쓴 표현과 새로운 조건 조합'}
-    pieces = ['### 틀렸던 시험 문제와 보강 데이터 나란히 보기',
-        '위에서 본 세 문제를 v2 학습 데이터의 실제 예제와 나란히 놓아 보자. 각 평가에서 v1은 틀리고 v2는 맞힌 첫 한국어 문제를 고르고, 같은 조건 유형과 문장 틀의 학습 예제를 짝지었다. 사진과 대상은 어떻게 바뀌고 질문의 구조는 어떻게 닮았는지 살펴보자.']
+    photos = {row['suite']: row for row in read('docs/v2/photo-examples.json')['examples'] if row['kind'] == 'improved'}
+    pieces = ['### 시험 문제와 보강 데이터를 나란히 보자',
+        '정확도가 오른 문제는 실제로 어떻게 생겼을까? 각 시험에서 v1은 틀리고 v2는 맞힌 한국어 문제를 하나씩 가져왔다. 그 바로 아래에는 같은 유형과 문장 틀을 사용한 v2 학습 예제를 놓았다. 각 사진판은 윗줄 왼쪽부터 A·B·C, 아랫줄은 D·E·F다. 두 질문을 비교하면서 어떤 판단을 연습했는지 살펴보자.']
     for pair in paired:
         suite = pair['suite']; test = pair['test']; train = pair['training_example']
-        pieces += [f"**{labels[suite]}**", f"시험 사진판 `{test['scene_id']}`:",
-            f"![{labels[suite]}의 평가 사진판](figures/example-{suite}.png)",
-            f"- 시험 질문: “{test['instruction']}”\n- 정답 **{test['action']}** · v1 **{test['v1_prediction']}** · v2 **{test['v2_prediction']}**",
-            f"보강 학습 데이터의 사진판 `{train['scene_id']}`:",
-            f"![{labels[suite]}의 보강 학습 사진판](figures/training-pair-{suite}.png)",
-            f"- 학습 지시: “{train['instruction']}”\n- 학습 정답: **{train['action']}**"]
-    pieces += ['각 쌍은 조건 유형과 문장 틀을 공유하지만 사진 원본은 겹치지 않는다. 시험에서 틀린 사진 문제를 그대로 학습에 복사한 것이 아니라, 그와 닮은 표현과 조건을 다른 사진으로 연습하도록 데이터를 보강한 것이다. 이 예제들은 전체 v2 학습 데이터에서 뽑았으며, 배포 체크포인트가 선택된 시점까지 개별 예제가 실제로 제시됐는지는 여기서 확인하지 않았다. 세 쌍은 변화를 이해하기 위한 사례이며 전체 성능은 위의 1,120문제씩으로 살펴봐야 한다.',
-        '이 비교는 학습한 유형을 새 사진에 적용한 결과다. 처음 보는 문장 구조나 조건 조합으로도 잘 되는지는 별도의 새로운 평가셋이 필요하다. [사진 출처와 질문·정답 원본](v2/training-evaluation-examples.json)에서 각 쌍을 확인할 수 있다.']
+        photo = photos[suite]
+        assert (photo['scene_id'], photo['instruction'], photo['gold'], photo['v1'], photo['v2']) == (test['scene_id'], test['instruction'], test['action'], test['v1_prediction'], test['v2_prediction'])
+        assert not set(test['source_ids']) & set(train['source_ids'])
+        pieces += [f"#### {photo['title']}",
+            f"**시험 사진판** `{test['scene_id']}`",
+            f"![{photo['alt']}](figures/{photo['file']})",
+            f"> {test['instruction']}",
+            f"정답 **{test['action']}** · v1 **{test['v1_prediction']}** → v2 **{test['v2_prediction']}**",
+            photo['explanation'],
+            f"**보강 학습 예제** `{train['scene_id']}`",
+            f"![{photo['title']}의 보강 학습 사진판](figures/training-pair-{suite}.png)",
+            f"> {train['instruction']}",
+            f"이 학습 예제의 정답은 **{train['action']}**이다. [v1 예측](../{photo['v1_file']}) · [v2 예측](../{photo['v2_file']})"]
+    pieces += ['각 쌍은 사진과 대상은 다르지만, 질문이 요구하는 판단의 구조는 닮아 있다. 보강 학습 예제는 전체 v2 학습 데이터에서 골랐으며, 선택한 체크포인트까지 이 예제들이 각각 제시됐는지는 확인하지 않았다. [각 사진의 출처와 질문·정답 기록](v2/training-evaluation-examples.json).']
+    start = text.index('### 실제 사진에서 달라진 선택')
     marker = '## 9. 전체 정확도만으로 알 수 없는 것'
     assert text.count(marker) == 1
-    text = text.replace(marker, '\n\n'.join(pieces) + '\n\n' + marker)
+    end = text.index(marker, start)
+    text = text[:start] + '\n\n'.join(pieces) + '\n\n' + text[end:]
     from article_comparison import add
     text = add(text)
     # Smooth transitions while retaining the experimental setup and evidence.
@@ -250,8 +258,6 @@ Python 3.11 또는 3.12의 가상환경에서 실행한다. NVIDIA CUDA에서는
         '한 epoch는 각 예제를 한 번씩 사용하는 단위이다. 같은 원리를 한 번만 본다는 뜻은 아니다. 조건 유형 하나당 3,136개 예제가 있으며, 서로 다른 사진과 표현에서 같은 원리를 반복하게 된다. 가중치도 한 epoch 안에서 4,704번 업데이트한다.': '학습 예제를 한 번씩 살펴보는 것을 1 epoch라고 부른다. 사진과 문장이 달라도 같은 판단 규칙을 묻는 예제가 여럿 있다. 예를 들어 “고양이 오른쪽”과 “개구리 오른쪽”은 다른 예제이지만 같은 방향을 찾는 연습이다. 각 조건 유형에는 이런 예제가 3,136개씩 들어 있다.',
         '데이터셋이 바뀌었으므로 두 단계의 epoch를 단순히 더하지 않는다. 전체 run이 1 epoch를 완료했더라도 이후 step의 업데이트가 앞서 선택된 배포 가중치에 포함되는 것은 아니다.': 'v2 학습은 이후 4,704 step까지 마쳤지만, 배포 모델에는 선택한 3,600 step까지의 학습이 담겨 있다.',
         '위 그림의 loss는 기록된 logging 간격의 값과 20개 기록의 이동평균이다. 아래 검증 곡선은 학습에 넣지 않은 검증 사진으로 계산했다. 전체 점수만 보고 새로운 조합의 개선을 추정하지 않고, 다음 절에서 실제 같은 평가 문제끼리 비교한다.': '위 그래프는 학습 중 기록한 loss와 최근 20개 값의 이동평균을 보여 준다. 아래 그래프는 학습에 쓰지 않은 사진으로 계산한 검증 정확도다. 이제 v1과 v2에게 같은 시험을 풀려 결과를 비교해 보자.',
-        '각 쌍은 조건 유형과 문장 틀을 공유하지만 사진 원본은 겹치지 않는다. 시험에서 틀린 사진 문제를 그대로 학습에 복사한 것이 아니라, 그와 닮은 표현과 조건을 다른 사진으로 연습하도록 데이터를 보강한 것이다. 이 예제들은 전체 v2 학습 데이터에서 뽑았으며, 배포 체크포인트가 선택된 시점까지 개별 예제가 실제로 제시됐는지는 여기서 확인하지 않았다. 세 쌍은 변화를 이해하기 위한 사례이며 전체 성능은 위의 1,120문제씩으로 살펴봐야 한다.': '두 사진판을 비교하면 보강한 방식이 보인다. 사진과 대상은 다르지만 질문이 요구하는 판단은 닮아 있다. 짝지은 학습 예제는 전체 v2 데이터에서 골랐으며, 선택된 체크포인트까지 각각 제시됐는지는 확인하지 않았다. 위의 1,120문제 비교와 함께 보면 데이터 구성과 성능 변화를 연결해 이해할 수 있다.',
-        '이 비교는 학습한 유형을 새 사진에 적용한 결과다. 처음 보는 문장 구조나 조건 조합으로도 잘 되는지는 별도의 새로운 평가셋이 필요하다.': '새로운 문장 구조와 조건 조합까지 시험하려면 그에 맞는 새 평가셋을 만들어 볼 차례다.',
         '남은 질문은 분명하다. 이번에 보강한 문장 틀 밖에서 질문을 바꾸면 어떻게 될까? 그 답을 얻으려면 새로운 표현과 사진을 따로 준비해 다시 시험해야 한다. 기반 모델의 ImageNet 노출이나 근접 중복 여부도 이번 기록만으로는 확인할 수 없다.': '다음에는 이번에 보강한 문장 틀 밖에서 새로운 사진과 질문을 준비해 보자. 그렇게 하면 배운 표현을 새로운 상황으로 얼마나 넓혀 쓸 수 있는지도 살펴볼 수 있다.',
         '한 사진판의 작은 시연이지만, 앞의 표가 좋아진 뒤에도 다음에 보완할 표현을 찾는 데 도움이 된다.': '이 시연은 다음에 어떤 말투를 더 살펴볼지 알려 준다.',
     })
@@ -259,6 +265,8 @@ Python 3.11 또는 3.12의 가상환경에서 실행한다. NVIDIA CUDA에서는
         if text.count(before) != 1:
             raise RuntimeError(f'Expected one editorial passage: {before[:60]}')
         text = text.replace(before, after)
+    from article_flow import improve_flow
+    text = improve_flow(text)
     (ROOT/'docs/BLOG.md').write_text(text, encoding='utf-8')
     print('FINAL_ARTICLE_WRITTEN', flush=True)
 

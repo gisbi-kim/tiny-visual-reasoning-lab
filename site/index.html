@@ -5,10 +5,10 @@
 <style>
 :root{color-scheme:light;--ink:#24313d;--muted:#66727c;--accent:#226b88}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#fafbf9;color:var(--ink);font:17px/1.85 system-ui,-apple-system,"Malgun Gothic",sans-serif;word-break:keep-all;overflow-wrap:anywhere}header{border-bottom:1px solid #dce1df;padding:20px 5vw;font-size:13px;color:var(--muted)}header a{font-weight:600}main{display:grid;grid-template-columns:230px minmax(0,820px);gap:48px;max-width:1200px;margin:50px auto 90px;padding:0 28px}nav{position:sticky;top:24px;align-self:start;max-height:90vh;overflow:auto;font-size:13px}nav ol{list-style:none;padding:0}nav li{margin:9px 0}nav a{color:var(--muted);text-decoration:none}h1{font-size:34px;line-height:1.45;letter-spacing:-.045em;margin:0 0 28px}h2{font-size:25px;line-height:1.5;letter-spacing:-.025em;margin:64px 0 20px;scroll-margin-top:30px}h3{font-size:20px;margin-top:35px}p{margin:18px 0}a{color:var(--accent);text-underline-offset:3px}strong{font-weight:700}table{display:block;overflow-x:auto;border-collapse:collapse;width:100%;margin:24px 0;font-size:14px;white-space:normal}th,td{padding:10px 14px;border-bottom:1px solid #dce1df;text-align:left;min-width:90px}th{background:#edf2f2;font-weight:650}td ul{margin:0;padding-left:1.3em}td li{padding-left:.2em;margin:.3em 0}pre{padding:20px;background:#edf1f2;border:1px solid #dce1df;border-radius:6px;overflow-x:auto;font-size:13px;line-height:1.7}code{font-family:ui-monospace,Consolas,monospace}p code,li code{background:#edf1f2;padding:2px 4px;border-radius:3px;font-size:.9em}img{max-width:100%;height:auto;display:block;margin:28px auto;background:white}img[src$=".png"]{width:576px;border-radius:4px}img[src*="user-test-"]{width:100%}blockquote{margin:25px 0;border-left:3px solid #9cb6bf;padding:2px 22px;color:#55636d}article>ul,article>ol{padding-left:25px}footer{border-top:1px solid #dce1df;margin-top:70px;padding-top:20px;font-size:13px;color:var(--muted)}@media(max-width:950px){main{display:block;max-width:830px}nav{position:static;max-height:none;border-bottom:1px solid #dce1df;margin-bottom:35px;padding-bottom:16px}nav ol{columns:2}}@media(max-width:560px){body{font-size:16px}main{padding:0 18px;margin-top:28px}h1{font-size:28px}h2{font-size:23px;margin-top:48px}nav ol{columns:1}th,td{padding:9px 10px}pre{padding:14px}}
 </style></head><body><header>Tiny Visual Reasoning Lab · 기술 실험 기록 · <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab">코드와 실험 자료</a></header>
-<main><nav aria-label="목차"><strong>목차</strong><ol><li><a href="#section-1">1. 풀고 싶은 문제</a></li><li><a href="#section-2">2. 기본 모델과 우리가 학습하는 부분</a></li><li><a href="#section-3">3. 사진보다 먼저 정해야 하는 의미</a></li><li><a href="#section-4">4. 자연어와 정답을 함께 만드는 방법</a></li><li><a href="#section-5">5. 처음 학습한 모델을 여러 방식으로 시험해 보자</a></li><li><a href="#section-6">6. 부족했던 표현과 조건을 데이터에 넣어 보기</a></li><li><a href="#section-7">7. 한 에폭의 의미와 실제 학습</a></li><li><a href="#section-8">8. 무엇이 얼마나 좋아졌는가</a></li><li><a href="#section-9">9. 전체 정확도만으로 알 수 없는 것</a></li><li><a href="#section-10">10. 이 실험에서 배운 것</a></li><li><a href="#section-11">생성형 Qwen에게 생각할 시간을 더 주면?</a></li><li><a href="#section-12">11. 가중치의 출처와 다시 실행하기</a></li><li><a href="#section-13">12. 코드와 기록을 남기는 기준</a></li></ol></nav><article><h1>사진 여섯 장과 자연어 조건으로 decision model 학습하기</h1>
+<main><nav aria-label="목차"><strong>목차</strong><ol><li><a href="#section-1">1. 풀고 싶은 문제</a></li><li><a href="#section-2">2. 기본 모델과 우리가 학습하는 부분</a></li><li><a href="#section-3">3. 사진보다 먼저 정해야 하는 의미</a></li><li><a href="#section-4">4. 자연어와 정답을 함께 만드는 방법</a></li><li><a href="#section-5">5. 처음 학습한 모델을 여러 방식으로 시험해 보자</a></li><li><a href="#section-6">6. 부족했던 표현과 조건을 데이터에 넣어 보기</a></li><li><a href="#section-7">7. 한 에폭의 의미와 실제 학습</a></li><li><a href="#section-8">8. 무엇이 얼마나 좋아졌는가</a></li><li><a href="#section-9">9. 전체 정확도만으로 알 수 없는 것</a></li><li><a href="#section-10">10. 이 실험에서 배운 것</a></li><li><a href="#section-11">11. 생성형 Qwen에게도 같은 문제를 물어보자</a></li><li><a href="#section-12">12. 가중치의 출처와 다시 실행하기</a></li><li><a href="#section-13">13. 실험 기록 살펴보기</a></li></ol></nav><article><h1>사진 여섯 장과 자연어 조건으로 decision model 학습하기</h1>
 <p>앞선 두 MNIST 실험에서는 손글씨 숫자와 지시를 보고 정해진 선택지 중 하나를 고르는 모델을 만들어 봤다. <a href="https://gisbi-kim.github.io/jev-mnist-tutorial/">첫 번째 MNIST decision model 실험</a>에서 출발해, <a href="https://gisbi-kim.github.io/decision-model-mnist-tutorial/">세 숫자와 자연어 지시를 다루는 실험</a>으로 확장했다. 이번에는 숫자 대신 다양한 실제 사진을 놓고, 위치와 사물의 종류, 개수까지 함께 따져야 하는 조금 더 어려운 문제로 나아가 보자.</p>
-<p>사진을 보고 질문에 답하는 일이라면 이미 VLM이 잘한다. 그런데 답을 다른 프로그램의 행동으로 바로 쓰고 싶다면 어떨까? 예를 들어 사진 여섯 장 중 하나를 고른 결과를 로봇이나 화면 조작 프로그램에 넘긴다고 해 보자. 매번 긴 답변을 생성하고 그 문장에서 위치를 찾아내기보다, 모델이 정해진 선택지에 점수를 주고 위치와 확률을 바로 돌려주면 다루기 편하다.</p>
-<p>이런 방식을 decision model이라고 부른다. 문장을 한 토큰씩 이어 쓰는 과정 대신 한 번의 선택 점수 계산으로 답을 얻으므로, 특히 긴 답변을 생성하는 방식보다 지연시간을 줄일 가능성도 있다. 이미 사진과 언어를 배운 VLM을 바탕으로 삼으면, 우리가 새로 만든 판단 문제는 얼마나 적은 데이터와 학습으로 익힐 수 있을까?</p>
+<p>사진을 보고 질문에 답하는 일이라면 이미 시각언어모델(VLM)이 잘한다. VLM은 이미지와 문장을 함께 읽도록 학습한 모델이다. 그런데 답을 다른 프로그램의 행동으로 바로 쓰고 싶다면 어떨까? 예를 들어 사진 여섯 장 중 하나를 고른 결과를 로봇이나 화면 조작 프로그램에 넘긴다고 해 보자. 매번 긴 답변을 생성하고 그 문장에서 위치를 찾아내기보다, 모델이 정해진 선택지에 점수를 주고 위치와 확률을 바로 돌려주면 다루기 편하다.</p>
+<p>이런 방식을 decision model이라고 부른다. 이번에 만드는 모델은 문장을 토큰이라는 작은 단위로 이어 쓰는 대신 한 번에 선택지의 점수를 계산하므로, 특히 긴 답변을 생성하는 방식보다 지연시간을 줄일 가능성도 있다. 이미 사진과 언어를 배운 VLM을 바탕으로 삼으면, 우리가 새로 만든 판단 문제는 얼마나 적은 데이터와 학습으로 익힐 수 있을까?</p>
 <p>이번 글에서는 Qwen3.5-4B에 선택용 head를 붙여 사진 여섯 장을 고르는 문제를 만들어 본다. 먼저 학습한 모델을 새로운 사진과 다양한 지시로 시험하고, 어려웠던 유형을 데이터로 보완해 같은 문제를 다시 풀려 본다. 마지막에는 생성형 Qwen과 같은 문제의 정확도와 속도를 직접 비교해 보자. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab">코드와 가중치</a>, <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/v2/INDEX.md">실험 자료 안내</a>를 함께 공개한다.</p>
 <h2 id="section-1">1. 풀고 싶은 문제</h2>
 <p>사진 한 장을 보고 “고양이”라고 말하는 것과, 여러 사진을 보고 “고양이 왼쪽 아래를 골라”라는 지시를 따르는 것은 다르다. 뒤의 문제에는 사물을 알아보는 일과 위치를 따라가는 일이 함께 들어 있다. 우선 사진 여섯 장을 두 줄로 놓고 시작해 보자.</p>
@@ -38,12 +38,11 @@
 </tr>
 </tbody>
 </table>
-<p>“고양이 사진을 골라”의 답은 C이다. “고양이에서 왼쪽으로 한 칸, 그다음 아래로 한 칸 이동해”라고 하면 C → B → E 순서로 따라가야 한다. “동물 사진이 세 장 이상이면 바나나를, 아니면 배낭을 골라”의 답은 B이다. 개, 고양이, 금붕어가 동물에 해당하기 때문이다.</p>
+<p>“고양이 사진을 골라”의 답은 C이다. 방향은 사진판을 보는 사람을 기준으로 한다. 예를 들어 B는 A의 오른쪽이고, D는 A의 아래다. “고양이에서 왼쪽으로 한 칸, 그다음 아래로 한 칸 이동해”라고 하면 C → B → E 순서로 따라가야 한다. “동물 사진이 세 장 이상이면 바나나를, 아니면 배낭을 골라”의 답은 B이다. 개, 고양이, 금붕어가 동물에 해당하기 때문이다.</p>
 <p>이때 세는 것은 <strong>동물이 나온 사진의 수</strong>이다. 한 사진에 여러 동물이 있더라도 중심 대상 하나로 표현한다. 격자 밖으로 이동하거나 조건에 맞는 사진이 없으면 NONE을 선택한다. 출력 공간은 A, B, C, D, E, F, NONE의 일곱 가지이다.</p>
 <h2 id="section-2">2. 기본 모델과 우리가 학습하는 부분</h2>
-<p>기반 모델은 Qwen3.5-4B이다. 이 모델은 이미지와 텍스트를 함께 처리할 수 있다. 여기에 LoRA와 Clef 방식의 선택용 head를 붙였다. 입력 사진과 자연어 지시에서 표현을 계산한 뒤, 선택용 head가 각 선택지의 점수를 내는 구조이다.</p>
-<p>Qwen이 사진과 지시를 함께 읽어 상황을 표현하면, 그 위에 붙인 Clef 방식의 head가 A부터 F, NONE까지 선택지별 점수를 만든다. 이 실험에서는 Qwen에 새로운 LoRA와 head를 붙여 학습한다. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/train.py">실제 모델 생성 코드</a>와 <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/engine.py">배포 추론 코드</a>를 공개한다.</p>
-<p>여기서 head를 조금 들여다보자. “B를 고른다”는 선택지는 단순한 번호가 아니라 “윗줄 가운데 사진을 고른다”는 뜻을 가진다. Head는 입력에서 질문과 선택지가 놓인 부분을 찾아, Qwen이 만든 표현과 함께 선택지별 점수를 계산한다. 이 head의 내부 폭은 512이며 routing 2층과 decoder 4층을 사용한다. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/clef_reference.py">Head 참조 구현</a>에서 구체적인 연산을 확인할 수 있다.</p>
+<p>기반 모델로 이미지와 텍스트를 함께 읽을 수 있는 Qwen3.5-4B를 사용했다. 여기에 두 장치를 더했다. <strong>LoRA</strong>는 기존 모델을 우리 문제에 맞게 조금씩 조정하는 부분이고, <strong>선택용 head</strong>는 Qwen이 사진과 지시를 읽고 만든 표현을 받아 A–F와 NONE의 점수를 계산하는 부분이다. 이 실험에서는 Clef 방식을 참고해 head를 만들고 LoRA와 함께 학습했다. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/train.py">실제 모델 생성 코드</a>와 <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/engine.py">배포 추론 코드</a>를 공개한다.</p>
+<p>예를 들어 B라는 선택지는 “윗줄 가운데 사진을 고른다”는 뜻이다. Head는 질문과 각 선택지에 해당하는 입력 위치를 참고해 선택지별 점수를 낸다. 정보를 모아 선택지를 비교하는 여러 층으로 구성했으며, 내부 폭은 512, routing은 2층, decoder는 4층이다. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/clef_reference.py">Head 참조 구현</a>에서 구체적인 연산을 확인할 수 있다.</p>
 <pre><code class="language-text">2×3 사진 격자 + 자연어 지시 + 선택지 정의
                  ↓
        Qwen3.5-4B + 학습한 LoRA
@@ -53,24 +52,23 @@
          A B C D E F NONE 점수
 </code></pre>
 <p>앱에서 사진과 지시를 보내면 점수가 가장 높은 선택지가 답으로 나온다. E가 가장 높다면 프로그램은 응답 문장을 해석할 필요 없이 곧바로 “아랫줄 가운데”라는 결과를 받는다. 이때 각 선택지의 확률도 함께 얻을 수 있다.</p>
-<p>이 장치에서 v2가 새 사진 문제 하나를 처리하는 시간의 중앙값은 약 157ms였다. CUDA에서 이미지 처리와 모델 계산, 확률 계산을 포함하고 모델을 처음 불러오는 시간은 뺀 수치다. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/v2/finetuned/report.json">측정 기록</a>. 이 수치를 기억해 두자. 뒤에서 같은 96문제를 생성형 Qwen과 decision model에 각각 풀려 보고 시간도 직접 비교한다.</p>
 <p>이제 모델이 올바른 칸에 높은 점수를 주도록 가르쳐 보자. 필요한 정답은 별도의 규칙 프로그램으로 만들어 둔다.</p>
-<p>정답이 E인 문제를 생각해 보자. 모델이 E에 높은 점수를 주면 잘한 것이고, 다른 칸에 높은 점수를 주면 수정이 필요하다. 일곱 점수에 softmax를 적용한 확률을 p라고 하면, 정답 a에 대한 loss는 −log p(a)이다. 이 값을 줄이는 방향으로 LoRA와 head를 조금씩 바꾸는 것이 이번 지도학습의 핵심이다.</p>
-<p>LoRA는 사전학습 가중치 W를 고정한 상태에서 작은 행렬 A, B를 학습하여 W + (alpha/r)BA 형태로 가중치의 변화를 표현한다. 이번에는 rank와 alpha를 모두 16으로 두었다. LoRA 32,464,896개와 선택용 head 32,046,596개를 학습하여 합계 64,511,492개가 학습 대상이다. 기본 모델·LoRA·head를 포함한 논리 파라미터 4,603,777,028개 중 약 1.40%에 해당한다.</p>
+<p>정답이 E인 문제를 생각해 보자. 일곱 점수를 softmax라는 계산으로 확률로 바꾼 뒤 E의 확률을 살핀다. E에 높은 확률을 주면 손실(loss)이 작고, 낮은 확률을 주면 손실이 커진다. 수식으로는 정답 a의 확률이 p(a)일 때 −log p(a)다. 이 손실을 줄이도록 LoRA와 head를 조금씩 고치는 것이 학습의 핵심이다.</p>
+<p>LoRA는 Qwen의 기존 가중치를 그대로 두고, 그 옆에 붙인 작은 행렬을 학습해 필요한 변화를 만든다. 식으로 쓰면 기존 가중치 W에 변화량을 더한 W + (alpha/r)BA다. 여기서 A와 B는 학습하는 행렬이다. rank r은 작은 행렬의 크기를, alpha는 변화량의 크기를 정하며 이번 실험에서는 둘 다 16이다. 학습하는 파라미터는 LoRA 32,464,896개와 선택용 head 32,046,596개를 합쳐 64,511,492개다. 기본 모델·LoRA·head를 포함한 논리 파라미터 4,603,777,028개 중 약 1.40%에 해당한다.</p>
 <p>기반 모델은 4bit로 읽어 GPU 메모리를 아꼈다. 압축해서 저장하더라도 원래 가중치의 논리적인 개수는 그대로이므로, 1.40%는 압축된 저장 크기가 아닌 전체 파라미터 수를 기준으로 계산한 값이다.</p>
 <h2 id="section-3">3. 사진보다 먼저 정해야 하는 의미</h2>
-<p>원본은 Tiny ImageNet이다. 200개 클래스 중 작은 사진에서도 대상이 비교적 분명한 40개 클래스를 사용하였다. 원본 bounding box로 중심 대상을 잘라 비율을 유지한 채 격자에 배치하고, 너무 작은 대상과 RGB가 완전히 같은 중복 사진을 제외하였다. 원본 해상도가 64×64라 사진에 따라 작은 대상은 알아보기 어렵다.</p>
+<p>원본은 Tiny ImageNet이다. 200개 클래스 중 작은 사진에서도 대상이 비교적 분명한 40개 클래스를 사용하였다. 사진에서 중심 대상을 표시한 경계 상자(bounding box)로 크기를 확인하고, 너무 작은 대상과 RGB가 완전히 같은 중복 사진을 제외했다. 남은 사진은 경계 상자에 맞춰 중심 대상을 잘라낸 뒤 여섯 칸에 배치했다. 원본 해상도가 64×64라 작은 대상은 알아보기 어렵다.</p>
 <p>사진마다 어떤 범주에 속하는지 명시적인 표를 만들었다. 예를 들어 금붕어는 물고기이면서 동물이다. 곰 인형은 동물 사진으로 세지 않는다. 이 정의가 불명확하면 “동물이 몇 장인가”라는 문장에 대해 정답부터 일관되지 않게 된다.</p>
 <p>클래스 표본과 문장 틀은 코딩 에이전트가 검토했다. 사진 속 대상이 가려지거나 배경에 다른 물체가 함께 나오는 경우도 있다. 이런 장면에서 중심 대상이라는 기준이 얼마나 일관되게 적용되는지는 데이터 품질의 중요한 과제다.</p>
 <h2 id="section-4">4. 자연어와 정답을 함께 만드는 방법</h2>
 <p>먼저 문장과 독립적인 의미 프로그램을 만든다. 예를 들어 앞의 C → B → E 문제는 다음과 같이 쓸 수 있다.</p>
 <pre><code class="language-json">{&quot;family&quot;:&quot;chain&quot;,&quot;anchor&quot;:&quot;cat&quot;,&quot;direction&quot;:&quot;left&quot;,&quot;second_direction&quot;:&quot;down&quot;}
 </code></pre>
-<p>사진판의 대상 목록에 이 프로그램을 실행하여 정답을 구하고, 같은 프로그램을 여러 문장으로 표현한다. 같은 사진판에서 방향이나 대상을 바꿔 정답이 달라지는 문제 쌍도 만든다. 사진만 보고 답을 외우는 대신 지시의 차이에 주목하도록 하기 위해서다.</p>
+<p>여기서 <code>anchor</code>는 출발 대상인 고양이, 두 방향은 차례로 왼쪽과 아래를 뜻한다. 이 규칙을 사진판에 적용하면 정답 E가 나온다. 이제 같은 규칙을 “고양이 왼쪽으로 한 칸, 그다음 아래로 한 칸”처럼 문장으로 표현하면 지시와 정답이 한 쌍으로 완성된다. 같은 사진판에서 방향이나 대상을 바꿔 정답이 달라지는 문제 쌍도 만든다. 사진만 보고 답을 외우는 대신 지시의 차이에 주목하도록 하기 위해서다.</p>
 <p>처음에는 일부 표현과 두 조건 조합을 따로 남겨 두고 나머지로 학습 문제를 만들었다. 처음 보는 문장이나 조합을 만났을 때 단순히 사진만 바뀐 경우와 얼마나 다른지 알아보기 위해서이다. 원본 사진 12,023장으로 격자 4,024개와 학습 예제 31,360개를 만들었고, 서로 다른 문장은 29,350개였다. 한 격자에 여러 지시를 붙이므로 사진 수와 예제 수는 다르다. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/data-summary.json">처음 데이터 집계</a>.</p>
 <h2 id="section-5">5. 처음 학습한 모델을 여러 방식으로 시험해 보자</h2>
-<p>첫 학습은 RTX 4070 Ti SUPER에서 135.7분 동안 진행했다. 학습 예제 31,360개를 사용해 batch 8로 4,400 step을 실행했고, 별도의 검증 문제에서 가장 좋았던 2,400 step 가중치를 골랐다. 이후 비교하기 쉽도록 이 첫 모델을 <strong>v1</strong>이라고 부르자. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/TRAINING.md">학습 설정과 기록</a>.</p>
-<p>먼저 학습에서 보지 않은 사진으로, 배운 유형의 문제를 풀렸다. 1,120문제에서 **93.48%**를 맞혔다. 사진을 바꿔도 이 범위의 문제는 대체로 풀 수 있다는 결과이다. 그렇다면 같은 뜻을 다른 말로 물어도 괜찮을까? 또 배운 조건들을 새로운 순서로 엮으면 어떨까?</p>
+<p>첫 학습은 RTX 4070 Ti SUPER에서 135.7분 동안 진행했다. 학습 예제 31,360개에서 한 번에 8개씩 사용해 가중치를 4,400번 고쳤다. 이렇게 가중치를 한 번 고치는 과정을 1 step이라고 한다. 학습 중간에 별도 검증 문제를 풀려 보고, 성능이 가장 좋았던 2,400 step의 가중치를 골랐다. 이후 비교하기 쉽도록 이 첫 모델을 <strong>v1</strong>이라고 부르자. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/TRAINING.md">학습 설정과 기록</a>.</p>
+<p>먼저 학습에서 보지 않은 사진으로, 배운 유형의 문제를 풀렸다. 1,120문제에서 **93.48%**를 맞혔다. 사진을 바꿔도 이 범위의 문제는 대체로 풀 수 있다는 결과이다. 그렇다면 같은 뜻을 다른 말로 물어도 괜찮을까? 또 따로 배운 조건들을 하나의 질문으로 묶으면 어떨까?</p>
 <p>이를 시험하려고 같은 뜻을 다른 문장 구조로 표현한 질문과 여러 조건을 결합한 질문을 만들었다. 처음 모델은 이 문장 틀과 두 조건 조합을 학습하지 않았다. 가령 “고양이 왼쪽 사진”을 배운 뒤 “고를 사진 오른쪽에 고양이가 있어야 한다”고 묻는다. 조건 조합도 마찬가지다. 예를 들어 “고양이와 같은 행에 있는 과일을 골라”와 “사진에서 아래로 한 칸 이동해”라는 요소를 각각 익힌 모델에게, “고양이와 같은 행에서 과일 사진을 찾고, 그 과일의 바로 아래 사진을 골라”라고 묻는다. 같은 행에서 과일을 찾은 다음 그 위치를 출발점으로 삼아 한 칸 이동해야 한다. 아래 세 시험 모두 사진도 학습에 쓰지 않은 사진이며, 항목마다 1,120문제이다.</p>
 <table>
 <thead>
@@ -101,7 +99,7 @@
 <p>사진만 바꾼 93.48%보다 표현을 바꾸면 낮아지고, 조건을 조합하면 더 낮아졌다. 표현과 조합을 모두 바꾸면 절반을 조금 넘는다. 각 시험은 서로 다른 문제로 구성했다. 결과를 보니 모델이 어떤 표현과 조건에서 어려움을 겪는지 살펴볼 필요가 생겼다. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/TRAINING.md">처음 평가 기록</a>.</p>
 <p>이제 질문을 바꿔 보자. 실제 사용자가 입력할 것으로 예상하는 표현과 조건을 일부러 제외하지 않고 학습에 넣으면, 같은 사진 문제에서 얼마나 나아질까?</p>
 <h2 id="section-6">6. 부족했던 표현과 조건을 데이터에 넣어 보기</h2>
-<p>이번에는 지원할 12개 조건 유형에 한국어·영어 각각 6개의 문장 틀, 총 144개를 학습 데이터에 포함했다. “3장/세 장”, “3/three”, “왼쪽/좌측” 같은 표기도 섞었다. 방향·임계값·대상을 바꿨을 때 답이 달라지는 대조쌍도 만들었다. 먼저 이 12개 유형을 지원 범위로 정하고, 그 안에서 다양한 말투와 조건을 연습하도록 구성했다.</p>
+<p>이번에는 지원할 12개 조건 유형에 한국어·영어 각각 6개의 문장 틀, 총 144개를 학습 데이터에 포함했다. “3장/세 장”, “3/three”, “왼쪽/좌측” 같은 표기도 섞었다. 예를 들어 같은 사진판에서 “고양이의 왼쪽”과 “고양이의 오른쪽”을 각각 물어, 방향이 바뀌면 답도 달라지는 문제 쌍을 만들었다. 먼저 이 12개 유형을 지원 범위로 정하고, 그 안에서 다양한 말투와 조건을 연습하도록 구성했다.</p>
 <table>
 <thead>
 <tr>
@@ -138,7 +136,7 @@
 <h2 id="section-7">7. 한 에폭의 의미와 실제 학습</h2>
 <p>v2는 v1에서 선택한 step 2,400의 가중치를 이어받는다. 보강한 예제 37,632개를 한 번씩 보며 학습할 계획이다. 한 번에 8개씩 사용하므로 모두 4,704 step이 걸린다.</p>
 <p>학습 예제를 한 번씩 살펴보는 것을 1 epoch라고 부른다. 사진과 문장이 달라도 같은 판단 규칙을 묻는 예제가 여럿 있다. 예를 들어 “고양이 오른쪽”과 “개구리 오른쪽”은 다른 예제이지만 같은 방향을 찾는 연습이다. 각 조건 유형에는 이런 예제가 3,136개씩 들어 있다.</p>
-<p>기반 VLM은 이미 이미지·언어에 관한 큰 규모의 학습을 거친 상태이다. 예전 ImageNet 분류 사전학습이 주로 시각 특징을 전달했다면, VLM은 이미지와 언어의 대응 및 지시 처리 능력도 가져온다. 적은 추가 학습으로 이 작업에 적응할 수 있는 이유로 생각할 수 있다. 뒤에서는 추가 학습 전의 기본 Qwen에도 같은 문제 일부를 풀려 본다. LoRA는 기반 모델 전체를 다시 학습하는 대신 적은 수의 파라미터로 이 작업에 적응시키는 방법이다.</p>
+<p>Qwen은 이미 사진과 언어를 함께 다루도록 사전학습돼 있다. 우리는 그 바탕 위에서 사진과 지시를 일곱 선택지의 점수로 연결하는 방법을 가르쳤다. 이렇게 사전학습된 모델의 표현을 활용한 점이 비교적 짧은 추가 학습으로 이 작업에 적응한 이유 중 하나일 수 있다. 뒤에서는 추가 학습 전의 기본 Qwen도 같은 문제에 도전한다.</p>
 <p>실제 장비는 Windows의 RTX 4070 Ti SUPER 16 GB 한 장, Ryzen 7 9800X3D, RAM 64 GB이다. NF4 4bit로 기본 모델을 읽고 BF16으로 계산한다. LoRA 학습률은 1e-4, head 학습률은 5e-5이며 cosine schedule을 사용한다.</p>
 <p>실제 추가 학습은 148.1분 동안 진행되었다. Trainer 기록 기준이며, 사전 다운로드·데이터 생성·최종 평가 시간은 제외한다. v1의 전체 run 135.7분과 별개인 추가 시간이다. 고정 검증 336개에서 가장 높았던 step 3,600의 가중치를 배포한다. 최고 점수가 같으면 먼저 저장된 체크포인트를 유지한다.</p>
 <table>
@@ -221,78 +219,53 @@
 <p>세 항목 모두 약 95.6~95.7%까지 올랐다. 이 숫자를 읽기 전에 시험과 학습 데이터의 관계를 짚고 가자. <strong>틀린 시험 문제와 그 사진을 그대로 학습에 넣은 것은 아니다.</strong> v1의 시험 결과를 보고 어떤 표현과 조건 조합이 어려운지 확인한 다음, 같은 문장 틀과 조건 유형을 다른 학습 사진으로 만든 예제에 넣어 v2를 보강했다. 사진 원본 ID와 이미지 해시를 기준으로 학습용과 시험용 사진이 겹치지 않도록 나눴다.</p>
 <p>따라서 이 표는 <strong>학습한 표현과 조건을 새로운 사진에 적용하는 능력</strong>이 얼마나 좋아졌는지를 보여 준다. 반면 v2가 <strong>처음 보는 표현이나 조건 조합</strong>에도 잘 일반화하는지는 이 표로 판단할 수 없다. 그 유형들을 이미 v2 학습에 포함했기 때문이다. 또 v1의 시험 결과가 데이터 보강 방향에 영향을 주었으므로, 이 시험은 완전히 독립적인 최종 시험보다 보강 전후를 비교하는 시험으로 읽는 편이 정확하다. 새로운 표현·조합에 대한 일반화를 보려면 그 둘과 사진을 모두 분리한 새 시험이 필요하다. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/v2/TEST_CASES.md">전체 시험 문제와 사진 배치 기록</a>.</p>
 <p><img src="assets/original-suite-comparison.svg" alt="기존 세 평가 항목의 동일 문제에서 계산한 v1과 v2 정확도" loading="lazy" /></p>
-<p>세 항목은 각각 같은 1,120개 문제를 사용하며, 전체 예측의 사진 ID·문장·정답이 일치하는지 코드로 검사하였다. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/v2/original-suite-comparison.json">기존 문제 전후 비교 JSON</a>과 <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/tree/main/results/v2/finetuned">문제별 실제 예측</a>에서 확인할 수 있다.</p>
+<p>사진 ID·문장·정답이 두 모델의 시험에서 일치하는지도 검사했다. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/tree/main/results/v2/finetuned">문제별 예측</a>과 <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/v2/original-suite-comparison.json">전후 비교 기록</a>을 함께 살펴볼 수 있다.</p>
 <p>별도로 모든 유형을 균형 있게 포함한 v2_test 2,016문제에서는 v1 <strong>84.52% → v2 95.78%</strong> 결과를 보였다. 한국어는 84.33% → 95.63%, 영어는 84.72% → 95.93%였다. 앞의 세 항목과는 별도로 만든 문제 집합이다. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/v2/comparison.json">동일 2,016문제 비교</a>.</p>
-<h3>실제 사진에서 달라진 선택</h3>
-<p>숫자만 보면 어떤 문제가 달라졌는지 감이 잘 오지 않는다. 실제 사진판을 꺼내 보자. 각 평가에서 한국어 문제 중 v1은 틀리고 v2는 맞힌 첫 사례를 가져왔다. 질문과 두 모델의 답은 저장된 평가 기록 그대로다.</p>
+<h3>시험 문제와 보강 데이터를 나란히 보자</h3>
+<p>정확도가 오른 문제는 실제로 어떻게 생겼을까? 각 시험에서 v1은 틀리고 v2는 맞힌 한국어 문제를 하나씩 가져왔다. 그 바로 아래에는 같은 유형과 문장 틀을 사용한 v2 학습 예제를 놓았다. 각 사진판은 윗줄 왼쪽부터 A·B·C, 아랫줄은 D·E·F다. 두 질문을 비교하면서 어떤 판단을 연습했는지 살펴보자.</p>
 <h4>표현을 바꿔 물은 경우</h4>
+<p><strong>시험 사진판</strong> <code>test_language-00056</code></p>
 <p><img src="assets/example-test_language.png" alt="윗줄 무당벌레·주전자·키보드, 아랫줄 냉장고·선글라스·피자" loading="eager" width="384" height="256" /></p>
 <blockquote>
 <p>다음 조건에 맞춰 사진을 골라 줘. 주방용품 사진을 찾되, 그 사진의 바로 아래쪽에 선글라스 사진이 있어야 해. 칸을 벗어나는 이동은 NONE으로 답해.</p>
 </blockquote>
 <p>정답 <strong>B</strong> · v1 <strong>E</strong> → v2 <strong>B</strong></p>
 <p>선글라스는 E에 있다. 바로 위 칸 B의 주전자는 주방용품이며, 그 바로 아래에 선글라스가 있으므로 B가 정답이다.</p>
-<p>사진판 <code>test_language-00056</code> · <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/test_language_predictions.json">v1 실제 예측</a> · <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/v2/finetuned/test_language_predictions.json">v2 실제 예측</a></p>
+<p><strong>보강 학습 예제</strong> <code>v2_train-04308</code></p>
+<p><img src="assets/training-pair-test_language.png" alt="표현을 바꿔 물은 경우의 보강 학습 사진판" loading="eager" width="384" height="256" /></p>
+<blockquote>
+<p>이 사진판을 보고 답해 줘. 전기나 전자로 작동하는 기기 사진을 찾되, 그 사진의 바로 우측에 거위 사진이 있어야 해. 칸을 벗어나는 이동은 NONE으로 답해.</p>
+</blockquote>
+<p>이 학습 예제의 정답은 <strong>E</strong>이다. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/test_language_predictions.json">v1 예측</a> · <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/v2/finetuned/test_language_predictions.json">v2 예측</a></p>
 <h4>조건 두 개를 이어서 물은 경우</h4>
+<p><strong>시험 사진판</strong> <code>test_composition-00095</code></p>
 <p><img src="assets/example-test_composition.png" alt="윗줄 거위·트랙터·피망, 아랫줄 자동차·곰·무당벌레" loading="eager" width="384" height="256" /></p>
 <blockquote>
 <p>부탁 하나 할게. 트랙터 사진과 같은 행의 음식 사진을 찾고, 그 사진에서 왼쪽으로 한 칸 이동한 사진을 골라.</p>
 </blockquote>
 <p>정답 <strong>B</strong> · v1 <strong>A</strong> → v2 <strong>B</strong></p>
 <p>트랙터 B와 같은 윗줄에서 음식 사진을 찾으면 C의 피망이다. C에서 왼쪽으로 한 칸 이동하면 B가 된다.</p>
-<p>사진판 <code>test_composition-00095</code> · <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/test_composition_predictions.json">v1 실제 예측</a> · <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/v2/finetuned/test_composition_predictions.json">v2 실제 예측</a></p>
+<p><strong>보강 학습 예제</strong> <code>v2_train-03936</code></p>
+<p><img src="assets/training-pair-test_composition.png" alt="조건 두 개를 이어서 물은 경우의 보강 학습 사진판" loading="eager" width="384" height="256" /></p>
+<blockquote>
+<p>백팩 사진과 같은 행의 곤충 사진을 찾고, 그 사진에서 위쪽으로 한 칸 이동한 사진을 골라. 해당하는 사진이 없으면 NONE이야.</p>
+</blockquote>
+<p>이 학습 예제의 정답은 <strong>A</strong>이다. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/test_composition_predictions.json">v1 예측</a> · <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/v2/finetuned/test_composition_predictions.json">v2 예측</a></p>
 <h4>표현과 조건 조합을 함께 바꾼 경우</h4>
+<p><strong>시험 사진판</strong> <code>test_combined-00031</code></p>
 <p><img src="assets/example-test_combined.png" alt="윗줄 버스·프레첼·구명보트, 아랫줄 개·나비·모래시계" loading="eager" width="384" height="256" /></p>
 <blockquote>
 <p>부탁 하나 할게. 이동을 시작할 칸은 나비 사진과 같은 행에 있는 곤충 사진이야. 거기서 왼쪽으로 한 칸 이동해.</p>
 </blockquote>
 <p>정답 <strong>D</strong> · v1 <strong>E</strong> → v2 <strong>D</strong></p>
 <p>나비는 E에 있다. 같은 아랫줄의 곤충도 E의 나비이므로 E에서 출발한다. 왼쪽으로 한 칸 이동한 D의 개가 정답이다.</p>
-<p>사진판 <code>test_combined-00031</code> · <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/test_combined_predictions.json">v1 실제 예측</a> · <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/v2/finetuned/test_combined_predictions.json">v2 실제 예측</a></p>
-<p>학습 중에는 각 항목에서 56문제를 골라 중간 결과도 살펴봤다. 전체 1,120문제로 계산한 위 표가 최종 비교이고, 중간 표본은 학습 과정에서 변화가 어떻게 나타나는지 살펴보는 자료다.</p>
-<h3>틀렸던 시험 문제와 보강 데이터 나란히 보기</h3>
-<p>위에서 본 세 문제를 v2 학습 데이터의 실제 예제와 나란히 놓아 보자. 각 평가에서 v1은 틀리고 v2는 맞힌 첫 한국어 문제를 고르고, 같은 조건 유형과 문장 틀의 학습 예제를 짝지었다. 사진과 대상은 어떻게 바뀌고 질문의 구조는 어떻게 닮았는지 살펴보자.</p>
-<p><strong>같은 뜻을 바꿔 쓴 표현</strong></p>
-<p>시험 사진판 <code>test_language-00056</code>:</p>
-<p><img src="assets/example-test_language.png" alt="같은 뜻을 바꿔 쓴 표현의 평가 사진판" loading="eager" width="384" height="256" /></p>
-<ul>
-<li>시험 질문: “다음 조건에 맞춰 사진을 골라 줘. 주방용품 사진을 찾되, 그 사진의 바로 아래쪽에 선글라스 사진이 있어야 해. 칸을 벗어나는 이동은 NONE으로 답해.”</li>
-<li>정답 <strong>B</strong> · v1 <strong>E</strong> · v2 <strong>B</strong></li>
-</ul>
-<p>보강 학습 데이터의 사진판 <code>v2_train-04308</code>:</p>
-<p><img src="assets/training-pair-test_language.png" alt="같은 뜻을 바꿔 쓴 표현의 보강 학습 사진판" loading="eager" width="384" height="256" /></p>
-<ul>
-<li>학습 지시: “이 사진판을 보고 답해 줘. 전기나 전자로 작동하는 기기 사진을 찾되, 그 사진의 바로 우측에 거위 사진이 있어야 해. 칸을 벗어나는 이동은 NONE으로 답해.”</li>
-<li>학습 정답: <strong>E</strong></li>
-</ul>
-<p><strong>새로운 조건 조합</strong></p>
-<p>시험 사진판 <code>test_composition-00095</code>:</p>
-<p><img src="assets/example-test_composition.png" alt="새로운 조건 조합의 평가 사진판" loading="eager" width="384" height="256" /></p>
-<ul>
-<li>시험 질문: “부탁 하나 할게. 트랙터 사진과 같은 행의 음식 사진을 찾고, 그 사진에서 왼쪽으로 한 칸 이동한 사진을 골라.”</li>
-<li>정답 <strong>B</strong> · v1 <strong>A</strong> · v2 <strong>B</strong></li>
-</ul>
-<p>보강 학습 데이터의 사진판 <code>v2_train-03936</code>:</p>
-<p><img src="assets/training-pair-test_composition.png" alt="새로운 조건 조합의 보강 학습 사진판" loading="eager" width="384" height="256" /></p>
-<ul>
-<li>학습 지시: “백팩 사진과 같은 행의 곤충 사진을 찾고, 그 사진에서 위쪽으로 한 칸 이동한 사진을 골라. 해당하는 사진이 없으면 NONE이야.”</li>
-<li>학습 정답: <strong>A</strong></li>
-</ul>
-<p><strong>바꿔 쓴 표현과 새로운 조건 조합</strong></p>
-<p>시험 사진판 <code>test_combined-00031</code>:</p>
-<p><img src="assets/example-test_combined.png" alt="바꿔 쓴 표현과 새로운 조건 조합의 평가 사진판" loading="eager" width="384" height="256" /></p>
-<ul>
-<li>시험 질문: “부탁 하나 할게. 이동을 시작할 칸은 나비 사진과 같은 행에 있는 곤충 사진이야. 거기서 왼쪽으로 한 칸 이동해.”</li>
-<li>정답 <strong>D</strong> · v1 <strong>E</strong> · v2 <strong>D</strong></li>
-</ul>
-<p>보강 학습 데이터의 사진판 <code>v2_train-02693</code>:</p>
-<p><img src="assets/training-pair-test_combined.png" alt="바꿔 쓴 표현과 새로운 조건 조합의 보강 학습 사진판" loading="eager" width="384" height="256" /></p>
-<ul>
-<li>학습 지시: “다음 조건에 맞춰 사진을 골라 줘. 이동을 시작할 칸은 펭귄 사진과 같은 행에 있는 전기나 전자로 작동하는 기기 사진이야. 거기서 왼쪽으로 한 칸 이동해. 해당하는 사진이 없으면 NONE이야.”</li>
-<li>학습 정답: <strong>E</strong></li>
-</ul>
-<p>두 사진판을 비교하면 보강한 방식이 보인다. 사진과 대상은 다르지만 질문이 요구하는 판단은 닮아 있다. 짝지은 학습 예제는 전체 v2 데이터에서 골랐으며, 선택된 체크포인트까지 각각 제시됐는지는 확인하지 않았다. 위의 1,120문제 비교와 함께 보면 데이터 구성과 성능 변화를 연결해 이해할 수 있다.</p>
-<p>새로운 문장 구조와 조건 조합까지 시험하려면 그에 맞는 새 평가셋을 만들어 볼 차례다. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/v2/training-evaluation-examples.json">사진 출처와 질문·정답 원본</a>에서 각 쌍을 확인할 수 있다.</p>
+<p><strong>보강 학습 예제</strong> <code>v2_train-02693</code></p>
+<p><img src="assets/training-pair-test_combined.png" alt="표현과 조건 조합을 함께 바꾼 경우의 보강 학습 사진판" loading="eager" width="384" height="256" /></p>
+<blockquote>
+<p>다음 조건에 맞춰 사진을 골라 줘. 이동을 시작할 칸은 펭귄 사진과 같은 행에 있는 전기나 전자로 작동하는 기기 사진이야. 거기서 왼쪽으로 한 칸 이동해. 해당하는 사진이 없으면 NONE이야.</p>
+</blockquote>
+<p>이 학습 예제의 정답은 <strong>E</strong>이다. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/test_combined_predictions.json">v1 예측</a> · <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/v2/finetuned/test_combined_predictions.json">v2 예측</a></p>
+<p>각 쌍은 사진과 대상은 다르지만, 질문이 요구하는 판단의 구조는 닮아 있다. 보강 학습 예제는 전체 v2 학습 데이터에서 골랐으며, 선택한 체크포인트까지 이 예제들이 각각 제시됐는지는 확인하지 않았다. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/v2/training-evaluation-examples.json">각 사진의 출처와 질문·정답 기록</a>.</p>
 <h2 id="section-9">9. 전체 정확도만으로 알 수 없는 것</h2>
 <p>대상 찾기, 두 단계 이동, 개수 분기, 범주별 개수 비교는 서로 다른 어려움이 있다. 아래 표는 별도 v2_test 2,016문제에서 계산한 조건별 결과이다. 조건마다 168문제이며, 위의 기존 세 항목 표와 구분한다.</p>
 <table>
@@ -379,9 +352,9 @@
 </tr>
 </tbody>
 </table>
-<p>정확도가 오른 뒤에도 틀린 문제는 남는다. 기존 세 평가 파일에서 처음 등장한 오답을 하나씩 살펴보자. 사진 ID와 실제 예측은 연결된 기록에서 따라갈 수 있다.</p>
+<p>표를 보면 같은 행에서 범주를 찾고 이동하는 문제는 44.64%에서 95.83%로 크게 올랐다. 반면 개수에 따라 선택하는 문제는 79.17%에서 88.69%로 올라, 다른 유형보다 더 살펴볼 여지가 있다.</p>
+<p>이제 표현과 조건 조합을 다룬 두 시험에서 나온 오답을 보자. 이어서 세 번째 오답은 사진판을 보며 함께 풀어 볼 것이다.</p>
 <ul>
-<li><code>test_language</code>: “부탁 하나 할게. 고를 사진은 먹거리 사진이면서 이집트고양이 사진과 행이 같아야 해. 해당하는 사진이 없으면 NONE이야.” → 정답 <strong>A</strong>, 예측 <strong>NONE</strong>. 사진판 ID <code>test_language-00106</code>.</li>
 <li><code>test_composition</code>: “First find ladybug, then step one tile to the left. Which fish photo shares that column? Choose NONE if no tile qualifies.” → 정답 <strong>NONE</strong>, 예측 <strong>A</strong>. 사진판 ID <code>test_composition-00003</code>.</li>
 <li><code>test_combined</code>: “부탁 하나 할게. 포유류 사진을 고르되, 고양이에서 오른쪽 한 칸 이동해서 도착한 열 안에서 찾아야 해. 해당하는 사진이 없으면 NONE이야.” → 정답 <strong>NONE</strong>, 예측 <strong>C</strong>. 사진판 ID <code>test_combined-00001</code>.</li>
 </ul>
@@ -391,8 +364,8 @@
 <p>부탁 하나 할게. 고를 사진은 먹거리 사진이면서 이집트고양이 사진과 행이 같아야 해. 해당하는 사진이 없으면 NONE이야.</p>
 </blockquote>
 <p>정답 <strong>A</strong> · v2 <strong>NONE</strong></p>
-<p>고양이 B와 같은 윗줄에는 먹거리인 레몬 A가 있다. 따라서 정답은 A인데 v2는 조건에 맞는 사진이 없다는 NONE을 선택했다. 사진판 <code>test_language-00106</code>는 위 목록의 첫 오답과 같은 사례이다. 이 문제를 통해 사진 속 대상을 알아보는 일과 문장 속 조건을 따라가는 일을 함께 살펴볼 수 있다. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/v2/finetuned/test_language_predictions.json">실제 예측 기록</a>.</p>
-<p>사진 출처는 Stanford Tiny ImageNet이다. 위에 실은 다섯 사진판의 원본 사진 ID, 복사 전후 SHA-256과 사례 선택 기준은 <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/v2/photo-examples.json">사진 출처·예측 기록</a>에 남겼다. 사진의 권리는 원 소유자에게 있으며, 프로젝트 코드의 Apache-2.0 라이선스가 사진에 적용되지는 않는다.</p>
+<p>고양이 B와 같은 윗줄에는 먹거리인 레몬 A가 있다. 따라서 정답은 A인데 v2는 조건에 맞는 사진이 없다는 NONE을 선택했다. 사진판 ID는 <code>test_language-00106</code>이다. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/v2/finetuned/test_language_predictions.json">실제 예측 기록</a>.</p>
+<p>사진은 Stanford Tiny ImageNet에서 가져왔다. 시연·시험 사진판의 원본 ID와 선택 기준은 <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/v2/photo-examples.json">사진 출처·예측 기록</a>에, 보강 학습 예제의 출처는 <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/v2/training-evaluation-examples.json">학습·시험 예제 기록</a>에 남겼다. 사진의 권리는 원 소유자에게 있으며, 프로젝트 코드의 Apache-2.0 라이선스가 사진에 적용되지는 않는다.</p>
 <p>구어체로 작성한 14개 시연 문제도 있었다. 같은 사진판에서 v1은 12개, v2는 11개를 맞혔다. 특히 개수와 비교 조건을 말하듯 바꾼 질문에서 오답이 남았다. 이 시연은 다음에 어떤 말투를 더 살펴볼지 알려 준다. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/v2/freeform.json">구어체 실제 예측</a>.</p>
 <h3>직접 입력해 본 세 화면</h3>
 <p>같은 사진판에서 사용자가 동물 사진의 기준을 1장, 2장, 3장으로 바꿔 본 화면이다. A에는 초록색 음식, B에는 금붕어, E에는 동물 사진이 보인다. 기준이 1장이나 2장일 때는 적어도 B와 E 두 장이 동물이므로 A가 자연스러운 답이다. 화면에는 두 경우 모두 F가 표시되었다. 세 번째 화면에는 NONE이 표시되어 있다.</p>
@@ -406,15 +379,14 @@
 <h2 id="section-10">10. 이 실험에서 배운 것</h2>
 <p>처음 모델은 새로운 사진에서 배운 유형의 문제를 잘 풀었지만, 표현과 조건을 함께 바꾸자 54.82%까지 내려갔다. 빠진 유형을 포함해 이어서 학습한 뒤 같은 문제에서는 95.62%를 얻었다. 어려운 사례가 무엇인지 알아보고, 그 사례를 가르칠 데이터를 만드는 과정이 개선의 출발점이었다.</p>
 <p>이미 이미지와 언어를 함께 배운 기반 모델 덕분에, 우리는 사물을 처음부터 가르치기보다 사진과 지시를 원하는 선택에 연결하는 작업에 집중할 수 있었다. 뒤에서는 추가 학습 전의 기본 Qwen도 같은 문제에 도전한다.</p>
-<p>예제 하나를 한 번 봤다는 것과 판단 규칙을 한 번만 연습했다는 것은 다르다. 예를 들어 “고양이의 오른쪽 사진”과 “개구리의 오른쪽 사진”은 서로 다른 예제지만, 둘 다 기준 사진에서 오른쪽으로 한 칸 이동하는 연습이다. 사진과 대상, 문장을 바꿔 같은 종류의 판단을 여러 번 연습하도록 데이터를 만들었다.</p>
-<p>v2 추가 학습은 37,632개 예제를 한 바퀴 도는 4,704 step까지 진행했다. 하지만 최종 모델은 마지막 가중치가 아니라 별도의 검증 문제에서 성능이 가장 좋았던 3,600 step의 가중치다. 이 시점까지 모델에 예제가 제시된 횟수는 3,600 × 8 = 28,800회다. 여기에 v1을 학습하며 익힌 내용도 이미 들어 있다. 두 차례 중간 표본 검사에서도 항목별 변화가 엇갈렸다. 1,600 step에서 2,000 step으로 갈 때 새 표현은 한 문제 더 맞혔지만, 표현·조합에서는 두 문제를 더 틀렸다. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/v2/interim-step-1600.json">중간 평가 기록</a>, <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/v2/interim-step-2000.json">두 번째 기록</a>. 각 표본은 56문제이며 v2는 CPU, 저장된 v1 예측은 CUDA였다.</p>
+<p>한 에폭 안에서도 사진과 문장을 바꿔 가며 같은 판단을 여러 번 연습했다. 7절에서 봤듯 v2는 v1에서 이어받아 학습했고, 검증 점수로 고른 3,600 step 가중치를 배포했다. 두 차례 중간 표본 검사에서는 항목별 변화가 엇갈렸다. 1,600 step에서 2,000 step으로 갈 때 새 표현은 한 문제 더 맞혔지만, 표현·조합에서는 두 문제를 더 틀렸다. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/v2/interim-step-1600.json">중간 평가 기록</a>, <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/v2/interim-step-2000.json">두 번째 기록</a>. 각 표본은 56문제이며 v2는 CPU, 저장된 v1 예측은 CUDA였다.</p>
 <p>가장 흥미로운 점은 원하는 판단의 형태를 데이터로 구체화할 수 있다는 것이다. “위치를 이해해라”라고 막연히 요구하는 대신 방향을 바꾼 두 질문과 각각의 정답을 보여 준다. 14개 구어체 시연에서 발견한 오답은 다음에 어떤 표현을 보강하고 시험할지 알려 준다.</p>
-<h2 id="section-11">생성형 Qwen에게 생각할 시간을 더 주면?</h2>
+<h2 id="section-11">11. 생성형 Qwen에게도 같은 문제를 물어보자</h2>
 <p>앞에서 만든 decision model은 일곱 선택지의 점수를 한 번에 계산한다. 그렇다면 Qwen에게 같은 사진과 질문을 보여 주고, 채팅하듯 정답을 글자로 직접 쓰게 하면 어떨까? 이 방식에서는 모델이 다음 토큰을 하나씩 생성해 답을 완성한다. 두 방식의 정확도와 시간을 같은 문제로 비교해 보자.</p>
 <p>먼저 기본 Qwen에 A–F 또는 NONE으로 답하라고 요청하고 생각 모드를 끈 채 최대 8토큰을 주었다. 일부 출력은 설명을 시작하다가 답을 끝내지 못했다. 토큰을 더 주거나 생각 모드를 켜면 결과가 달라질까?</p>
-<p><code>v2_test</code>에서 뽑은 <strong>96문제</strong>로 네 설정을 추가로 시험했다. 12개 작업 유형과 한국어·영어에서 각각 네 문제씩 고른 표본이며, 사진 파일 해시와 질문·정답이 앞선 비교와 일치한다. 생성형은 파인튜닝하지 않은 Qwen3.5-4B, decision model은 같은 기반 모델에서 추가 학습한 v2이다. 모두 RTX 4070 Ti SUPER에서 NF4 4bit/BF16으로 실행했다.</p>
+<p>같은 사진과 질문으로 비교하기 위해 <code>v2_test</code>에서 <strong>96문제</strong>를 골랐다. 12개 작업 유형을 한국어와 영어로 각각 네 문제씩 뽑았다. 처음 8토큰 실험과 뒤이어 살펴볼 네 설정 모두 같은 문제를 사용했다. 생성형은 파인튜닝하지 않은 Qwen3.5-4B, decision model은 같은 기반 모델에서 추가 학습한 v2이다. 모두 RTX 4070 Ti SUPER에서 NF4 4bit/BF16으로 실행했다.</p>
 <p>v2는 이 작업의 문장 틀과 조건 유형을 학습했다. 시험에는 학습에 쓰지 않은 사진을 사용했고, 하나의 사진판에 여러 질문을 붙였다.</p>
-<p>생성형에게 매번 같은 질문과 A–F 또는 NONE으로 답하라는 지시를 주고, 토큰 한도를 40과 120으로 바꾸었다. 각각 Qwen의 생각 모드를 끈 경우와 켠 경우를 실행했으며, 네 조건 모두 무작위 샘플링 없이 결정적으로 생성했다.</p>
+<p>생성형에게 매번 같은 질문과 A–F 또는 NONE으로 답하라는 지시를 주고, 토큰 한도를 40과 120으로 바꾸었다. 각각 생각 모드를 끄고 켜서 시험했다. 답변은 무작위로 고르지 않고, 매번 모델이 가장 높은 점수를 준 다음 토큰을 선택하도록 했다.</p>
 <table>
 <thead>
 <tr>
@@ -477,16 +449,16 @@
 </tr>
 </tbody>
 </table>
-<p>생각을 끈 상태에서는 40토큰과 120토큰 모두 96문제 중 30개를 맞혔다. <code>B</code>처럼 선택지만 답한 경우뿐 아니라 <code>정답: B</code>처럼 뜻이 분명한 답도 인정한 숫자다. 표의 ‘엄격 정답’은 A–F 또는 NONE만 출력한 경우를 센다.</p>
-<p>생각을 켜자 다른 일이 벌어졌다. 모델이 사진과 조건을 설명하며 생각을 이어 가는 동안 토큰을 모두 써 버린 것이다. <strong>40토큰과 120토큰 모두 96문제에서 최종 답이 나오지 않았다.</strong> 그래서 표에 0/96으로 표시된다. 생각 중에 언급한 선택지는 최종 답과 구분해, <code>&lt;/think&gt;</code> 뒤의 답변만 채점했다. 이 실험에서 토큰 한도는 단지 답변의 길이를 정하는 숫자가 아니라, 생각을 마치고 선택지를 내놓을 수 있는 시간표이기도 했다.</p>
-<p>속도는 모델을 미리 불러오고 세 문제로 준비 실행한 뒤 쟀다. 이미지 전처리부터 GPU 계산과 결과 변환까지 걸린 시간의 중앙값이다. 모델 로딩, 파일 읽기와 HTTP 통신은 측정에서 제외했다. 생성형이 긴 답을 쓸 때는 그 토큰을 만드는 시간도 포함된다.</p>
+<p>생각을 끈 상태에서는 40토큰과 120토큰 모두 96문제 중 30개를 맞혔다. <code>B</code>처럼 선택지만 답한 경우뿐 아니라 <code>정답: B</code>처럼 정답 표시를 붙인 답도 인정한 숫자다. 표의 ‘엄격 정답’은 선택지만 출력한 경우를 세며, 끝에 마침표가 붙어도 인정한다. ‘최종 답 미인식’은 처음 8토큰 실험에서는 엄격한 형식 기준으로 계산해 <code>정답: B</code>도 포함한 4개이고, 이후 실험에서는 그 형식을 허용한 기준이다.</p>
+<p>생각을 켜자 다른 일이 벌어졌다. 모델이 사진과 조건을 설명하며 생각을 이어 가는 동안 토큰을 모두 써 버린 것이다. <strong>40토큰과 120토큰 모두 96문제에서 최종 답이 나오지 않았다.</strong> 그래서 표에 0/96으로 표시된다. 생각 중에 언급한 선택지는 최종 답과 구분해, <code>&lt;/think&gt;</code> 뒤의 답변만 채점했다. 생각하는 데도 출력 토큰이 쓰이므로, 최종 답을 얻으려면 생각을 마칠 만큼의 토큰을 남겨 두어야 한다.</p>
+<p>속도는 모델을 미리 불러오고 세 문제로 준비 실행한 뒤 쟀다. 이미지 전처리부터 GPU 계산과 결과 변환까지 걸린 시간을 빠른 순서로 나열했을 때 가운데 값이다. 모델 로딩, 파일 읽기와 HTTP 통신은 측정에서 제외했다. 생성형이 긴 답을 쓸 때는 그 토큰을 만드는 시간도 포함된다.</p>
 <h3>그래서 언제 decision model이 유용할까?</h3>
 <p>내가 이 결과에서 주목하는 것은 <strong>판단의 목적이 정해져 있을 때, 큰 모델의 능력을 그 목적에 맞는 작은 출력으로 연결할 수 있다</strong>는 점이다. 이 실험에서 필요한 것은 사진에 대한 긴 설명이 아니라 A–F 또는 NONE 중 하나다. 선택 점수가 나오면 프로그램은 문장에서 답을 다시 찾아낼 필요 없이 바로 다음 동작으로 넘길 수 있고, 일곱 선택지의 점수도 함께 살펴볼 수 있다.</p>
 <p>같은 96문제에서 추가 학습한 decision model은 93개를 맞혔고 중앙 시간은 157.1ms였다. 생각을 끈 기본 Qwen은 <code>정답: B</code> 같은 답도 인정하면 30개를 맞혔고, 40토큰 설정의 중앙 시간은 243.7ms였다. 이 측정에서는 decision model이 약 1.55배 빨랐다. 기본 Qwen을 그대로 사용하는 경우와 이 작업에 맞춰 학습한 모델을 사용하는 경우를 나란히 놓고 얻은 결과다.</p>
 <p>학습 비용도 이 방식의 매력이다. 사진과 언어를 이미 배운 Qwen을 기반으로, 전체 논리 파라미터의 약 1.40%에 해당하는 LoRA와 head를 학습했다. v1을 만든 뒤 v2에서 필요한 표현과 조건을 보강하는 데 이 컴퓨터의 GPU 한 장으로 148.1분이 걸렸다. 이 시간은 v2의 추가 학습 시간이고, 그 전에 v1 학습 135.7분과 데이터 제작·평가도 필요했다. 그래도 새 작업에 맞는 예제를 마련해 기존 모델을 비교적 짧은 시간에 적응시킬 수 있다는 점은 실용적이다.</p>
 <p>물론 모든 질문에 고정된 선택지가 있는 것은 아니다. 설명을 듣거나 예상하지 못한 질문을 주고받는다면 생성형 모델이 더 자연스럽다. 반대로 로봇이 집을 물건이나 화면에서 누를 위치처럼 <strong>가능한 행동이 정해진 문제</strong>라면, 내가 원하는 판단을 예제로 가르치고 선택 결과를 바로 받는 decision model을 고려해 볼 만하다. 이번 실험은 그 가능성을 작은 사진 선택 문제에서 확인한 첫걸음이다.</p>
 <p><a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/generative-comparison/thinking-0-tokens-40.json">생각 끔 · 40토큰</a> · <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/generative-comparison/thinking-1-tokens-40.json">생각 켬 · 40토큰</a> · <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/generative-comparison/thinking-0-tokens-120.json">생각 끔 · 120토큰</a> · <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/generative-comparison/thinking-1-tokens-120.json">생각 켬 · 120토큰</a> · <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/generative-comparison/reasoning-summary.json">비교 요약</a> · <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/compare_reasoning_modes.py">평가 코드</a> · <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/generative-comparison/generative.json">기존 8토큰 출력</a>.</p>
-<h2 id="section-12">11. 가중치의 출처와 다시 실행하기</h2>
+<h2 id="section-12">12. 가중치의 출처와 다시 실행하기</h2>
 <p>직접 실행할 때는 파일이 어디서 오는지 알아 두면 편하다. 기본 Qwen 모델은 Hugging Face에서, 학습한 LoRA·head와 보정값은 이 프로젝트의 GitHub Release에서 받는다. 사진은 Stanford의 Tiny ImageNet에서 따로 받는다.</p>
 <p>첫 실행 후 빨라지는 것은 저장된 기본 모델과 학습 가중치를 다시 사용하기 때문이다. 실행할 때마다 학습을 다시 하는 구조가 아니다.</p>
 <table>
@@ -523,9 +495,9 @@ python app.py --checkpoint weights-v2 --device cpu
 </code></pre>
 <p>Python 3.11 또는 3.12의 가상환경에서 실행한다. NVIDIA CUDA에서는 해당 환경에 맞는 PyTorch와 bitsandbytes를 설치한 뒤 <code>--device cuda</code>를 사용한다. 브라우저 주소는 <code>http://127.0.0.1:7861</code>이다. 자세한 설치·학습 재현 명령은 <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/README.md">README</a>와 <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/V2_TRAINING.md">v2 학습 기록</a>에 있다.</p>
 <p>CPU/MPS 경로는 float32 모델을 사용하므로 기본 모델 자체만 약 18.3 GB가 필요하다. 사용자가 제공한 위 화면에는 MPS 실행 사례가 보인다. 다만 실제 Mac의 기종별 메모리와 속도는 별도로 측정하지 않았으므로, 16 GB Mac에서 필요한 여유 공간은 직접 확인해야 한다.</p>
-<h2 id="section-13">12. 코드와 기록을 남기는 기준</h2>
-<p>이 글의 숫자를 직접 따라가 보고 싶다면 아래 실험 자료에서 데이터 집계, 학습 설정, loss, 검증 추이와 실제 예측을 확인할 수 있다. 학습 중 기록은 저장된 간격의 loss와 검증 결과까지이며, 모든 microbatch의 사진과 예측이 남아 있지는 않다.</p>
-<p>본문은 이해를 위한 설명이고, 수치의 근거는 기계 판독 가능한 JSON과 실제 로그이다. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/v2/INDEX.md">실험 자료 안내</a>에는 설정·학습 추이·전체 예측·중간 평가·실패 사례·환경·가중치·검사 기록을 연결하였다. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/tree/main/docs/v2/logs">콘솔 로그와 실행별 기록</a>, <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/v2/logs/manifest.json">공개 파일과 원본의 hash manifest</a>, <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/v2/INSTALL_CHECK.md">공개 다운로드·앱 검사</a>도 함께 제공한다. 기록에서는 개인 홈 경로와 터미널 제어문자만 정리하고 수치를 보존하였다.</p>
+<h2 id="section-13">13. 실험 기록 살펴보기</h2>
+<p>이 글의 숫자를 직접 따라가 보고 싶다면 아래 실험 자료에서 데이터 집계, 학습 설정, loss, 검증 추이와 실제 예측을 확인할 수 있다. 학습 중에는 일정 간격의 손실과 검증 결과를 기록했다.</p>
+<p>본문의 수치를 직접 확인할 수 있도록 JSON과 실행 로그를 함께 공개했다. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/v2/INDEX.md">실험 자료 안내</a>에는 설정·학습 추이·전체 예측·중간 평가·실패 사례·환경·가중치·검사 기록을 연결하였다. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/tree/main/docs/v2/logs">콘솔 로그와 실행별 기록</a>, <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/v2/logs/manifest.json">공개 파일과 원본의 hash manifest</a>, <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/v2/INSTALL_CHECK.md">공개 다운로드·앱 검사</a>도 함께 제공한다. 기록에서는 개인 홈 경로와 터미널 제어문자만 정리하고 수치를 보존하였다.</p>
 <p>이 사례에서 확인하려는 실용적인 교훈은 이미 학습된 VLM에 원하는 판단 작업을 명확한 데이터로 가르치는 방법이다. 표현과 조건의 범위를 정하고, 일관된 정답을 만들고, 같은 평가 문제의 전후 변화와 실패까지 확인해야 적응 효과를 설명할 수 있다.</p>
 <p>참고: <a href="https://huggingface.co/Qwen/Qwen3.5-4B">Qwen3.5-4B</a>, <a href="https://arxiv.org/abs/2106.09685">LoRA 논문</a>, <a href="https://arxiv.org/abs/2103.00020">CLIP 논문</a>, <a href="https://huggingface.co/Cloudflare/clef">Clef</a>, <a href="https://gisbi-kim.github.io/jev-mnist-tutorial/">이전 MNIST 튜토리얼</a>.</p>
 <footer>그림과 표는 저장된 실제 실험 결과에서 생성했습니다. 원본 설정·예측·로그는 본문의 GitHub 링크에서 확인할 수 있습니다.</footer></article></main></body></html>

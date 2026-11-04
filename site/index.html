@@ -71,7 +71,7 @@
 <h2 id="section-5">5. 처음 학습한 모델을 여러 방식으로 시험해 보자</h2>
 <p>첫 학습은 RTX 4070 Ti SUPER에서 135.7분 동안 진행했다. 학습 예제 31,360개를 사용해 batch 8로 4,400 step을 실행했고, 별도의 검증 문제에서 가장 좋았던 2,400 step 가중치를 골랐다. 이후 비교하기 쉽도록 이 첫 모델을 <strong>v1</strong>이라고 부르자. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/TRAINING.md">학습 설정과 기록</a>.</p>
 <p>먼저 학습에서 보지 않은 사진으로, 배운 유형의 문제를 풀렸다. 1,120문제에서 **93.48%**를 맞혔다. 사진을 바꿔도 이 범위의 문제는 대체로 풀 수 있다는 결과이다. 그렇다면 같은 뜻을 다른 말로 물어도 괜찮을까? 또 배운 조건들을 새로운 순서로 엮으면 어떨까?</p>
-<p>이를 보려고 일부 문장 틀과 두 조건 조합을 학습에서 보류해 두었다. 가령 “고양이 왼쪽 사진”을 배운 뒤 “고를 사진 오른쪽에 고양이가 있어야 한다”고 묻는다. 또는 같은 행에서 범주를 찾는 조건과 한 칸 이동하는 조건을 이어 붙인다. 아래 세 시험 모두 사진도 학습에 쓰지 않은 사진이며, 항목마다 1,120문제이다.</p>
+<p>이를 시험하려고 같은 뜻을 다른 문장 구조로 표현한 질문과 여러 조건을 결합한 질문을 만들었다. 처음 모델은 이 문장 틀과 두 조건 조합을 학습하지 않았다. 가령 “고양이 왼쪽 사진”을 배운 뒤 “고를 사진 오른쪽에 고양이가 있어야 한다”고 묻는다. 또는 같은 행에서 범주를 찾는 조건과 한 칸 이동하는 조건을 이어 붙인다. 아래 세 시험 모두 사진도 학습에 쓰지 않은 사진이며, 항목마다 1,120문제이다.</p>
 <table>
 <thead>
 <tr>
@@ -81,15 +81,15 @@
 </thead>
 <tbody>
 <tr>
-<td>새 사진 + 보류한 표현</td>
+<td>새 사진 + 같은 뜻을 바꿔 쓴 표현</td>
 <td style="text-align:right">79.29%</td>
 </tr>
 <tr>
-<td>새 사진 + 보류한 조건 조합</td>
+<td>새 사진 + 새로운 조건 조합</td>
 <td style="text-align:right">67.77%</td>
 </tr>
 <tr>
-<td>새 사진 + 보류한 표현과 조합</td>
+<td>새 사진 + 바꿔 쓴 표현과 새로운 조건 조합</td>
 <td style="text-align:right">54.82%</td>
 </tr>
 </tbody>
@@ -195,26 +195,26 @@
 </thead>
 <tbody>
 <tr>
-<td>새 사진 + v1에서 보류했던 표현</td>
+<td>새 사진 + 같은 뜻을 바꿔 쓴 표현</td>
 <td style="text-align:right">79.29%</td>
 <td style="text-align:right"><strong>95.71%</strong></td>
 <td style="text-align:right"><strong>+16.43%p</strong></td>
 </tr>
 <tr>
-<td>새 사진 + v1에서 보류했던 조건 조합</td>
+<td>새 사진 + 새로운 조건 조합</td>
 <td style="text-align:right">67.77%</td>
 <td style="text-align:right"><strong>95.71%</strong></td>
 <td style="text-align:right"><strong>+27.95%p</strong></td>
 </tr>
 <tr>
-<td>새 사진 + v1에서 보류했던 표현·조합</td>
+<td>새 사진 + 바꿔 쓴 표현과 새로운 조건 조합</td>
 <td style="text-align:right">54.82%</td>
 <td style="text-align:right"><strong>95.62%</strong></td>
 <td style="text-align:right"><strong>+40.80%p</strong></td>
 </tr>
 </tbody>
 </table>
-<p>세 항목 모두 약 95.6~95.7%까지 올랐다. 학습에서 보류했던 표현과 조합을 이번에는 가르쳤고, 사진은 계속 학습에 쓰지 않은 사진을 사용했다. 따라서 이 표는 보강한 유형을 새 사진에 적용했을 때의 변화로 읽으면 된다.</p>
+<p>세 항목 모두 약 95.6~95.7%까지 올랐다. 처음 모델이 배우지 않았던 바꿔 쓴 표현과 새로운 조건 조합을 이번에는 학습에 넣었고, 사진은 계속 학습에 쓰지 않은 사진을 사용했다. 따라서 이 표는 보강한 유형을 새 사진에 적용했을 때의 변화로 읽으면 된다.</p>
 <p><img src="assets/original-suite-comparison.svg" alt="기존 세 평가 항목의 동일 문제에서 계산한 v1과 v2 정확도" loading="lazy" /></p>
 <p>세 항목은 각각 같은 1,120개 문제를 사용하며, 전체 예측의 사진 ID·문장·정답이 일치하는지 코드로 검사하였다. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/v2/original-suite-comparison.json">기존 문제 전후 비교 JSON</a>과 <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/tree/main/results/v2/finetuned">문제별 실제 예측</a>에서 확인할 수 있다.</p>
 <p>별도로 모든 유형을 균형 있게 포함한 v2_test 2,016문제에서는 v1 <strong>84.52% → v2 95.78%</strong> 결과를 보였다. 한국어는 84.33% → 95.63%, 영어는 84.72% → 95.93%였다. 이 집계는 위의 세 항목과 다른 문제 집합이다. 서로 다른 표의 전후 점수를 섞어서 개선 폭을 계산하지 않는다. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/v2/comparison.json">동일 2,016문제 비교</a>.</p>

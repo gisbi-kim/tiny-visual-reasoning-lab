@@ -2,7 +2,7 @@
 
 Tiny ImageNet 사진 여섯 장과 한국어·영어 지시를 읽고 **A–F 또는 NONE**을 선택하는 로컬 실험입니다. 기존 MNIST 프로젝트와 별개의 코드·데이터·가중치를 사용합니다.
 
-[블로그: v1에서 v2까지의 데이터 설계와 교훈](https://gisbi-kim.github.io/tiny-visual-reasoning-lab/) · [글 원문](docs/BLOG.md) · [전체 실험 자료·로그 안내](docs/v2/INDEX.md) · [공개 v2 다운로드·앱 검사](docs/v2/INSTALL_CHECK.md)
+[블로그: v1에서 v2까지의 데이터 설계와 교훈](https://gisbi-kim.github.io/tiny-visual-reasoning-lab/) · [글 원문](docs/BLOG.md) · [전체 실험 자료·로그 안내](docs/v2/INDEX.md) · [공개 v2 다운로드·앱 검사](docs/v2/INSTALL_CHECK.md) · [전체 시험 문제와 사진 배치](docs/v2/TEST_CASES.md)
 
 같은 96문제에서 기본 생성형 Qwen과 v2 decision model을 비교한 [측정 요약](results/generative-comparison/summary.json)과 [실험 코드](compare_generation.py)를 공개합니다. 모델에 추가 학습한 범위와 출력 방식이 함께 다르며, 생성형 결과는 지시문과 출력 토큰 제한의 영향을 받습니다.
 

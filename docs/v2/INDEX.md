@@ -8,6 +8,7 @@
 | 새로 구성한 동일 2,016문제의 v1→v2 | [comparison.json](../../results/v2/comparison.json) |
 | 조건·언어·선택지별 정확도, 혼동행렬, NONE, 확률·지연 통계 | [finetuned/report.json](../../results/v2/finetuned/report.json) |
 | 각 문제의 사진 ID·지시·정답·실제 예측 | [전체 평가 결과 폴더](../../results/v2/finetuned/) |
+| 시험 전체: A–F 사진 배치와 v1·v2 예측 파일 안내 | [TEST_CASES.md](TEST_CASES.md) |
 | 순서상 처음 나온 실패 사례 | [failure-examples.json](../../results/v2/failure-examples.json) |
 | 학습 데이터 구성·분할·의미 정의 | [V2_DATA_CARD.md](../V2_DATA_CARD.md), [v2-data-summary.json](../v2-data-summary.json), [catalog.json](../catalog.json) |
 | 원본 사진 선별·작은 대상·정확 중복 필터 | [curation.json](../curation.json), [source-quality.json](../source-quality.json) |

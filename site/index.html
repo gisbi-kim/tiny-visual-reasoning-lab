@@ -755,7 +755,388 @@ print(answers[&quot;next_action&quot;][&quot;answer&quot;])
 <p>예를 들어 <code>&quot;priority&quot;: {&quot;type&quot;: &quot;score&quot;, &quot;instructions&quot;: &quot;처리 우선순위는?&quot;, &quot;criteria&quot;: [&quot;낮음&quot;, &quot;보통&quot;, &quot;높음&quot;]}</code>처럼 정의할 수 있다. 질문을 더 만들고 싶다면 <code>questions</code> 안에 이름과 정의를 추가하면 된다.</p>
 <p>반환값은 질문 이름을 키로 하는 딕셔너리다. <code>choice</code>의 결과에는 선택한 <code>choice</code>, 그 선택의 <code>confidence</code>, 선택지별 <code>probabilities</code>와 편하게 꺼낼 수 있는 <code>answer</code>가 들어간다. <code>noul</code>은 참일 확률을 <code>noul</code>에, 최종 참·거짓을 <code>answer</code>에 담는다. <code>score</code>에서는 단계별 확률과 설명을 볼 수 있고, <code>score</code>는 단계 번호의 확률 가중 평균, <code>answer</code>는 가장 가능성 높은 단계 번호다. 이 실험의 A–F 문제는 세 종류 중 <code>choice</code>를 사용했다.</p>
 <p><code>state</code>와 <code>questions</code>는 역할이 다르다. <code>state</code>는 <strong>지금 무슨 상황인가</strong>, <code>questions</code>는 <strong>그 상황에 대해 무엇을 어떤 답의 형식으로 물을 것인가</strong>를 담는다. 앞에서 본 사진 앱은 이 구분을 이용해 자연어 지시와 일곱 선택지를 모델에 함께 전달한 것이다.</p>
-<h3>12.5 앱에서는 어떻게 실행할까?</h3>
+<h3 id="decision-training-reference">12.5 Decision 모델을 학습할 때는 무엇을 넣을까?</h3>
+<p>앞에서 <code>predict()</code>에 상황과 질문을 전달했다. 학습할 때도 입력은 같은 모양이다. 여기에 <strong>그 상황에서 정답이 무엇인지</strong>를 하나 더 넣어 주면 된다.</p>
+<pre><code class="language-text">학습: 상황(state) + 질문(questions) + 정답(gold) → 모델을 업데이트
+추론: 상황(state) + 질문(questions)              → 모델이 답을 선택
+</code></pre>
+<p>사진판에만 적용되는 형식은 아니다. 이번에는 사진 없이 배송 문의의 처리 방법을 고르는 작은 예제로, 데이터가 모델 학습을 거쳐 추론까지 이어지는 모습을 살펴보자. 아래 코드는 Unsloth <strong>2026.10.10</strong>, Transformers <strong>5.17.0</strong>, Windows·NVIDIA CUDA 환경을 기준으로 한다. <a href="https://github.com/unslothai/unsloth/blob/main/unsloth/models/decision.py">Unsloth Decision 모델 구현</a>.</p>
+<h4>1. 학습 데이터 한 행 만들기</h4>
+<p>주문이 아직 발송 전이고 새 주소를 받았다면 배송지를 수정한다고 가정하자. 아래는 실제 예제 파일의 첫 번째 학습 행이다.</p>
+<pre><code class="language-json">{
+  &quot;state&quot;: &quot;주문은 발송 전이고 새 배송지가 확인되었다.&quot;,
+  &quot;questions&quot;: {
+    &quot;next_action&quot;: {
+      &quot;type&quot;: &quot;choice&quot;,
+      &quot;instructions&quot;: &quot;주문을 어떻게 처리할까요?&quot;,
+      &quot;criteria&quot;: {
+        &quot;update&quot;: &quot;배송지를 수정한다.&quot;,
+        &quot;contact&quot;: &quot;구매자에게 필요한 정보를 확인한다.&quot;,
+        &quot;leave&quot;: &quot;주문을 변경하지 않는다.&quot;
+      }
+    }
+  },
+  &quot;gold&quot;: {
+    &quot;next_action&quot;: &quot;update&quot;
+  }
+}
+</code></pre>
+<p><code>state</code>는 모델이 판단할 상황이다. <code>questions</code>는 질문의 이름, 형식과 선택지 설명이다. <code>gold</code>는 그 질문의 정답이다. 여기서는 질문 이름이 <code>next_action</code>이고, 정답 <code>update</code>가 <code>criteria</code>에 있는 선택지 이름과 일치한다. 사진 예제에서는 <code>state</code>에 자연어 지시를, <code>questions</code>에 A–F와 NONE을, <code>gold</code>에 정답 칸을 넣었다.</p>
+<p>파일은 한 줄에 JSON 객체 하나씩 저장하는 <strong>JSONL</strong> 형식이다. 위 객체는 읽기 쉽도록 여러 줄로 펼쳐 썼다. 서로 다른 상황에 같은 질문을 붙이고, 각 상황에 맞는 정답을 지정한다. 질문이 여러 개면 <code>questions</code>와 <code>gold</code>에 같은 이름의 항목을 각각 넣는다.</p>
+<p>이 예제는 학습 6행과 별도 검증 3행을 사용한다. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/examples/order_decision/train.jsonl">전체 학습 데이터</a> · <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/examples/order_decision/validation.jsonl">검증 데이터</a>. 두 파일은 API 사용 순서를 살펴보는 작은 예제다.</p>
+<h4>2. 모델과 학습 데이터를 준비하기</h4>
+<p>먼저 데이터를 읽고 기반 모델에 새 decision head와 LoRA를 준비한다. 이어서 <code>build_dataset()</code>이 JSON 행을 모델이 학습할 수 있는 형태로 바꾼다. 아래에는 핵심 코드를 순서대로 나눠 적었다. 바로 실행하려면 <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/examples/order_decision/train.py">전체 학습 파일</a>을 사용하면 된다.</p>
+<pre><code class="language-python">import json
+import os
+from pathlib import Path
+
+os.environ.setdefault(&quot;UNSLOTH_COMPILE_DISABLE&quot;, &quot;1&quot;)
+from unsloth import FastDecisionModel, DecisionTrainer
+import torch
+from transformers import TrainingArguments
+
+data_dir = Path(&quot;examples/order_decision&quot;)
+output_dir = Path(&quot;.cache/order-decision-tutorial&quot;)
+checkpoint = output_dir / &quot;model&quot;
+
+def read_jsonl(path):
+    with path.open(encoding=&quot;utf-8&quot;) as file:
+        return [json.loads(line) for line in file if line.strip()]
+
+train_rows = read_jsonl(data_dir / &quot;train.jsonl&quot;)
+validation_rows = read_jsonl(data_dir / &quot;validation.jsonl&quot;)
+</code></pre>
+<pre><code class="language-python">model, processor = FastDecisionModel.from_pretrained(
+    model_name='Qwen/Qwen3.5-4B',
+    revision='851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a',
+    decision_head='clef',
+    max_seq_length=1024,
+    load_in_4bit=True,
+    dtype=torch.bfloat16,
+)
+model = FastDecisionModel.get_peft_model(
+    model, r=16, lora_alpha=16, lora_dropout=0,
+    use_gradient_checkpointing='unsloth', random_state=3407,
+)
+</code></pre>
+<p>여기서는 사진 실험의 v2 가중치가 아닌 <strong>기본 Qwen3.5-4B</strong>에서 출발한다. <code>decision_head=&quot;clef&quot;</code>로 새 head를 만들고, <code>get_peft_model()</code>로 LoRA를 붙인다. 이미 LoRA가 들어 있는 체크포인트를 이어서 학습할 때는 새로운 LoRA를 또 붙이는 대신 저장된 것을 이어서 사용해야 한다.</p>
+<p>이 코드에서 LoRA를 붙일 때 사용한 인자도 살펴보자.</p>
+<table>
+<thead>
+<tr>
+<th><code>get_peft_model()</code> 인자</th>
+<th>역할</th>
+<th>이 예제</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>model</code></td>
+<td>LoRA를 붙일 decision model</td>
+<td>방금 불러온 <code>model</code></td>
+</tr>
+<tr>
+<td><code>r</code></td>
+<td>LoRA 행렬의 rank. 학습할 파라미터 수와 표현할 변화의 폭에 관여한다.</td>
+<td><code>16</code></td>
+</tr>
+<tr>
+<td><code>lora_alpha</code></td>
+<td>LoRA 변화량의 배율을 정하는 값</td>
+<td><code>16</code></td>
+</tr>
+<tr>
+<td><code>lora_dropout</code></td>
+<td>LoRA 학습 시 적용할 dropout 비율</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>use_gradient_checkpointing</code></td>
+<td>학습 중 메모리를 아끼기 위한 설정</td>
+<td><code>&quot;unsloth&quot;</code></td>
+</tr>
+<tr>
+<td><code>random_state</code></td>
+<td>초기화 등에 사용할 난수 시드</td>
+<td><code>3407</code></td>
+</tr>
+</tbody>
+</table>
+<p><code>from_pretrained()</code>의 <code>model_name</code>, <code>dtype</code>, <code>load_in_4bit</code> 등은 바로 앞 12.4절의 인자 표에서 다뤘다.</p>
+<pre><code class="language-python">train_items, train_report = FastDecisionModel.build_dataset(train_rows, processor, model)
+valid_items, valid_report = FastDecisionModel.build_dataset(validation_rows, processor, model)
+print('학습 데이터 검사:', train_report)
+print('검증 데이터 검사:', valid_report)
+for report in (train_report, valid_report):
+    if report['skipped'] or report['truncated']:
+        raise ValueError(f'데이터를 확인해 주세요: {report}')
+</code></pre>
+<p><code>FastDecisionModel.build_dataset(rows, tokenizer, model, validate=None)</code>의 인자는 다음과 같다.</p>
+<table>
+<thead>
+<tr>
+<th>인자</th>
+<th>역할</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>rows</code></td>
+<td><code>state</code>, <code>questions</code>, <code>gold</code>가 담긴 학습 또는 검증 행들</td>
+</tr>
+<tr>
+<td><code>tokenizer</code></td>
+<td>모델을 불러올 때 받은 tokenizer. 이미지가 있는 모델은 processor를 전달한다.</td>
+</tr>
+<tr>
+<td><code>model</code></td>
+<td>입력 길이와 모델 종류를 확인할 decision model</td>
+</tr>
+<tr>
+<td><code>validate</code></td>
+<td>선택 사항. 질문 이름과 정의를 받아 추가 검사를 하는 함수</td>
+</tr>
+</tbody>
+</table>
+<p>반환값은 <code>(items, report)</code>다. <code>items</code>가 학습기에 들어갈 데이터이고, <code>report</code>에는 처리한 질문 수, 건너뛴 항목과 길이 초과 여부가 담긴다. 한 행에 질문이 여러 개면 <code>total</code>은 행 수가 아니라 질문 수로 늘어날 수 있다. 이 예제에서는 잘못 건너뛴 항목이나 잘린 입력이 있으면 학습 전에 확인하도록 했다.</p>
+<h4>3. <code>DecisionTrainer</code>로 학습하기</h4>
+<pre><code class="language-python">training_args = TrainingArguments(
+    output_dir=str(output_dir / 'trainer'),
+    per_device_train_batch_size=2,
+    gradient_accumulation_steps=1,
+    max_steps=2,  # 실행 흐름을 확인하기 위한 짧은 시연
+    learning_rate=0.0002,
+    bf16=True,
+    logging_steps=1,
+    save_strategy='no',
+    eval_strategy='no',
+    optim='adamw_torch',
+    dataloader_num_workers=0,
+    dataloader_pin_memory=False,
+    report_to='none',
+    seed=3407,
+)
+FastDecisionModel.for_training(model)
+trainer = DecisionTrainer(
+    model=model,
+    args=training_args,
+    processing_class=processor,
+    train_dataset=train_items,
+    eval_dataset=valid_items,
+    head_learning_rate=0.00005,
+)
+trainer.train()
+</code></pre>
+<p><code>DecisionTrainer</code>에 전달한 인자는 다음과 같다.</p>
+<table>
+<thead>
+<tr>
+<th>인자</th>
+<th>역할</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>model</code></td>
+<td>학습할 decision model</td>
+</tr>
+<tr>
+<td><code>args</code></td>
+<td>배치 크기와 학습률 등이 담긴 <code>TrainingArguments</code></td>
+</tr>
+<tr>
+<td><code>processing_class</code></td>
+<td>모델 입력을 처리하는 tokenizer 또는 processor</td>
+</tr>
+<tr>
+<td><code>train_dataset</code></td>
+<td><code>build_dataset()</code>으로 변환한 학습 데이터</td>
+</tr>
+<tr>
+<td><code>eval_dataset</code></td>
+<td>같은 방식으로 변환한 검증 데이터</td>
+</tr>
+<tr>
+<td><code>head_learning_rate</code></td>
+<td>선택용 head에 따로 적용할 학습률</td>
+</tr>
+</tbody>
+</table>
+<p>여기서는 LoRA 쪽 <code>learning_rate</code>를 <code>0.0002</code>, head는 <code>0.00005</code>로 설정했다. 이 버전에서는 <code>head_learning_rate</code>를 생략하면 head에 <code>0.0001</code>을 사용한다. <code>trainer.train()</code>을 호출하면 학습이 시작된다.</p>
+<p><code>DecisionTrainer</code>에는 필요할 때 사용할 추가 인자도 있다. 이 예제에서는 지정하지 않았다.</p>
+<table>
+<thead>
+<tr>
+<th>선택 인자</th>
+<th>역할</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>tokenizer</code></td>
+<td><code>processing_class</code> 대신 tokenizer 또는 processor를 전달할 때 쓴다.</td>
+</tr>
+<tr>
+<td><code>label_smoothing</code></td>
+<td>정답에 모든 가중치를 몰아주지 않고 일부를 다른 선택지로 나누는 설정이다.</td>
+</tr>
+<tr>
+<td><code>brier_weight</code></td>
+<td>선택지 확률과 정답의 차이를 다루는 손실 항의 가중치다.</td>
+</tr>
+<tr>
+<td><code>ordinal_weight</code></td>
+<td><code>score</code> 유형에서 선택한 단계와 정답 단계 사이의 거리를 반영하는 손실 항의 가중치다.</td>
+</tr>
+<tr>
+<td><code>kl_weight</code></td>
+<td>LoRA를 끈 기반 모델과 학습 시작 시점 head의 출력을 기준으로, 출력 분포의 차이를 줄이는 항의 가중치다. 이 버전에서는 Clef와 LoRA 조합에 적용한다.</td>
+</tr>
+<tr>
+<td><code>permute_fields</code></td>
+<td>한 행에 질문이 여러 개일 때 학습 중 질문 순서를 섞을지 정한다.</td>
+</tr>
+<tr>
+<td><code>callbacks</code></td>
+<td>학습 중 특정 step에서 검사하거나 기록하는 사용자 정의 동작을 전달한다.</td>
+</tr>
+<tr>
+<td><code>data_collator</code></td>
+<td>예제들을 묶어 배치를 만드는 함수를 직접 지정한다. 생략하면 모델 종류에 맞는 collator를 사용한다.</td>
+</tr>
+</tbody>
+</table>
+<p><code>TrainingArguments</code>의 주요 설정은 다음과 같다. <a href="https://huggingface.co/docs/transformers/main_classes/trainer#transformers.TrainingArguments">Hugging Face의 TrainingArguments 설명</a>.</p>
+<table>
+<thead>
+<tr>
+<th>설정</th>
+<th>의미</th>
+<th>이 예제</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>output_dir</code></td>
+<td>학습 중 기록을 둘 폴더</td>
+<td>지정한 출력 폴더 아래 <code>trainer</code></td>
+</tr>
+<tr>
+<td><code>per_device_train_batch_size</code></td>
+<td>장치 하나가 한 번에 처리할 예제 수</td>
+<td><code>2</code></td>
+</tr>
+<tr>
+<td><code>gradient_accumulation_steps</code></td>
+<td>몇 번의 계산 결과를 모아 가중치를 한 번 갱신할지</td>
+<td><code>1</code></td>
+</tr>
+<tr>
+<td><code>max_steps</code></td>
+<td>가중치를 갱신하는 횟수. 양수면 <code>num_train_epochs</code>보다 우선한다.</td>
+<td><code>2</code></td>
+</tr>
+<tr>
+<td><code>learning_rate</code></td>
+<td>학습 가능한 기반 모델 쪽 파라미터의 학습률</td>
+<td><code>0.0002</code></td>
+</tr>
+<tr>
+<td><code>bf16</code></td>
+<td>지원 장치에서 bfloat16 연산을 쓸지</td>
+<td><code>True</code></td>
+</tr>
+<tr>
+<td><code>logging_steps</code></td>
+<td>학습 상태를 기록할 간격</td>
+<td>매 <code>1</code> step</td>
+</tr>
+<tr>
+<td><code>save_strategy</code>, <code>eval_strategy</code></td>
+<td>학습 중 자동 저장과 자동 평가의 시점</td>
+<td>둘 다 <code>&quot;no&quot;</code>; 아래에서 직접 검증·저장</td>
+</tr>
+<tr>
+<td><code>report_to</code></td>
+<td>외부 실험 추적 서비스로 기록을 보낼지</td>
+<td><code>&quot;none&quot;</code></td>
+</tr>
+</tbody>
+</table>
+<p>이 숫자들은 API의 기본값이 아니라 <strong>이 예제에서 직접 지정한 값</strong>이다. GPU 한 장에서 한 번에 2개씩, 누적 없이 2 step을 실행하므로 총 4회의 예제 제시가 이뤄진다. 여섯 행 전체를 반복 학습해 성능을 만들려는 설정이 아니라, 데이터 → 학습 → 저장 순서를 확인하는 설정이다.</p>
+<h4>4. 검증하고 저장한 뒤 다시 불러오기</h4>
+<pre><code class="language-python">FastDecisionModel.for_inference(model)
+print('검증 결과:', FastDecisionModel.evaluate(model, processor, valid_items))
+model.save_pretrained(str(checkpoint))
+processor.save_pretrained(str(checkpoint))
+</code></pre>
+<p>여기서는 자동 평가를 껐기 때문에 <code>FastDecisionModel.evaluate()</code>를 직접 호출해 별도 검증 행으로 정확도를 계산한다. 그다음 <code>model.save_pretrained()</code>로 학습 결과를, <code>processor.save_pretrained()</code>로 입력 처리에 필요한 파일을 저장한다. 이 LoRA 예제의 저장 폴더에는 어댑터와 decision head가 들어가고, 기반 Qwen 가중치는 별도로 불러온다.</p>
+<p><code>evaluate(model, tokenizer, items, batch_size=None)</code>에는 모델, 입력을 처리할 tokenizer 또는 processor, <code>build_dataset()</code>이 만든 검증 항목을 넣는다. <code>batch_size</code>는 한 번에 평가할 항목 수를 선택적으로 지정한다. 반환된 결과에서 <code>accuracy</code>와 <code>loss</code> 등을 확인할 수 있다.</p>
+<p>이제 새 프로세스에서 저장 폴더를 <code>from_pretrained()</code>에 넘기고, 학습에 쓰지 않은 상황과 같은 형식의 질문으로 추론한다. <strong>추론 호출에는 <code>gold</code>를 전달하지 않는다.</strong> 아래는 <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/examples/order_decision/predict.py">별도 추론 파일</a> 전체다.</p>
+<pre><code class="language-python">&quot;&quot;&quot;저장한 모델을 다시 읽고 검증 예제의 상황과 질문으로 추론한다.&quot;&quot;&quot;
+import argparse
+import json
+import os
+from pathlib import Path
+
+os.environ.setdefault('UNSLOTH_COMPILE_DISABLE', '1')
+
+from unsloth import FastDecisionModel
+import torch
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--output-dir', default='.cache/order-decision-tutorial')
+    args = parser.parse_args()
+    checkpoint = Path(args.output_dir) / 'model'
+
+    data_path = Path(__file__).resolve().parent / 'validation.jsonl'
+    with data_path.open(encoding='utf-8') as file:
+        example = json.loads(next(file))
+
+    model, processor = FastDecisionModel.from_pretrained(
+        str(checkpoint), load_in_4bit=True, dtype=torch.bfloat16
+    )
+    FastDecisionModel.for_inference(model)
+    answers = FastDecisionModel.predict(
+        model, processor, example['state'], example['questions']
+    )
+    print('상황:', example['state'])
+    print('모델 선택:', answers['next_action']['answer'])
+    print('선택지별 확률:', answers['next_action']['probabilities'])
+
+
+if __name__ == '__main__':
+    main()
+</code></pre>
+<p>전체 예제는 저장소 폴더에서 다음처럼 실행한다. 앞 절의 학습용 의존성과 CUDA용 PyTorch가 준비돼 있어야 한다. 기본 모델은 처음 사용할 때 내려받는다.</p>
+<pre><code class="language-bash">python examples/order_decision/train.py
+python examples/order_decision/predict.py
+</code></pre>
+<p>기본 저장 위치는 <code>.cache/order-decision-tutorial</code>이다. 같은 이름의 저장된 모델이 있으면 두 명령에 <code>--output-dir</code>로 다른 폴더를 지정할 수 있다. 실제로 이 컴퓨터에서 학습하고 저장하기 전 검증했을 때 <strong>3문제 중 정답은 0개</strong>였다. 저장 후 다시 읽은 모델도 첫 검증 문제에서 기대 답인 <code>update</code> 대신 <code>leave</code>를 골랐다. 2 step짜리 시연이므로, 실제 서비스를 만들 때는 충분한 예제를 준비하고 학습량과 별도 평가셋을 설계해야 한다. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/examples/order_decision/smoke-result.json">실행 검사 기록</a>.</p>
+<h4>이미지가 들어가는 학습 행은?</h4>
+<p>같은 구조에 <code>images</code>만 더하면 된다. 다음은 이미지 경로와 정답을 예시로 적은 Python 코드다. 실제 사진에 맞는 정답을 별도로 준비해 넣는다.</p>
+<pre><code class="language-python">from PIL import Image
+
+with Image.open(&quot;photos/parcel.jpg&quot;) as source:
+    photo = source.convert(&quot;RGB&quot;)
+
+row = {
+    &quot;state&quot;: &quot;택배 사진을 보고 겉면의 파손 여부를 확인한다.&quot;,
+    &quot;images&quot;: [photo],
+    &quot;questions&quot;: {
+        &quot;damaged&quot;: {
+            &quot;type&quot;: &quot;noul&quot;,
+            &quot;instructions&quot;: &quot;택배 상자가 파손되었는가?&quot;,
+        }
+    },
+    &quot;gold&quot;: {&quot;damaged&quot;: True},  # 이 예시 사진의 정답이라고 가정
+}
+items, report = FastDecisionModel.build_dataset([row], processor, model)
+</code></pre>
+<p>이때 <code>model</code>과 <code>processor</code>는 이미지를 처리할 수 있어야 한다. JSONL에 PIL 객체를 그대로 저장할 수는 없으므로 파일에는 이미지 경로를 적어 두고, 데이터를 읽을 때 이미지를 여는 방식으로 구성할 수 있다. 앞의 사진 실험도 사진판·지시·선택지·정답으로 학습하고, 추론할 때는 같은 사진판·지시·선택지만 전달했다. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/train.py">이 프로젝트의 실제 데이터 변환 코드</a>.</p>
+<h3>12.6 앱에서는 어떻게 실행할까?</h3>
 <p>공개 앱은 Mac의 MPS와 CPU에서도 실행할 수 있도록 Unsloth 대신 **Transformers·PEFT와 Clef head를 조합한 <code>DecisionEngine</code>**을 사용한다. 우리가 바로 위에서 본 Unsloth 추론은 학습·검증 코드에서 사용한 방식이고, 아래는 앱과 같은 방식을 직접 호출하는 예제다.</p>
 <pre><code class="language-python">&quot;&quot;&quot;로컬 앱과 같은 추론 엔진을 직접 호출한다.&quot;&quot;&quot;
 import json

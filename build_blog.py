@@ -25,6 +25,8 @@ def main():
             toc.append((anchor, tokens[index+1].content))
         elif token.type == 'heading_open' and token.tag == 'h3' and tokens[index+1].content.startswith('12.4 이 예제를 벗어나서:'):
             token.attrSet('id', 'decision-api-reference')
+        elif token.type == 'heading_open' and token.tag == 'h3' and tokens[index+1].content.startswith('12.5 Decision 모델을 학습할 때는'):
+            token.attrSet('id', 'decision-training-reference')
         for child in token.children or []:
             if child.type == 'image':
                 src = child.attrGet('src') or ''

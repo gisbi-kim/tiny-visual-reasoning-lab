@@ -1,0 +1,44 @@
+{
+  "purpose": "Two-step API and checkpoint reload smoke test; not a quality benchmark.",
+  "device": "NVIDIA GeForce RTX 4070 Ti SUPER",
+  "environment": {
+    "unsloth": "2026.10.10",
+    "transformers": "5.17.0",
+    "torch": "2.14.1+cu130"
+  },
+  "base_model": "Qwen/Qwen3.5-4B",
+  "base_revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+  "training": {
+    "train_rows": 6,
+    "validation_rows": 3,
+    "per_device_train_batch_size": 2,
+    "gradient_accumulation_steps": 1,
+    "optimizer_steps": 2,
+    "train_runtime_seconds": 1.594
+  },
+  "before_save_validation": {
+    "method": "FastDecisionModel.evaluate",
+    "accuracy": 0.0,
+    "loss": 1.1075357993443806,
+    "ece": 0.3608161509037018,
+    "record_accuracy": 0.0
+  },
+  "after_reload_first_validation": {
+    "state": "아직 출고 전이며 변경할 배송지 전체를 받았다.",
+    "gold": "update",
+    "answer": "leave",
+    "probabilities": {
+      "update": 0.358,
+      "contact": 0.2801,
+      "leave": 0.362
+    }
+  },
+  "source_sha256": {
+    "train.py": "b5c32fc3d1b93a41cf2f64da900388a9024b62edf58b0a51527f1bb189ae1ae3",
+    "predict.py": "5c9534866dca7f0854da56f878977b5d150d98d94d50d3c04f9b977a2769af36",
+    "train.jsonl": "063f55519162325ed10792105171619514dda57a20bcd9f987d92f0ed56f5a48",
+    "validation.jsonl": "7cda15d061ea4373b736bfce680aef963f7de1ad85fbdc8834480ea08a338fc9"
+  },
+  "note": "Validation accuracy was measured before saving; only the first validation row was predicted again in a separate process after loading.",
+  "source_hash_normalization": "UTF-8 text with line endings normalized to LF"
+}

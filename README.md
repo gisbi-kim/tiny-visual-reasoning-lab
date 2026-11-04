@@ -6,6 +6,8 @@ Tiny ImageNet 사진 여섯 장과 한국어·영어 지시를 읽고 **A–F �
 
 [사진부터 선택까지: 추론 코드 설명](https://gisbi-kim.github.io/tiny-visual-reasoning-lab/#section-12) · [Unsloth 예제](example_unsloth_inference.py) · [앱 추론 예제](example_app_inference.py)
 
+[Decision API 학습 데이터와 코드 설명](https://gisbi-kim.github.io/tiny-visual-reasoning-lab/#decision-training-reference) · [학습·검증·재로딩 예제](examples/order_decision/)
+
 같은 96문제에서 기본 생성형 Qwen과 v2 decision model을 비교한 [측정 요약](results/generative-comparison/summary.json)과 [실험 코드](compare_generation.py)를 공개합니다. 모델에 추가 학습한 범위와 출력 방식이 함께 다르며, 생성형 결과는 지시문과 출력 토큰 제한의 영향을 받습니다.
 
 생성형의 40·120토큰, 생각 모드 켬·끔 추가 비교는 [네 조건의 결과](results/generative-comparison/reasoning-summary.json)와 [실험 코드](compare_reasoning_modes.py)에 있습니다. 생각 모드에서 한도 안에 최종 답이 나오지 않은 경우도 따로 기록했습니다.

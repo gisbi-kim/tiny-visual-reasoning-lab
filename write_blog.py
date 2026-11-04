@@ -267,6 +267,8 @@ Python 3.11 또는 3.12의 가상환경에서 실행한다. NVIDIA CUDA에서는
         text = text.replace(before, after)
     from article_flow import improve_flow
     text = improve_flow(text)
+    from inference_article import add_inference_examples
+    text = add_inference_examples(text)
     (ROOT/'docs/BLOG.md').write_text(text, encoding='utf-8')
     print('FINAL_ARTICLE_WRITTEN', flush=True)
 

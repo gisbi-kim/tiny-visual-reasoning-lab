@@ -5,7 +5,7 @@
 <style>
 :root{color-scheme:light;--ink:#24313d;--muted:#66727c;--accent:#226b88}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#fafbf9;color:var(--ink);font:17px/1.85 system-ui,-apple-system,"Malgun Gothic",sans-serif;word-break:keep-all;overflow-wrap:anywhere}header{border-bottom:1px solid #dce1df;padding:20px 5vw;font-size:13px;color:var(--muted)}header a{font-weight:600}main{display:grid;grid-template-columns:230px minmax(0,820px);gap:48px;max-width:1200px;margin:50px auto 90px;padding:0 28px}nav{position:sticky;top:24px;align-self:start;max-height:90vh;overflow:auto;font-size:13px}nav ol{list-style:none;padding:0}nav li{margin:9px 0}nav a{color:var(--muted);text-decoration:none}h1{font-size:34px;line-height:1.45;letter-spacing:-.045em;margin:0 0 28px}h2{font-size:25px;line-height:1.5;letter-spacing:-.025em;margin:64px 0 20px;scroll-margin-top:30px}h3{font-size:20px;margin-top:35px}p{margin:18px 0}a{color:var(--accent);text-underline-offset:3px}strong{font-weight:700}table{display:block;overflow-x:auto;border-collapse:collapse;width:100%;margin:24px 0;font-size:14px;white-space:normal}th,td{padding:10px 14px;border-bottom:1px solid #dce1df;text-align:left;min-width:90px}th{background:#edf2f2;font-weight:650}td ul{margin:0;padding-left:1.3em}td li{padding-left:.2em;margin:.3em 0}pre{padding:20px;background:#edf1f2;border:1px solid #dce1df;border-radius:6px;overflow-x:auto;font-size:13px;line-height:1.7}code{font-family:ui-monospace,Consolas,monospace}p code,li code{background:#edf1f2;padding:2px 4px;border-radius:3px;font-size:.9em}img{max-width:100%;height:auto;display:block;margin:28px auto;background:white}img[src$=".png"]{width:576px;border-radius:4px}img[src*="user-test-"]{width:100%}blockquote{margin:25px 0;border-left:3px solid #9cb6bf;padding:2px 22px;color:#55636d}article>ul,article>ol{padding-left:25px}footer{border-top:1px solid #dce1df;margin-top:70px;padding-top:20px;font-size:13px;color:var(--muted)}@media(max-width:950px){main{display:block;max-width:830px}nav{position:static;max-height:none;border-bottom:1px solid #dce1df;margin-bottom:35px;padding-bottom:16px}nav ol{columns:2}}@media(max-width:560px){body{font-size:16px}main{padding:0 18px;margin-top:28px}h1{font-size:28px}h2{font-size:23px;margin-top:48px}nav ol{columns:1}th,td{padding:9px 10px}pre{padding:14px}}
 </style></head><body><header>Tiny Visual Reasoning Lab · 기술 실험 기록 · <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab">코드와 실험 자료</a></header>
-<main><nav aria-label="목차"><strong>목차</strong><ol><li><a href="#section-1">1. 풀고 싶은 문제</a></li><li><a href="#section-2">2. 기본 모델과 우리가 학습하는 부분</a></li><li><a href="#section-3">3. 사진보다 먼저 정해야 하는 의미</a></li><li><a href="#section-4">4. 자연어와 정답을 함께 만드는 방법</a></li><li><a href="#section-5">5. 처음 학습한 모델을 여러 방식으로 시험해 보자</a></li><li><a href="#section-6">6. 부족했던 표현과 조건을 데이터에 넣어 보기</a></li><li><a href="#section-7">7. 한 에폭의 의미와 실제 학습</a></li><li><a href="#section-8">8. 무엇이 얼마나 좋아졌는가</a></li><li><a href="#section-9">9. 전체 정확도만으로 알 수 없는 것</a></li><li><a href="#section-10">10. 이 실험에서 배운 것</a></li><li><a href="#section-11">11. 생성형 Qwen에게도 같은 문제를 물어보자</a></li><li><a href="#section-12">12. 가중치의 출처와 다시 실행하기</a></li><li><a href="#section-13">13. 실험 기록 살펴보기</a></li></ol></nav><article><h1>사진 여섯 장과 자연어 조건으로 decision model 학습하기</h1>
+<main><nav aria-label="목차"><strong>목차</strong><ol><li><a href="#section-1">1. 풀고 싶은 문제</a></li><li><a href="#section-2">2. 기본 모델과 우리가 학습하는 부분</a></li><li><a href="#section-3">3. 사진보다 먼저 정해야 하는 의미</a></li><li><a href="#section-4">4. 자연어와 정답을 함께 만드는 방법</a></li><li><a href="#section-5">5. 처음 학습한 모델을 여러 방식으로 시험해 보자</a></li><li><a href="#section-6">6. 부족했던 표현과 조건을 데이터에 넣어 보기</a></li><li><a href="#section-7">7. 한 에폭의 의미와 실제 학습</a></li><li><a href="#section-8">8. 무엇이 얼마나 좋아졌는가</a></li><li><a href="#section-9">9. 전체 정확도만으로 알 수 없는 것</a></li><li><a href="#section-10">10. 이 실험에서 배운 것</a></li><li><a href="#section-11">11. 생성형 Qwen에게도 같은 문제를 물어보자</a></li><li><a href="#section-12">12. 이미지부터 선택까지, 추론 코드 살펴보기</a></li><li><a href="#section-13">13. 가중치의 출처와 다시 실행하기</a></li><li><a href="#section-14">14. 실험 기록 살펴보기</a></li></ol></nav><article><h1>사진 여섯 장과 자연어 조건으로 decision model 학습하기</h1>
 <p>앞선 두 MNIST 실험에서는 손글씨 숫자와 지시를 보고 정해진 선택지 중 하나를 고르는 모델을 만들어 봤다. <a href="https://gisbi-kim.github.io/jev-mnist-tutorial/">첫 번째 MNIST decision model 실험</a>에서 출발해, <a href="https://gisbi-kim.github.io/decision-model-mnist-tutorial/">세 숫자와 자연어 지시를 다루는 실험</a>으로 확장했다. 이번에는 숫자 대신 다양한 실제 사진을 놓고, 위치와 사물의 종류, 개수까지 함께 따져야 하는 조금 더 어려운 문제로 나아가 보자.</p>
 <p>사진을 보고 질문에 답하는 일이라면 이미 시각언어모델(VLM)이 잘한다. VLM은 이미지와 문장을 함께 읽도록 학습한 모델이다. 그런데 답을 다른 프로그램의 행동으로 바로 쓰고 싶다면 어떨까? 예를 들어 사진 여섯 장 중 하나를 고른 결과를 로봇이나 화면 조작 프로그램에 넘긴다고 해 보자. 매번 긴 답변을 생성하고 그 문장에서 위치를 찾아내기보다, 모델이 정해진 선택지에 점수를 주고 위치와 확률을 바로 돌려주면 다루기 편하다.</p>
 <p>이런 방식을 decision model이라고 부른다. 이번에 만드는 모델은 문장을 토큰이라는 작은 단위로 이어 쓰는 대신 한 번에 선택지의 점수를 계산하므로, 특히 긴 답변을 생성하는 방식보다 지연시간을 줄일 가능성도 있다. 이미 사진과 언어를 배운 VLM을 바탕으로 삼으면, 우리가 새로 만든 판단 문제는 얼마나 적은 데이터와 학습으로 익힐 수 있을까?</p>
@@ -458,7 +458,148 @@
 <p>학습 비용도 이 방식의 매력이다. 사진과 언어를 이미 배운 Qwen을 기반으로, 전체 논리 파라미터의 약 1.40%에 해당하는 LoRA와 head를 학습했다. v1을 만든 뒤 v2에서 필요한 표현과 조건을 보강하는 데 이 컴퓨터의 GPU 한 장으로 148.1분이 걸렸다. 이 시간은 v2의 추가 학습 시간이고, 그 전에 v1 학습 135.7분과 데이터 제작·평가도 필요했다. 그래도 새 작업에 맞는 예제를 마련해 기존 모델을 비교적 짧은 시간에 적응시킬 수 있다는 점은 실용적이다.</p>
 <p>물론 모든 질문에 고정된 선택지가 있는 것은 아니다. 설명을 듣거나 예상하지 못한 질문을 주고받는다면 생성형 모델이 더 자연스럽다. 반대로 로봇이 집을 물건이나 화면에서 누를 위치처럼 <strong>가능한 행동이 정해진 문제</strong>라면, 내가 원하는 판단을 예제로 가르치고 선택 결과를 바로 받는 decision model을 고려해 볼 만하다. 이번 실험은 그 가능성을 작은 사진 선택 문제에서 확인한 첫걸음이다.</p>
 <p><a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/generative-comparison/thinking-0-tokens-40.json">생각 끔 · 40토큰</a> · <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/generative-comparison/thinking-1-tokens-40.json">생각 켬 · 40토큰</a> · <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/generative-comparison/thinking-0-tokens-120.json">생각 끔 · 120토큰</a> · <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/generative-comparison/thinking-1-tokens-120.json">생각 켬 · 120토큰</a> · <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/generative-comparison/reasoning-summary.json">비교 요약</a> · <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/compare_reasoning_modes.py">평가 코드</a> · <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/generative-comparison/generative.json">기존 8토큰 출력</a>.</p>
-<h2 id="section-12">12. 가중치의 출처와 다시 실행하기</h2>
+<h2 id="section-12">12. 이미지부터 선택까지, 추론 코드 살펴보기</h2>
+<p>앞에서는 모델이 얼마나 잘 고르는지 살펴봤다. 이번에는 같은 모델을 코드에서 직접 불러 사진과 지시를 건네보자. 아래 예제는 글 첫머리에 등장한 사진판을 사용한다.</p>
+<pre><code class="language-text">A: 개       B: 바나나   C: 고양이
+D: 구명보트 E: 금붕어   F: 배낭
+</code></pre>
+<p>“고양이에서 왼쪽으로 한 칸, 그다음 아래로 한 칸”이라는 지시를 주면 C → B → E이므로 정답은 E다. 학습에 사용한 Unsloth 코드와 앱이 사용하는 추론 코드를 각각 실행해 보자.</p>
+<h3>12.1 이미지 여섯 장을 사진판으로 만들기</h3>
+<p>모델에는 여섯 장의 파일을 따로 넣는 대신 <strong>두 줄로 이어 붙인 이미지 한 장</strong>을 넣는다. 맨 왼쪽 위부터 A, B, C, 아래 줄이 D, E, F다. 예제에 사용할 사진판은 저장소의 <code>docs/figures/example-canonical.png</code>에 이미 들어 있다.</p>
+<p>직접 사진 여섯 장을 준비했다면, 프로젝트의 <code>render</code> 함수로 같은 모양을 만들 수 있다. 파일 이름은 자신의 사진에 맞게 바꾸면 된다.</p>
+<pre><code class="language-python">from PIL import Image
+from render import render
+
+# 파일을 A, B, C, D, E, F 순서로 나열한다.
+paths = [
+    &quot;photos/a.jpg&quot;, &quot;photos/b.jpg&quot;, &quot;photos/c.jpg&quot;,
+    &quot;photos/d.jpg&quot;, &quot;photos/e.jpg&quot;, &quot;photos/f.jpg&quot;,
+]
+
+photos = []
+for path in paths:
+    with Image.open(path) as source:
+        photos.append(source.convert(&quot;RGB&quot;))
+
+board = render(photos)       # 여섯 장을 384×256 사진판 한 장으로 합친다.
+board.save(&quot;my-board.png&quot;)
+</code></pre>
+<p><code>render()</code>는 사진의 비율을 유지해 각 칸에 배치한다. 이 이미지와 한국어 지시가 모델에 들어간다. 앱에서 만든 사진판도 같은 함수를 사용한다. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/render.py">사진판을 만드는 코드</a> · <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/app.py">앱의 사진 읽기</a>.</p>
+<h3>12.2 Unsloth로 학습한 모델 불러오기</h3>
+<p>이 프로젝트에서는 <strong>Unsloth의 <code>FastDecisionModel</code>로 학습하고, 학습 중 검증할 때도 <code>predict()</code>를 호출했다.</strong> 먼저 저장소에서 v2 가중치를 받는다. 아래 코드는 실험에 사용한 Windows·NVIDIA CUDA 환경과 Unsloth <code>2026.10.10</code>을 기준으로 한다. CUDA용 PyTorch를 설치한 뒤 학습용 의존성을 설치하면 된다.</p>
+<pre><code class="language-bash">python -m pip install -r requirements-train.txt
+python -m pip install bitsandbytes==0.50.2
+python download_model.py --version v2 --output weights-v2
+</code></pre>
+<p><code>weights-v2</code>는 학습한 LoRA와 선택용 head를 담고 있다. 기본 Qwen 가중치는 첫 추론 때 Hugging Face에서 별도로 받아 캐시에 저장한다. 이미 <code>weights-v2</code>를 받았다면 다운로드 명령은 생략한다.</p>
+<p>이제 사진을 읽고 모델을 불러와 질문해 보자. 아래는 저장소의 <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/example_unsloth_inference.py">실행 가능한 예제</a> 전체다. 저장소 폴더에서 <code>python example_unsloth_inference.py</code>로 실행한다.</p>
+<pre><code class="language-python">&quot;&quot;&quot;공개 v2 모델을 Unsloth의 CUDA 추론 방식으로 실행한다.&quot;&quot;&quot;
+import json
+import os
+from pathlib import Path
+
+os.environ.setdefault('UNSLOTH_COMPILE_DISABLE', '1')
+
+from PIL import Image
+from unsloth import FastDecisionModel
+import torch
+
+from schema import questions
+
+
+def main():
+    # 사진 여섯 장이 A–F 순서로 합쳐진 이미지다.
+    image_path = Path('docs/figures/example-canonical.png')
+    with Image.open(image_path) as source:
+        image = source.convert('RGB')
+
+    instruction = '고양이에서 왼쪽으로 한 칸, 그다음 아래로 한 칸 이동한 사진을 골라줘.'
+    model, processor = FastDecisionModel.from_pretrained(
+        'weights-v2', load_in_4bit=True, dtype=torch.bfloat16
+    )
+    FastDecisionModel.for_inference(model)
+
+    result = FastDecisionModel.predict(
+        model, processor, instruction, questions(), images=[image]
+    )['select']
+    print(json.dumps(result, ensure_ascii=False, indent=2))
+
+
+if __name__ == '__main__':
+    main()
+</code></pre>
+<p>순서대로 보면 다음과 같다.</p>
+<ol>
+<li><code>Image.open()</code>으로 사진판을 읽고 RGB 이미지로 바꾼다. 직접 만든 사진판을 쓰려면 <code>image_path</code>만 바꾸면 된다.</li>
+<li><code>from_pretrained()</code>는 <code>weights-v2</code>의 설정을 읽어 기본 Qwen, 학습한 LoRA와 head를 불러온다. <code>load_in_4bit=True</code>는 기본 모델의 GPU 메모리 사용량을 줄이는 설정이다.</li>
+<li><code>for_inference()</code>로 추론을 준비한 뒤, <code>predict()</code>에 모델·processor·지시·선택지 정의·사진판을 전달한다. <code>images=[image]</code>에 들어간 것은 여섯 장이 이어진 <strong>사진판 한 장</strong>이다. 코드의 <code>UNSLOTH_COMPILE_DISABLE</code>은 이 실험에서 사용한 컴파일 설정이다.</li>
+<li>반환값에서 <code>select</code>는 이번 선택 문제에 대한 결과다. 그 안의 <code>answer</code>가 A–F 또는 NONE이고, <code>probabilities</code>에는 각 선택지의 점수가 확률 형태로 들어 있다.</li>
+</ol>
+<p><code>processor</code>는 사진과 문장을 Qwen이 처리할 수 있는 입력으로 바꾼다. 그 입력을 Qwen이 읽고, head가 일곱 선택지의 점수를 만든다. 이때 <code>generate()</code>로 답변 문장을 토큰마다 이어 쓰는 대신 <code>predict()</code>가 선택 결과를 돌려준다.</p>
+<p>이 컴퓨터에서 위 코드를 실행한 출력은 다음과 같았다.</p>
+<pre><code class="language-json">{
+  &quot;type&quot;: &quot;choice&quot;,
+  &quot;choice&quot;: &quot;E&quot;,
+  &quot;confidence&quot;: 1.0,
+  &quot;probabilities&quot;: {
+    &quot;A&quot;: 0.0, &quot;B&quot;: 0.0, &quot;C&quot;: 0.0, &quot;D&quot;: 0.0,
+    &quot;E&quot;: 1.0, &quot;F&quot;: 0.0, &quot;NONE&quot;: 0.0
+  },
+  &quot;answer&quot;: &quot;E&quot;
+}
+</code></pre>
+<p>C에서 왼쪽 B를 거쳐 아래 E로 이동한 결과다. 이번 Unsloth 버전은 출력 확률을 소수점 넷째 자리까지 반올림하므로 <code>1.0</code>과 <code>0.0</code>으로 표시되었다. 여러 문제를 연달아 풀 때는 모델을 한 번 불러온 뒤 이미지와 지시만 바꿔 <code>predict()</code>를 다시 호출하면 된다.</p>
+<h3>12.3 모델은 일곱 선택지를 어떻게 알까?</h3>
+<p>위 코드의 <code>questions()</code>는 선택지의 뜻을 모델 입력에 함께 넣기 위한 함수다. 예를 들어 다음 코드를 실행하면 각 문장이 무엇을 고르는지 볼 수 있다.</p>
+<pre><code class="language-python">import json
+from schema import questions
+
+print(json.dumps(questions()[&quot;select&quot;][&quot;criteria&quot;], indent=2))
+</code></pre>
+<pre><code class="language-json">{
+  &quot;A&quot;: &quot;Choose the top left photograph.&quot;,
+  &quot;B&quot;: &quot;Choose the top middle photograph.&quot;,
+  &quot;C&quot;: &quot;Choose the top right photograph.&quot;,
+  &quot;D&quot;: &quot;Choose the bottom left photograph.&quot;,
+  &quot;E&quot;: &quot;Choose the bottom middle photograph.&quot;,
+  &quot;F&quot;: &quot;Choose the bottom right photograph.&quot;,
+  &quot;NONE&quot;: &quot;No photograph satisfies the instruction.&quot;
+}
+</code></pre>
+<p><code>questions()</code>에는 이 표와 함께 사진판의 배치, 한 칸 이동과 NONE에 관한 설명도 들어 있다. 이 정의는 <strong>어떤 답을 고를 수 있는지</strong> 알려 준다. 어느 칸이 정답인지는 넣지 않는다. 모델은 사진과 사용자의 지시를 읽고 일곱 선택지에 점수를 준다. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/schema.py">전체 선택지 정의</a> · <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/train.py">학습 중 실제 검증 코드</a>.</p>
+<h3>12.4 앱에서는 어떻게 실행할까?</h3>
+<p>공개 앱은 Mac의 MPS와 CPU에서도 실행할 수 있도록 Unsloth 대신 **Transformers·PEFT와 Clef head를 조합한 <code>DecisionEngine</code>**을 사용한다. 우리가 바로 위에서 본 Unsloth 추론은 학습·검증 코드에서 사용한 방식이고, 아래는 앱과 같은 방식을 직접 호출하는 예제다.</p>
+<pre><code class="language-python">&quot;&quot;&quot;로컬 앱과 같은 추론 엔진을 직접 호출한다.&quot;&quot;&quot;
+import json
+from pathlib import Path
+
+from PIL import Image
+
+from engine import DecisionEngine
+
+
+def main():
+    image_path = Path('docs/figures/example-canonical.png')
+    with Image.open(image_path) as source:
+        image = source.convert('RGB')
+
+    instruction = '고양이에서 왼쪽으로 한 칸, 그다음 아래로 한 칸 이동한 사진을 골라줘.'
+    engine = DecisionEngine(checkpoint='weights-v2', device='auto')
+    result = engine.predict(image, instruction)
+    print(json.dumps(result, ensure_ascii=False, indent=2))
+
+
+if __name__ == '__main__':
+    main()
+</code></pre>
+<p>저장소에서 <code>python example_app_inference.py</code>로 실행한다. <code>device=&quot;auto&quot;</code>는 사용할 수 있는 CUDA, MPS, CPU 순서로 장치를 고른다. 같은 Windows GPU에서 확인했을 때 이 코드도 <strong>E</strong>를 골랐다. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/engine.py">앱의 실제 추론 코드</a>.</p>
+<p><code>DecisionEngine</code> 안에서는 사진·지시·선택지를 모델 입력으로 바꾸고, Qwen과 학습된 head를 거쳐 일곱 점수(logits)를 얻는다. 그다음 실제 코드에서 다음처럼 확률을 계산하고 가장 높은 선택지를 반환한다.</p>
+<pre><code class="language-python"># engine.py의 predict()에서 발췌
+logits = self.logits(image, instruction)
+probs = (logits / self.temperature).softmax(-1).cpu().tolist()
+</code></pre>
+<p>앱의 <code>self.temperature</code>에는 앞서 1,008문제로 구한 보정값이 반영된다. 위 Unsloth 예제는 모델 설정의 온도를 사용하고 별도의 <code>calibration.json</code>은 적용하지 않으므로, 두 코드의 선택이 같더라도 출력 확률은 다를 수 있다. 같은 가중치를 다시 읽은 검증 표본 24개에서는 Unsloth, 앱 CUDA, 앱 CPU가 모두 같은 선택을 했다. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/v2/reload-final.json">재로딩 비교 기록</a>.</p>
+<h2 id="section-13">13. 가중치의 출처와 다시 실행하기</h2>
 <p>직접 실행할 때는 파일이 어디서 오는지 알아 두면 편하다. 기본 Qwen 모델은 Hugging Face에서, 학습한 LoRA·head와 보정값은 이 프로젝트의 GitHub Release에서 받는다. 사진은 Stanford의 Tiny ImageNet에서 따로 받는다.</p>
 <p>첫 실행 후 빨라지는 것은 저장된 기본 모델과 학습 가중치를 다시 사용하기 때문이다. 실행할 때마다 학습을 다시 하는 구조가 아니다.</p>
 <table>
@@ -495,7 +636,7 @@ python app.py --checkpoint weights-v2 --device cpu
 </code></pre>
 <p>Python 3.11 또는 3.12의 가상환경에서 실행한다. NVIDIA CUDA에서는 해당 환경에 맞는 PyTorch와 bitsandbytes를 설치한 뒤 <code>--device cuda</code>를 사용한다. 브라우저 주소는 <code>http://127.0.0.1:7861</code>이다. 자세한 설치·학습 재현 명령은 <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/README.md">README</a>와 <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/V2_TRAINING.md">v2 학습 기록</a>에 있다.</p>
 <p>CPU/MPS 경로는 float32 모델을 사용하므로 기본 모델 자체만 약 18.3 GB가 필요하다. 사용자가 제공한 위 화면에는 MPS 실행 사례가 보인다. 다만 실제 Mac의 기종별 메모리와 속도는 별도로 측정하지 않았으므로, 16 GB Mac에서 필요한 여유 공간은 직접 확인해야 한다.</p>
-<h2 id="section-13">13. 실험 기록 살펴보기</h2>
+<h2 id="section-14">14. 실험 기록 살펴보기</h2>
 <p>이 글의 숫자를 직접 따라가 보고 싶다면 아래 실험 자료에서 데이터 집계, 학습 설정, loss, 검증 추이와 실제 예측을 확인할 수 있다. 학습 중에는 일정 간격의 손실과 검증 결과를 기록했다.</p>
 <p>본문의 수치를 직접 확인할 수 있도록 JSON과 실행 로그를 함께 공개했다. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/v2/INDEX.md">실험 자료 안내</a>에는 설정·학습 추이·전체 예측·중간 평가·실패 사례·환경·가중치·검사 기록을 연결하였다. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/tree/main/docs/v2/logs">콘솔 로그와 실행별 기록</a>, <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/v2/logs/manifest.json">공개 파일과 원본의 hash manifest</a>, <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/v2/INSTALL_CHECK.md">공개 다운로드·앱 검사</a>도 함께 제공한다. 기록에서는 개인 홈 경로와 터미널 제어문자만 정리하고 수치를 보존하였다.</p>
 <p>이 사례에서 확인하려는 실용적인 교훈은 이미 학습된 VLM에 원하는 판단 작업을 명확한 데이터로 가르치는 방법이다. 표현과 조건의 범위를 정하고, 일관된 정답을 만들고, 같은 평가 문제의 전후 변화와 실패까지 확인해야 적응 효과를 설명할 수 있다.</p>

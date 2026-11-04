@@ -5,8 +5,10 @@ ROOT = Path(__file__).resolve().parent
 
 
 def add_inference_examples(text):
+    from decision_api_guide import api_guide
     native = (ROOT / 'example_unsloth_inference.py').read_text(encoding='utf-8').strip()
     portable = (ROOT / 'example_app_inference.py').read_text(encoding='utf-8').strip()
+    guide = api_guide()
     section = f'''## 12. 이미지부터 선택까지, 추론 코드 살펴보기
 
 앞에서는 모델이 얼마나 잘 고르는지 살펴봤다. 이번에는 같은 모델을 코드에서 직접 불러 사진과 지시를 건네보자. 아래 예제는 글 첫머리에 등장한 사진판을 사용한다.
@@ -114,7 +116,7 @@ print(json.dumps(questions()["select"]["criteria"], indent=2))
 
 `questions()`에는 이 표와 함께 사진판의 배치, 한 칸 이동과 NONE에 관한 설명도 들어 있다. 이 정의는 **어떤 답을 고를 수 있는지** 알려 준다. 어느 칸이 정답인지는 넣지 않는다. 모델은 사진과 사용자의 지시를 읽고 일곱 선택지에 점수를 준다. [전체 선택지 정의](../schema.py) · [학습 중 실제 검증 코드](../train.py).
 
-### 12.4 앱에서는 어떻게 실행할까?
+{guide}### 12.5 앱에서는 어떻게 실행할까?
 
 공개 앱은 Mac의 MPS와 CPU에서도 실행할 수 있도록 Unsloth 대신 **Transformers·PEFT와 Clef head를 조합한 `DecisionEngine`**을 사용한다. 우리가 바로 위에서 본 Unsloth 추론은 학습·검증 코드에서 사용한 방식이고, 아래는 앱과 같은 방식을 직접 호출하는 예제다.
 

@@ -5,8 +5,26 @@ from pathlib import Path
 from PIL import Image,UnidentifiedImageError
 from flask import Flask,jsonify,render_template,request
 from render import render,SIZE
+from language import instruction
+from oracle import adjacent
 
 ROOT=Path(__file__).resolve().parent
+
+def scene_examples(keys, rng):
+    """Make instructions for the current labeled board, without predicting answers."""
+    anchor_index = rng.randrange(6)
+    anchor = keys[anchor_index]
+    directions = [d for d in ('left', 'right', 'up', 'down') if adjacent(anchor_index, d) is not None]
+    direction = rng.choice(directions)
+    first = adjacent(anchor_index, direction)
+    next_directions = [d for d in ('left', 'right', 'up', 'down') if adjacent(first, d) is not None and adjacent(first, d) != anchor_index]
+    programs = [
+        ('개수에 따른 조건', {'family': 'count_branch', 'group': 'animal', 'threshold': rng.randint(1, 3), 'yes': keys[0], 'no': keys[1]}, 'ko'),
+        ('한 칸 이동', {'family': 'neighbor', 'anchor': anchor, 'direction': direction}, 'ko'),
+        ('English · 두 칸 이동', {'family': 'chain', 'anchor': anchor, 'direction': direction, 'second_direction': rng.choice(next_directions)}, 'en'),
+    ]
+    return [{'label': label, 'text': instruction(program, lang, 0, seed=rng.randrange(2**31))}
+            for label, program, lang in programs]
 
 def create_app(engine):
     app=Flask(__name__)
@@ -30,7 +48,7 @@ def create_app(engine):
         for item in items:
             with Image.open(ROOT/'data'/item['image']) as im:pictures.append(im.convert('RGB'))
         buffer=BytesIO();render(pictures).save(buffer,format='PNG')
-        return jsonify(image='data:image/png;base64,'+base64.b64encode(buffer.getvalue()).decode())
+        return jsonify(image='data:image/png;base64,'+base64.b64encode(buffer.getvalue()).decode(), examples=scene_examples(keys, rng))
     @app.post('/predict')
     def predict():
         payload=request.get_json(silent=True)

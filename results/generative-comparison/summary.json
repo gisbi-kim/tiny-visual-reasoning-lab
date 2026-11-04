@@ -1,0 +1,18 @@
+{
+  "count": 96,
+  "decision_correct": 93,
+  "generative_strict_correct": 29,
+  "generative_flexible_correct": 30,
+  "generative_invalid_strict": 4,
+  "decision_median_ms": 157.08660008385777,
+  "generative_median_ms": 226.70584986917675,
+  "generative_over_decision_median_ratio": 1.4431902514164419,
+  "unique_scenes": 87,
+  "identical_input_rows_verified": true,
+  "sample": "seed 3407; four rows per family and language from existing v2_test; 12 families, two languages",
+  "timing": "RTX 4070 Ti SUPER; 4bit NF4/BF16; image open and model load excluded; warmups 3; CUDA sync; processor to output",
+  "generative": "Qwen/Qwen3.5-4B fixed base revision; no LoRA or decision head; greedy; thinking disabled via chat template; max 8 new tokens",
+  "decision": "v2 fine-tuned LoRA and Clef decision head",
+  "parsing": "Strict: only A-F or NONE plus optional period. Relaxed additionally accepts answer: B / 정답: B.",
+  "caveat": "Both adaptation and output mechanism differ; results depend on prompt and token budget, and are not a controlled head-only comparison."
+}

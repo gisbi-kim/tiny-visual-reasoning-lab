@@ -202,6 +202,8 @@ Python 3.11 또는 3.12의 가상환경에서 실행한다. NVIDIA CUDA에서는
         text = text.replace(before, after)
     from polish_blog import polish
     text = polish(text)
+    from article_comparison import add
+    text = add(text)
     (ROOT/'docs/BLOG.md').write_text(text, encoding='utf-8')
     print('FINAL_ARTICLE_WRITTEN', flush=True)
 

@@ -9,7 +9,7 @@
 <p>Tiny ImageNet 사진과 자연어 지시로 작은 선택 문제를 구성하고, Qwen3.5-4B 기반 decision model을 학습한 기록이다. v1에서 드러난 표현·조건 조합의 약점을 v2의 데이터 구성으로 보완하였다. 이 글에서는 데이터가 무엇을 의미하는지부터 학습 대상, 실제 개선 폭, 실패 사례와 재현 방법까지 살펴본다. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab">코드와 가중치</a>, <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/v2/INDEX.md">실험 자료 안내</a>를 함께 공개한다.</p>
 <h2 id="section-1">1. 풀고 싶은 문제</h2>
 <p>사진을 분류하는 모델은 보통 한 장의 사진을 입력받아 고양이, 바나나 등의 이름을 출력한다. 이번에는 사진을 여섯 장 놓고, 자연어로 주어진 조건에 맞는 위치를 고르게 하였다. 예를 들어 다음과 같은 사진판을 생각해 보자.</p>
-<p><img src="assets/example-canonical.png" alt="실제 시연 사진판: 윗줄 개·바나나·고양이, 아랫줄 구명보트·금붕어·배낭" loading="lazy" /></p>
+<p><img src="assets/example-canonical.png" alt="실제 시연 사진판: 윗줄 개·바나나·고양이, 아랫줄 구명보트·금붕어·배낭" loading="eager" width="384" height="256" /></p>
 <p>위 사진은 앱과 구어체 시연에서 실제로 사용한 입력이다. 윗줄은 왼쪽부터 A·B·C, 아랫줄은 D·E·F이다. 사진 안에는 사물 이름이나 정답을 넣지 않았다. 아래 표의 이름은 독자를 위한 설명이다.</p>
 <table>
 <thead>
@@ -191,7 +191,7 @@
 <h3>실제 사진에서 달라진 선택</h3>
 <p>숫자로 본 개선을 실제 입력과 연결해 보자. 아래는 각 평가 파일에서 <strong>한국어·정답이 A–F·v1 오답→v2 정답</strong> 조건을 만족하는 첫 사례이다. 이해를 위한 사례이며, 이 세 장만으로 정확도를 계산한 것은 아니다. 질문과 예측은 당시 저장된 기록 그대로이고, 사진도 모델에 입력한 격자 파일을 그대로 복사했다.</p>
 <h4>표현을 바꿔 물은 경우</h4>
-<p><img src="assets/example-test_language.png" alt="윗줄 무당벌레·주전자·키보드, 아랫줄 냉장고·선글라스·피자" loading="lazy" /></p>
+<p><img src="assets/example-test_language.png" alt="윗줄 무당벌레·주전자·키보드, 아랫줄 냉장고·선글라스·피자" loading="eager" width="384" height="256" /></p>
 <blockquote>
 <p>다음 조건에 맞춰 사진을 골라 줘. 주방용품 사진을 찾되, 그 사진의 바로 아래쪽에 선글라스 사진이 있어야 해. 칸을 벗어나는 이동은 NONE으로 답해.</p>
 </blockquote>
@@ -199,7 +199,7 @@
 <p>선글라스는 E에 있다. 바로 위 칸 B의 주전자는 주방용품이며, 그 바로 아래에 선글라스가 있으므로 B가 정답이다. 이 순서는 정답 규칙에 따른 독자용 풀이이며, 모델이 출력한 사고 과정은 아니다.</p>
 <p>사진판 <code>test_language-00056</code> · <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/test_language_predictions.json">v1 실제 예측</a> · <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/v2/finetuned/test_language_predictions.json">v2 실제 예측</a></p>
 <h4>조건 두 개를 이어서 물은 경우</h4>
-<p><img src="assets/example-test_composition.png" alt="윗줄 거위·트랙터·피망, 아랫줄 자동차·곰·무당벌레" loading="lazy" /></p>
+<p><img src="assets/example-test_composition.png" alt="윗줄 거위·트랙터·피망, 아랫줄 자동차·곰·무당벌레" loading="eager" width="384" height="256" /></p>
 <blockquote>
 <p>부탁 하나 할게. 트랙터 사진과 같은 행의 음식 사진을 찾고, 그 사진에서 왼쪽으로 한 칸 이동한 사진을 골라.</p>
 </blockquote>
@@ -207,7 +207,7 @@
 <p>트랙터 B와 같은 윗줄에서 음식 사진을 찾으면 C의 피망이다. C에서 왼쪽으로 한 칸 이동하면 B가 된다. 이 순서는 정답 규칙에 따른 독자용 풀이이며, 모델이 출력한 사고 과정은 아니다.</p>
 <p>사진판 <code>test_composition-00095</code> · <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/test_composition_predictions.json">v1 실제 예측</a> · <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/v2/finetuned/test_composition_predictions.json">v2 실제 예측</a></p>
 <h4>표현과 조건 조합을 함께 바꾼 경우</h4>
-<p><img src="assets/example-test_combined.png" alt="윗줄 버스·프레첼·구명보트, 아랫줄 개·나비·모래시계" loading="lazy" /></p>
+<p><img src="assets/example-test_combined.png" alt="윗줄 버스·프레첼·구명보트, 아랫줄 개·나비·모래시계" loading="eager" width="384" height="256" /></p>
 <blockquote>
 <p>부탁 하나 할게. 이동을 시작할 칸은 나비 사진과 같은 행에 있는 곤충 사진이야. 거기서 왼쪽으로 한 칸 이동해.</p>
 </blockquote>
@@ -295,7 +295,7 @@
 <li><code>test_combined</code>: “부탁 하나 할게. 포유류 사진을 고르되, 고양이에서 오른쪽 한 칸 이동해서 도착한 열 안에서 찾아야 해. 해당하는 사진이 없으면 NONE이야.” → 정답 <strong>NONE</strong>, 예측 <strong>C</strong>. 사진판 ID <code>test_combined-00001</code>.</li>
 </ul>
 <h3>틀린 답도 사진과 함께 보기</h3>
-<p><img src="assets/example-language-failure.png" alt="윗줄 레몬·고양이·금붕어, 아랫줄 콜리플라워·배낭·모래시계" loading="lazy" /></p>
+<p><img src="assets/example-language-failure.png" alt="윗줄 레몬·고양이·금붕어, 아랫줄 콜리플라워·배낭·모래시계" loading="eager" width="384" height="256" /></p>
 <blockquote>
 <p>부탁 하나 할게. 고를 사진은 먹거리 사진이면서 이집트고양이 사진과 행이 같아야 해. 해당하는 사진이 없으면 NONE이야.</p>
 </blockquote>

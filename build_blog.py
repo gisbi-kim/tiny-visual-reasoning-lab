@@ -1,5 +1,5 @@
 """Render the final Markdown article into a small, self-contained Pages site."""
-import html, json, re, shutil
+import html, json, re, shutil, struct
 from pathlib import Path
 from urllib.parse import quote, urlparse
 from markdown_it import MarkdownIt
@@ -34,6 +34,11 @@ def main():
                 shutil.copy2(path, site/'assets'/path.name)
                 child.attrSet('src', f'assets/{path.name}')
                 child.attrSet('loading', 'lazy')
+                if path.suffix.lower() == '.png':
+                    width, height = struct.unpack('>II', path.read_bytes()[16:24])
+                    child.attrSet('width', str(width))
+                    child.attrSet('height', str(height))
+                    child.attrSet('loading', 'eager')
             elif child.type == 'link_open':
                 href = child.attrGet('href') or ''
                 if href and not urlparse(href).scheme and not href.startswith('#'):

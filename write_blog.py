@@ -128,6 +128,11 @@ Python 3.11 또는 3.12의 가상환경에서 실행한다. NVIDIA CUDA에서는
 이 사례에서 확인하려는 실용적인 교훈은 이미 학습된 VLM에 원하는 판단 작업을 명확한 데이터로 가르치는 방법이다. 표현과 조건의 범위를 정하고, 일관된 정답을 만들고, 같은 평가 문제의 전후 변화와 실패까지 확인해야 적응 효과를 설명할 수 있다.''')
     if any(marker in text for marker in ('평가 후 입력','작성 중인 원고','최종 글에는','최종 원고에서는')):
         raise RuntimeError('Unresolved draft placeholder')
+    from build_blog_examples import photo_sections
+    photo_intro, photo_success, photo_failure = photo_sections(read('docs/v2/photo-examples.json'))
+    text = text.replace('| | 왼쪽 | 가운데 | 오른쪽 |', photo_intro + '\n\n| | 왼쪽 | 가운데 | 오른쪽 |', 1)
+    text = text.replace('중간에는 고정 표본56개씩을 CPU로 평가한다.', photo_success + '\n\n중간에는 고정 표본56개씩을 CPU로 평가한다.', 1)
+    text = text.replace('고정 사진판의 같은 구어체 14개에서는', photo_failure + '\n\n고정 사진판의 같은 구어체 14개에서는', 1)
     # Typography only: keep generated measurements and identifiers intact.
     text = text.replace('**였다.', '** 결과를 보였다.')
     for before, after in {

@@ -119,6 +119,6 @@ python -m pytest -q
 ## 출처와 라이선스
 
 - 기본 모델: [Qwen/Qwen3.5-4B](https://huggingface.co/Qwen/Qwen3.5-4B), revision `851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a`. 기본 가중치는 GitHub에 재배포하지 않고 Hugging Face에서 받습니다. 원본 모델의 라이선스·이용 조건이 적용됩니다.
-- 사진: [Stanford Tiny ImageNet 원본](https://cs231n.stanford.edu/tiny-imagenet-200.zip). 원본 사진과 만들어진 격자 이미지를 GitHub/가중치 파일에 포함하지 않습니다. 이미지의 권리는 원 소유자에게 있으며 코드의 Apache-2.0 라이선스가 사진에 적용되는 것은 아닙니다.
+- 사진: [Stanford Tiny ImageNet 원본](https://cs231n.stanford.edu/tiny-imagenet-200.zip). 전체 원본 데이터와 학습 격자는 별도 다운로드·생성하며 가중치 파일에 포함하지 않습니다. 블로그 설명용으로 실제 시연·평가 입력 다섯 격자만 공개합니다([출처·해시·예측 기록](docs/v2/photo-examples.json)). 이미지의 권리는 원 소유자에게 있으며 코드의 Apache-2.0 라이선스가 사진에 적용되는 것은 아닙니다.
 - Clef: [Cloudflare/clef](https://huggingface.co/Cloudflare/clef), Apache-2.0. `clef_reference.py`는 원본의 `joint_schema_model.py`를 그대로 보관한 파일입니다. 출처와 hash는 [clef_manifest.json](clef_manifest.json), 원 라이선스는 [CLEF_LICENSE.txt](CLEF_LICENSE.txt)에 있습니다.
 - 이 프로젝트 코드: Apache-2.0. 학습 가중치의 다운로드 위치·크기·검증값은 `docs/release.json`에 기록합니다.

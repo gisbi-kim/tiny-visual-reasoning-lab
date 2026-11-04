@@ -1,0 +1,154 @@
+{
+  "source_url": "https://cs231n.stanford.edu/tiny-imagenet-200.zip",
+  "rights": "Photographs retain their original owners' rights; the code license does not apply.",
+  "selection": "Canonical board matches saved API scene; first Korean non-NONE v1-wrong/v2-correct example per original suite; first v2 error in test_language.",
+  "prediction_scope": "Previously saved evaluations, no new model execution or dataset changes.",
+  "examples": [
+    {
+      "kind": "canonical",
+      "file": "example-canonical.png",
+      "source_ids": [
+        "val/images/val_242.JPEG",
+        "val/images/val_1312.JPEG",
+        "val/images/val_108.JPEG",
+        "val/images/val_1245.JPEG",
+        "val/images/val_653.JPEG",
+        "val/images/val_165.JPEG"
+      ],
+      "sha256": "388f0107c45423009f9e66e28761e3940bb0d770ea0be87d3ae70add81926d99",
+      "matches_recorded_api_scene": true
+    },
+    {
+      "kind": "improved",
+      "title": "표현을 바꿔 물은 경우",
+      "alt": "윗줄 무당벌레·주전자·키보드, 아랫줄 냉장고·선글라스·피자",
+      "file": "example-test_language.png",
+      "suite": "test_language",
+      "row_index": 9,
+      "scene_id": "test_language-00056",
+      "source_ids": [
+        "val/images/val_6328.JPEG",
+        "val/images/val_959.JPEG",
+        "val/images/val_8239.JPEG",
+        "val/images/val_9317.JPEG",
+        "val/images/val_3986.JPEG",
+        "val/images/val_2862.JPEG"
+      ],
+      "object_keys": [
+        "ladybug",
+        "teapot",
+        "keyboard",
+        "refrigerator",
+        "sunglasses",
+        "pizza"
+      ],
+      "input_image": "images/test_language-00056.png",
+      "sha256": "c2d2dc7bb2c057c244c34312daae30794dc41c4aade0864bb8302000b40252bf",
+      "instruction": "다음 조건에 맞춰 사진을 골라 줘. 주방용품 사진을 찾되, 그 사진의 바로 아래쪽에 선글라스 사진이 있어야 해. 칸을 벗어나는 이동은 NONE으로 답해.",
+      "gold": "B",
+      "v1": "E",
+      "v2": "B",
+      "v1_file": "results/test_language_predictions.json",
+      "v2_file": "results/v2/finetuned/test_language_predictions.json",
+      "explanation": "선글라스는 E에 있다. 바로 위 칸 B의 주전자는 주방용품이며, 그 바로 아래에 선글라스가 있으므로 B가 정답이다."
+    },
+    {
+      "kind": "improved",
+      "title": "조건 두 개를 이어서 물은 경우",
+      "alt": "윗줄 거위·트랙터·피망, 아랫줄 자동차·곰·무당벌레",
+      "file": "example-test_composition.png",
+      "suite": "test_composition",
+      "row_index": 12,
+      "scene_id": "test_composition-00095",
+      "source_ids": [
+        "val/images/val_4379.JPEG",
+        "val/images/val_8183.JPEG",
+        "val/images/val_1410.JPEG",
+        "val/images/val_7969.JPEG",
+        "val/images/val_8431.JPEG",
+        "val/images/val_9460.JPEG"
+      ],
+      "object_keys": [
+        "goose",
+        "tractor",
+        "pepper",
+        "car",
+        "bear",
+        "ladybug"
+      ],
+      "input_image": "images/test_composition-00095.png",
+      "sha256": "592339bc9474b7e4c35a7d789cfd5d66d66ab545de2a631327097ad234c38f72",
+      "instruction": "부탁 하나 할게. 트랙터 사진과 같은 행의 음식 사진을 찾고, 그 사진에서 왼쪽으로 한 칸 이동한 사진을 골라.",
+      "gold": "B",
+      "v1": "A",
+      "v2": "B",
+      "v1_file": "results/test_composition_predictions.json",
+      "v2_file": "results/v2/finetuned/test_composition_predictions.json",
+      "explanation": "트랙터 B와 같은 윗줄에서 음식 사진을 찾으면 C의 피망이다. C에서 왼쪽으로 한 칸 이동하면 B가 된다."
+    },
+    {
+      "kind": "improved",
+      "title": "표현과 조건 조합을 함께 바꾼 경우",
+      "alt": "윗줄 버스·프레첼·구명보트, 아랫줄 개·나비·모래시계",
+      "file": "example-test_combined.png",
+      "suite": "test_combined",
+      "row_index": 1,
+      "scene_id": "test_combined-00031",
+      "source_ids": [
+        "val/images/val_4664.JPEG",
+        "val/images/val_5039.JPEG",
+        "val/images/val_3384.JPEG",
+        "val/images/val_242.JPEG",
+        "val/images/val_9797.JPEG",
+        "val/images/val_7066.JPEG"
+      ],
+      "object_keys": [
+        "bus",
+        "pretzel",
+        "lifeboat",
+        "dog",
+        "butterfly",
+        "hourglass"
+      ],
+      "input_image": "images/test_combined-00031.png",
+      "sha256": "c51512ce520c09e5efbc80715da9209a2c511653aec309217b9be1a4e4e21dde",
+      "instruction": "부탁 하나 할게. 이동을 시작할 칸은 나비 사진과 같은 행에 있는 곤충 사진이야. 거기서 왼쪽으로 한 칸 이동해.",
+      "gold": "D",
+      "v1": "E",
+      "v2": "D",
+      "v1_file": "results/test_combined_predictions.json",
+      "v2_file": "results/v2/finetuned/test_combined_predictions.json",
+      "explanation": "나비는 E에 있다. 같은 아랫줄의 곤충도 E의 나비이므로 E에서 출발한다. 왼쪽으로 한 칸 이동한 D의 개가 정답이다."
+    },
+    {
+      "kind": "failure",
+      "file": "example-language-failure.png",
+      "row_index": 20,
+      "scene_id": "test_language-00106",
+      "source_ids": [
+        "val/images/val_2071.JPEG",
+        "val/images/val_6422.JPEG",
+        "val/images/val_9398.JPEG",
+        "val/images/val_952.JPEG",
+        "val/images/val_1185.JPEG",
+        "val/images/val_1138.JPEG"
+      ],
+      "object_keys": [
+        "lemon",
+        "cat",
+        "goldfish",
+        "cauliflower",
+        "backpack",
+        "hourglass"
+      ],
+      "input_image": "images/test_language-00106.png",
+      "sha256": "d56ddab6c3d365ae6035bb7b6fd28cf0b99c456284ea1ce819b3613c12c235a4",
+      "instruction": "부탁 하나 할게. 고를 사진은 먹거리 사진이면서 이집트고양이 사진과 행이 같아야 해. 해당하는 사진이 없으면 NONE이야.",
+      "gold": "A",
+      "v2": "NONE",
+      "v2_file": "results/v2/finetuned/test_language_predictions.json",
+      "alt": "윗줄 레몬·고양이·금붕어, 아랫줄 콜리플라워·배낭·모래시계",
+      "explanation": "고양이 B와 같은 윗줄에는 먹거리인 레몬 A가 있다. 따라서 정답은 A인데 v2는 조건에 맞는 사진이 없다는 NONE을 선택했다."
+    }
+  ]
+}

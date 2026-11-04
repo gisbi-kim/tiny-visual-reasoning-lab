@@ -41,7 +41,7 @@ def add(text):
 
 생성형에는 생각 모드를 끄고, 무작위 샘플링 없이 최대 8토큰으로 답하도록 했다. A–F 또는 NONE만 나온 경우를 읽었더니 형식이 벗어난 답이 {g['invalid']}개였다. 그중 “정답: B”는 사람이 읽을 수 있는 답이라 이 형식까지 허용하면 **{flexible}/96 ({100*flexible/96:.2f}%)**가 된다. 나머지 세 답은 짧은 토큰 한도 안에서 설명을 시작했다. 원문은 결과 파일에 그대로 남겼다.
 
-이 비교는 실제 사용 경로를 비교한 결과다. 생성형에는 파인튜닝을 하지 않았고 v2에는 추가 학습을 했으므로 정확도 차이를 출력 head만의 효과로 볼 수는 없다. 프롬프트와 출력 길이를 바꾸면 생성형의 성능과 시간도 달라질 수 있다. 그래도 이 설정에서는 원하는 답을 바로 전달하는 선택 방식의 속도와, 작업 데이터를 추가했을 때의 정확도를 함께 확인할 수 있었다. [측정 요약](../results/generative-comparison/summary.json) · [생성형의 실제 출력](../results/generative-comparison/generative.json) · [decision model의 실제 출력](../results/generative-comparison/decision.json) · [실험 코드](../compare_generation.py).
+생성형에는 파인튜닝을 하지 않았고 v2에는 추가 학습을 했으므로 정확도 차이를 출력 head만의 효과로 볼 수는 없다. 프롬프트와 출력 길이를 바꾸면 생성형의 성능과 시간도 달라질 수 있다. 그래도 이 설정에서는 원하는 답을 바로 전달하는 선택 방식의 속도와, 작업 데이터를 추가했을 때의 정확도를 함께 확인할 수 있었다. [측정 요약](../results/generative-comparison/summary.json) · [생성형의 실제 출력](../results/generative-comparison/generative.json) · [decision model의 실제 출력](../results/generative-comparison/decision.json) · [실험 코드](../compare_generation.py).
 
 '''
     reasoning_files=[ROOT/f'results/generative-comparison/thinking-{int(t)}-tokens-{n}.json' for t,n in [(False,40),(True,40),(False,120),(True,120)]]

@@ -212,6 +212,24 @@ Python 3.11 또는 3.12의 가상환경에서 실행한다. NVIDIA CUDA에서는
         text = text.replace(before, after)
     from polish_blog import polish
     text = polish(text)
+    # Keep the published examples tied to saved test predictions and training rows.
+    paired = read('docs/v2/training-evaluation-examples.json')['examples']
+    labels = {'test_language': '같은 뜻을 바꿔 쓴 표현', 'test_composition': '새로운 조건 조합', 'test_combined': '바꿔 쓴 표현과 새로운 조건 조합'}
+    pieces = ['### 틀렸던 시험 문제와 보강 데이터 나란히 보기',
+        '위에서 본 세 문제를 v2 학습 데이터의 실제 예제와 나란히 놓아 보자. 각 평가에서 v1은 틀리고 v2는 맞힌 첫 한국어 문제를 고르고, 같은 조건 유형과 문장 틀의 학습 예제를 짝지었다. 사진과 대상은 어떻게 바뀌고 질문의 구조는 어떻게 닮았는지 살펴보자.']
+    for pair in paired:
+        suite = pair['suite']; test = pair['test']; train = pair['training_example']
+        pieces += [f"**{labels[suite]}**", f"시험 사진판 `{test['scene_id']}`:",
+            f"![{labels[suite]}의 평가 사진판](figures/example-{suite}.png)",
+            f"- 시험 질문: “{test['instruction']}”\n- 정답 **{test['action']}** · v1 **{test['v1_prediction']}** · v2 **{test['v2_prediction']}**",
+            f"보강 학습 데이터의 사진판 `{train['scene_id']}`:",
+            f"![{labels[suite]}의 보강 학습 사진판](figures/training-pair-{suite}.png)",
+            f"- 학습 지시: “{train['instruction']}”\n- 학습 정답: **{train['action']}**"]
+    pieces += ['각 쌍은 조건 유형과 문장 틀을 공유하지만 사진 원본은 겹치지 않는다. 시험에서 틀린 사진 문제를 그대로 학습에 복사한 것이 아니라, 그와 닮은 표현과 조건을 다른 사진으로 연습하도록 데이터를 보강한 것이다. 이 예제들은 전체 v2 학습 데이터에서 뽑았으며, 배포 체크포인트가 선택된 시점까지 개별 예제가 실제로 제시됐는지는 여기서 확인하지 않았다. 세 쌍은 변화를 이해하기 위한 사례이며 전체 성능은 위의 1,120문제씩으로 살펴봐야 한다.',
+        '이 비교는 학습한 유형을 새 사진에 적용한 결과다. 처음 보는 문장 구조나 조건 조합으로도 잘 되는지는 별도의 새로운 평가셋이 필요하다. [사진 출처와 질문·정답 원본](v2/training-evaluation-examples.json)에서 각 쌍을 확인할 수 있다.']
+    marker = '## 9. 전체 정확도만으로 알 수 없는 것'
+    assert text.count(marker) == 1
+    text = text.replace(marker, '\n\n'.join(pieces) + '\n\n' + marker)
     from article_comparison import add
     text = add(text)
     (ROOT/'docs/BLOG.md').write_text(text, encoding='utf-8')

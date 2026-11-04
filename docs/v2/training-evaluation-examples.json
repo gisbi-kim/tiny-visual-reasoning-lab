@@ -1,0 +1,164 @@
+{
+  "selection": "First Korean row in each original test where v1 was incorrect and v2 correct, paired with first v2 training row sharing family and variant (prefer exact text if available). Examples are illustrative; selected checkpoint may precede seeing a particular row.",
+  "examples": [
+    {
+      "suite": "test_language",
+      "test": {
+        "instruction": "다음 조건에 맞춰 사진을 골라 줘. 주방용품 사진을 찾되, 그 사진의 바로 아래쪽에 선글라스 사진이 있어야 해. 칸을 벗어나는 이동은 NONE으로 답해.",
+        "action": "B",
+        "family": "neighbor_filter",
+        "variant": 4,
+        "scene_id": "test_language-00056",
+        "source_ids": [
+          "val/images/val_6328.JPEG",
+          "val/images/val_959.JPEG",
+          "val/images/val_8239.JPEG",
+          "val/images/val_9317.JPEG",
+          "val/images/val_3986.JPEG",
+          "val/images/val_2862.JPEG"
+        ],
+        "object_keys": [
+          "ladybug",
+          "teapot",
+          "keyboard",
+          "refrigerator",
+          "sunglasses",
+          "pizza"
+        ],
+        "image": "images/test_language-00056.png",
+        "v1_prediction": "E",
+        "v2_prediction": "B"
+      },
+      "training_example": {
+        "instruction": "이 사진판을 보고 답해 줘. 전기나 전자로 작동하는 기기 사진을 찾되, 그 사진의 바로 우측에 거위 사진이 있어야 해. 칸을 벗어나는 이동은 NONE으로 답해.",
+        "action": "E",
+        "family": "neighbor_filter",
+        "variant": 4,
+        "scene_id": "v2_train-04308",
+        "source_ids": [
+          "train/n02917067/images/n02917067_349.JPEG",
+          "train/n07768694/images/n07768694_310.JPEG",
+          "train/n02132136/images/n02132136_1.JPEG",
+          "train/n02056570/images/n02056570_205.JPEG",
+          "train/n03085013/images/n03085013_234.JPEG",
+          "train/n01855672/images/n01855672_26.JPEG"
+        ],
+        "object_keys": [
+          "train",
+          "pomegranate",
+          "bear",
+          "penguin",
+          "keyboard",
+          "goose"
+        ],
+        "image": "images/v2_train-04308.png"
+      }
+    },
+    {
+      "suite": "test_composition",
+      "test": {
+        "instruction": "부탁 하나 할게. 트랙터 사진과 같은 행의 음식 사진을 찾고, 그 사진에서 왼쪽으로 한 칸 이동한 사진을 골라.",
+        "action": "B",
+        "family": "row_filter_then_neighbor",
+        "variant": 0,
+        "scene_id": "test_composition-00095",
+        "source_ids": [
+          "val/images/val_4379.JPEG",
+          "val/images/val_8183.JPEG",
+          "val/images/val_1410.JPEG",
+          "val/images/val_7969.JPEG",
+          "val/images/val_8431.JPEG",
+          "val/images/val_9460.JPEG"
+        ],
+        "object_keys": [
+          "goose",
+          "tractor",
+          "pepper",
+          "car",
+          "bear",
+          "ladybug"
+        ],
+        "image": "images/test_composition-00095.png",
+        "v1_prediction": "A",
+        "v2_prediction": "B"
+      },
+      "training_example": {
+        "instruction": "백팩 사진과 같은 행의 곤충 사진을 찾고, 그 사진에서 위쪽으로 한 칸 이동한 사진을 골라. 해당하는 사진이 없으면 NONE이야.",
+        "action": "A",
+        "family": "row_filter_then_neighbor",
+        "variant": 0,
+        "scene_id": "v2_train-03936",
+        "source_ids": [
+          "train/n04074963/images/n04074963_310.JPEG",
+          "train/n03544143/images/n03544143_308.JPEG",
+          "train/n01641577/images/n01641577_195.JPEG",
+          "train/n02279972/images/n02279972_190.JPEG",
+          "train/n01443537/images/n01443537_419.JPEG",
+          "train/n02769748/images/n02769748_178.JPEG"
+        ],
+        "object_keys": [
+          "remote",
+          "hourglass",
+          "frog",
+          "butterfly",
+          "goldfish",
+          "backpack"
+        ],
+        "image": "images/v2_train-03936.png"
+      }
+    },
+    {
+      "suite": "test_combined",
+      "test": {
+        "instruction": "부탁 하나 할게. 이동을 시작할 칸은 나비 사진과 같은 행에 있는 곤충 사진이야. 거기서 왼쪽으로 한 칸 이동해.",
+        "action": "D",
+        "family": "row_filter_then_neighbor",
+        "variant": 4,
+        "scene_id": "test_combined-00031",
+        "source_ids": [
+          "val/images/val_4664.JPEG",
+          "val/images/val_5039.JPEG",
+          "val/images/val_3384.JPEG",
+          "val/images/val_242.JPEG",
+          "val/images/val_9797.JPEG",
+          "val/images/val_7066.JPEG"
+        ],
+        "object_keys": [
+          "bus",
+          "pretzel",
+          "lifeboat",
+          "dog",
+          "butterfly",
+          "hourglass"
+        ],
+        "image": "images/test_combined-00031.png",
+        "v1_prediction": "E",
+        "v2_prediction": "D"
+      },
+      "training_example": {
+        "instruction": "다음 조건에 맞춰 사진을 골라 줘. 이동을 시작할 칸은 펭귄 사진과 같은 행에 있는 전기나 전자로 작동하는 기기 사진이야. 거기서 왼쪽으로 한 칸 이동해. 해당하는 사진이 없으면 NONE이야.",
+        "action": "E",
+        "family": "row_filter_then_neighbor",
+        "variant": 4,
+        "scene_id": "v2_train-02693",
+        "source_ids": [
+          "train/n04146614/images/n04146614_79.JPEG",
+          "train/n02129165/images/n02129165_325.JPEG",
+          "train/n04074963/images/n04074963_161.JPEG",
+          "train/n02056570/images/n02056570_140.JPEG",
+          "train/n02124075/images/n02124075_95.JPEG",
+          "train/n04070727/images/n04070727_426.JPEG"
+        ],
+        "object_keys": [
+          "bus",
+          "lion",
+          "remote",
+          "penguin",
+          "cat",
+          "refrigerator"
+        ],
+        "image": "images/v2_train-02693.png"
+      }
+    }
+  ]
+}

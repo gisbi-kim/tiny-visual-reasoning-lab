@@ -1,0 +1,1213 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Tiny ImageNet과 Qwen3.5-4B 기반 decision model의 데이터 설계, LoRA 학습, v1·v2 비교와 실제 실험 기록.">
+<title>Training a Decision Model with Six Photographs and Natural-Language Instructions</title>
+<style>
+:root{color-scheme:light;--ink:#24313d;--muted:#66727c;--accent:#226b88}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#fafbf9;color:var(--ink);font:17px/1.85 system-ui,-apple-system,"Malgun Gothic",sans-serif;word-break:keep-all;overflow-wrap:anywhere}header{border-bottom:1px solid #dce1df;padding:20px 5vw;font-size:13px;color:var(--muted)}header a{font-weight:600}main{display:grid;grid-template-columns:230px minmax(0,820px);gap:48px;max-width:1200px;margin:50px auto 90px;padding:0 28px}nav{position:sticky;top:24px;align-self:start;max-height:90vh;overflow:auto;font-size:13px}nav ol{list-style:none;padding:0}nav li{margin:9px 0}nav a{color:var(--muted);text-decoration:none}h1{font-size:34px;line-height:1.45;letter-spacing:-.045em;margin:0 0 28px}h2{font-size:25px;line-height:1.5;letter-spacing:-.025em;margin:64px 0 20px;scroll-margin-top:30px}h3{font-size:20px;margin-top:35px}p{margin:18px 0}a{color:var(--accent);text-underline-offset:3px}strong{font-weight:700}table{display:block;overflow-x:auto;border-collapse:collapse;width:100%;margin:24px 0;font-size:14px;white-space:normal}th,td{padding:10px 14px;border-bottom:1px solid #dce1df;text-align:left;min-width:90px}th{background:#edf2f2;font-weight:650}td ul{margin:0;padding-left:1.3em}td li{padding-left:.2em;margin:.3em 0}pre{padding:20px;background:#edf1f2;border:1px solid #dce1df;border-radius:6px;overflow-x:auto;font-size:13px;line-height:1.7}code{font-family:ui-monospace,Consolas,monospace}p code,li code{background:#edf1f2;padding:2px 4px;border-radius:3px;font-size:.9em}img{max-width:100%;height:auto;display:block;margin:28px auto;background:white}img[src$=".png"]{width:576px;border-radius:4px}img[src*="user-test-"]{width:100%}blockquote{margin:25px 0;border-left:3px solid #9cb6bf;padding:2px 22px;color:#55636d}article>ul,article>ol{padding-left:25px}footer{border-top:1px solid #dce1df;margin-top:70px;padding-top:20px;font-size:13px;color:var(--muted)}@media(max-width:950px){main{display:block;max-width:830px}nav{position:static;max-height:none;border-bottom:1px solid #dce1df;margin-bottom:35px;padding-bottom:16px}nav ol{columns:2}}@media(max-width:560px){body{font-size:16px}main{padding:0 18px;margin-top:28px}h1{font-size:28px}h2{font-size:23px;margin-top:48px}nav ol{columns:1}th,td{padding:9px 10px}pre{padding:14px}}
+</style><link rel="stylesheet" href="series-style.css"></head><body><header>Tiny Visual Reasoning Lab · Technical experiment record · <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab">Code and Experimental Materials</a><div class="lang-switch" role="group" aria-label="Language"><a href="index.html">한국어</a><a href="index.en.html" aria-current="page">English</a></div></header>
+<main><nav aria-label="Table of Contents"><strong>Table of Contents</strong><ol><li><a href="#section-1">1. The task</a></li><li><a href="#section-2">2. Base model and trainable components</a></li><li><a href="#section-3">3. Meaning that must be determined before the photo</a></li><li><a href="#section-4">4. How to create natural language and correct answers together</a></li><li><a href="#section-5">5. Let’s test the first trained model in various ways</a></li><li><a href="#section-6">6. Insert missing expressions and conditions into the data</a></li><li><a href="#section-7">7. Meaning and actual learning of one epoch</a></li><li><a href="#section-8">8. What and how much has improved</a></li><li><a href="#section-9">9. What you can’t tell from overall accuracy alone</a></li><li><a href="#section-10">10. What we learned from this experiment</a></li><li><a href="#section-11">11. Let’s ask the same problem to generative Qwen.</a></li><li><a href="#section-12">12. From image to selection, look at the inference code</a></li><li><a href="#section-13">13. Source of weights and redo</a></li><li><a href="#section-14">14. Review experiment records</a></li></ol></nav><article><p class="translation-note">Machine-assisted English translation. Original code, logs, and model inputs are shown as recorded; consult the Korean article if wording is unclear.</p><h1>Training a Decision Model with Six Photographs and Natural-Language Instructions</h1>
+<p>The two previous MNIST experiments trained models to choose from a fixed set of actions using handwritten digits and instructions: <a href="https://gisbi-kim.github.io/jev-mnist-tutorial/">the first experiment</a> used a target digit, and <a href="https://gisbi-kim.github.io/decision-model-mnist-tutorial/">the second</a> used three digits and natural-language instructions. Here, we replace the digits with photographs and consider position, object categories, and counts.</p>
+<p>When it comes to looking at pictures and answering questions, visual language models (VLMs) are already good at it. VLM is a model learned to read images and sentences together. But what if you want to write the answer directly as an action in another program? For example, let's say you select one of six photos and pass the result to a robot or screen manipulation program. Rather than generating a long answer each time and finding the location in the sentence, it is easier to handle if the model gives a score to a given option and returns the location and probability immediately.</p>
+<p>This method is called a decision model. The model we are creating this time calculates the score of the options at once instead of connecting sentences in small units called tokens, so it has the potential to reduce latency compared to methods that generate particularly long answers. If we use the VLM that has already learned pictures and language as a basis, how much less data and training can we learn for our new judgment problem?</p>
+<p>We attach a decision head to Qwen3.5-4B and train it to select one of six photographs, or NONE. We test the first model on new photographs and instructions, add difficult types to the training data, and repeat the evaluation. We also compare accuracy and latency with generative Qwen on the same questions. The <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab">code and weights</a> and <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/v2/INDEX.md">experiment records</a> are available.</p>
+<h2 id="section-1">1. The task</h2>
+<p>Saying “cat” when looking at a single picture is different from looking at several pictures and following the instruction “choose the photograph below and to the left of the cat.” The latter problem involves both recognizing objects and following their locations. First, let's start by placing six photos in two rows.</p>
+<p><img src="assets/example-canonical.png" alt="Actual demonstration photo board: top row dog, banana, cat, bottom row lifeboat, goldfish, backpack" loading="eager" width="384" height="256" /></p>
+<p>This is a photo plate that went into the actual model. Let's call the top row from left to right A·B·C and the bottom row D·E·F. The table below lists the central object of each column in an easy-to-read manner.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>left</th>
+<th>middle</th>
+<th>right</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>top row</td>
+<td>A: dog</td>
+<td>B: Banana</td>
+<td>C: cat</td>
+</tr>
+<tr>
+<td>bottom line</td>
+<td>D: lifeboat</td>
+<td>E: Goldfish</td>
+<td>F: Backpack</td>
+</tr>
+</tbody>
+</table>
+<p>The answer to “Choose a picture of a cat” is C. The direction is based on the person viewing the photo plate. For example, B is to the right of A, and D is below A. If you say, “Move one space to the left of the cat, then one space down,” you must follow the order C → B → E. The answer to “If there are three or more pictures of animals, choose a banana, otherwise choose a backpack” is B. This is because dogs, cats, and goldfish are animals.</p>
+<p>At this time, counting <strong>Number of photos featuring animals</strong>It is. Even if there are multiple animals in a photo, they are expressed as one central object. If you move outside the grid or there are no photos that meet the conditions, select NONE. There are seven output spaces: A, B, C, D, E, F, and NONE.</p>
+<h2 id="section-2">2. Base model and trainable components</h2>
+<p>As a base model, we used Qwen3.5-4B, which can read images and text together. Two devices were added here. <strong>LoRA</strong>This is the part where we adjust the existing model little by little to fit our problem. <strong>head for selection</strong>This is the part where Qwen receives the expressions made by reading the photos and instructions and calculates the scores of A–F and NONE. In this experiment, a head was created by referring to the Clef method and learned with LoRA. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/train.py">Physical model creation code</a>Wow <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/engine.py">Deployment inference code</a>discloses.</p>
+<p>For example, option B means “Select the photo in the middle of the top row.” Head calculates the score for each option by referring to the question and the input location corresponding to each option. It is composed of several layers that collect information and compare options, with an internal width of 512, routing on the 2nd floor, and decoder on the 4th floor. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/clef_reference.py">Head reference implementation</a>You can check the specific calculations here.</p>
+<pre><code class="language-text">2×3 사진 격자 + 자연어 지시 + 선택지 정의
+                 ↓
+       Qwen3.5-4B + 학습한 LoRA
+                 ↓
+          학습한 Clef head
+                 ↓
+         A B C D E F NONE 점수
+</code></pre>
+<p>When the app sends a photo and instructions, the answer is the option with the highest score. If E is the highest, the program immediately receives the result “middle of the bottom row” without having to interpret the response statement. At this time, you can also obtain the probability of each option.</p>
+<p>Now let's teach the model to give a high score to the correct box. The necessary correct answers are created in a separate rule program.</p>
+<p>Let’s consider a problem where the correct answer is E. After converting the seven scores into probability using a calculation called softmax, we look at the probability of E. If a high probability is given to E, the loss will be small, and if a low probability is given, the loss will be large. In the formula, when the probability of the correct answer a is p(a), it is −log p(a). The key to learning is to modify LoRA and head little by little to reduce this loss.</p>
+<p>LoRA leaves Qwen's existing weights as is and makes the necessary changes by learning a small matrix attached to them. If written as an equation, it is W + (alpha/r)BA, which is the change added to the existing weight W. Here, A and B are the learning matrices. Rank r determines the size of the small matrix, and alpha determines the size of the change. In this experiment, both are 16. The number of learning parameters is 64,511,492, including 32,464,896 LoRA and 32,046,596 selection heads. This corresponds to approximately 1.40% of the 4,603,777,028 logical parameters including the basic model·LoRA·head.</p>
+<p>The base model reads in 4 bits to save GPU memory. Even if compressed and stored, the original logical number of weights remains the same, so 1.40% is a value calculated based on the total number of parameters, not the compressed storage size.</p>
+<h2 id="section-3">3. Meaning that must be determined before the photo</h2>
+<p>The original is Tiny ImageNet. Among the 200 classes, 40 classes whose target was relatively clear even in small photos were used. The size was checked using the bounding box that marked the central object in the photo, and objects that were too small and duplicate photos with exactly the same RGB were excluded. The remaining photos were arranged in six spaces after cutting out the central object according to the bounding box. The original resolution is 64×64, so it is difficult to see small objects.</p>
+<p>A table was created to clearly indicate which category each photo belongs to. For example, a goldfish is both a fish and an animal. Teddy bears do not count as animal pictures. If this definition is unclear, the answer to the sentence “How many animals are there?” will be inconsistent.</p>
+<p>Class samples and sentence frames were reviewed by a coding agent. In some cases, the subject in the photo is obscured or other objects appear in the background. How consistently the criterion of central object is applied in these scenes is an important data quality challenge.</p>
+<h2 id="section-4">4. How to create natural language and correct answers together</h2>
+<p>First, we create a semantic program that is independent of the sentence. For example, the previous C → B → E problem can be written as follows.</p>
+<pre><code class="language-json">{&quot;family&quot;:&quot;chain&quot;,&quot;anchor&quot;:&quot;cat&quot;,&quot;direction&quot;:&quot;left&quot;,&quot;second_direction&quot;:&quot;down&quot;}
+</code></pre>
+<p>here <code>anchor</code>means the starting target, the cat, and the two directions mean left and down, respectively. If you apply this rule to the photographic board, you will get the correct answer, E. Now, if the same rule is expressed in a sentence such as “Cat moves one space to the left, then one space down,” the instruction and the correct answer are completed as a pair. We also create pairs of problems where the correct answer is different by changing the direction or object on the same photo board. This is to encourage people to pay attention to the differences in instructions instead of just looking at the pictures and memorizing the answers.</p>
+<p>At first, some expressions and two-condition combinations were set aside, and learning problems were created with the rest. This is to see how different it is when encountering a sentence or combination for the first time compared to simply changing the picture. 4,024 grids and 31,360 learning examples were created from 12,023 original photos, and there were 29,350 different sentences. Because multiple instructions are attached to one grid, the number of photos and examples are different. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/data-summary.json">First data aggregation</a>.</p>
+<h2 id="section-5">5. Let’s test the first trained model in various ways</h2>
+<p>The first training was conducted for 135.7 minutes on RTX 4070 Ti SUPER. From 31,360 training examples, the weights were changed 4,400 times using 8 weights at a time. This process of changing the weight once is called 1 step. In the middle of learning, we solved a separate verification problem and selected the weight of 2,400 steps, which had the best performance. To facilitate future comparisons, this first model was <strong>v1</strong>Let's call it . <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/TRAINING.md">Study settings and records</a>.</p>
+<p>First, we solved the types of problems we learned using pictures that were not seen in the study. I got **93.48%** correct out of 1,120 questions. The result is that problems in this range can generally be solved even if the photo is changed. So, is it okay to ask the same thing in different words? What if we combined the conditions we learned separately into one question?</p>
+<p>To test this, we created questions that expressed the same meaning in different sentence structures and questions that combined several conditions. Initially, the model did not learn this sentence frame and the two condition combinations. For example, after learning “the picture of the cat on the left,” ask, “there must be a cat on the right of the picture to choose.” The same goes for condition combinations. For example, a model that has learned the elements “Choose a fruit in the same row as the cat” and “Move down one space in the picture” is asked to “Find a picture of a fruit in the same row as the cat, and choose the picture directly below that fruit.” You must find a fruit in the same row and then move one space using that position as a starting point. All three tests below contain photos that were not used for learning, and each item has 1,120 questions.</p>
+<table>
+<thead>
+<tr>
+<th>Test given to the first model</th>
+<th style="text-align:right">Correct Questions / All Questions</th>
+<th style="text-align:right">accuracy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>New photo + expression with the same meaning changed</td>
+<td style="text-align:right">888 / 1,120</td>
+<td style="text-align:right">79.29%</td>
+</tr>
+<tr>
+<td>New photo + new condition combination</td>
+<td style="text-align:right">759 / 1,120</td>
+<td style="text-align:right">67.77%</td>
+</tr>
+<tr>
+<td>New photo + combination of rephrased expressions and new conditions</td>
+<td style="text-align:right">614 / 1,120</td>
+<td style="text-align:right">54.82%</td>
+</tr>
+</tbody>
+</table>
+<p>It was lowered by changing the expression compared to 93.48% when only the photo was changed, and lowered even further by combining conditions. If you change all the expressions and combinations, it is a little more than half. Each test consisted of different questions. Looking at the results, it became necessary to examine under what expressions and conditions the model had difficulty. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/TRAINING.md">First evaluation record</a>.</p>
+<p>Now let's change the question. How much better will it be in the same photo problem if expressions and conditions expected to be entered by actual users are included in the learning rather than intentionally excluded?</p>
+<h2 id="section-6">6. Insert missing expressions and conditions into the data</h2>
+<p>This time, the training data included 12 condition types to be supported, 6 sentence frames each for Korean and English, and a total of 144 sentences. Notations such as “three sheets/three sheets”, “3/three”, and “left/left” were also mixed. For example, by asking “the left side of the cat” and “the right side of the cat” on the same photo board, we created a pair of questions where the answer changed when the direction changed. First, we decided on these 12 types as the scope of support and organized them to practice various speaking styles and conditions within them.</p>
+<table>
+<thead>
+<tr>
+<th>training data</th>
+<th style="text-align:right">first model</th>
+<th style="text-align:right">Enriched data</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>original photo</td>
+<td style="text-align:right">12,023 copies</td>
+<td style="text-align:right">12,830 copies</td>
+</tr>
+<tr>
+<td>2×3 photo board</td>
+<td style="text-align:right">4,024</td>
+<td style="text-align:right">4,825</td>
+</tr>
+<tr>
+<td>Instruction/answer example</td>
+<td style="text-align:right">31,360</td>
+<td style="text-align:right">37,632</td>
+</tr>
+<tr>
+<td>different sentences</td>
+<td style="text-align:right">29,350</td>
+<td style="text-align:right">36,328</td>
+</tr>
+</tbody>
+</table>
+<p>Both versions use the same training photo pool, so the number of photos overlaps. Photos for learning, verification, correction, and evaluation were separated using the original photo ID and RGB hash, and the evaluation photos were kept separately even in reinforcement learning. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/V2_DATA_CARD.md">Data organization and inspection</a>.</p>
+<p>Using this data, we subsequently learned the LoRA and head of the first model. This second model <strong>v2</strong>Let's call it. This method starts from the weights of v1 and learns once more with the reinforced data.</p>
+<h2 id="section-7">7. Meaning and actual learning of one epoch</h2>
+<p>v2 inherits the weight of step 2,400 selected in v1. I plan to learn by looking at the 37,632 reinforced examples one by one. Since 8 are used at a time, it takes a total of 4,704 steps.</p>
+<p>Examining a training example once is called 1 epoch. There are several examples that ask for the same judgment rule even if the pictures and sentences are different. For example, “Cat to the right” and “Frog to the right” are different examples but practice finding the same direction. Each condition type contains 3,136 examples.</p>
+<p>Qwen is already pre-trained to handle photos and language together. On that basis, we taught how to link pictures and instructions to scores for seven options. This use of the representation of a pre-trained model may be one of the reasons why it was adapted to this task with relatively short additional learning. In the background, basic Qwen before further study also challenges the same problem.</p>
+<p>The actual equipment is one RTX 4070 Ti SUPER 16 GB of Windows, Ryzen 7 9800X3D, and 64 GB of RAM. The basic model is read with NF4 4bit and calculated with BF16. The LoRA learning rate is 1e-4, the head learning rate is 5e-5, and a cosine schedule is used.</p>
+<p>The actual additional learning took place for 148.1 minutes. It is based on Trainer records and excludes pre-download, data generation, and final evaluation times. This is additional time separate from v1's overall run of 135.7 minutes. The weight of step 3,600, which was the highest in the 336 fixed validations, is distributed. If the highest scores are the same, the checkpoint saved first is kept.</p>
+<table>
+<thead>
+<tr>
+<th>item</th>
+<th>actual record</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>equipment</td>
+<td>NVIDIA GeForce RTX 4070 Ti SUPER · Windows · RAM approximately 64 GB</td>
+</tr>
+<tr>
+<td>Additional study examples</td>
+<td>37,632</td>
+</tr>
+<tr>
+<td>Additional learning completed</td>
+<td>4,704 step · 1.00 epoch</td>
+</tr>
+<tr>
+<td>Trainer run time</td>
+<td>148.1 minutes</td>
+</tr>
+<tr>
+<td>Selected deployment checkpoint</td>
+<td>v2 step 3,600</td>
+</tr>
+<tr>
+<td>Present v2 examples up to the point of selection</td>
+<td>28,800 times</td>
+</tr>
+<tr>
+<td>Select score from 336 fixed validations</td>
+<td>97.62%</td>
+</tr>
+<tr>
+<td>Maximum PyTorch Allocation/Reservation</td>
+<td>6.20 / 7.06 GiB</td>
+</tr>
+</tbody>
+</table>
+<p>The parent checkpoint in v1 was selected at step 2,400, reflecting 19,200 example presentations. The v2 deployment checkpoint has seen an additional 28,800 views there. v2 learning was completed up to 4,704 steps, but the deployment model contains learning up to the selected 3,600 steps.</p>
+<p><img src="assets/v2-training-history.svg" alt="Changes in training loss, moving average, and fixed verification accuracy in v2" loading="lazy" /></p>
+<p>The graph above shows the loss recorded during training and the moving average of the most recent 20 values. The graph below shows the verification accuracy calculated using photos that were not used for learning. Now let’s solve the same test for v1 and v2 and compare the results. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/v2/training-config.json">settings</a>, <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/v2/training-history.json">Total loss history</a>, <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/v2/validation-history.json">Verification trend</a>, <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/v2/training-metrics.json">Real time/memory</a>.</p>
+<h2 id="section-8">8. What and how much has improved</h2>
+<p>Now, let’s solve the three evaluation problems that we previously identified as difficult. Use 1,120 each with the same photo, sentence, and correct answer.</p>
+<table>
+<thead>
+<tr>
+<th>Existing evaluation classification</th>
+<th style="text-align:right">v1</th>
+<th style="text-align:right">v2 final</th>
+<th style="text-align:right">change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>New photo + expression with the same meaning changed</td>
+<td style="text-align:right">79.29%</td>
+<td style="text-align:right"><strong>95.71%</strong></td>
+<td style="text-align:right"><strong>+16.43%p</strong></td>
+</tr>
+<tr>
+<td>New photo + new condition combination</td>
+<td style="text-align:right">67.77%</td>
+<td style="text-align:right"><strong>95.71%</strong></td>
+<td style="text-align:right"><strong>+27.95%p</strong></td>
+</tr>
+<tr>
+<td>New photo + combination of rephrased expressions and new conditions</td>
+<td style="text-align:right">54.82%</td>
+<td style="text-align:right"><strong>95.62%</strong></td>
+<td style="text-align:right"><strong>+40.80%p</strong></td>
+</tr>
+</tbody>
+</table>
+<p>All three items rose to about 95.6-95.7%. Before reading these numbers, let's look at the relationship between test and training data. <strong>Incorrect test questions and pictures were not included in the study as is.</strong> After looking at the test results of v1 and checking which combinations of expressions and conditions were difficult, we strengthened v2 by adding the same sentence frame and condition type to examples made from different learning photos. Based on the original photo ID and image hash, the photos for learning and testing were divided so that they did not overlap.</p>
+<p>Therefore, this table is <strong>Ability to apply learned expressions and conditions to new photos</strong>This shows how much it has improved. On the other hand, v2 <strong>A combination of expressions or conditions that you have never seen before</strong>It is not possible to judge from this table whether it generalizes well. This is because those types were already included in v2 learning. Also, because the test results of v1 influenced the direction of data reinforcement, it is more accurate to read this test as a test comparing before and after reinforcement rather than a completely independent final test. To see generalization to new expressions and combinations, a new test that separates both and pictures is needed. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/v2/TEST_CASES.md">Complete test questions and photo placement records</a>.</p>
+<p><img src="assets/original-suite-comparison.svg" alt="v1 and v2 accuracies calculated from the same problem in the three existing evaluation items" loading="lazy" /></p>
+<p>We also checked whether the photo ID, sentence, and correct answer matched in the tests of the two models. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/tree/main/results/v2/finetuned">Forecast by problem</a>and <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/v2/original-suite-comparison.json">Before and after comparison records</a>You can look at them together.</p>
+<p>Separately, in v2_test 2,016 problems that included all types in a balanced manner, v1 <strong>84.52% → v2 95.78%</strong> showed results. Korean was 84.33% → 95.63%, English was 84.72% → 95.93%. This is a set of problems created separately from the previous three items. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/v2/comparison.json">Comparison of 2,016 identical questions</a>.</p>
+<h3>See test questions and reinforcement data side by side</h3>
+<p>What does a problem with improved accuracy actually look like? In each test, v1 got one Korean question wrong and v2 got it right. Immediately below it is a v2 learning example using the same type and sentence frame. Each photo plate is labeled A, B, C from the left in the top row, and D, E, F in the bottom row. Let's compare the two questions and see what judgments we practiced.</p>
+<h4>When asked to change the expression</h4>
+<p><strong>test photo board</strong> <code>test_language-00056</code></p>
+<p><img src="assets/example-test_language.png" alt="Top row: ladybug, kettle, keyboard, bottom row: refrigerator, sunglasses, pizza." loading="eager" width="384" height="256" /></p>
+<blockquote>
+<p>Please select a photo according to the following conditions. Find a picture of a kitchen appliance, but make sure there is a picture of sunglasses right below it. Movement outside the box is answered with NONE.</p>
+</blockquote>
+<p>Correct answer <strong>B</strong> · v1 <strong>E</strong> → v2 <strong>B</strong></p>
+<p>Sunglasses are at E. The kettle in box B just above is a kitchen utensil, and there are sunglasses right below it, so B is the correct answer.</p>
+<p><strong>Reinforcement learning example</strong> <code>v2_train-04308</code></p>
+<p><img src="assets/training-pair-test_language.png" alt="Reinforcement learning photo board when asking questions with different expressions" loading="eager" width="384" height="256" /></p>
+<blockquote>
+<p>Look at this photo board and answer. Find a picture of a device that runs on electricity or electronics, but make sure there is a picture of a goose just to the right of the picture. Movement outside the box is answered with NONE.</p>
+</blockquote>
+<p>The correct answer for this study example is <strong>E</strong>It is. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/test_language_predictions.json">v1 prediction</a> · <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/v2/finetuned/test_language_predictions.json">v2 prediction</a></p>
+<h4>When two conditions are asked in succession</h4>
+<p><strong>test photo board</strong> <code>test_composition-00095</code></p>
+<p><img src="assets/example-test_composition.png" alt="Top row: goose, tractor, green pepper, bottom row: car, bear, ladybug." loading="eager" width="384" height="256" /></p>
+<blockquote>
+<p>Let me ask you a favor. Find a photo of food in the same row as the photo of the tractor, and select the photo that is moved one space to the left.</p>
+</blockquote>
+<p>Correct answer <strong>B</strong> · v1 <strong>A</strong> → v2 <strong>B</strong></p>
+<p>If you find a picture of food in the same top row as Tractor B, it is C's green pepper. If you move one space to the left from C, it becomes B.</p>
+<p><strong>Reinforcement learning example</strong> <code>v2_train-03936</code></p>
+<p><img src="assets/training-pair-test_composition.png" alt="Photo version of reinforcement learning when two conditions are asked in a row" loading="eager" width="384" height="256" /></p>
+<blockquote>
+<p>Find a photo of an insect in the same row as the backpack photo, and select the photo that is moved one space up from that photo. If there is no corresponding photo, it is NONE.</p>
+</blockquote>
+<p>The correct answer for this study example is <strong>A</strong>It is. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/test_composition_predictions.json">v1 prediction</a> · <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/v2/finetuned/test_composition_predictions.json">v2 prediction</a></p>
+<h4>When the expression and condition combination are changed together</h4>
+<p><strong>test photo board</strong> <code>test_combined-00031</code></p>
+<p><img src="assets/example-test_combined.png" alt="Top row: bus, pretzel, lifeboat, bottom row: dog, butterfly, hourglass." loading="eager" width="384" height="256" /></p>
+<blockquote>
+<p>Let me ask you a favor. The space to start moving to is the insect picture in the same row as the butterfly picture. From there, move one space to the left.</p>
+</blockquote>
+<p>Correct answer <strong>D</strong> · v1 <strong>E</strong> → v2 <strong>D</strong></p>
+<p>The butterfly is at E. The insect in the same lower row is also a butterfly of E, so it starts from E. D's dog, which has moved one space to the left, is the correct answer.</p>
+<p><strong>Reinforcement learning example</strong> <code>v2_train-02693</code></p>
+<p><img src="assets/training-pair-test_combined.png" alt="Reinforcement learning photo version when expression and condition combinations are changed together" loading="eager" width="384" height="256" /></p>
+<blockquote>
+<p>Please select a photo according to the following conditions. The space to start moving to is the picture of a device that operates on electricity or electronics in the same row as the picture of the penguin. From there, move one space to the left. If there is no corresponding photo, it is NONE.</p>
+</blockquote>
+<p>The correct answer for this study example is <strong>E</strong>It is. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/test_combined_predictions.json">v1 prediction</a> · <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/v2/finetuned/test_combined_predictions.json">v2 prediction</a></p>
+<p>Although the photos and subjects of each pair are different, the structure of the judgment required by the question is similar. Reinforcement learning examples were selected from the entire v2 training data, and it was not checked whether each of these examples was presented up to the selected checkpoint. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/v2/training-evaluation-examples.json">Source of each photo and record of questions and answers</a>.</p>
+<h2 id="section-9">9. What you can’t tell from overall accuracy alone</h2>
+<p>Finding an object, moving two steps, branching counts, and comparing counts by category have different difficulties. The table below shows the results for each condition calculated from the separate v2_test 2,016 problems. There are 168 questions per condition, and they are separated from the existing three-item table above.</p>
+<table>
+<thead>
+<tr>
+<th>Condition type</th>
+<th>Example instructions (actual assessment sentences)</th>
+<th style="text-align:right">v1</th>
+<th style="text-align:right">v2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Exclude from same row</td>
+<td><ul><li>In the horizontal line with pomegranates, choose the photo that does not correspond to food.</li><li>Select the remaining photos from the same row as the butterfly photos, excluding the fish photos.</li><li>Find a photo in the same row as the sunglasses photo that is not a photo of an insect.</li></ul></td>
+<td style="text-align:right">85.71%</td>
+<td style="text-align:right">97.02%</td>
+</tr>
+<tr>
+<td>Find a category in the row of the moved cell</td>
+<td><ul><li>Go down one space from the goose, then find a picture of the food in the row you arrived at.</li><li>Select a photo of fruit in the same horizontal row based on the goldfish's right neighbor.</li><li>Select a photo of fruit in the same horizontal row based on the goldfish's left neighbor.</li></ul></td>
+<td style="text-align:right">90.48%</td>
+<td style="text-align:right">97.02%</td>
+</tr>
+<tr>
+<td>Find a category in the column of the moved cell</td>
+<td><ul><li>Pick a photo of a boat that is in the same column as the column just to the left of the photo of the train.</li><li>Select a photo of a bird in the same vertical row based on the space next to the goose's stomach.</li><li>Select a photo of a bird in the same vertical row based on the neighboring cell below the goose.</li></ul></td>
+<td style="text-align:right">93.45%</td>
+<td style="text-align:right">99.40%</td>
+</tr>
+<tr>
+<td>move two steps</td>
+<td><ul><li>Find the frog, go one space up, and then one space to the right.</li><li>Find the pomegranate, go left one space, then go one space up.</li><li>Find the bullfrog, go one space up, and then one space to the left.</li></ul></td>
+<td style="text-align:right">88.10%</td>
+<td style="text-align:right">99.40%</td>
+</tr>
+<tr>
+<td>Find your target</td>
+<td><ul><li>Please select the box where you see the pig.</li><li>Let me ask you a favor. Pick a picture of a pig.</li><li>Let me ask you a favor. Pick a picture of cauliflower.</li></ul></td>
+<td style="text-align:right">89.29%</td>
+<td style="text-align:right">91.07%</td>
+</tr>
+<tr>
+<td>categories in the same column</td>
+<td><ul><li>Pick a picture of a fish in the same row as the picture of a goldfish.</li><li>Among the animal photos, which one has the same vertical lines as the butterfly photo?</li><li>Among the food photos, which one has the same vertical lines as the goldfish photo?</li></ul></td>
+<td style="text-align:right">94.05%</td>
+<td style="text-align:right">98.81%</td>
+</tr>
+<tr>
+<td>Branch by count</td>
+<td><ul><li>If there are three or more pictures of fish, choose a picture of a banana, otherwise, choose a picture of a penguin.</li><li>If you have three or more pictures of kitchenware, please find the dog. Otherwise, find me an umbrella.</li><li>Umbrella when the number of mammal pictures is 1 or more, otherwise pomegranate. Where is that photo?</li></ul></td>
+<td style="text-align:right">79.17%</td>
+<td style="text-align:right">88.69%</td>
+</tr>
+<tr>
+<td>Adjacent locations and categories</td>
+<td><ul><li>Pick the fruit picture right below the frog picture.</li><li>Select the animal photo if it is immediately to the left of the dog photo.</li><li>Pick the animal picture right below the remote control picture.</li></ul></td>
+<td style="text-align:right">85.12%</td>
+<td style="text-align:right">99.40%</td>
+</tr>
+<tr>
+<td>adjacent location</td>
+<td><ul><li>Which cell is the photo immediately adjacent to the abacus photo to the right?</li><li>Which cell is the photo immediately adjacent to the left of the abacus photo?</li><li>After finding the ladybug, go one space to the left.</li></ul></td>
+<td style="text-align:right">87.50%</td>
+<td style="text-align:right">97.62%</td>
+</tr>
+<tr>
+<td>Find and move categories in the same row</td>
+<td><ul><li>First, find the animal picture in the row of sunglasses. Select the upper neighbor of that cell.</li><li>Find a picture of an insect in the horizontal row of sports cars and select the picture just below it.</li><li>Find a picture of food in the horizontal line with the teapot, and then select the picture right below it.</li></ul></td>
+<td style="text-align:right">44.64%</td>
+<td style="text-align:right">95.83%</td>
+</tr>
+<tr>
+<td>Compare counts by category</td>
+<td><ul><li>If the number of pictures of boats is more than the number of pictures of food, choose a picture of a bear. Otherwise, it's a picture of a lifeboat.</li><li>Let me ask you a favor. If there are more pictures of mammals than fish, choose a picture of a teapot, or a picture of a cat.</li><li>Compare the number of insect photos and the number of fish photos. Choose Goldfish only when there is more in the front, keyboard for the rest.</li></ul></td>
+<td style="text-align:right">82.74%</td>
+<td style="text-align:right">88.10%</td>
+</tr>
+<tr>
+<td>categories in the same row</td>
+<td><ul><li>Pick a bird photo in the same row as the dog photo.</li><li>Find pictures of mammals in the horizontal line with koalas.</li><li>Find pictures of water vehicles in the horizontal line with cats.</li></ul></td>
+<td style="text-align:right">94.05%</td>
+<td style="text-align:right">97.02%</td>
+</tr>
+</tbody>
+</table>
+<p>Looking at the table, the problem of finding and moving categories in the same row increased significantly from 44.64% to 95.83%. On the other hand, the question of choosing according to number increased from 79.17% to 88.69%, leaving more room for examination than other types.</p>
+<p>Now let's look at the incorrect answers from two tests dealing with combinations of expressions and conditions. Next, we will solve the third incorrect answer together by looking at the photo board.</p>
+<ul>
+<li><code>test_composition</code>: “First find ladybug, then step one tile to the left. Which fish photo shares that column? Choose NONE if no tile qualifies.” → Correct answer <strong>NONE</strong>, prediction <strong>A</strong>. Photo plate ID <code>test_composition-00003</code>.</li>
+<li><code>test_combined</code>: “I would like to ask you a favor. Choose a picture of a mammal, but you have to move one space to the right from the cat and find it in the column you arrive at. If there is no matching picture, it is NONE.” → Correct answer <strong>NONE</strong>, prediction <strong>C</strong>. Photo plate ID <code>test_combined-00001</code>.</li>
+</ul>
+<h3>View incorrect answers with pictures</h3>
+<p><img src="assets/example-language-failure.png" alt="Top row: lemon, cat, goldfish, bottom row: cauliflower, backpack, hourglass." loading="eager" width="384" height="256" /></p>
+<blockquote>
+<p>Let me ask you a favor. The photo you choose must be a photo of food and be in the same row as the photo of an Egyptian cat. If there is no corresponding photo, it is NONE.</p>
+</blockquote>
+<p>Correct answer <strong>A</strong> · v2 <strong>NONE</strong></p>
+<p>In the same top row as cat B, there is lemon A, which is food. Therefore, the correct answer is A, but v2 chose NONE because there are no photos that meet the conditions. The photo plate ID is <code>test_language-00106</code>It is. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/v2/finetuned/test_language_predictions.json">actual prediction history</a>.</p>
+<p>Photos were taken from Stanford Tiny ImageNet. The original ID and selection criteria for the demonstration/test photo plate are <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/v2/photo-examples.json">Photo source/prediction record</a>Well, the source of the reinforcement learning example is <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/v2/training-evaluation-examples.json">Study and test example records</a>left on The rights to the photo belong to the original owner, and the Apache-2.0 License of the project code does not apply to the photo.</p>
+<p>There were also 14 demonstration questions written in colloquial language. On the same photo board, v1 got 12 correct and v2 got 11 correct. In particular, incorrect answers remained in questions that were changed to refer to numbers and comparison conditions. This demonstration will give you an idea of ​​which speech style to look at next. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/v2/freeform.json">Colloquial real predictions</a>.</p>
+<h3>Three screens I personally entered</h3>
+<p>This is a screen where the user changes the standard of animal photos to 1, 2, or 3 photos on the same photo board. You can see green food in A, a goldfish in B, and a picture of an animal in E. When the standard is 1 or 2, at least two cards, B and E, are animals, so A is the natural answer. The screen displayed F in both cases. The third screen shows NONE.</p>
+<p><img src="assets/user-test-1.png" alt="Direct user test: Instructions for more than 1 page and F selection screen" loading="eager" width="1760" height="1458" /></p>
+<p><img src="assets/user-test-2.png" alt="Direct user test: Instructions for 2 or more pages and F selection screen" loading="eager" width="1796" height="1462" /></p>
+<p><img src="assets/user-test-3.png" alt="Direct user test: Instructions for 3 or more pages and NONE selection screen" loading="eager" width="1920" height="1474" /></p>
+<p>The probability of displaying F on the first screen was 96.1%, and on the second screen it was 83.2%. Selections that received high scores are also examples of the need to check photos and conditions together. The screenshot shows the input fields and selection results, but it is not possible to check from the screen alone whether the decision button was pressed again after changing the question. Since there are no original records to determine the central object of the third blurry D photo, the correct answer in that case will not be determined here. The MPS execution times displayed on the screen are 1.37 seconds, 1.09 seconds, and 1.12 seconds, and the equipment and measurement context are different from the Windows GPU comparison below.</p>
+<p>Will the same judgment be reached if the saved weights are read again? The choices of training implementation, deployment CUDA, and CPU were all consistent across the 24 validation samples. The accuracy of all 336 verification tests was 97.62% for both training and distribution CUDA. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/v2/reload-final.json">Reloading inspection</a>.</p>
+<p>It is worth looking at the probability as much as the answer. To adjust for the model's tendency to be overly confident, the temperature was set to 1.8302 with 1,008 separate problems. Since the score is divided by the same positive number, the choice itself remains and the size of the probability changes. In the problem used for calibration, the negative log-likelihood was reduced from 0.1997 to 0.1420. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/v2/logs/calibration/v2.json">Calibration history</a>.</p>
+<p>Next time, let's prepare new pictures and questions outside the sentence frame we reinforced this time. By doing so, you can also see how widely you can use the expressions you have learned in new situations.</p>
+<h2 id="section-10">10. What we learned from this experiment</h2>
+<p>At first, the model was good at solving the types of problems learned from new photos, but when the expressions and conditions were changed together, the model dropped to 54.82%. After continuing learning including the missing types, I got 95.62% on the same problem. The starting point for improvement was the process of finding out what difficult cases were and creating data to teach those cases.</p>
+<p>Thanks to a base model that had already learned images and language together, we were able to focus on connecting pictures and instructions to desired choices rather than teaching them objects from scratch. In the background, basic Qwen before further study also challenges the same problem.</p>
+<p>Even within one epoch, we practiced the same judgment several times by changing pictures and sentences. As seen in Section 7, v2 continued training from v1 and distributed 3,600 step weights selected as verification scores. In the two interim sample tests, changes in each item were mixed. When going from 1,600 steps to 2,000 steps, I got one more problem correct with the new expression, but got two more problems wrong with expressions and combinations. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/v2/interim-step-1600.json">Midterm evaluation record</a>, <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/v2/interim-step-2000.json">second record</a>. Each sample was 56 problems, v2 was CPU, and the stored v1 prediction was CUDA.</p>
+<p>The most interesting thing is that the desired form of judgment can be specified through data. Instead of vaguely asking, “Understand the location,” it shows two questions with different directions and their respective correct answers. Incorrect answers found in the 14 spoken language demonstrations indicate which expressions to reinforce and test next.</p>
+<h2 id="section-11">11. Let’s ask the same problem to generative Qwen.</h2>
+<p>The decision model created earlier calculates the scores of seven options at once. So what if we showed Qwen the same picture and question, and had him write the correct answer in text as if chatting? In this method, the model generates the following tokens one by one to complete the answer. Let's compare the accuracy and time of the two methods on the same problem.</p>
+<p>First, we asked the basic Qwen to answer A–F or NONE and gave up to 8 tokens with thinking mode turned off. Some outputs started with an explanation but did not finish the answer. Would giving more tokens or turning on thinking mode change the results?</p>
+<p>To compare with the same photos and questions <code>v2_test</code>in <strong>96 questions</strong>chose. Four questions each for 12 task types were selected in Korean and English. The first 8-token experiment and the four settings that follow used the same problem. The generative model is Qwen3.5-4B without fine tuning, and the decision model is v2, which was additionally learned from the same base model. All ran at NF4 4bit/BF16 on RTX 4070 Ti SUPER.</p>
+<p>v2 learned the sentence frames and condition types for this task. For the test, photos that were not used for learning were used, and multiple questions were posted on a single photo board.</p>
+<p>The generative type was asked the same question each time and instructed to answer A–F or NONE, and the token limit was changed to 40 and 120. Each was tested by turning thinking mode on and off. The answers were not chosen randomly, and each time the model chose the next token with the highest score.</p>
+<table>
+<thead>
+<tr>
+<th>Model/Settings</th>
+<th style="text-align:right">strictly correct answer</th>
+<th style="text-align:right">Format Allowed Correct Answer</th>
+<th style="text-align:right">Final answer not recognized</th>
+<th style="text-align:right">limit reached</th>
+<th style="text-align:right">central time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>decision model v2</td>
+<td style="text-align:right">93/96 (96.88%)</td>
+<td style="text-align:right">same value</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">Not applicable</td>
+<td style="text-align:right">157.1ms</td>
+</tr>
+<tr>
+<td>Generative · Think off · 8 tokens (existing)</td>
+<td style="text-align:right">29/96 (30.21%)</td>
+<td style="text-align:right">30/96 (31.25%)</td>
+<td style="text-align:right">4</td>
+<td style="text-align:right">no record</td>
+<td style="text-align:right">226.7ms</td>
+</tr>
+<tr>
+<td>Generative · Think off · 40 tokens</td>
+<td style="text-align:right">29/96 (30.21%)</td>
+<td style="text-align:right">30/96 (31.25%)</td>
+<td style="text-align:right">3</td>
+<td style="text-align:right">3</td>
+<td style="text-align:right">243.7ms</td>
+</tr>
+<tr>
+<td>Generative · Think on · 40 tokens</td>
+<td style="text-align:right">0/96 (0.00%)</td>
+<td style="text-align:right">0/96 (0.00%)</td>
+<td style="text-align:right">96</td>
+<td style="text-align:right">96</td>
+<td style="text-align:right">1597.9ms</td>
+</tr>
+<tr>
+<td>Generative · Think off · 120 tokens</td>
+<td style="text-align:right">29/96 (30.21%)</td>
+<td style="text-align:right">30/96 (31.25%)</td>
+<td style="text-align:right">3</td>
+<td style="text-align:right">3</td>
+<td style="text-align:right">239.9ms</td>
+</tr>
+<tr>
+<td>Generative · Think on · 120 tokens</td>
+<td style="text-align:right">0/96 (0.00%)</td>
+<td style="text-align:right">0/96 (0.00%)</td>
+<td style="text-align:right">96</td>
+<td style="text-align:right">96</td>
+<td style="text-align:right">4613.3ms</td>
+</tr>
+</tbody>
+</table>
+<p>In the state of thinking off, I got 30 out of 96 questions correct for both 40 tokens and 120 tokens. <code>B</code>Not only in cases where only the choice is answered, as in <code>정답: B</code>Likewise, answers marked as correct are also accepted numbers. The ‘strictly correct answer’ in the table counts cases in which only the options are printed, and even if a period is added at the end, it is accepted. ‘Final answer not recognized’ was calculated based on strict format standards in the first 8 token experiment. <code>정답: B</code>There are 4, including , and this is the standard that allowed that format in subsequent experiments.</p>
+<p>When I turned on my thoughts, something else happened. While the model continued to think while explaining the photos and conditions, all the tokens were used up. <strong>For both 40 tokens and 120 tokens, the final answer was not found in 96 questions.</strong> So it is displayed as 0/96 in the table. Distinguish the options mentioned in your thoughts from the final answer, <code>&lt;/think&gt;</code> Only the latter answers were graded. Output tokens are also used to think, so you need to leave enough tokens to finish thinking to get the final answer.</p>
+<p>The speed was measured after loading the model in advance and preparing and executing three problems. It is the middle value when listing the time taken from image preprocessing to GPU calculation and result conversion in order of fastest. Model loading, file reading, and HTTP communication were excluded from the measurements. When writing long generative answers, the time to create the token is also included.</p>
+<h3>So when is a decision model useful?</h3>
+<p>What I notice in these results is <strong>When the purpose of the decision is determined, the capabilities of the large model can be connected to small outputs that fit the purpose.</strong>The point is. What is needed in this experiment is not a long description of the photo, but either A–F or NONE. Once the selection score appears, the program can move on to the next action without having to find the answer again in the sentence, and you can also look at the scores of the seven options.</p>
+<p>In the same 96 problems, the additionally learned decision model got 93 correct answers, and the median time was 157.1ms. The basic Qwen that caught my mind is <code>정답: B</code> If the same answer is acknowledged, 30 were correct, and the median time for the 40 token setting was 243.7ms. In this measurement, the decision model was about 1.55 times faster. This is the result obtained by comparing the case of using the basic Qwen as is and the case of using the model learned for this task side by side.</p>
+<p>The cost of learning is also an attractive feature of this method. Based on Qwen, which has already learned pictures and language, we learned LoRA and head, which account for about 1.40% of the total logic parameters. After creating v1, it took 148.1 minutes on one GPU of this computer to reinforce the expressions and conditions needed in v2. This time is additional learning time for v2, and before that, 135.7 minutes of v1 learning and data production and evaluation were also required. Still, it is practical to be able to adapt existing models in a relatively short period of time by providing examples that fit the new task.</p>
+<p>Of course, not all questions have fixed options. A generative model is more natural when listening to explanations or asking unexpected questions. On the other hand, such as objects the robot will pick up or locations to press on the screen. <strong>A problem with a set of possible actions</strong>In this case, it is worth considering a decision model that teaches the desired judgment through examples and immediately receives the selection results. This experiment is the first step in confirming that possibility in a small photo selection problem.</p>
+<p><a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/generative-comparison/thinking-0-tokens-40.json">Think Off · 40 Tokens</a> · <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/generative-comparison/thinking-1-tokens-40.json">Think on · 40 tokens</a> · <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/generative-comparison/thinking-0-tokens-120.json">Think Off · 120 Tokens</a> · <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/generative-comparison/thinking-1-tokens-120.json">Think on · 120 tokens</a> · <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/generative-comparison/reasoning-summary.json">Comparison Summary</a> · <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/compare_reasoning_modes.py">evaluation code</a> · <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/generative-comparison/generative.json">Existing 8 token output</a>.</p>
+<h2 id="section-12">12. From image to selection, look at the inference code</h2>
+<p>Previously, we looked at how well the model makes choices. This time, let’s call the same model directly from the code and give it a picture and instructions. The example below uses the photo plate that appeared at the beginning of the article.</p>
+<pre><code class="language-text">A: 개       B: 바나나   C: 고양이
+D: 구명보트 E: 금붕어   F: 배낭
+</code></pre>
+<p>If you give the instruction “From the cat, go one space to the left, then one space down,” the correct answer is E because C → B → E. Let's run the Unsloth code used for training and the inference code used by the app, respectively.</p>
+<h3>12.1 Making six images into a photo plate</h3>
+<p>Instead of putting six separate files in the model, <strong>One image joined in two lines</strong>Put it in. From the top left are A, B, C, and the bottom row is D, E, and F. The photo plate to be used in the example is from the repository. <code>docs/figures/example-canonical.png</code>It's already in.</p>
+<p>If you have prepared six photos yourself, <code>render</code> You can create the same shape with a function. You can change the file name to fit your photo.</p>
+<pre><code class="language-python">from PIL import Image
+from render import render
+
+# 파일을 A, B, C, D, E, F 순서로 나열한다.
+paths = [
+    &quot;photos/a.jpg&quot;, &quot;photos/b.jpg&quot;, &quot;photos/c.jpg&quot;,
+    &quot;photos/d.jpg&quot;, &quot;photos/e.jpg&quot;, &quot;photos/f.jpg&quot;,
+]
+
+photos = []
+for path in paths:
+    with Image.open(path) as source:
+        photos.append(source.convert(&quot;RGB&quot;))
+
+board = render(photos)       # 여섯 장을 384×256 사진판 한 장으로 합친다.
+board.save(&quot;my-board.png&quot;)
+</code></pre>
+<p><code>render()</code>Maintain the proportions of the photos and place them in each column. This image and Korean instructions go into the model. Photo plates created in the app also use the same function. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/render.py">Code to create a photo plate</a> · <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/app.py">Read photos in app</a>.</p>
+<h3>12.2 Load model learned with Unsloth</h3>
+<p>In this project <strong>Unsloth's <code>FastDecisionModel</code>When learning and verifying during learning, <code>predict()</code>called .</strong> First, get the v2 weights from the repository. The code below shows the Windows·NVIDIA CUDA environment and Unsloth used in the experiment. <code>2026.10.10</code>It is based on . After installing PyTorch for CUDA, install the learning dependency.</p>
+<pre><code class="language-bash">python -m pip install -r requirements-train.txt
+python -m pip install bitsandbytes==0.50.2
+python download_model.py --version v2 --output weights-v2
+</code></pre>
+<p><code>weights-v2</code>Contains the learned LoRA and the head for selection. The basic Qwen weights are received separately from Hugging Face during the first inference and stored in the cache. already <code>weights-v2</code>If received, omit the download command.</p>
+<p>Now, let’s read the photo, bring up the model, and ask a question. Below is the repository <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/example_unsloth_inference.py">Runnable example</a> It's all. in the repository folder <code>python example_unsloth_inference.py</code>Run it with</p>
+<pre><code class="language-python">&quot;&quot;&quot;공개 v2 모델을 Unsloth의 CUDA 추론 방식으로 실행한다.&quot;&quot;&quot;
+import json
+import os
+from pathlib import Path
+
+os.environ.setdefault('UNSLOTH_COMPILE_DISABLE', '1')
+
+from PIL import Image
+from unsloth import FastDecisionModel
+import torch
+
+from schema import questions
+
+
+def main():
+    # 사진 여섯 장이 A–F 순서로 합쳐진 이미지다.
+    image_path = Path('docs/figures/example-canonical.png')
+    with Image.open(image_path) as source:
+        image = source.convert('RGB')
+
+    instruction = '고양이에서 왼쪽으로 한 칸, 그다음 아래로 한 칸 이동한 사진을 골라줘.'
+    model, processor = FastDecisionModel.from_pretrained(
+        'weights-v2', load_in_4bit=True, dtype=torch.bfloat16
+    )
+    FastDecisionModel.for_inference(model)
+
+    result = FastDecisionModel.predict(
+        model, processor, instruction, questions(), images=[image]
+    )['select']
+    print(json.dumps(result, ensure_ascii=False, indent=2))
+
+
+if __name__ == '__main__':
+    main()
+</code></pre>
+<p>In order, they are as follows:</p>
+<ol>
+<li><code>Image.open()</code>Reads the photo plate and converts it to an RGB image. To use your own photo plate <code>image_path</code>Just change it.</li>
+<li><code>from_pretrained()</code>is <code>weights-v2</code>Read the settings and load the default Qwen, learned LoRA, and head. <code>load_in_4bit=True</code>is a setting that reduces GPU memory usage in the basic model.</li>
+<li><code>for_inference()</code>After preparing the inference, <code>predict()</code>The model, processor, instructions, selection definitions, and photo plate are delivered to the system. <code>images=[image]</code>What is included is a series of six chapters. <strong>a photo plate</strong>It is. of code <code>UNSLOTH_COMPILE_DISABLE</code>are the compilation settings used in this experiment.</li>
+<li>in the return value <code>select</code>is the result of this selection problem. in it <code>answer</code>is A–F or NONE, <code>probabilities</code>contains the score for each option in probability form.</li>
+</ol>
+<p><code>processor</code>turns pictures and sentences into input that Qwen can process. Qwen reads the input, and head creates scores for the seven options. At this time <code>generate()</code>Instead of continuing the answer sentence for each token, <code>predict()</code>returns the selection result.</p>
+<p>The output of running the above code on this computer was as follows:</p>
+<pre><code class="language-json">{
+  &quot;type&quot;: &quot;choice&quot;,
+  &quot;choice&quot;: &quot;E&quot;,
+  &quot;confidence&quot;: 1.0,
+  &quot;probabilities&quot;: {
+    &quot;A&quot;: 0.0, &quot;B&quot;: 0.0, &quot;C&quot;: 0.0, &quot;D&quot;: 0.0,
+    &quot;E&quot;: 1.0, &quot;F&quot;: 0.0, &quot;NONE&quot;: 0.0
+  },
+  &quot;answer&quot;: &quot;E&quot;
+}
+</code></pre>
+<p>This is the result of moving from C to B on the left to E below. This version of Unsloth rounds the output probability to four decimal places. <code>1.0</code>and <code>0.0</code>was displayed. When solving multiple problems in succession, load the model once and then change the images and instructions. <code>predict()</code>Just call again.</p>
+<h3>12.3 How does the model know which seven options to choose?</h3>
+<p>in the above code <code>questions()</code>is a function for inserting the meaning of the selection into the model input. For example, if you run the following code, you can see what each statement selects:</p>
+<pre><code class="language-python">import json
+from schema import questions
+
+print(json.dumps(questions()[&quot;select&quot;][&quot;criteria&quot;], indent=2))
+</code></pre>
+<pre><code class="language-json">{
+  &quot;A&quot;: &quot;Choose the top left photograph.&quot;,
+  &quot;B&quot;: &quot;Choose the top middle photograph.&quot;,
+  &quot;C&quot;: &quot;Choose the top right photograph.&quot;,
+  &quot;D&quot;: &quot;Choose the bottom left photograph.&quot;,
+  &quot;E&quot;: &quot;Choose the bottom middle photograph.&quot;,
+  &quot;F&quot;: &quot;Choose the bottom right photograph.&quot;,
+  &quot;NONE&quot;: &quot;No photograph satisfies the instruction.&quot;
+}
+</code></pre>
+<p><code>questions()</code>Along with this table, it also contains explanations about the placement of the photo plate, moving one space, and NONE. This definition is <strong>Which answer can you choose?</strong> Let me know. It does not indicate which box is the correct answer. The model reads the photo and the user's instructions and gives a score to the seven options. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/schema.py">Define all options</a> · <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/train.py">Actual verification code during training</a>.</p>
+<h3 id="decision-api-reference">12.4 Beyond this example: Input and output of the Decision API</h3>
+<p>in front <code>questions()</code>is a function created to suit our photo selection problem. It is not a special function name originally included in Unsloth. Let's get away from the photo issue here for a moment. <code>FastDecisionModel</code>Let's take a look at what information we can provide. The description below describes the Unsloth installed in this experiment. <strong>2026.10.10</strong>It is based on the Python implementation of . <a href="https://github.com/unslothai/unsloth/blob/main/unsloth/models/decision.py">Implementation of Unsloth's Decision model</a> · <a href="https://github.com/unslothai/unsloth/blob/main/unsloth/models/_decision_common.py">Question format processing code</a>.</p>
+<h4>First prepare the model: <code>from_pretrained()</code></h4>
+<p>The main arguments of the function that loads the model are as follows. The default values below are those of the version stated above. <code>FastDecisionModel</code> It's the standard.</p>
+<pre><code class="language-python">model, processor = FastDecisionModel.from_pretrained(
+    model_name=&quot;경로 또는 모델 ID&quot;,
+    load_in_4bit=True,
+    dtype=torch.bfloat16,
+)
+FastDecisionModel.for_inference(model)
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>factor</th>
+<th>default</th>
+<th>What you do</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>model_name</code></td>
+<td>required</td>
+<td>This is the local checkpoint folder path or Hugging Face model ID. In our example <code>&quot;weights-v2&quot;</code>c.</td>
+</tr>
+<tr>
+<td><code>subfolder</code></td>
+<td><code>None</code></td>
+<td>Used when reading a specific subfolder within a model repository or folder.</td>
+</tr>
+<tr>
+<td><code>max_seq_length</code></td>
+<td><code>None</code></td>
+<td>This is the input length setting to use when preparing the model. If omitted, the default value of the model loader is used.</td>
+</tr>
+<tr>
+<td><code>dtype</code></td>
+<td><code>None</code></td>
+<td>Specifies the data type to be used for calculation. On supported devices, e.g. <code>torch.bfloat16</code>You can write .</td>
+</tr>
+<tr>
+<td><code>load_in_4bit</code></td>
+<td><code>False</code></td>
+<td>Save memory by loading supported models with 4-bit quantization.</td>
+</tr>
+<tr>
+<td><code>load_in_8bit</code></td>
+<td><code>False</code></td>
+<td>In this version of the Decision model, <code>True</code>does not support</td>
+</tr>
+<tr>
+<td><code>full_finetuning</code></td>
+<td><code>False</code></td>
+<td>This setting determines whether to learn the entire weight during subsequent learning.</td>
+</tr>
+<tr>
+<td><code>token</code></td>
+<td><code>None</code></td>
+<td>This is an authentication token to be used when receiving a Hugging Face model that requires access permission.</td>
+</tr>
+<tr>
+<td><code>revision</code></td>
+<td><code>None</code></td>
+<td>Specifies a specific branch/tag/commit of the Hugging Face model.</td>
+</tr>
+<tr>
+<td><code>local_files_only</code></td>
+<td><code>False</code></td>
+<td>Requests to use local files and cache when finding checkpoints. The basic model file referenced by the adapter must also be prepared separately.</td>
+</tr>
+<tr>
+<td><code>use_gradient_checkpointing</code></td>
+<td><code>&quot;unsloth&quot;</code></td>
+<td>This is a setting that adjusts memory usage by reducing the storage of intermediate values when learning.</td>
+</tr>
+<tr>
+<td><code>random_state</code></td>
+<td><code>3407</code></td>
+<td>This is a random number seed used in the model preparation and training process.</td>
+</tr>
+<tr>
+<td><code>**kwargs</code></td>
+<td>—</td>
+<td>These are additional settings to be passed to the model loader in use. For example, in a general-base model <code>decision_head=&quot;clef&quot;</code>can be specified.</td>
+</tr>
+</tbody>
+</table>
+<p>returned <code>model</code>is the model to be judged, and the second value is the tokenizer for text or the processor that also processes images. In the previous example, we need an image, so we name the variable <code>processor</code>It was attached as <code>for_inference(model)</code>Prepares the model in evaluation mode. <strong>This step prepares the model, the real questions are: <code>predict()</code>Do it in</strong></p>
+<p>When loading an already learned decision checkpoint, the saved head is read. On the other hand, when creating a new head from a general-base model, the process of training the head with data to make the desired decision is necessary. us <code>weights-v2</code>is a checkpoint where the learned head and LoRA are stored together.</p>
+<h4>Ask: <code>predict()</code></h4>
+<pre><code class="language-python">def predict(model, tokenizer, state, questions, *, images=None) -&gt; dict:
+    ...
+</code></pre>
+<p>The line above shows the location of the argument. <strong>function signature</strong>c. <code>*</code>is for explanatory purposes and is not used in actual calls. <code>images</code>is <code>images=[image]</code>Name it like this and pass it on.</p>
+<table>
+<thead>
+<tr>
+<th>factor</th>
+<th>role</th>
+<th>In the photo example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>model</code></td>
+<td><code>from_pretrained()</code>This is a decision model called.</td>
+<td>Contains Qwen and learned LoRA·head <code>model</code></td>
+</tr>
+<tr>
+<td><code>tokenizer</code></td>
+<td>It is a tokenizer that creates model input. In a Clef model with an image, <code>from_pretrained()</code>gave it back <strong>processor</strong>Put it in.</td>
+<td><code>processor</code></td>
+</tr>
+<tr>
+<td><code>state</code></td>
+<td>This is the situation or context that the model will judge. You can use strings, and in Clef, you can also pass structures that can be expressed in JSON.</td>
+<td>Natural language directives written by the user</td>
+</tr>
+<tr>
+<td><code>questions</code></td>
+<td>It is a dictionary that determines what to judge and what type of answer to give. Multiple questions with different names can be included at once.</td>
+<td><code>questions()</code>made by <code>select</code> question</td>
+</tr>
+<tr>
+<td><code>images</code></td>
+<td>Optional. Photos are delivered to models and processors that support image input. You can use a PIL image list and the order of the list is maintained.</td>
+<td><code>[image]</code>: One photo plate combining six photos</td>
+</tr>
+</tbody>
+</table>
+<p>If you judge by text alone <code>images</code>can be omitted. To use an image, you need a model and processor that can process the image input. Although you can pass multiple images directly to the API, our experiment combined six photos into one grid. <a href="https://github.com/unslothai/unsloth/issues/13461">Records related to Unsloth multi-image support</a>.</p>
+<h4><code>questions</code> What to put inside?</h4>
+<p>For example, let's say you're choosing how to process a delivery order. <code>state</code>The current situation, <code>questions</code>Contains the questions the model will answer about the situation.</p>
+<pre><code class="language-python">state = &quot;아직 발송 전인 주문이며, 구매자가 배송지 변경을 요청했다.&quot;
+
+questions = {
+    &quot;next_action&quot;: {
+        &quot;type&quot;: &quot;choice&quot;,
+        &quot;instructions&quot;: &quot;이 주문을 어떻게 처리할까?&quot;,
+        &quot;criteria&quot;: {
+            &quot;update&quot;: &quot;배송지를 수정한다.&quot;,
+            &quot;contact&quot;: &quot;추가 정보를 확인한다.&quot;,
+            &quot;leave&quot;: &quot;주문을 변경하지 않는다.&quot;,
+        },
+    }
+}
+
+# model과 tokenizer는 앞에서 준비한 decision model과 tokenizer다.
+answers = FastDecisionModel.predict(model, tokenizer, state, questions)
+print(answers[&quot;next_action&quot;][&quot;answer&quot;])
+</code></pre>
+<p><code>next_action</code>is what we decided <strong>question name</strong>It is. The result is retrieved with the same name in the return value. <code>type</code>is the type of answer, <code>instructions</code>is the question, <code>criteria</code>Contains the answers you can choose and their meaning. <code>instructions</code>If you leave it blank, Clef uses the question name as the description. <code>update</code>, <code>contact</code>, <code>leave</code> This is also an optional name chosen by the user. The above code is an example of the form of the API, and to determine a delivery order, a model suitable for the purpose and learning/evaluation are required.</p>
+<p>For photo problems, the question name with the same structure is <code>select</code>Set it as <code>criteria</code>A–F and NONE were added. <code>questions</code>is not a table that shows the correct answer. <strong>frame to choose the answer</strong>is to convey. Separately from the training data <code>gold</code>Enter the correct answer in , but do not enter it when making inferences.</p>
+<h4>Three types of questions and return values</h4>
+<p>In this version of the API, the question's <code>type</code>There are three things:</p>
+<table>
+<thead>
+<tr>
+<th><code>type</code></th>
+<th>How to ask questions</th>
+<th><code>criteria</code></th>
+<th>returned <code>answer</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>choice</code></td>
+<td>Choose one of several options.</td>
+<td>Dictionary of option names and descriptions, or list of option names</td>
+<td>Selected name, e.g. <code>&quot;update&quot;</code></td>
+</tr>
+<tr>
+<td><code>noul</code></td>
+<td>Judge yes or no.</td>
+<td>omit it or <code>true</code>·<code>false</code>Dictionary explaining the meaning of</td>
+<td><code>True</code> or <code>False</code></td>
+</tr>
+<tr>
+<td><code>score</code></td>
+<td>Determine which level of the sequential steps you are at.</td>
+<td>List of explanations in order from lowest level to lowest level</td>
+<td>The number of the step with the highest probability. The first step is <code>0</code></td>
+</tr>
+</tbody>
+</table>
+<p>For example <code>&quot;priority&quot;: {&quot;type&quot;: &quot;score&quot;, &quot;instructions&quot;: &quot;처리 우선순위는?&quot;, &quot;criteria&quot;: [&quot;낮음&quot;, &quot;보통&quot;, &quot;높음&quot;]}</code>It can be defined like this: If you want to ask more questions <code>questions</code> Just add a name and definition inside.</p>
+<p>The return value is a dictionary with the question name as the key. <code>choice</code>The result of the selected <code>choice</code>, of that choice <code>confidence</code>, by choice <code>probabilities</code>and can be easily taken out <code>answer</code>goes in. <code>noul</code>is the probability of being true <code>noul</code>Yes, final true/false <code>answer</code>Put it in. <code>score</code>You can see the probability and explanation for each step, <code>score</code>is the probability weighted average of the step numbers, <code>answer</code>is the most likely step number. Problems A–F in ​​this experiment are of three types: <code>choice</code>was used.</p>
+<p><code>state</code>Wow <code>questions</code>has a different role. <code>state</code>is <strong>What is the situation now?</strong>, <code>questions</code>is <strong>What to ask about the situation and what type of answer to ask</strong>Contains The photo app seen earlier uses this distinction to deliver natural language instructions and seven choices to the model.</p>
+<h3 id="decision-training-reference">12.5 What should we include when learning a decision model?</h3>
+<p>in front <code>predict()</code>I relayed the situation and questions to . The input remains the same during learning. here <strong>What is the correct answer in that situation?</strong>Just add one more.</p>
+<pre><code class="language-text">학습: 상황(state) + 질문(questions) + 정답(gold) → 모델을 업데이트
+추론: 상황(state) + 질문(questions)              → 모델이 답을 선택
+</code></pre>
+<p>It is not a format that only applies to photographic plates. This time, as a small example of choosing a method to handle a delivery inquiry without a photo, let's look at how data goes through model training and leads to inference. The code below is Unsloth <strong>2026.10.10</strong>, Transformers <strong>5.17.0</strong>, Based on Windows·NVIDIA CUDA environment. <a href="https://github.com/unslothai/unsloth/blob/main/unsloth/models/decision.py">Implementing the Unsloth Decision Model</a>.</p>
+<h4>1. Create one row of training data</h4>
+<p>Let's say you want to change the shipping address if your order hasn't shipped yet and you've received a new address. Below is the first training line of the actual example file.</p>
+<pre><code class="language-json">{
+  &quot;state&quot;: &quot;주문은 발송 전이고 새 배송지가 확인되었다.&quot;,
+  &quot;questions&quot;: {
+    &quot;next_action&quot;: {
+      &quot;type&quot;: &quot;choice&quot;,
+      &quot;instructions&quot;: &quot;주문을 어떻게 처리할까요?&quot;,
+      &quot;criteria&quot;: {
+        &quot;update&quot;: &quot;배송지를 수정한다.&quot;,
+        &quot;contact&quot;: &quot;구매자에게 필요한 정보를 확인한다.&quot;,
+        &quot;leave&quot;: &quot;주문을 변경하지 않는다.&quot;
+      }
+    }
+  },
+  &quot;gold&quot;: {
+    &quot;next_action&quot;: &quot;update&quot;
+  }
+}
+</code></pre>
+<p><code>state</code>is the situation to be judged by the model. <code>questions</code>is the name, format, and option description of the question. <code>gold</code>is the correct answer to that question. Here the question name is <code>next_action</code>And, the correct answer <code>update</code>go <code>criteria</code>Matches the option name in . In the photo example <code>state</code>natural language instructions, <code>questions</code>A–F and NONE, <code>gold</code>I put the correct answer box in .</p>
+<p>The file stores one JSON object per line. <strong>JSONL</strong> It is a form. The above object has been spread out over multiple lines for easier reading. The same question is asked in different situations, and the correct answer is specified for each situation. If you have multiple questions <code>questions</code>Wow <code>gold</code>Insert items with the same name into each.</p>
+<p>This example uses 6 training lines and 3 separate validation rows. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/examples/order_decision/train.jsonl">full training data</a> · <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/examples/order_decision/validation.jsonl">validation data</a>. These two files are small examples of the API usage sequence.</p>
+<h4>2. Prepare model and training data</h4>
+<p>First, read the data and prepare a new decision head and LoRA in the base model. Then <code>build_dataset()</code>Convert this JSON line into a format that the model can learn. Below, the core code is divided in order. To run right away <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/examples/order_decision/train.py">Full training file</a>You can use .</p>
+<pre><code class="language-python">import json
+import os
+from pathlib import Path
+
+os.environ.setdefault(&quot;UNSLOTH_COMPILE_DISABLE&quot;, &quot;1&quot;)
+from unsloth import FastDecisionModel, DecisionTrainer
+import torch
+from transformers import TrainingArguments
+
+data_dir = Path(&quot;examples/order_decision&quot;)
+output_dir = Path(&quot;.cache/order-decision-tutorial&quot;)
+checkpoint = output_dir / &quot;model&quot;
+
+def read_jsonl(path):
+    with path.open(encoding=&quot;utf-8&quot;) as file:
+        return [json.loads(line) for line in file if line.strip()]
+
+train_rows = read_jsonl(data_dir / &quot;train.jsonl&quot;)
+validation_rows = read_jsonl(data_dir / &quot;validation.jsonl&quot;)
+</code></pre>
+<pre><code class="language-python">model, processor = FastDecisionModel.from_pretrained(
+    model_name='Qwen/Qwen3.5-4B',
+    revision='851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a',
+    decision_head='clef',
+    max_seq_length=1024,
+    load_in_4bit=True,
+    dtype=torch.bfloat16,
+)
+model = FastDecisionModel.get_peft_model(
+    model, r=16, lora_alpha=16, lora_dropout=0,
+    use_gradient_checkpointing='unsloth', random_state=3407,
+)
+</code></pre>
+<p>Here, it is not the v2 weight of the photo experiment. <strong>Default Qwen3.5-4B</strong>It starts from <code>decision_head=&quot;clef&quot;</code>Create a new head with <code>get_peft_model()</code>Attach LoRA. When learning from a checkpoint that already contains a LoRA, the saved one must be used instead of adding a new LoRA.</p>
+<p>Let’s also look at the arguments used when attaching LoRA in this code.</p>
+<table>
+<thead>
+<tr>
+<th><code>get_peft_model()</code> factor</th>
+<th>role</th>
+<th>this example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>model</code></td>
+<td>Decision model to add LoRA</td>
+<td>just loaded <code>model</code></td>
+</tr>
+<tr>
+<td><code>r</code></td>
+<td>Rank of LoRA matrix. It is concerned with the number of parameters to be learned and the width of change to be expressed.</td>
+<td><code>16</code></td>
+</tr>
+<tr>
+<td><code>lora_alpha</code></td>
+<td>Value that determines the scale of LoRA change amount</td>
+<td><code>16</code></td>
+</tr>
+<tr>
+<td><code>lora_dropout</code></td>
+<td>Dropout rate to apply when learning LoRA</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>use_gradient_checkpointing</code></td>
+<td>Settings to save memory during learning</td>
+<td><code>&quot;unsloth&quot;</code></td>
+</tr>
+<tr>
+<td><code>random_state</code></td>
+<td>Random number seed to use for initialization, etc.</td>
+<td><code>3407</code></td>
+</tr>
+</tbody>
+</table>
+<p><code>from_pretrained()</code>of <code>model_name</code>, <code>dtype</code>, <code>load_in_4bit</code> These were dealt with in the argument table in Section 12.4 immediately preceding.</p>
+<pre><code class="language-python">train_items, train_report = FastDecisionModel.build_dataset(train_rows, processor, model)
+valid_items, valid_report = FastDecisionModel.build_dataset(validation_rows, processor, model)
+print('학습 데이터 검사:', train_report)
+print('검증 데이터 검사:', valid_report)
+for report in (train_report, valid_report):
+    if report['skipped'] or report['truncated']:
+        raise ValueError(f'데이터를 확인해 주세요: {report}')
+</code></pre>
+<p><code>FastDecisionModel.build_dataset(rows, tokenizer, model, validate=None)</code>The arguments are as follows.</p>
+<table>
+<thead>
+<tr>
+<th>factor</th>
+<th>role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>rows</code></td>
+<td><code>state</code>, <code>questions</code>, <code>gold</code>Training or verification rows containing</td>
+</tr>
+<tr>
+<td><code>tokenizer</code></td>
+<td>Tokenizer received when loading the model. The model with the image is passed to the processor.</td>
+</tr>
+<tr>
+<td><code>model</code></td>
+<td>decision model to check input length and model type</td>
+</tr>
+<tr>
+<td><code>validate</code></td>
+<td>Optional. A function that receives the question name and definition and performs additional checks.</td>
+</tr>
+</tbody>
+</table>
+<p>The return value is <code>(items, report)</code>c. <code>items</code>is the data to be entered into the learner, <code>report</code>Contains the number of questions processed, items skipped, and length exceeded. Multiple questions per row <code>total</code>It can be increased by the number of questions, not the number of banks. In this example, if there were any incorrectly skipped items or truncated inputs, they were checked before training.</p>
+<h4>3. <code>DecisionTrainer</code>Learn with</h4>
+<pre><code class="language-python">training_args = TrainingArguments(
+    output_dir=str(output_dir / 'trainer'),
+    per_device_train_batch_size=2,
+    gradient_accumulation_steps=1,
+    max_steps=2,  # 실행 흐름을 확인하기 위한 짧은 시연
+    learning_rate=0.0002,
+    bf16=True,
+    logging_steps=1,
+    save_strategy='no',
+    eval_strategy='no',
+    optim='adamw_torch',
+    dataloader_num_workers=0,
+    dataloader_pin_memory=False,
+    report_to='none',
+    seed=3407,
+)
+FastDecisionModel.for_training(model)
+trainer = DecisionTrainer(
+    model=model,
+    args=training_args,
+    processing_class=processor,
+    train_dataset=train_items,
+    eval_dataset=valid_items,
+    head_learning_rate=0.00005,
+)
+trainer.train()
+</code></pre>
+<p><code>DecisionTrainer</code>The arguments passed to are as follows.</p>
+<table>
+<thead>
+<tr>
+<th>factor</th>
+<th>role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>model</code></td>
+<td>decision model to learn</td>
+</tr>
+<tr>
+<td><code>args</code></td>
+<td>Contains batch size, learning rate, etc. <code>TrainingArguments</code></td>
+</tr>
+<tr>
+<td><code>processing_class</code></td>
+<td>tokenizer or processor that processes model input</td>
+</tr>
+<tr>
+<td><code>train_dataset</code></td>
+<td><code>build_dataset()</code>Training data converted to</td>
+</tr>
+<tr>
+<td><code>eval_dataset</code></td>
+<td>Verification data converted in the same way</td>
+</tr>
+<tr>
+<td><code>head_learning_rate</code></td>
+<td>Learning rate to be applied separately to the head for selection</td>
+</tr>
+</tbody>
+</table>
+<p>Here is the LoRA side <code>learning_rate</code>to <code>0.0002</code>, head is <code>0.00005</code>set to . In this version <code>head_learning_rate</code>If omitted, in head <code>0.0001</code>Use . <code>trainer.train()</code>Learning begins when you call .</p>
+<p><code>DecisionTrainer</code>also has additional arguments to use when needed. Not specified in this example.</p>
+<table>
+<thead>
+<tr>
+<th>optional argument</th>
+<th>role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>tokenizer</code></td>
+<td><code>processing_class</code> Instead, it is used when passing a tokenizer or processor.</td>
+</tr>
+<tr>
+<td><code>label_smoothing</code></td>
+<td>This is a setting that divides some of the weight into other options rather than giving all weight to the correct answer.</td>
+</tr>
+<tr>
+<td><code>brier_weight</code></td>
+<td>This is the weight of the loss term that deals with the difference between the probability of the choice and the correct answer.</td>
+</tr>
+<tr>
+<td><code>ordinal_weight</code></td>
+<td><code>score</code> The weight of the loss term reflects the distance between the selected step in the type and the correct step.</td>
+</tr>
+<tr>
+<td><code>kl_weight</code></td>
+<td>This is the weight of the term that reduces the difference in output distribution based on the output of the head at the start of learning and the base model with LoRA turned off. This version applies to the combination of Clef and LoRA.</td>
+</tr>
+<tr>
+<td><code>permute_fields</code></td>
+<td>When there are multiple questions in one row, decide whether to shuffle the question order during learning.</td>
+</tr>
+<tr>
+<td><code>callbacks</code></td>
+<td>Conveys user-defined actions that are inspected or recorded at specific steps during learning.</td>
+</tr>
+<tr>
+<td><code>data_collator</code></td>
+<td>Directly specify a function that creates a batch by grouping examples. If omitted, the collator appropriate for the model type is used.</td>
+</tr>
+</tbody>
+</table>
+<p><code>TrainingArguments</code>The main settings are as follows. <a href="https://huggingface.co/docs/transformers/main_classes/trainer#transformers.TrainingArguments">Description of TrainingArguments for Hugging Face</a>.</p>
+<table>
+<thead>
+<tr>
+<th>settings</th>
+<th>meaning</th>
+<th>this example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>output_dir</code></td>
+<td>Folder to place records during learning</td>
+<td>Under the specified output folder <code>trainer</code></td>
+</tr>
+<tr>
+<td><code>per_device_train_batch_size</code></td>
+<td>Number of examples to be processed by one device at a time</td>
+<td><code>2</code></td>
+</tr>
+<tr>
+<td><code>gradient_accumulation_steps</code></td>
+<td>How many calculation results are collected to update the weight once?</td>
+<td><code>1</code></td>
+</tr>
+<tr>
+<td><code>max_steps</code></td>
+<td>Number of times to update the weights. positive side <code>num_train_epochs</code>takes precedence over</td>
+<td><code>2</code></td>
+</tr>
+<tr>
+<td><code>learning_rate</code></td>
+<td>Learning rate of learnable base model side parameters</td>
+<td><code>0.0002</code></td>
+</tr>
+<tr>
+<td><code>bf16</code></td>
+<td>Whether to use bfloat16 operation on supported devices</td>
+<td><code>True</code></td>
+</tr>
+<tr>
+<td><code>logging_steps</code></td>
+<td>Interval to record learning status</td>
+<td>falcon <code>1</code> step</td>
+</tr>
+<tr>
+<td><code>save_strategy</code>, <code>eval_strategy</code></td>
+<td>Timing of auto-save and auto-evaluation during learning</td>
+<td>both <code>&quot;no&quot;</code>; Verify and save directly below</td>
+</tr>
+<tr>
+<td><code>report_to</code></td>
+<td>Whether to send records to an external experiment tracking service</td>
+<td><code>&quot;none&quot;</code></td>
+</tr>
+</tbody>
+</table>
+<p>These numbers are not the default values for the API. <strong>Values specified directly in this example</strong>am. Since 2 steps are executed on one GPU without accumulation, 2 at a time, a total of 4 examples are presented. It is not a setting to improve performance by repeatedly learning all six rows, but a setting to check the order of data → learning → saving.</p>
+<h4>4. Verify, save and reload</h4>
+<pre><code class="language-python">FastDecisionModel.for_inference(model)
+print('검증 결과:', FastDecisionModel.evaluate(model, processor, valid_items))
+model.save_pretrained(str(checkpoint))
+processor.save_pretrained(str(checkpoint))
+</code></pre>
+<p>Because we have turned off automatic evaluation here <code>FastDecisionModel.evaluate()</code>Call directly and calculate the accuracy in a separate verification row. Then <code>model.save_pretrained()</code>Learning results as, <code>processor.save_pretrained()</code>Save the files needed for input processing. The storage folder for this LoRA example contains the adapter and decision head, and the base Qwen weights are loaded separately.</p>
+<p><code>evaluate(model, tokenizer, items, batch_size=None)</code>Includes a model, a tokenizer or processor to process the input, <code>build_dataset()</code>Enter the verification items you created. <code>batch_size</code>optionally specifies the number of items to be evaluated at one time. From the returned results: <code>accuracy</code>Wow <code>loss</code> etc. can be checked.</p>
+<p>Now the save folder in the new process is <code>from_pretrained()</code>, and make inferences using questions in the same format as situations not used in learning. <strong>Inference calls include <code>gold</code>does not convey</strong> Below is <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/examples/order_decision/predict.py">Separate inference file</a> It's all.</p>
+<pre><code class="language-python">&quot;&quot;&quot;저장한 모델을 다시 읽고 검증 예제의 상황과 질문으로 추론한다.&quot;&quot;&quot;
+import argparse
+import json
+import os
+from pathlib import Path
+
+os.environ.setdefault('UNSLOTH_COMPILE_DISABLE', '1')
+
+from unsloth import FastDecisionModel
+import torch
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--output-dir', default='.cache/order-decision-tutorial')
+    args = parser.parse_args()
+    checkpoint = Path(args.output_dir) / 'model'
+
+    data_path = Path(__file__).resolve().parent / 'validation.jsonl'
+    with data_path.open(encoding='utf-8') as file:
+        example = json.loads(next(file))
+
+    model, processor = FastDecisionModel.from_pretrained(
+        str(checkpoint), load_in_4bit=True, dtype=torch.bfloat16
+    )
+    FastDecisionModel.for_inference(model)
+    answers = FastDecisionModel.predict(
+        model, processor, example['state'], example['questions']
+    )
+    print('상황:', example['state'])
+    print('모델 선택:', answers['next_action']['answer'])
+    print('선택지별 확률:', answers['next_action']['probabilities'])
+
+
+if __name__ == '__main__':
+    main()
+</code></pre>
+<p>The entire example is run as follows in the repository folder: The learning dependencies from the previous section and PyTorch for CUDA must be prepared. The basic model is downloaded the first time you use it.</p>
+<pre><code class="language-bash">python examples/order_decision/train.py
+python examples/order_decision/predict.py
+</code></pre>
+<p>The default storage location is <code>.cache/order-decision-tutorial</code>It is. If you have a saved model with the same name, both commands <code>--output-dir</code>You can specify another folder. When actually learning on this computer and verifying it before saving <strong>0 out of 3 questions are correct</strong>It was. The model that was saved and reread also gave the expected answer in the first verification problem. <code>update</code> instead <code>leave</code>chose. Since this is a two-step demonstration, when creating an actual service, you must prepare sufficient examples and design a learning amount and a separate evaluation set. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/examples/order_decision/smoke-result.json">Run check history</a>.</p>
+<h4>Which training row contains the image?</h4>
+<p>in the same structure <code>images</code>Just add more. The following is Python code with the image path and correct answer as an example. Prepare the correct answer separately for the actual photo.</p>
+<pre><code class="language-python">from PIL import Image
+
+with Image.open(&quot;photos/parcel.jpg&quot;) as source:
+    photo = source.convert(&quot;RGB&quot;)
+
+row = {
+    &quot;state&quot;: &quot;택배 사진을 보고 겉면의 파손 여부를 확인한다.&quot;,
+    &quot;images&quot;: [photo],
+    &quot;questions&quot;: {
+        &quot;damaged&quot;: {
+            &quot;type&quot;: &quot;noul&quot;,
+            &quot;instructions&quot;: &quot;택배 상자가 파손되었는가?&quot;,
+        }
+    },
+    &quot;gold&quot;: {&quot;damaged&quot;: True},  # 이 예시 사진의 정답이라고 가정
+}
+items, report = FastDecisionModel.build_dataset([row], processor, model)
+</code></pre>
+<p>At this time <code>model</code>and <code>processor</code>Must be able to process images. Since the PIL object cannot be saved as is in JSONL, it can be configured by writing the image path in the file and opening the image when reading the data. In the previous photo experiment, we learned with a photo board, instructions, options, and correct answers, and when making inferences, only the same photo board, instructions, and options were delivered. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/train.py">The actual data conversion code for this project</a>.</p>
+<h3>How to run it in 12.6 app?</h3>
+<p>Public apps use a combination of **Transformers·PEFT and Clef head instead of Unsloth so that they can run on Mac's MPS and CPU. <code>DecisionEngine</code>Use **. The Unsloth inference we saw just above is the method used in the training and verification code, and below is an example of directly calling the same method as the app.</p>
+<pre><code class="language-python">&quot;&quot;&quot;로컬 앱과 같은 추론 엔진을 직접 호출한다.&quot;&quot;&quot;
+import json
+from pathlib import Path
+
+from PIL import Image
+
+from engine import DecisionEngine
+
+
+def main():
+    image_path = Path('docs/figures/example-canonical.png')
+    with Image.open(image_path) as source:
+        image = source.convert('RGB')
+
+    instruction = '고양이에서 왼쪽으로 한 칸, 그다음 아래로 한 칸 이동한 사진을 골라줘.'
+    engine = DecisionEngine(checkpoint='weights-v2', device='auto')
+    result = engine.predict(image, instruction)
+    print(json.dumps(result, ensure_ascii=False, indent=2))
+
+
+if __name__ == '__main__':
+    main()
+</code></pre>
+<p>from repository <code>python example_app_inference.py</code>Run it with <code>device=&quot;auto&quot;</code>Select the devices in the order of available CUDA, MPS, and CPU. When checked on the same Windows GPU, this code also <strong>E</strong>chose. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/engine.py">The app's actual inference code</a>.</p>
+<p><code>DecisionEngine</code> Inside, photos, instructions, and choices are converted into model inputs, and seven scores (logits) are obtained through Qwen and the learned head. Then, in the actual code, the probability is calculated as follows and the highest option is returned.</p>
+<pre><code class="language-python"># engine.py의 predict()에서 발췌
+logits = self.logits(image, instruction)
+probs = (logits / self.temperature).softmax(-1).cpu().tolist()
+</code></pre>
+<p>of the app <code>self.temperature</code>The correction value obtained from the 1,008 problems previously is reflected. The Unsloth example above uses the temperature from the model settings and separate <code>calibration.json</code>Since is not applied, the output probability may be different even if the selection of the two codes is the same. In the 24 validation samples that reread the same weights, Unsloth, App CUDA, and App CPU all made the same selection. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/v2/reload-final.json">Reload comparison history</a>.</p>
+<h2 id="section-13">13. Source of weights and redo</h2>
+<p>When running it directly, it is convenient to know where the file comes from. The basic Qwen model is obtained from Hugging Face, and the learned LoRA·head and correction values ​​are obtained from the GitHub Release of this project. Photos are obtained separately from Stanford's Tiny ImageNet.</p>
+<p>The reason it is faster after the first run is because it reuses the saved basic model and learning weights. It is not a structure that re-learns every time it is run.</p>
+<table>
+<thead>
+<tr>
+<th>composition</th>
+<th>Source and Size</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Basic VLM</td>
+<td>Hugging Face <code>Qwen/Qwen3.5-4B</code>, original snapshot approximately 9.34 GB</td>
+</tr>
+<tr>
+<td>Learned LoRA·head·processor·correction values</td>
+<td>GitHub <code>model-v2</code>, 174,218,456 bytes</td>
+</tr>
+<tr>
+<td>original photo data</td>
+<td>Stanford Tiny ImageNet, 248,100,043 bytes</td>
+</tr>
+</tbody>
+</table>
+<p>The basic model revision is <code>851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a</code>It was fixed as . The SHA-256 of the learned weight archive is <code>8bfc48b4850ae200d4320c77bddba03eea4f52e2b66f737910aa8b15ec296240</code>It is. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/release-v2.json">v2 download manifest</a>, <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/base-model-files.json">Basic model file hash</a>, <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/releases/tag/model-v1">v1 archive</a>provides.</p>
+<pre><code class="language-bash">git clone https://github.com/gisbi-kim/tiny-visual-reasoning-lab.git
+cd tiny-visual-reasoning-lab
+python -m pip install torch torchvision
+python -m pip install -r requirements.txt
+python download_model.py --version v2 --output weights-v2
+python fetch_assets.py --dataset-only
+python prepare_demo.py
+python app.py --checkpoint weights-v2 --device cpu
+</code></pre>
+<p>Run in a virtual environment of Python 3.11 or 3.12. In NVIDIA CUDA, install PyTorch and bitsandbytes appropriate for the environment. <code>--device cuda</code>Use . The browser address is <code>http://127.0.0.1:7861</code>It is. For detailed installation/learning reproduction instructions, <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/README.md">README</a>Wow <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/V2_TRAINING.md">v2 training history</a>It is in</p>
+<p>The CPU/MPS path uses the float32 model, so the basic model itself requires approximately 18.3 GB. The screen above provided by the user shows an example of MPS execution. However, since the actual memory and speed of each Mac model were not measured separately, you must check the free space required for a 16 GB Mac yourself.</p>
+<h2 id="section-14">14. Review experiment records</h2>
+<p>If you want to follow the numbers in this article yourself, you can check the data aggregation, learning settings, loss, verification trends, and actual predictions in the experiment material below. During training, loss and verification results were recorded at regular intervals.</p>
+<p>JSON and execution log were released together so that you can directly check the figures in the text. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/v2/INDEX.md">Experiment material information</a>Settings, learning trends, overall predictions, intermediate evaluations, failure cases, environment, weights, and inspection records are connected. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/tree/main/docs/v2/logs">Console log and execution-specific records</a>, <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/v2/logs/manifest.json">Hash manifest of public files and originals</a>, <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/v2/INSTALL_CHECK.md">Public download/app inspection</a>Also provided. In the record, only the personal home path and terminal control characters were organized and the numbers were preserved.</p>
+<p>The practical lesson to be learned from this example is how to teach an already trained VLM the desired judgment task with explicit data. Adaptation effects can only be explained by determining the scope of expressions and conditions, creating consistent correct answers, and checking before-and-after changes and failures of the same evaluation problem.</p>
+<p>Note: <a href="https://huggingface.co/Qwen/Qwen3.5-4B">Qwen3.5-4B</a>, <a href="https://arxiv.org/abs/2106.09685">LoRA paper</a>, <a href="https://arxiv.org/abs/2103.00020">CLIP papers</a>, <a href="https://huggingface.co/Cloudflare/clef">Clef</a>, <a href="https://gisbi-kim.github.io/jev-mnist-tutorial/">Previous MNIST tutorial</a>.</p>
+<footer>Figures and tables were generated from stored actual experimental results. Original settings, predictions, and logs can be found at the GitHub link in the text.</footer></article></main></body></html>

@@ -1,0 +1,4 @@
+
+/* Shared reading controls */
+.lang-switch{margin-left:auto;display:inline-flex;gap:2px;white-space:nowrap;font:13px/1.4 system-ui,sans-serif;align-items:center}.lang-switch a{color:#66727c;text-decoration:none;padding:7px 10px;border-bottom:2px solid transparent}.lang-switch a[aria-current=page]{color:#226b88;border-color:#226b88;font-weight:700}.translation-note{font:13px/1.6 system-ui,sans-serif;color:#66727c;border-left:2px solid #9cb6bf;padding-left:12px;margin:20px 0}.lang-switch a:hover{text-decoration:underline}
+header{display:flex;align-items:center;gap:6px;flex-wrap:wrap}header .lang-switch{margin-left:auto}@media(max-width:560px){header .lang-switch{margin-left:0}}

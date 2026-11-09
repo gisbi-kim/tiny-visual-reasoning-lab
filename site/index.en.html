@@ -43,13 +43,13 @@
 <h2 id="section-2">2. Base model and trainable components</h2>
 <p>As a base model, we used Qwen3.5-4B, which can read images and text together. Two devices were added here. <strong>LoRA</strong>This is the part where we adjust the existing model little by little to fit our problem. <strong>head for selection</strong>This is the part where Qwen receives the expressions made by reading the photos and instructions and calculates the scores of A–F and NONE. In this experiment, a head was created by referring to the Clef method and learned with LoRA. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/train.py">Physical model creation code</a>Wow <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/engine.py">Deployment inference code</a>discloses.</p>
 <p>For example, option B means “Select the photo in the middle of the top row.” Head calculates the score for each option by referring to the question and the input location corresponding to each option. It is composed of several layers that collect information and compare options, with an internal width of 512, routing on the 2nd floor, and decoder on the 4th floor. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/clef_reference.py">Head reference implementation</a>You can check the specific calculations here.</p>
-<pre><code class="language-text">2×3 사진 격자 + 자연어 지시 + 선택지 정의
-                 ↓
-       Qwen3.5-4B + 학습한 LoRA
-                 ↓
-          학습한 Clef head
-                 ↓
-         A B C D E F NONE 점수
+<pre><code class="language-text">2×3 photo grid + instruction + choice definitions
+                       ↓
+          Qwen3.5-4B + trained LoRA
+                       ↓
+              Trained Clef head
+                       ↓
+          Scores for A B C D E F NONE
 </code></pre>
 <p>When the app sends a photo and instructions, the answer is the option with the highest score. If E is the highest, the program immediately receives the result “middle of the bottom row” without having to interpret the response statement. At this time, you can also obtain the probability of each option.</p>
 <p>Now let's teach the model to give a high score to the correct box. The necessary correct answers are created in a separate rule program.</p>
@@ -369,9 +369,9 @@
 <p>There were also 14 demonstration questions written in colloquial language. On the same photo board, v1 got 12 correct and v2 got 11 correct. In particular, incorrect answers remained in questions that were changed to refer to numbers and comparison conditions. This demonstration will give you an idea of ​​which speech style to look at next. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/v2/freeform.json">Colloquial real predictions</a>.</p>
 <h3>Three screens I personally entered</h3>
 <p>This is a screen where the user changes the standard of animal photos to 1, 2, or 3 photos on the same photo board. You can see green food in A, a goldfish in B, and a picture of an animal in E. When the standard is 1 or 2, at least two cards, B and E, are animals, so A is the natural answer. The screen displayed F in both cases. The third screen shows NONE.</p>
-<p><img src="assets/user-test-1.png" alt="Direct user test: Instructions for more than 1 page and F selection screen" loading="eager" width="1760" height="1458" /></p>
-<p><img src="assets/user-test-2.png" alt="Direct user test: Instructions for 2 or more pages and F selection screen" loading="eager" width="1796" height="1462" /></p>
-<p><img src="assets/user-test-3.png" alt="Direct user test: Instructions for 3 or more pages and NONE selection screen" loading="eager" width="1920" height="1474" /></p>
+<figure style="margin:28px 0"><img src="assets/user-test-1.en.png" alt="English translation of recorded screen 1: at least 1 animal photos; displayed choice F" loading="lazy" width="1377" height="1142" /><figcaption style="font-size:13px;color:var(--muted)">AI-assisted English reconstruction of the <a href="assets/user-test-1.png">original Korean screenshot</a>. Choices, scores, and timings are transcribed from that screen; this is not an English-input rerun.</figcaption></figure>
+<figure style="margin:28px 0"><img src="assets/user-test-2.en.png" alt="English translation of recorded screen 2: at least 2 animal photos; displayed choice F" loading="lazy" width="1390" height="1132" /><figcaption style="font-size:13px;color:var(--muted)">AI-assisted English reconstruction of the <a href="assets/user-test-2.png">original Korean screenshot</a>. Choices, scores, and timings are transcribed from that screen; this is not an English-input rerun.</figcaption></figure>
+<figure style="margin:28px 0"><img src="assets/user-test-3.en.png" alt="English translation of recorded screen 3: at least 3 animal photos; displayed choice NONE" loading="lazy" width="1432" height="1098" /><figcaption style="font-size:13px;color:var(--muted)">AI-assisted English reconstruction of the <a href="assets/user-test-3.png">original Korean screenshot</a>. Choices, scores, and timings are transcribed from that screen; this is not an English-input rerun.</figcaption></figure>
 <p>The probability of displaying F on the first screen was 96.1%, and on the second screen it was 83.2%. Selections that received high scores are also examples of the need to check photos and conditions together. The screenshot shows the input fields and selection results, but it is not possible to check from the screen alone whether the decision button was pressed again after changing the question. Since there are no original records to determine the central object of the third blurry D photo, the correct answer in that case will not be determined here. The MPS execution times displayed on the screen are 1.37 seconds, 1.09 seconds, and 1.12 seconds, and the equipment and measurement context are different from the Windows GPU comparison below.</p>
 <p>Will the same judgment be reached if the saved weights are read again? The choices of training implementation, deployment CUDA, and CPU were all consistent across the 24 validation samples. The accuracy of all 336 verification tests was 97.62% for both training and distribution CUDA. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/v2/reload-final.json">Reloading inspection</a>.</p>
 <p>It is worth looking at the probability as much as the answer. To adjust for the model's tendency to be overly confident, the temperature was set to 1.8302 with 1,008 separate problems. Since the score is divided by the same positive number, the choice itself remains and the size of the probability changes. In the problem used for calibration, the negative log-likelihood was reduced from 0.1997 to 0.1420. <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/docs/v2/logs/calibration/v2.json">Calibration history</a>.</p>
@@ -460,8 +460,8 @@
 <p><a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/generative-comparison/thinking-0-tokens-40.json">Think Off · 40 Tokens</a> · <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/generative-comparison/thinking-1-tokens-40.json">Think on · 40 tokens</a> · <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/generative-comparison/thinking-0-tokens-120.json">Think Off · 120 Tokens</a> · <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/generative-comparison/thinking-1-tokens-120.json">Think on · 120 tokens</a> · <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/generative-comparison/reasoning-summary.json">Comparison Summary</a> · <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/compare_reasoning_modes.py">evaluation code</a> · <a href="https://github.com/gisbi-kim/tiny-visual-reasoning-lab/blob/main/results/generative-comparison/generative.json">Existing 8 token output</a>.</p>
 <h2 id="section-12">12. Inference: from image to choice</h2>
 <p>Previously, we looked at how well the model makes choices. This time, let’s call the same model directly from the code and give it a picture and instructions. The example below uses the photo plate that appeared at the beginning of the article.</p>
-<pre><code class="language-text">A: 개       B: 바나나   C: 고양이
-D: 구명보트 E: 금붕어   F: 배낭
+<pre><code class="language-text">A: dog       B: banana    C: cat
+D: lifeboat  E: goldfish  F: backpack
 </code></pre>
 <p>If you give the instruction “From the cat, go one space to the left, then one space down,” the correct answer is E because C → B → E. Let's run the Unsloth code used for training and the inference code used by the app, respectively.</p>
 <h3>12.1 Making six images into a photo plate</h3>
@@ -757,8 +757,8 @@ print(answers[&quot;next_action&quot;][&quot;answer&quot;])
 <p><code>state</code>Wow <code>questions</code>has a different role. <code>state</code>is <strong>What is the situation now?</strong>, <code>questions</code>is <strong>What to ask about the situation and what type of answer to ask</strong>Contains The photo app seen earlier uses this distinction to deliver natural language instructions and seven choices to the model.</p>
 <h3 id="decision-training-reference">12.5 What should we include when learning a decision model?</h3>
 <p>in front <code>predict()</code>I relayed the situation and questions to . The input remains the same during learning. here <strong>What is the correct answer in that situation?</strong>Just add one more.</p>
-<pre><code class="language-text">학습: 상황(state) + 질문(questions) + 정답(gold) → 모델을 업데이트
-추론: 상황(state) + 질문(questions)              → 모델이 답을 선택
+<pre><code class="language-text">Training:  state + questions + gold → update the model
+Inference: state + questions        → select an answer
 </code></pre>
 <p>It is not a format that only applies to photographic plates. This time, as a small example of choosing a method to handle a delivery inquiry without a photo, let's look at how data goes through model training and leads to inference. The code below is Unsloth <strong>2026.10.10</strong>, Transformers <strong>5.17.0</strong>, Based on Windows·NVIDIA CUDA environment. <a href="https://github.com/unslothai/unsloth/blob/main/unsloth/models/decision.py">Implementing the Unsloth Decision Model</a>.</p>
 <h4>1. Create one row of training data</h4>
